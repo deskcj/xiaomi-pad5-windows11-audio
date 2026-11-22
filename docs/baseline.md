@@ -33,7 +33,10 @@ This establishes a symmetric digital baseline. An acoustic measurement at each g
 | Bottom left (BL) | 0x42 | 2 |
 | Top left (TL) | 0x43 | 3 |
 
-The reference Windows driver groups UIDs 0/2 and 1/3 as right/left audio slots, but its protection block names UIDs 0/1 as BR/TR and 2/3 as BL/TL. The live Windows DSDT confirms that UIDs 0–3 use I²C addresses 0x40–0x43. The slot groups therefore correspond to bottom/top under the Android position names. Confirm the actual left/right output in a fixed tablet orientation before changing the routing. Also compare the reference driver against the original at the same master volume before considering gain or calibration changes.
+The live Windows DSDT confirms that UIDs 0–3 use I²C addresses 0x40–0x43. Ghidra and the ARM64 disassembly of the installed driver confirmed that the ACPI UID selects two serial audio slot groups, 0/2 and 1/3. The pinned upstream source uses the same groups. These correspond to bottom/top under the Android board position names.
+
+A separate trial build groups UIDs 0/1 and 2/3 to test stereo in the orientation where BR/TR are physically on the right. It keeps the reference build's protection profiles and gain settings. Test each grille with the same tones and orientation before and after the change. The pairing is a lead on stereo placement. The cause of the low acoustic output is still open.
+
 
 ## Source revisions
 

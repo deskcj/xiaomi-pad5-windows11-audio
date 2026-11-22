@@ -14,3 +14,7 @@ The reference driver is the upstream map220v project at commit 53d367532fa1632ac
 5. Check the ARM64\Release\cs35l41 output for the INF, SYS, unsigned CAT, speaker-protection WMFW and four per-position BIN files.
 
 The reference build passed InfVerif /u and generated the catalog with no Inf2Cat errors or warnings using EWDK 26100.6584. The build has not been installed on the tablet. The upstream source and firmware are linked for reference. This repository contains the test tool and our observations.
+
+## Landscape routing trial
+
+For a separate test build, change the right-slot branch in cs35l41_pcm_hw_params from UIDs 0/2 to 0/1. That selects BR/TR for one channel and BL/TL for the other in the board orientation indicated by the Android position labels. The trial retains the same firmware, calibration constants and gain settings as the reference build. It passed InfVerif and Inf2Cat. Runtime and acoustic testing are pending.
