@@ -63,6 +63,20 @@ A local factory-calibrated Windows trial uses the four records from this tablet.
 At the same quiet output level, two built-in microphone runs gave approximately −52 dBFS for the left test tone and −56 to −57 dBFS for the right test tone. Those numbers measure the 440 Hz component at the front microphone in its fixed position. They provide a repeatable Windows A/B reference. Speaker grille output and equivalence to Android at high levels require separate acoustic tests.
 
 
+## Windows driver trial
+
+The test-signed DSP startup build completed initialization on all four CS35L41 devices without a reboot on the second attempt. During low-level A/B measurements, the protected build produced less 440–1760 Hz output at the built-in front microphone. Both sides of the digital Windows endpoint remained symmetric.
+
+| Tone | Source dBFS | Legacy, L/R mic dBFS | Protected trial, L/R mic dBFS |
+| --- | ---: | --- | --- |
+| 440 Hz | −44.4 | −51.5 / −56.5 | −58.8 / −62.2 |
+| 440 Hz | −36 | −43.0 / −48.1 | −57.4 / −54.0 |
+| 880 Hz | −36 | −36.9 / −45.7 | −50.1 / −51.4 |
+| 1760 Hz | −36 | −39.9 / −41.8 | −53.8 / −46.5 |
+
+The 220 Hz signal from the protected build was close to the room's 220 Hz background in this setup. The legacy package was restored on all four devices. Maximum acoustic output and the stock Android reference remain unmeasured.
+
+
 ## Source revisions
 
 - [CS35L41 Windows source, map220v](https://github.com/map220v/cs35l41_win/tree/53d367532fa1632accf4e4d20dc0493e2673e077)

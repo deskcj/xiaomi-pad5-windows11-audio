@@ -8,4 +8,4 @@ The Windows ARM64 prototypes derive from [map220v/cs35l41_win](https://github.co
 | Landscape routing | Right pair BR/TR, left pair BL/TL in the board orientation | InfVerif and Inf2Cat passed |
 | Factory calibration | Local per-amplifier calibration from the test tablet | InfVerif and Inf2Cat passed |
 
-Hardware validation is in progress.
+The test-signed DSP startup revision ran on all four amplifiers during the Windows trial. The original driver was restored after the acoustic comparison.
