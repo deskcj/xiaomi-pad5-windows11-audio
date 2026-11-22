@@ -35,7 +35,7 @@ This establishes a symmetric digital baseline. An acoustic measurement at each g
 
 The live Windows DSDT confirms that UIDs 0–3 use I²C addresses 0x40–0x43. Ghidra and the ARM64 disassembly of the installed driver confirmed that the ACPI UID selects two serial audio slot groups, 0/2 and 1/3. The pinned upstream source uses the same groups. These correspond to bottom/top under the Android board position names.
 
-A separate trial build groups UIDs 0/1 and 2/3 to test stereo in the orientation where BR/TR are physically on the right. It keeps the reference build's protection profiles and gain settings. Test each grille with the same tones and orientation before and after the change. The pairing is a lead on stereo placement. The cause of the low acoustic output is still open.
+A separate trial build groups UIDs 0/1 and 2/3 to test stereo in the orientation where BR/TR are physically on the right. It keeps the reference build's protection profiles and gain settings. The pairing is a lead on stereo placement. The cause of the low acoustic output is still open.
 
 
 ## Loudness investigation
@@ -52,7 +52,6 @@ The Windows writes to AMP_GAIN_CTRL are 0x153 and 0x253, with the analog field a
 
 The five protection files in the reference package match the staged BSP 2611.21 package byte for byte. All four music profiles in that BSP match the arrays compiled into the reference source. The LineageOS manifest also lists a MiSound four-speaker file for the Qualcomm ADSP. Its presence does not establish that every Android configuration enables it. [Android firmware manifest](https://github.com/LineageOS/android_device_xiaomi_nabu/blob/15f60556d4963748ce809f389cb48ba31c2beb78/proprietary-files.txt) · [Xiaomi Nabu board source](https://github.com/MiCode/Xiaomi_Kernel_OpenSource/blob/71b6effd2dfa8f703dd1ea17acd1323b2fd3cf6c/arch/arm64/boot/dts/qcom/nabu-sm8150.dtsi#L352)
 
-For an acoustic comparison, capture the installed driver and Android first. Then compare the protected reference build against the original at the same Windows volume and recorder position. Use the separate routing trial to check speaker pairing. The six-second WAV compares the low-level response. Testing maximum output or protection requires different signals and levels.
 
 
 ## Stock HyperOS and factory calibration
