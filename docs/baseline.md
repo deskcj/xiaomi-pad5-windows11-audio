@@ -38,6 +38,23 @@ The live Windows DSDT confirms that UIDs 0–3 use I²C addresses 0x40–0x43. G
 A separate trial build groups UIDs 0/1 and 2/3 to test stereo in the orientation where BR/TR are physically on the right. It keeps the reference build's protection profiles and gain settings. Test each grille with the same tones and orientation before and after the change. The pairing is a lead on stereo placement. The cause of the low acoustic output is still open.
 
 
+## Loudness investigation
+
+Disassembly of the installed map220v 16.45.25.900 SYS and the compiled reference SYS showed distinct amplifier paths:
+
+| Build | CS35L41 DAC input | Analog PCM gain code |
+| --- | --- | ---: |
+| Installed map220v | ASP RX1, directly from the serial audio input | 10 |
+| Reference map220v with protection firmware | DSP TX1, through the amplifier DSP | 18 |
+| Nabu Android mixer | DSP on the main speaker path | 18 |
+
+The Windows writes to AMP_GAIN_CTRL are 0x153 and 0x253, with the analog field at bits 9:5. The Linux CS35L41 driver declares 1 dB per step in this field. The eight-step difference is nominal speaker-amplifier gain. It does not predict the change in measured acoustic output, where per-corner tuning, limiting, the signal level and the Qualcomm DSP also matter. [Linux CS35L41 control definitions](https://github.com/torvalds/linux/blob/master/sound/soc/codecs/cs35l41.c)
+
+The five protection files in the reference package match the staged BSP 2611.21 package byte for byte. All four music profiles in that BSP match the arrays compiled into the reference source. The LineageOS manifest also lists a MiSound four-speaker file for the Qualcomm ADSP. Its presence does not establish that every Android configuration enables it. [Android firmware manifest](https://github.com/LineageOS/android_device_xiaomi_nabu/blob/15f60556d4963748ce809f389cb48ba31c2beb78/proprietary-files.txt) · [Xiaomi Nabu board source](https://github.com/MiCode/Xiaomi_Kernel_OpenSource/blob/71b6effd2dfa8f703dd1ea17acd1323b2fd3cf6c/arch/arm64/boot/dts/qcom/nabu-sm8150.dtsi#L352)
+
+For an acoustic comparison, capture the installed driver and Android first. Then compare the protected reference build against the original at the same Windows volume and recorder position. Use the separate routing trial to check speaker pairing. The six-second WAV compares the low-level response. Testing maximum output or protection requires different signals and levels.
+
+
 ## Source revisions
 
 - [CS35L41 Windows source, map220v](https://github.com/map220v/cs35l41_win/tree/53d367532fa1632accf4e4d20dc0493e2673e077)
