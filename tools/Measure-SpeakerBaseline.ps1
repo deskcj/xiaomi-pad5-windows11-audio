@@ -1,6 +1,6 @@
 #Requires -Version 7.0
 [CmdletBinding()]
-param([switch]$PlayQuietTones)
+param([switch]$PlayQuietTones, [switch]$MeasureBuiltInMic)
 
 $ErrorActionPreference = 'Stop'
 if (-not $IsWindows -or -not [Environment]::Is64BitProcess) {
@@ -13,4 +13,4 @@ if (-not ('NabuAudio.QuietSpeakerCheck' -as [type])) {
     Add-Type -Path (Join-Path $PSScriptRoot 'QuietSpeakerCheck.cs')
 }
 
-[NabuAudio.QuietSpeakerCheck]::Run()
+[NabuAudio.QuietSpeakerCheck]::Run([bool]$MeasureBuiltInMic)

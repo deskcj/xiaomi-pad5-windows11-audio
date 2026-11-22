@@ -21,3 +21,8 @@ The tool sends one second of 440 Hz to the left channel, pauses, then sends the 
 ## Compare Windows and Android
 
 [Download the quiet comparison WAV](assets/quiet-speaker-comparison.wav). Play the same six-second file in both systems using the internal speakers. It contains three quiet tones in order: left, right, and both. Keep the tablet orientation, recorder position and playback volume fixed. Note each system's volume setting and sound effects. Place a second phone's microphone about 10 cm from the tablet for a first relative comparison. Automatic level adjustment in ordinary recorder apps can affect the result, so a fixed-gain recording is needed for a reliable dB comparison. The quiet file compares playback at low signal level. Maximum loudness and limiting require separate measurements.
+For relative Windows driver A/B measurements without a second device, use:
+
+    ./tools/Measure-SpeakerBaseline.ps1 -PlayQuietTones -MeasureBuiltInMic
+
+The optional mode uses the built-in microphone and calculates 440 Hz levels in memory. It stores no recordings. Match the tablet position, Windows volume, microphone settings and input device between runs. This mode reports uncalibrated microphone dBFS.

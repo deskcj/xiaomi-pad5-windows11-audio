@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Threading;
 
@@ -17,9 +18,13 @@ namespace NabuAudio
             public float[] BeforePlayback { get; set; }
             public float[] LeftToneEndpointPeaks { get; set; }
             public float[] RightToneEndpointPeaks { get; set; }
+            public string Microphone { get; set; }
+            public double? MicrophoneIdleToneDbfs { get; set; }
+            public double? MicrophoneLeftToneDbfs { get; set; }
+            public double? MicrophoneRightToneDbfs { get; set; }
         }
 
-        public static Result Run()
+        public static Result Run(bool measureBuiltInMic)
         {
             var enumerator = (IMMDeviceEnumerator)Activator.CreateInstance(
                 Type.GetTypeFromCLSID(new Guid("BCDE0395-E52F-467C-8E3D-C4579291692E")));
@@ -28,6 +33,7 @@ namespace NabuAudio
             IAudioMeterInformation meter = null;
             IAudioRenderClient renderer = null;
             IntPtr mixFormat = IntPtr.Zero;
+            MicrophoneToneMeter microphone = null;
 
             try
             {
@@ -65,19 +71,27 @@ namespace NabuAudio
                 Check(audio.GetService(ref rendererId, out object service));
                 renderer = (IAudioRenderClient)service;
 
+                if (measureBuiltInMic)
+                    microphone = new MicrophoneToneMeter(enumerator);
+
                 var result = new Result
                 {
                     Endpoint = name, SampleRateHz = sampleRate,
                     TonePeakDbfs = Math.Round(20 * Math.Log10(Amplitude), 1),
                     BeforePlayback = idle,
-                    LeftToneEndpointPeaks = Play(audio, renderer, meter, sampleRate, 0)
+                    Microphone = microphone?.Name,
+                    MicrophoneIdleToneDbfs = microphone?.MeasureBackground(),
+                    LeftToneEndpointPeaks = Play(audio, renderer, meter, sampleRate, 0, microphone)
                 };
+                result.MicrophoneLeftToneDbfs = microphone?.GetToneDbfs();
                 Thread.Sleep(500);
-                result.RightToneEndpointPeaks = Play(audio, renderer, meter, sampleRate, 1);
+                result.RightToneEndpointPeaks = Play(audio, renderer, meter, sampleRate, 1, microphone);
+                result.MicrophoneRightToneDbfs = microphone?.GetToneDbfs();
                 return result;
             }
             finally
             {
+                microphone?.Dispose();
                 if (mixFormat != IntPtr.Zero) Marshal.FreeCoTaskMem(mixFormat);
                 if (renderer != null) Marshal.ReleaseComObject(renderer);
                 if (meter != null) Marshal.ReleaseComObject(meter);
@@ -88,7 +102,7 @@ namespace NabuAudio
         }
 
         private static float[] Play(IAudioClient audio, IAudioRenderClient renderer,
-            IAudioMeterInformation meter, int rate, int activeChannel)
+            IAudioMeterInformation meter, int rate, int activeChannel, MicrophoneToneMeter microphone)
         {
             var samples = new short[rate * 2];
             int fade = rate / 20;
@@ -104,12 +118,14 @@ namespace NabuAudio
             bool started = false;
             var peaks = new float[2];
             var reading = new float[2];
+            microphone?.BeginMeasurement();
             var clock = Stopwatch.StartNew();
 
             try
             {
                 while (clock.ElapsedMilliseconds < 5000)
                 {
+                    microphone?.Drain(started && clock.ElapsedMilliseconds >= 200);
                     Check(audio.GetCurrentPadding(out uint pending));
                     if (queued == rate && pending == 0)
                         return peaks;
@@ -142,6 +158,125 @@ namespace NabuAudio
                 if (started) audio.Stop();
                 audio.Reset();
             }
+        }
+
+        private sealed class MicrophoneToneMeter : IDisposable
+        {
+            private const int Rate = 48000;
+            private const int Window = Rate / 20;
+            private readonly IAudioClient audio;
+            private readonly IAudioCaptureClient reader;
+            private readonly List<double> levels = new List<double>();
+            private int position;
+            private double inPhase;
+            private double quadrature;
+            public string Name { get; }
+
+            public MicrophoneToneMeter(IMMDeviceEnumerator enumerator)
+            {
+                Check(enumerator.GetDefaultAudioEndpoint(1, 0, out IMMDevice endpoint));
+                try
+                {
+                    Name = GetEndpointName(endpoint);
+                    bool internalMic = Name.StartsWith("Internal Microphone", StringComparison.OrdinalIgnoreCase)
+                        || Name.StartsWith("Встроенный микрофон", StringComparison.OrdinalIgnoreCase)
+                        || Name.StartsWith("Массив микрофонов", StringComparison.OrdinalIgnoreCase);
+                    if (!internalMic || Name.IndexOf("Mi Pad 5 Qualcomm", StringComparison.OrdinalIgnoreCase) < 0)
+                        throw new InvalidOperationException("Select an internal Xiaomi Pad 5 microphone. Default input: " + Name);
+
+                    audio = Activate<IAudioClient>(endpoint);
+                    var format = new WaveFormatEx
+                    {
+                        Tag = 1, Channels = 1, SampleRate = Rate,
+                        BytesPerSecond = Rate * 2, BlockAlign = 2, BitsPerSample = 16
+                    };
+                    Check(audio.Initialize(0, 0x88000000, 2000000, 0, ref format, IntPtr.Zero));
+                    Guid id = typeof(IAudioCaptureClient).GUID;
+                    Check(audio.GetService(ref id, out object service));
+                    reader = (IAudioCaptureClient)service;
+                    Check(audio.Start());
+                }
+                catch
+                {
+                    Dispose();
+                    throw;
+                }
+                finally { Marshal.ReleaseComObject(endpoint); }
+            }
+
+            public void BeginMeasurement()
+            {
+                Drain(false);
+                levels.Clear();
+                position = 0;
+                inPhase = quadrature = 0;
+            }
+
+            public double? MeasureBackground()
+            {
+                BeginMeasurement();
+                var time = Stopwatch.StartNew();
+                while (time.ElapsedMilliseconds < 650)
+                {
+                    Drain(true);
+                    Thread.Sleep(5);
+                }
+                return GetToneDbfs();
+            }
+
+            public void Drain(bool measure)
+            {
+                Check(reader.GetNextPacketSize(out uint frames));
+                while (frames != 0)
+                {
+                    Check(reader.GetBuffer(out IntPtr data, out frames, out uint flags, out _, out _));
+                    try
+                    {
+                        if (measure)
+                        {
+                            bool silence = (flags & 2) != 0;
+                            for (int sample = 0; sample < frames; sample++)
+                            {
+                                double value = silence ? 0 : Marshal.ReadInt16(data, sample * 2) / 32768.0;
+                                double angle = 2 * Math.PI * 440 * position / Rate;
+                                inPhase += value * Math.Cos(angle);
+                                quadrature += value * Math.Sin(angle);
+                                if (++position < Window) continue;
+
+                                levels.Add(2 * Math.Sqrt(inPhase * inPhase + quadrature * quadrature) / Window);
+                                position = 0;
+                                inPhase = quadrature = 0;
+                            }
+                        }
+                    }
+                    finally { Check(reader.ReleaseBuffer(frames)); }
+                    Check(reader.GetNextPacketSize(out frames));
+                }
+            }
+
+            public double? GetToneDbfs()
+            {
+                if (levels.Count == 0) return null;
+                levels.Sort();
+                double amplitude = levels[levels.Count / 2];
+                return Math.Round(20 * Math.Log10(Math.Max(amplitude, 0.000001)), 1);
+            }
+
+            public void Dispose()
+            {
+                if (audio != null) audio.Stop();
+                if (reader != null) Marshal.ReleaseComObject(reader);
+                if (audio != null) Marshal.ReleaseComObject(audio);
+            }
+        }
+
+        [ComImport, InterfaceType(ComInterfaceType.InterfaceIsIUnknown), Guid("C8ADBD64-E71E-48A0-A4DE-185C395CD317")]
+        private interface IAudioCaptureClient
+        {
+            [PreserveSig] int GetBuffer(out IntPtr samples, out uint frames, out uint flags,
+                out ulong devicePosition, out ulong qpcPosition);
+            [PreserveSig] int ReleaseBuffer(uint frames);
+            [PreserveSig] int GetNextPacketSize(out uint frames);
         }
 
         private static T Activate<T>(IMMDevice endpoint) where T : class

@@ -55,6 +55,15 @@ The five protection files in the reference package match the staged BSP 2611.21 
 For an acoustic comparison, capture the installed driver and Android first. Then compare the protected reference build against the original at the same Windows volume and recorder position. Use the separate routing trial to check speaker pairing. The six-second WAV compares the low-level response. Testing maximum output or protection requires different signals and levels.
 
 
+## Stock HyperOS and factory calibration
+
+The selected vendor audio files were extracted from the full Global HyperOS OS1.0.6.0.TKXMIXM payload. The speaker mixer XML matches the LineageOS copy byte for byte. All five CS35L41 protection files match the reference Windows package by SHA-256. The stock audio HAL refers to separate per-corner calibration records under vendor persist. [Xiaomi recovery archive](https://bigota.d.miui.com/OS1.0.6.0.TKXMIXM/miui_NABUGlobal_OS1.0.6.0.TKXMIXM_4af37553d5_13.0.zip)
+
+A local factory-calibrated Windows trial uses the four records from this tablet. Each binary value agrees with the text record and the recorded checksum. The package uses the reference board routing and protection profiles. InfVerif and Inf2Cat passed. Runtime checks are pending. The package and unit-specific values are kept locally.
+
+At the same quiet output level, two built-in microphone runs gave approximately −52 dBFS for the left test tone and −56 to −57 dBFS for the right test tone. Those numbers measure the 440 Hz component at the front microphone in its fixed position. They provide a repeatable Windows A/B reference. Speaker grille output and equivalence to Android at high levels require separate acoustic tests.
+
+
 ## Source revisions
 
 - [CS35L41 Windows source, map220v](https://github.com/map220v/cs35l41_win/tree/53d367532fa1632accf4e4d20dc0493e2673e077)
