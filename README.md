@@ -30,13 +30,14 @@ The project ZIP contains the published research and tools. The public driver and
 | ✅ | The build uses the original HyperOS speaker protection and music profiles, with the factory calibration for each amplifier on the test tablet. It fixes the OTP calibration read and checks for DSP programming errors. |
 | ✅ | The built-in microphone measured **6.6–11.7 dB** higher levels on selected test tones compared with the previous Windows driver. The input signal and Windows volume were held constant. |
 | ✅ | The build now generates calibration from the tablet’s original HyperOS files. In a bus simulation, all 12 calibration register writes across the four amplifiers matched the tested build. |
-| ✅ | Qualcomm DSP accepted the new Dolby processing graph with calibration package 1.0.2140.13. The package submits one new graph and relies on the device restart that Windows already performs during installation. |
-| ❌ | System-wide Dolby still fails. With the stock ADSP configuration, opening the Windows audio stream returned `0x8007045D` even after the new graph was accepted. A separate test using the original Dolby library measured 4.4–4.8 dB more output at 220 Hz on this tablet. |
+| ✅ | The original HyperOS Dolby library ran in a standalone Windows process. It played 59.84 seconds through the built-in speakers with zero buffer underruns. A separate Float32 test matched the reference output byte for byte. |
+| ❌ | System-wide Dolby still fails. Qualcomm 1.0.2140.13 registered the Dolby processing graph once, but the DSP rejected the request to open playback and Windows returned `0x8007045D`. The control graph with stock modules opened normally. |
+| ❌ | 24-bit playback is still unavailable in the tested speaker configurations. |
 | ❌ | Music quality and maximum volume compared with HyperOS still need testing, as does factory calibration on other Xiaomi Pad 5 units. |
 
 ## In progress
 
-- Test single graph registration with the experimental ADSP extension active and trace where the first playback request fails.
+- Investigate why the Qualcomm DSP rejects the Dolby graph when opening playback and evaluate whether the standalone processing can be integrated into Windows audio.
 - Compare music and maximum output with HyperOS and validate calibration handling for other units.
 
 [Measurements](docs/baseline.md) · [Build results](docs/reference-build.md) · [Upstream sources](docs/baseline.md#source-revisions)

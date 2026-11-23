@@ -86,7 +86,21 @@ The system Dolby test used Qualcomm calibration and DSP registration extensions.
 
 In a later trial, Windows restarted QCADCM while installing calibration package 1.0.2140.12. Qualcomm DSP accepted the new graph on the first registration. An extra device restart submitted it again, and `AVCS_CMD_REGISTER_TOPOLOGIES` (`0x12923`) returned `ADSP_EBADPARAM` (`2`).
 
-Package 1.0.2140.13 submits only the new graph and skips the extra restart. With the stock ADSP configuration, the DSP accepted the graph in a single request. WASAPI still returned `0x8007045D` when opening the stream. Rolling back the calibration extension restored stereo playback in the same Windows session. The next trial will use a single registration with the experimental ADSP extension active.
+Package 1.0.2140.13 submits only the new graph and skips the extra restart. With the stock ADSP configuration, the DSP accepted the graph in a single request. WASAPI still returned `0x8007045D` when opening the stream. Rolling back the calibration extension restored stereo playback in the same Windows session.
+
+With the experimental ADSP extension active, 1.0.2140.13 also registered the Dolby graph once. The DSP returned `ADSP_EFAILED` (1) to `ADM_CMD_DEVICE_OPEN_V7` for both PCM16 and the 32-bit shared format at 48 kHz. WASAPI returned `0x8007045D`. A separate control registered a new graph made of stock modules and opened both formats successfully. The trace places the failure at stream opening. The reason for the DSP rejection remains unknown.
+
+Two MiSound trials also registered and opened the DSP graph. Both then timed out on post-processing parameter commands, including the trial that kept the stock Windows parameter set.
+
+## Standalone Dolby playback on Windows
+
+The original ARM64 HyperOS Dolby library ran in an isolated ARM64 guest hosted by a standalone Windows process. WASAPI played 2,872,320 PCM16 frames (59.84 seconds at 48 kHz) through the built-in speakers with zero buffer underruns. The PCM hashes matched between the Dolby process and the WASAPI receiver. The starting buffer held 128 ms of audio. Process startup took 1.235 seconds.
+
+A separate Float32 test paced the input in 480-frame chunks and processed batches of 1,024 frames at 48 kHz. All 574,464 output frames matched a separate reference render byte for byte. Time from the arrival of a batch's first input frame to output from the processing worker was 73.37 ms at the 95th percentile and 105.89 ms at maximum. This timing covers the standalone process. System integration and comparisons of music and maximum loudness against HyperOS are still pending.
+
+## 24-bit speaker playback
+
+24-bit playback failed in the tested Qualcomm and Cirrus configurations. In one trial with the stock physical link, WASAPI accepted exclusive 24-in-32 on initialization, but the first buffer request failed with `0x80070032`. After rollback and restart, PCM16 and the native Windows mix opened successfully. All four amplifiers were running Cirrus 4.17.27.8, and both stereo channels passed the microphone tone check.
 
 
 ## Source revisions
