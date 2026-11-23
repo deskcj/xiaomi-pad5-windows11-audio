@@ -78,7 +78,19 @@ The 220 Hz signal from the protected build was close to the room's 220 Hz backgr
 
 ## CS35L41 4.17.27.8 and Qualcomm Dolby
 
-The later 4.17.27.8 build corrects the length of the OTP calibration read and checks errors when loading and programming the DSP. It uses the original HyperOS protection firmware, music profiles and the four factory calibration records from the test tablet. All four amplifier devices started in two runs. In the second matched Windows A/B test, the built-in microphone measured 6.6–11.7 dB more output across the tested tones. At 440 Hz and −36 dBFS, the first run measured −34.7 / −40.6 dBFS for left and right, versus −43.2 / −48.4 dBFS with the previous driver. The microphone was in the same position. Maximum acoustic output and absolute equivalence to HyperOS remain open.
+The later 4.17.27.8 build corrects the length of the OTP calibration read and checks errors when loading and programming the DSP. It uses the original HyperOS protection firmware, music profiles and the four factory calibration records from the test tablet. All four amplifier devices started in two runs.
+
+The table compares the legacy driver and the two 4.17.27.8 runs on the same tablet, at matching input levels and Windows volume. Each pair gives the left and right test tones measured separately at the same built-in front microphone.
+
+| Tone (Hz) | Input (dBFS) | Legacy 16.45.25.900 (dBFS) | 4.17.27.8 first run (dBFS) | 4.17.27.8 repeat (dBFS) | Repeat gain (dB) |
+| ---: | ---: | ---: | ---: | ---: | ---: |
+| 220 | −36.0 | −56.5 / −61.0 | −48.0 / −52.8 | −48.0 / −52.9 | +8.5 / +8.1 |
+| 440 | −44.4 | −51.7 / −56.8 | −43.1 / −48.9 | −43.1 / −48.9 | +8.6 / +7.9 |
+| 440 | −36.0 | −43.2 / −48.4 | −34.7 / −40.6 | −34.8 / −40.6 | +8.4 / +7.8 |
+| 880 | −36.0 | −36.6 / −46.0 | −29.8 / −34.3 | −29.8 / −34.3 | +6.8 / +11.7 |
+| 1760 | −36.0 | −39.7 / −40.8 | −28.5 / −34.1 | −28.6 / −34.2 | +11.1 / +6.6 |
+
+The two 4.17.27.8 runs differed by at most 0.1 dB per tone and channel. Maximum acoustic output and absolute equivalence to HyperOS remain open.
 
 The original Dolby software library was also tested separately with the captured HyperOS profile and output level. In Windows shared playback, the 220 Hz test tone increased by 4.4 dB on the left and 4.8 dB on the right compared with ordinary playback. At 440 Hz, the difference was under 1 dB.
 

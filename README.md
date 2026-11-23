@@ -24,21 +24,21 @@ The project ZIP contains the published research and tools. The public driver and
 
 ## Status · 23 November 2026
 
-| | Result |
-| --- | --- |
-| ✅ | The Windows ARM64 CS35L41 4.17.27.8 build started on all four amplifiers of the test tablet. Left and right playback passed. |
-| ✅ | The build uses the original HyperOS speaker protection and music profiles, with the factory calibration for each amplifier on the test tablet. It fixes the OTP calibration read and checks for DSP programming errors. |
-| ✅ | The built-in microphone measured **6.6–11.7 dB** higher levels on selected test tones compared with the previous Windows driver. The input signal and Windows volume were held constant. |
-| ✅ | The build now generates calibration from the tablet’s original HyperOS files. In a bus simulation, all 12 calibration register writes across the four amplifiers matched the tested build. |
-| ✅ | The original HyperOS Dolby library ran in a standalone Windows process. It played 59.84 seconds through the built-in speakers with zero buffer underruns. A separate Float32 test matched the reference output byte for byte. |
-| ❌ | System-wide Dolby still fails. Qualcomm 1.0.2140.13 registered the Dolby processing graph once, but the DSP rejected the request to open playback and Windows returned `0x8007045D`. The control graph with stock modules opened normally. |
-| ❌ | 24-bit playback is still unavailable in the tested speaker configurations. |
-| ❌ | Music quality and maximum volume compared with HyperOS still need testing, as does factory calibration on other Xiaomi Pad 5 units. |
+| Area | At the start | Now on the test tablet |
+| --- | --- | --- |
+| Amplifiers | map220v 16.45.25.900 routed the serial audio input directly to the amplifier DAC. | ✅ Cirrus 4.17.27.8 uses the amplifier DSP with original HyperOS speaker protection and music profiles. All four amplifiers started, and both stereo channels passed. |
+| Output level at 440 Hz | −43.2 / −48.4 dBFS at the built-in microphone (left / right). | ✅ −34.8 / −40.6 dBFS in the repeat test, a gain of **8.4 / 7.8 dB**. |
+| Factory calibration | The original HyperOS calibration had yet to be carried over to Windows. | ✅ The build generates calibration from the test tablet’s HyperOS records. All 12 calibration register writes matched the hardware-tested build in a bus simulation. The driver also fixes the OTP read and checks DSP programming errors. |
+| Dolby processing | HyperOS Dolby playback had yet to be demonstrated on Windows. | ✅ The original library played 59.84 seconds through the speakers in a standalone process with zero buffer underruns. A separate Float32 test matched the reference output byte for byte. |
+
+The repeat test measured **6.6–11.7 dB** higher levels across the selected tones. The comparison used the same test tablet, input levels, Windows volume and built-in microphone. The 440 Hz example used a −36 dBFS input.
 
 ## In progress
 
-- Investigate why the Qualcomm DSP rejects the Dolby graph when opening playback and evaluate whether the standalone processing can be integrated into Windows audio.
-- Compare music and maximum output with HyperOS and validate calibration handling for other units.
+- ❌ **System-wide Dolby.** Qualcomm 1.0.2140.13 registers the Dolby graph, and the DSP then rejects stream opening. Windows returns `0x8007045D`. The control graph with stock modules opens normally.
+- ❌ **MiSound.** In the tested Qualcomm configurations, the DSP opened the graph and then timed out while applying effect parameters.
+- ❌ **24-bit speaker playback.** The tested configurations failed to play a 24-bit stream.
+- ⏳ **Validation.** Compare music quality and maximum loudness with HyperOS, and validate factory calibration on other Xiaomi Pad 5 units.
 
 [Measurements](docs/baseline.md) · [Build results](docs/reference-build.md) · [Upstream sources](docs/baseline.md#source-revisions)
 
