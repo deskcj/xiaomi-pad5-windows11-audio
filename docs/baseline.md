@@ -8,7 +8,7 @@
 | Audio adapter | Xiaomi 1.0.2100.0, QCAUD |
 | Audio DSP and calibration manager | Qualcomm 1.0.2140.0, qcadcm |
 | Amplifiers | Four CS35L41 devices, status OK, hardware ID ACPI\10133541 |
-| Installed amplifier driver | map220v 16.45.25.900 |
+| Initial amplifier driver | map220v 16.45.25.900 |
 
 The quiet 440 Hz source peaked at −44.4 dBFS. The endpoint meter returned these normalized linear values:
 
@@ -58,7 +58,7 @@ The five protection files in the reference package match the staged BSP 2611.21 
 
 The selected vendor audio files were extracted from the full Global HyperOS OS1.0.6.0.TKXMIXM payload. The speaker mixer XML matches the LineageOS copy byte for byte. All five CS35L41 protection files match the reference Windows package by SHA-256. The decompiled stock HAL reads a four-byte value per corner from vendor persist, validates its range and applies it to the corresponding CS35L41 DSP mixer control. [Xiaomi recovery archive](https://bigota.d.miui.com/OS1.0.6.0.TKXMIXM/miui_NABUGlobal_OS1.0.6.0.TKXMIXM_4af37553d5_13.0.zip)
 
-A local factory-calibrated Windows trial uses the four records from this tablet. Each binary value agrees with the text record and the recorded checksum. The package uses the reference board routing and protection profiles. InfVerif and Inf2Cat passed. Runtime checks are pending. The package and unit-specific values are kept locally.
+A local factory-calibrated Windows trial uses the four records from this tablet. Each binary value agrees with the text record and the recorded checksum. The package uses the reference board routing and protection profiles. InfVerif and Inf2Cat passed. Later runtime results are recorded below. The package and unit-specific values are kept locally.
 
 At the same quiet output level, two built-in microphone runs gave approximately −52 dBFS for the left test tone and −56 to −57 dBFS for the right test tone. Those numbers measure the 440 Hz component at the front microphone in its fixed position. They provide a repeatable Windows A/B reference. Speaker grille output and equivalence to Android at high levels require separate acoustic tests.
 
@@ -75,6 +75,14 @@ The test-signed DSP startup build completed initialization on all four CS35L41 d
 | 1760 Hz | −36 | −39.9 / −41.8 | −53.8 / −46.5 |
 
 The 220 Hz signal from the protected build was close to the room's 220 Hz background in this setup. The legacy package was restored on all four devices. Maximum acoustic output and the stock Android reference remain unmeasured.
+
+## CS35L41 4.17.27.8 and Qualcomm Dolby
+
+The later 4.17.27.8 build corrects the length of the OTP calibration read and checks errors when loading and programming the DSP. It uses the original HyperOS protection firmware, music profiles and the four factory calibration records from the test tablet. All four amplifier devices started in two runs. In the second matched Windows A/B test, the built-in microphone measured 6.6–11.7 dB more output across the tested tones. At 440 Hz and −36 dBFS, the first run measured −34.7 / −40.6 dBFS for left and right, versus −43.2 / −48.4 dBFS with the previous driver. The microphone was in the same position. Maximum acoustic output and absolute equivalence to HyperOS remain open.
+
+The original Dolby software library was also tested separately with the captured HyperOS profile and output level. In Windows shared playback, the 220 Hz test tone increased by 4.4 dB on the left and 4.8 dB on the right compared with ordinary playback. At 440 Hz, the difference was under 1 dB.
+
+The system Dolby test used Qualcomm calibration and DSP registration extensions. Both bound after boot and the built-in output reported a healthy device. Opening a shared PCM16 stream at 48 kHz failed with `0x8007045D`, so the experimental packages were removed. The file trace captured successful opens of `qcadsp8150.mbn`, `avs_config.acdb`, `General_cal.acdb` and `Global_cal.acdb`. The recording reached its 96 MiB limit on boot, before the playback test. The next trace needs to cover the Dolby registration and library through the first playback request.
 
 
 ## Source revisions
