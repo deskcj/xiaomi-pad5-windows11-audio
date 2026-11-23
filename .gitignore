@@ -1,4 +1,7 @@
 /local/
+/driver/ARM64/
+/driver/x64/
+/driver/firmware/
 *.sys
 *.cat
 *.inf_loc

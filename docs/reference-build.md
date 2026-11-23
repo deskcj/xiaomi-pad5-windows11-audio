@@ -13,4 +13,14 @@ The Windows ARM64 prototypes derive from [map220v/cs35l41_win](https://github.co
 | Qualcomm Dolby 1.0.2140.17 | Request Dolby module preloading and trace Qualcomm FastRPC from boot | The file mapping table was submitted. The trace leaves Dolby module loading unconfirmed. PCM16 and the native Windows mix failed with `0x8007045D` and both opened after rollback. |
 | Cirrus 4.17.27.10 / Qualcomm 1.0.2060.2 | Test 24-bit speaker playback with a wider physical link | Both packages bound, and all four amplifiers started. WASAPI could not open the shared or exclusive test streams. Rolling back to 4.17.27.8 and the stock Qualcomm extension restored stereo. |
 
-The earlier test-signed DSP startup build and the later 4.17.27.8 build are separate trials. The results are listed in the measurement report. The 4.17.27.8 package includes unit-specific calibration. The public package and build source remain pending. [Measurements](baseline.md#cs35l41-417278-and-qualcomm-dolby)
+The earlier test-signed DSP startup build and 4.17.27.8 are separate trials. The unit-specific 4.17.27.8 package remains local. [Measurements](baseline.md#cs35l41-417278-and-qualcomm-dolby)
+
+## Driver ZIP 4.17.27.16
+
+On 24 November 2026, 4.17.27.15 stayed active while the test tablet played music at 100% Windows volume with external power. The interval from first to last detected signal was 213.1 seconds, and the Windows meter peaked at −0.12 and −0.11 dBFS. No protection interrupts were logged. The four amplifier snapshots recorded zero over-temperature, over-excursion and abnormal-mute counts. The cause of the earlier 4.17.27.8 shutdown is still unknown.
+
+4.17.27.16 uses the same amplifier gain, DSP path, protection firmware and music profiles as 4.17.27.15. It reads each tablet's original factory calibration at startup. The installer checks the per-speaker binary and text pairs and saves the previous Windows driver for rollback. EWDK and the Windows test-signing checks passed.
+
+On the test tablet, the ZIP installed all four amplifiers. All 12 imported calibration words matched the hardware-tested 4.17.27.15 build. PCM16 / 48 kHz stereo and the Windows native mix opened, and rollback restored 4.17.27.15 in the same Windows boot. Long playback and calibration validation on additional units remain work in progress.
+
+[Installation](../driver/INSTALL.md) · [EWDK source and build instructions](../driver/)

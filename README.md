@@ -16,24 +16,22 @@ Driver research for the four internal Cirrus Logic CS35L41 amplifiers on Xiaomi 
 
 ## Download
 
-| Driver ZIP | Driver EXE | Project ZIP |
+| Driver ZIP | Driver source |
+| --- | --- |
+| [Download 4.17.27.16 for ARM64](https://github.com/deskcj/xiaomi-pad5-windows11-audio/releases/download/v4.17.27.16/xiaomi-pad5-audio-4.17.27.16-arm64-driver.zip) | [C source, headers, INF and EWDK project](driver/) |
+
+The ZIP includes a PowerShell installer and rollback. Use the four factory calibration pairs from your own tablet's HyperOS installation. [Installation instructions](driver/INSTALL.md)
+
+## Status · 24 November 2026
+
+| Area | At the start | Current result |
 | --- | --- | --- |
-| Pending | Pending | [Download ZIP](https://github.com/deskcj/xiaomi-pad5-windows11-audio/archive/refs/heads/main.zip) |
+| Amplifiers | map220v 16.45.25.900 routed the serial input directly to the DAC. | ✅ The Cirrus build routes stereo through the amplifier DSP with the original HyperOS speaker protection and music profiles. All four amplifiers start. |
+| Loud playback | 4.17.27.8 was louder on the selected test tones and the tablet powered off once during loud music. | ✅ With 4.17.27.15, the test tablet played music from the charger at 100% Windows volume. The interval from first to last signal was 3 min 33 s. The tablet remained on and protection counters recorded no excessive excursion, overheating or abnormal muting. |
+| Factory calibration | The local build compiled the test tablet's calibration into its binary. | ✅ The public 4.17.27.16 installer reads the target tablet's HyperOS calibration. The ZIP install, PCM16 and native stereo stream opening, and rollback were tested in one Windows session. |
+| Dolby processing | HyperOS Dolby playback on Windows had yet to be demonstrated. | ✅ The original library played 59.84 seconds through the speakers in a standalone process with zero buffer underruns. A separate Float32 test matched the reference output byte for byte. |
 
-The project ZIP contains the published research and tools. The public driver and its buildable source are pending validation of per-device factory calibration.
-
-## Status · 23 November 2026
-
-| Area | At the start | Now on the test tablet |
-| --- | --- | --- |
-| Amplifiers | map220v 16.45.25.900 routed the serial audio input directly to the amplifier DAC. | ✅ Cirrus 4.17.27.8 uses the amplifier DSP with original HyperOS speaker protection and music profiles. All four amplifiers started, and both stereo channels passed. |
-| Output level at 440 Hz | −43.2 / −48.4 dBFS at the built-in microphone (left / right). | ✅ −34.8 / −40.6 dBFS in the repeat test, a gain of **8.4 / 7.8 dB**. |
-| Factory calibration | The original HyperOS calibration had yet to be carried over to Windows. | ✅ The build generates calibration from the test tablet’s HyperOS records. All 12 calibration register writes matched the hardware-tested build in a bus simulation. The driver also fixes the OTP read and checks DSP programming errors. |
-| Dolby processing | HyperOS Dolby playback had yet to be demonstrated on Windows. | ✅ The original library played 59.84 seconds through the speakers in a standalone process with zero buffer underruns. A separate Float32 test matched the reference output byte for byte. |
-
-The repeat test measured **6.6–11.7 dB** higher levels across the selected tones. The comparison used the same test tablet, input levels, Windows volume and built-in microphone. The 440 Hz example used a −36 dBFS input.
-
-In a follow-up PCM16 / 48 kHz test, raising the 440 Hz input by 16 dB raised the measured output by 15.8 dB on each channel. The installed driver uses the HyperOS amplifier gain, DRE and speaker protection settings. [Follow-up measurements](docs/baseline.md#pcm16-level-response)
+[Earlier level measurements](docs/baseline.md#pcm16-level-response) · [Release build and test details](docs/reference-build.md#driver-zip-4172716)
 
 ## In progress
 
