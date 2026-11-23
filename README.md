@@ -33,9 +33,11 @@ The project ZIP contains the published research and tools. The public driver and
 
 The repeat test measured **6.6–11.7 dB** higher levels across the selected tones. The comparison used the same test tablet, input levels, Windows volume and built-in microphone. The 440 Hz example used a −36 dBFS input.
 
+In a follow-up PCM16 / 48 kHz test, raising the 440 Hz input by 16 dB raised the measured output by 15.8 dB on each channel. The installed driver uses the HyperOS amplifier gain, DRE and speaker protection settings. [Follow-up measurements](docs/baseline.md#pcm16-level-response)
+
 ## In progress
 
-- ❌ **System-wide Dolby.** Qualcomm 1.0.2140.13 registers the Dolby graph, and the DSP then rejects stream opening. Windows returns `0x8007045D`. The control graph with stock modules opens normally.
+- ❌ **System-wide Dolby.** The control graph with stock Qualcomm modules opens normally. The 1.0.2140.17 preload trial still failed to open the Dolby graph with `0x8007045D`. The boot trace confirmed submission of the file mapping table. Loading the Dolby module on the DSP remains unconfirmed.
 - ❌ **MiSound.** In the tested Qualcomm configurations, the DSP opened the graph and then timed out while applying effect parameters.
 - ❌ **24-bit speaker playback.** The tested configurations failed to play a 24-bit stream.
 - ⏳ **Validation.** Compare music quality and maximum loudness with HyperOS, and validate factory calibration on other Xiaomi Pad 5 units.

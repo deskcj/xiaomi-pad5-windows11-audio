@@ -104,6 +104,20 @@ With the experimental ADSP extension active, 1.0.2140.13 also registered the Dol
 
 Two MiSound trials also registered and opened the DSP graph. Both then timed out on post-processing parameter commands, including the trial that kept the stock Windows parameter set.
 
+Trial 1.0.2140.17 requested Dolby module preloading. The boot trace confirmed that Windows submitted the file mapping table to Qualcomm FastRPC. In the recorded file service events, neither the module configuration file nor the Dolby library was named. The shared PCM16 and native Windows mix streams both failed to open with `0x8007045D`. After rollback, both streams opened and stereo playback passed on CS35L41 4.17.27.8.
+
+## PCM16 level response
+
+Inspection of the installed 4.17.27.8 binary confirmed that it sets the HyperOS analog gain code 18, enables DRE, and uses the 4 ms volume ramp. With Windows volume fixed, two input levels were compared through shared PCM16 playback at 48 kHz.
+
+| Tone (Hz) | Input change (dB) | Built-in microphone change, left / right (dB) |
+| ---: | ---: | ---: |
+| 220 | +16.0 | +16.0 / +14.6 |
+| 440 | +16.0 | +15.8 / +15.8 |
+| 880 | +16.0 | +15.9 / +15.7 |
+
+The input ranged from −36 to −20 dBFS. At 440 Hz, the second harmonic measured 43.7 / 40.5 dB below the fundamental at the lower input level and 30.6 / 28.2 dB below it at the higher level. The measurements include the microphone, capture path and room. Maximum loudness and music quality relative to HyperOS still require matched acoustic tests.
+
 ## Standalone Dolby playback on Windows
 
 The original ARM64 HyperOS Dolby library ran in an isolated ARM64 guest hosted by a standalone Windows process. WASAPI played 2,872,320 PCM16 frames (59.84 seconds at 48 kHz) through the built-in speakers with zero buffer underruns. The PCM hashes matched between the Dolby process and the WASAPI receiver. The starting buffer held 128 ms of audio. Process startup took 1.235 seconds.
