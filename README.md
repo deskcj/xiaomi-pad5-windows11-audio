@@ -29,13 +29,14 @@ The project ZIP contains the published research and tools. The public driver and
 | ✅ | The Windows ARM64 CS35L41 4.17.27.8 build started on all four amplifiers of the test tablet. Left and right playback passed. |
 | ✅ | The build uses the original HyperOS speaker protection and music profiles, with the factory calibration for each amplifier on the test tablet. It fixes the OTP calibration read and checks for DSP programming errors. |
 | ✅ | The built-in microphone measured **6.6–11.7 dB** higher levels on selected test tones compared with the previous Windows driver. The input signal and Windows volume were held constant. |
-| ✅ | A boot trace captured successful opens of the Qualcomm DSP firmware and calibration files. The trace reached its size limit before the playback test. |
-| ❌ | The system Dolby test on Qualcomm DSP failed while opening the Windows audio stream after boot. A separate test using the original Dolby library improved the response at 220 Hz by 4.4–4.8 dB on this tablet. |
-| ❌ | Matching HyperOS at maximum volume and validating on other Xiaomi Pad 5 units are still open. |
+| ✅ | The build now generates calibration from the tablet’s original HyperOS files. In a bus simulation, all 12 calibration register writes across the four amplifiers matched the tested build. |
+| ✅ | Qualcomm DSP accepted the new Dolby processing graph with calibration package 1.0.2140.13. The package submits one new graph and relies on the device restart that Windows already performs during installation. |
+| ❌ | System-wide Dolby still fails. With the stock ADSP configuration, opening the Windows audio stream returned `0x8007045D` even after the new graph was accepted. A separate test using the original Dolby library measured 4.4–4.8 dB more output at 220 Hz on this tablet. |
+| ❌ | Music quality and maximum volume compared with HyperOS still need testing, as does factory calibration on other Xiaomi Pad 5 units. |
 
 ## In progress
 
-- Trace the Dolby registration file and library from Qualcomm DSP startup through the first playback request to isolate the audio stream failure.
+- Test single graph registration with the experimental ADSP extension active and trace where the first playback request fails.
 - Compare music and maximum output with HyperOS and validate calibration handling for other units.
 
 [Measurements](docs/baseline.md) · [Build results](docs/reference-build.md) · [Upstream sources](docs/baseline.md#source-revisions)

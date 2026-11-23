@@ -82,7 +82,11 @@ The later 4.17.27.8 build corrects the length of the OTP calibration read and ch
 
 The original Dolby software library was also tested separately with the captured HyperOS profile and output level. In Windows shared playback, the 220 Hz test tone increased by 4.4 dB on the left and 4.8 dB on the right compared with ordinary playback. At 440 Hz, the difference was under 1 dB.
 
-The system Dolby test used Qualcomm calibration and DSP registration extensions. Both bound after boot and the built-in output reported a healthy device. Opening a shared PCM16 stream at 48 kHz failed with `0x8007045D`, so the experimental packages were removed. The file trace captured successful opens of `qcadsp8150.mbn`, `avs_config.acdb`, `General_cal.acdb` and `Global_cal.acdb`. The recording reached its 96 MiB limit on boot, before the playback test. The next trace needs to cover the Dolby registration and library through the first playback request.
+The system Dolby test used Qualcomm calibration and DSP registration extensions. Both bound after boot and the built-in output reported a healthy device. Opening a shared PCM16 stream at 48 kHz failed with `0x8007045D`, so the experimental packages were removed. The file trace captured successful opens of `qcadsp8150.mbn`, `avs_config.acdb`, `General_cal.acdb` and `Global_cal.acdb`. The recording reached its 96 MiB limit on boot, before the playback test.
+
+In a later trial, Windows restarted QCADCM while installing calibration package 1.0.2140.12. Qualcomm DSP accepted the new graph on the first registration. An extra device restart submitted it again, and `AVCS_CMD_REGISTER_TOPOLOGIES` (`0x12923`) returned `ADSP_EBADPARAM` (`2`).
+
+Package 1.0.2140.13 submits only the new graph and skips the extra restart. With the stock ADSP configuration, the DSP accepted the graph in a single request. WASAPI still returned `0x8007045D` when opening the stream. Rolling back the calibration extension restored stereo playback in the same Windows session. The next trial will use a single registration with the experimental ADSP extension active.
 
 
 ## Source revisions
