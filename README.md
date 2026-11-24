@@ -24,6 +24,11 @@ The ZIP includes a PowerShell installer and rollback. Use the four factory calib
 
 ## Update history
 
+### 24 November 2026 — original Dolby connected to a COM APO prototype
+
+- ✅ The unregistered ARM64 APO now receives original Android Dolby output through a separate worker. All 196,608 stereo frames matched the reference in both regular and irregular callback tests. Seven digital scenarios, COM reopen and 339 native math ABI cases passed.
+- Worker interruption preserves the delayed original signal; processing recovers after a pause. System-wide Dolby and MiSound remain unfinished. These checks opened no audio device and installed no driver. [Evidence and remaining work](docs/dolby-apo-progress.md)
+
 ### 24 November 2026 — verified PCM24 transport
 
 - ✅ Fixed format negotiation and PCM24 word packing. The experimental component set passed all 13 native ARM64 WASAPI timing checks, including 20-second shared/exclusive streams and ten reopen cycles. The 10 ms buffer notification interval improved from 19.978 ms to 9.994 ms.
@@ -40,12 +45,13 @@ These results apply to the PCM24 research configuration. The download above rema
 | Loud playback on the PCM16 baseline | 4.17.27.8 was louder on the selected test tones and the tablet powered off once during loud music. | ✅ Earlier, 4.17.27.15 played music with external power at 100% Windows volume for a measured 3 min 33 s without shutting down or increasing the recorded protection counters. This result does not validate the new PCM24 configuration at maximum volume. |
 | Factory calibration | The local build compiled the test tablet's calibration into its binary. | ✅ The public 4.17.27.16 installer reads the target tablet's HyperOS calibration. The ZIP install, PCM16 and native stereo stream opening, and rollback were tested in one Windows session. |
 | Standalone Dolby processing | HyperOS Dolby playback on Windows had yet to be demonstrated. | ✅ The original library played 59.84 seconds through the speakers in a standalone process with zero buffer underruns. A separate Float32 test matched the reference output byte for byte. System-wide Dolby remains unfinished. |
+| Dolby ↔ COM APO prototype | The default COM instance was passthrough; worker queues were connected only by the research factory. | ✅ The default factory now connects original Dolby through shared memory in an unregistered digital harness. Exact reference output, fallback, reset and reopen passed. [Evidence](docs/dolby-apo-progress.md). This is not system-wide integration. |
 
 [Earlier level measurements](docs/baseline.md#pcm16-level-response) · [Release build and test details](docs/reference-build.md#driver-zip-4172716)
 
 ## In progress
 
-- ❌ **System-wide Dolby.** The control graph with stock Qualcomm modules opens normally. The 1.0.2140.17 preload trial still failed to open the Dolby graph with `0x8007045D`. The boot trace confirmed submission of the file mapping table. Loading the Dolby module on the DSP remains unconfirmed.
+- ❌ **System-wide Dolby.** The software path now passes exact-reference tests through a COM APO prototype, including interruption recovery. Windows audio-graph integration is still missing. The Qualcomm DSP preload path remains unconfirmed after `0x8007045D`. [APO progress](docs/dolby-apo-progress.md)
 - ❌ **MiSound.** In the tested Qualcomm configurations, the DSP opened the graph and then timed out while applying effect parameters.
 - ✅ **PCM24 transport.** Native WASAPI shared/exclusive timing and repeated stream opening passed on the experimental component set. [PCM24 results](docs/pcm24-progress.md)
 - ⏳ **PCM24 speaker validation.** Confirm amplifier telemetry and acoustic output. The latest traces contain no amplifier events, so they cannot establish that protection faults were absent.

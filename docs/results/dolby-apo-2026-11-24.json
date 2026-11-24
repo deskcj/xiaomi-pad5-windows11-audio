@@ -1,0 +1,211 @@
+{
+  "date": "2026-11-24",
+  "scope": {
+    "native_arm64": true,
+    "default_com_factory_used": true,
+    "windows_audio_graph_loaded_apo": false,
+    "system_dolby_proven": false,
+    "misound_proven": false,
+    "audio_device_opened_in_these_tests": false,
+    "android_acoustic_parity_proven": false,
+    "maximum_volume_safety_proven": false,
+    "original_shutdown_cause_proven": false,
+    "driver_installed_in_this_iteration": false,
+    "reboot_performed": false
+  },
+  "original_library_sha256": "207d04317997bbca253157d6038505605335a5982af39d465b249fb52a590539",
+  "apo_dll_sha256": "edddc9fb8531941ceca0952afe09d94cc578a5b7bc0a25fef29040ad9fad8fed",
+  "native_import_helper_sha256": "82a2127c370d8b85fcad59c16ad728718e847feac048206c564d2cf89cea6dba",
+  "format": {
+    "sample_rate_hz": 48000,
+    "channels": 2,
+    "sample_type": "Float32",
+    "worker_batch_frames": 1024,
+    "configured_delay_frames": 6144,
+    "configured_delay_ms": 128
+  },
+  "cases": [
+    {
+      "name": "normal",
+      "passed": true,
+      "frames_out": 202752,
+      "callbacks": 423,
+      "comparison": {
+        "ReferenceFrames": 196608,
+        "ExactDryFallbackFrames": 0,
+        "UnexpectedFrames": 0,
+        "FramesMatchingBoth": 1,
+        "FirstUnexpectedFrame": null,
+        "MaxUnexpectedError": 0.0,
+        "InitialDelaySilent": true,
+        "DolbyAtEnd": true
+      },
+      "maximum_callback_us": 23.854166666666668,
+      "maximum_schedule_late_ms": 2.6209375,
+      "requests_dropped": 0,
+      "output_sha256": "0bd96a21ad5efbdf8457ec55491299b908d4a9c912b2c67737e2218f57fc2410"
+    },
+    {
+      "name": "irregular",
+      "passed": true,
+      "frames_out": 202752,
+      "callbacks": 529,
+      "comparison": {
+        "ReferenceFrames": 196608,
+        "ExactDryFallbackFrames": 0,
+        "UnexpectedFrames": 0,
+        "FramesMatchingBoth": 1,
+        "FirstUnexpectedFrame": null,
+        "MaxUnexpectedError": 0.0,
+        "InitialDelaySilent": true,
+        "DolbyAtEnd": true
+      },
+      "maximum_callback_us": 42.5,
+      "maximum_schedule_late_ms": 2.9188541666666667,
+      "requests_dropped": 0,
+      "output_sha256": "0bd96a21ad5efbdf8457ec55491299b908d4a9c912b2c67737e2218f57fc2410"
+    },
+    {
+      "name": "exit",
+      "passed": true,
+      "frames_out": 202752,
+      "callbacks": 423,
+      "comparison": {
+        "ReferenceFrames": 98304,
+        "ExactDryFallbackFrames": 98304,
+        "UnexpectedFrames": 0,
+        "FramesMatchingBoth": 1,
+        "FirstUnexpectedFrame": null,
+        "MaxUnexpectedError": 0.0,
+        "InitialDelaySilent": true,
+        "DolbyAtEnd": false
+      },
+      "maximum_callback_us": 23.177083333333332,
+      "maximum_schedule_late_ms": 2.4748958333333335,
+      "requests_dropped": 186,
+      "output_sha256": "e2a7ad43c875d668db2106147506f4ffdda6f98f6ad63a3bde33a66bd3fa29d1"
+    },
+    {
+      "name": "pause",
+      "passed": true,
+      "frames_out": 202752,
+      "callbacks": 423,
+      "comparison": {
+        "ReferenceFrames": 185856,
+        "ExactDryFallbackFrames": 10752,
+        "UnexpectedFrames": 0,
+        "FramesMatchingBoth": 1,
+        "FirstUnexpectedFrame": null,
+        "MaxUnexpectedError": 0.0,
+        "InitialDelaySilent": true,
+        "DolbyAtEnd": true
+      },
+      "maximum_callback_us": 22.604166666666668,
+      "maximum_schedule_late_ms": 3.0285416666666665,
+      "requests_dropped": 0,
+      "output_sha256": "3b44af1ca536ecd4ec96eca510ff252b0c86f23144ab53f560c019d65abe7898"
+    },
+    {
+      "name": "reset",
+      "passed": true,
+      "frames_out": 202752,
+      "callbacks": 423,
+      "comparison": {
+        "ReferenceFrames": 190464,
+        "ExactDryFallbackFrames": 0,
+        "UnexpectedFrames": 0,
+        "FramesMatchingBoth": 1,
+        "FirstUnexpectedFrame": null,
+        "MaxUnexpectedError": 0.0,
+        "InitialDelaySilent": true,
+        "DolbyAtEnd": true
+      },
+      "maximum_callback_us": 26.822916666666668,
+      "maximum_schedule_late_ms": 2.100885416666667,
+      "requests_dropped": 0,
+      "output_sha256": "8d71cd2f4fde47176931609544a78382d3bd550b74337094cda39fe6316e2a65"
+    },
+    {
+      "name": "bypass",
+      "passed": true,
+      "frames_out": 196608,
+      "callbacks": 410,
+      "comparison": {
+        "ExactZeroLatencyBypass": true
+      },
+      "maximum_callback_us": 3.9583333333333335,
+      "maximum_schedule_late_ms": 3.34625,
+      "requests_dropped": 0,
+      "output_sha256": "7af08cbde438d5d6df7dbe784cd6f7560938d8ca620a68c92e6ad08c9ab804c6"
+    },
+    {
+      "name": "absent",
+      "passed": true,
+      "frames_out": 202752,
+      "callbacks": 423,
+      "comparison": {
+        "ReferenceFrames": 1,
+        "ExactDryFallbackFrames": 196607,
+        "UnexpectedFrames": 0,
+        "FramesMatchingBoth": 1,
+        "FirstUnexpectedFrame": null,
+        "MaxUnexpectedError": 0.0,
+        "InitialDelaySilent": true,
+        "DolbyAtEnd": false
+      },
+      "maximum_callback_us": 24.010416666666668,
+      "maximum_schedule_late_ms": 2.168645833333333,
+      "requests_dropped": 391,
+      "output_sha256": "28270da56c9dcebf113a5fed3aeb290df8a4b02d7b08ae80707b417c9a08e3a6"
+    }
+  ],
+  "com_reopen": {
+    "passed": true,
+    "live_mapping_replacement_rejected": true,
+    "mapping_destroyed_after_last_owner": true,
+    "generations": [
+      1,
+      2
+    ],
+    "reference_frames_each": [
+      196608,
+      196608
+    ]
+  },
+  "native_math": {
+    "abi_cases": 339,
+    "complete_reference_comparisons": [
+      {
+        "MatchesReference": true,
+        "Frames": 196608,
+        "ResetMs": 2.389790999586694,
+        "MeanRenderMs": 15.896590927316842,
+        "MaxRenderMs": 69.46322899602819,
+        "OutputSha256": "62b5e0cd8af295a0071f1ec078b281c1b0b29592c1b9d3570b7c8b46a74fe4ff"
+      },
+      {
+        "MatchesReference": true,
+        "Frames": 196608,
+        "ResetMs": 2.743332996033132,
+        "MeanRenderMs": 15.425754417340917,
+        "MaxRenderMs": 19.140520991641097,
+        "OutputSha256": "62b5e0cd8af295a0071f1ec078b281c1b0b29592c1b9d3570b7c8b46a74fe4ff"
+      }
+    ]
+  },
+  "state_restore": {
+    "snapshot_bytes": 17338368,
+    "matches_fresh_reference": true,
+    "reset_ms": [
+      2.389790999586694,
+      2.743332996033132
+    ]
+  },
+  "remaining": [
+    "Windows system initialization and worker broker",
+    "APO component installation and mode support",
+    "MiSound integration",
+    "Amplifier telemetry and acoustic validation",
+    "Maximum-volume safety and shutdown cause"
+  ]
+}
