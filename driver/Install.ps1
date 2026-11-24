@@ -8,7 +8,7 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
-$version = '4.17.27.16'
+$version = '4.17.27.17'
 $expectedSigner = 'F38EDD5C105095C8342556158CE66253F045965D'
 $service = 'HKLM:\SYSTEM\CurrentControlSet\Services\cs35l41'
 $settings = Join-Path $service 'Parameters'

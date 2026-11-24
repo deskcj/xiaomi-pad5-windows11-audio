@@ -8,7 +8,7 @@ Class       = Media
 ClassGuid   = {4d36e96c-e325-11ce-bfc1-08002be10318}
 Provider    = %ManufacturerName%
 CatalogFile = cs35l41.cat
-DriverVer   = 11/24/2026,4.17.27.16
+DriverVer   = 11/25/2026,4.17.27.17
 PnpLockdown = 1
 
 [DestinationDirs]

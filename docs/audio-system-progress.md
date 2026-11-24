@@ -1,19 +1,34 @@
-# Audio progress: before and after · 25 November 2026
+# Audio progress · 2026-11-25
 
 [English](audio-system-progress.md) · [Русский](audio-system-progress.ru.md) · [简体中文](audio-system-progress.zh-CN.md)
 
-The two main unfinished features are **system-wide Dolby** and **MiSound**. Original Dolby processing and PCM24 transport have passed their respective research tests; neither result proves Android sound quality on Windows.
+System Dolby, MiSound, acoustic L/R separation and HyperOS-quality sound remain unconfirmed. No new loudness increase is claimed.
 
-| Task | Before | What is proven now | What remains |
-| --- | --- | --- | --- |
-| Amplifier DSP and calibration | Direct serial-to-DAC path on map220v; the first local build included one tablet's calibration. | ✅ Four amplifiers start with original HyperOS protection/music profiles; the public 4.17.27.16 ZIP uses the target tablet's factory calibration. | Validate calibration on other tablets and compare acoustic output. |
-| PCM24 | Format negotiation failed; partial frame delivery in intermediate trials. | ✅ All 13 native ARM64 WASAPI timing/reopen checks passed on the research component set. | Amplifier telemetry, speaker quality and maximum-volume validation before release. |
-| Original Dolby software | The standard COM factory was passthrough. | ✅ Exact original-library output through COM, failure fallback and reopen; official system-init structure and a shared worker broker also passed standalone tests. | ❌ Make the Windows audio graph load and process this APO. |
-| APO installation | Only an unregistered laboratory initialization existed. | ✅ Signed component/extension packages installed; the APO child was healthy. Removal and baseline recovery passed without reboot. | The audio host produced no APO initialization events or processed frames; installation alone is not Dolby activation. |
-| MiSound | Effect parameters timed out in the Qualcomm DSP path. | ✅ Executing the original Android HAL callback showed that it validates buffers without processing samples. | ❌ Resolve the original DSP resource-loading and parameter path; emulating this HAL callback cannot provide the speaker effect. |
-| Loudness and shutdown | An early experimental build shut the tablet down during loud music. | An earlier PCM16 4.17.27.15 test completed 3 min 33 s at 100% Windows volume with external power, without shutdown or increased recorded protection counters. | The original cause and universal maximum-volume safety remain unproven. No new acoustic/loudness improvement is claimed in this update. |
+| Area | Before | Proven now |
+| --- | --- | --- |
+| Amplifier routing | Only CH_BAL was read back. | ✅ Slots 0/1, both DSP inputs and CH_BAL checked; layout matches original HyperOS controls. |
+| I²C failures | 20 of 224 simulated failures were propagated; 204 were ignored. | ✅ All 236 candidate failure cases propagated; 16 mismatching readbacks rejected. |
+| Installed driver | Working .15 baseline. | ✅ .17 started all four amplifiers; 101,280 zero-input WASAPI frames passed. |
+| Dolby APO | Init3 and Windows 11 context settings were unsupported. | ✅ Seven init2 + seven init3 cases; 196,608 reference frames each, exact. System processing unproven. |
+| PCM24 | Negotiation and pacing failed. | ✅ 13 timing/reopen checks passed on the existing research set; speaker validation remains. |
+| MiSound | DSP dispatch timed out. | ✅ 96 original control-encoding comparisons passed; resource/ack path remains open. |
 
-## Newly verified
+The .17 register writes on successful paths match the saved .16 source. Fault tests use an in-memory register model. The live WASAPI source contained only zeros; its approximately one-PCM16-LSB meter reading is converter dither. Neither test measures speaker quality.
+
+APO 2.0.0.4 passed standalone Windows 10/11 initialization and original Dolby output comparisons without opening an audio device. Its signed EffectPack/component packages were staged; Windows requested a restart. No processing in normal Windows applications is proven.
+
+## In progress
+
+- ❌ **System Dolby:** verify audio-host loading and processed frames after the requested restart.
+- ❌ **MiSound:** resolve original Qualcomm DSP resource loading and parameter acknowledgement.
+- ⏳ Physical L/R separation, PCM24 speaker output, HyperOS sound quality and maximum-volume safety still need validation.
+
+Download: **4.17.27.16**. Development source: **4.17.27.17**. The published ZIP does not include system Dolby or MiSound.
+
+[Measured evidence · 2026-11-25](results/audio-routing-apo-2026-11-25.json) · [2026-11-24](results/audio-system-2026-11-24.json)
+
+<details>
+<summary>Earlier evidence (24–25 November 2026)</summary>
 
 The final system-init test passed six initialization cases: missing configuration, missing broker, discovery-only, RAW, normal processing and an occupied broker slot. Normal processing matched **196,608 stereo frames** byte for byte, with **529 callbacks, zero unexpected frames and zero dry fallback frames**. Discovery, RAW and broker contention used zero-latency bypass. This test never registered an APO or opened an audio device.
 
@@ -29,12 +44,4 @@ A further prototype fix separates **effect discovery** from claiming a processin
 
 The latest SFX and valid legacy-only GFX trials used a signed Driver Store DLL and property-change notification, with no audio-service restart. Both zero-input streams passed, but still produced zero APO processing. The meter stayed at approximately one PCM16 least-significant bit (converter dither), not a music/tone signal. Both temporary packages were removed and the baseline restored without errors.
 
-## Active work
-
-- ❌ Dolby: inspect the effect selection and loading actually used by the Windows audio host, then validate processing in normal applications.
-- ❌ MiSound: trace original Android/Qualcomm DSP resources and parameter application.
-- ⏳ Confirm long playback, amplifier telemetry, quality against HyperOS and power safety on the final combined configuration.
-
-The published download remains **4.17.27.16**. There is no new Dolby/MiSound release. Original EQ, gain and speaker protection limits were not increased.
-
-[Measurement summary](results/audio-system-2026-11-24.json) · [Dolby COM evidence](dolby-apo-progress.md) · [PCM24 evidence](pcm24-progress.md) · [Main page](../README.md)
+</details>

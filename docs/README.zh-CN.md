@@ -18,56 +18,54 @@
 
 | 驱动 ZIP | 驱动源码 |
 | --- | --- |
-| [下载 ARM64 版 4.17.27.16](https://github.com/deskcj/xiaomi-pad5-windows11-audio/releases/download/v4.17.27.16/xiaomi-pad5-audio-4.17.27.16-arm64-driver.zip) | [C 源码、头文件、INF 和 EWDK 项目](../driver/) |
+| [下载 ARM64 版 4.17.27.16](https://github.com/deskcj/xiaomi-pad5-windows11-audio/releases/download/v4.17.27.16/xiaomi-pad5-audio-4.17.27.16-arm64-driver.zip) | [开发版 C/H 源码、INF 与 EWDK 项目](../driver/) |
 
 ZIP 包含 PowerShell 安装与回滚脚本。请准备当前平板原版 HyperOS 中的四组出厂校准文件。[安装说明](../driver/INSTALL.md)
 
+公开下载：**4.17.27.16**。开发源码：**4.17.27.17**。公开 ZIP 不包含系统级 Dolby 或 MiSound。
+
 ## 更新记录
 
-### 2026 年 11 月 25 日 — 原版 MiSound 命令编码已验证
+### 2026-11-25 — 4.17.27.17 / APO 2.0.0.4 — 开发版本
 
-- ✅ 按 Android 原版协议实现原生 ARM64 命令编码器，与执行原版机器码的 96 项离线比较全部通过。这验证的是控制数据，不代表扬声器 MiSound 已工作。[改动前后与剩余任务](audio-system-progress.zh-CN.md) · [C 源码与头文件](../driver/dsp/)
+- ✅ 修复了被忽略的 I²C 错误，并增加 L/R 路由回读检查。**4.17.27.17** 已启动四颗功放，零输入 WASAPI 流测试通过。
+- ✅ 增加 Windows 11 APO 初始化：**7 + 7 项离线测试**通过，每次 196,608 个双声道帧与原版输出一致。
 
-### 2026 年 11 月 24 日 — 系统集成：已验证的进展与剩余问题
+[验证数据](audio-system-progress.zh-CN.md)
 
-- ✅ 原版 Dolby 原型通过标准 Windows APO 初始化与代理槽占用测试；全部 196,608 个双声道帧再次与参考结果一致。已验证签名 APO 安装与完整回滚，无须重启 Windows。
-- ❌ 系统级 Dolby 和 MiSound 尚未完成：Windows 未激活 APO，原版 MiSound HAL 回调也不处理音频采样。[改动前后、验证结果与剩余任务](audio-system-progress.zh-CN.md)
+<details>
+<summary>以前的更新</summary>
 
-### 2026 年 11 月 24 日 — 原版 Dolby 已连接到 COM APO 原型
+#### 2026-11-25 — MiSound
 
-- ✅ 尚未注册的 ARM64 APO 通过独立工作进程接收 Android 原版 Dolby 输出。在固定大小和不规则大小回调测试中，全部 196,608 个双声道帧与参考结果完全一致。七项数字测试、COM 重新打开和 339 项原生数学 ABI 检查均通过。
-- 工作进程停止时保留具有相同延迟的原始信号，暂停后可恢复 Dolby 处理。系统级 Dolby 和 MiSound 仍未完成。这些测试未打开音频设备，也未安装驱动。[证据与待完成工作](dolby-apo-progress.zh-CN.md)
+MiSound 命令编码器：96 项原版机器码比较通过；DSP 音效尚未完成。
 
-### 2026 年 11 月 24 日 — PCM24 传输已验证
+#### 2026-11-24 — Dolby APO
 
-- ✅ 修复了格式协商和 PCM24 数据打包。实验组件组合通过了全部 13 项原生 ARM64 WASAPI 时序测试，包括各 20 秒的共享／独占音频流和十次重新打开音频流。10 毫秒缓冲区的平均通知间隔从 19.978 毫秒改善为 9.994 毫秒。
-- Windows 接受了持续一秒、峰值 −66 dBFS 的低音量 PCM24 测试音。是否达到 Android 音质、是否进一步提高音量以及最大音量下是否安全，仍未确认。[结果与待完成工作](pcm24-progress.zh-CN.md) · [测量数据](results/pcm24-2026-11-24.json)
+原版 Dolby ↔ COM 原型：精确双声道输出、故障直通、重置、重新打开及 339 项数学 ABI 检查通过。 [↗](dolby-apo-progress.zh-CN.md)
 
-这些结果来自 PCM24 实验组件组合。上方下载链接仍指向已发布的 Cirrus 4.17.27.16 驱动包。
+#### 2026-11-24 — PCM24
 
-## 项目状态 · 2026 年 11 月 25 日
+PCM24 研究组件组合：13 项时序及重新打开测试通过，10 ms 通知平均间隔从 19.978 改善至 9.994 ms。 [↗](pcm24-progress.zh-CN.md)
 
-| 项目 | 初始状态 | 当前结果 |
+</details>
+
+## 改动前 → 改动后
+
+| 项目 | 改动前 | 当前已验证结果 |
 | --- | --- | --- |
-| PCM24 传输 | 无法打开音频流；后续试验只能提供约 50% 和 75% 的所需音频帧。 | ✅ 使用 32 位容器的 48 kHz 双声道 PCM24 通过全部 13 项时序测试。独占音频流在 20.006312 秒音频时钟时间内提交了 961,440 帧。[验证结果](pcm24-progress.zh-CN.md) |
-| 功放 | map220v 16.45.25.900 将信号从串行输入直接送至 DAC。 | ✅ Cirrus 驱动通过功放 DSP 播放立体声，并使用 HyperOS 原厂扬声器保护与音乐配置。四颗功放均能启动。 |
-| PCM16 基线的大音量播放 | 4.17.27.8 在部分测试音上的实测电平更高，播放大音量音乐时平板曾断电一次。 | ✅ 此前使用 4.17.27.15、外接电源及 100% Windows 音量，测得音乐信号持续 3 分 33 秒，未关机且保护计数没有增加。该结果不能证明新 PCM24 组件组合在最大音量下的安全性。 |
-| 出厂校准 | 本地构建把测试平板的校准数据编译进驱动。 | ✅ 公开版 4.17.27.16 读取安装目标平板的 HyperOS 校准文件。已在同一次 Windows 启动中验证 ZIP 安装、打开 PCM16 与系统格式立体声流及回滚。 |
-| 独立进程中的 Dolby 处理 | 当时尚未验证 HyperOS Dolby 能否在 Windows 上播放。 | ✅ 原版库在独立进程中通过内置扬声器播放了 59.84 秒，期间未出现缓冲区欠载。单独进行的 Float32 测试中，输出和参考结果逐字节一致。系统级 Dolby 尚未完成。 |
-| Dolby ↔ COM APO 原型 | 默认 COM 实例仅直通，只有实验工厂函数能够连接处理队列。 | ✅ 默认工厂现可通过共享内存连接原版 Dolby，在未注册的数字测试中验证了参考输出、故障直通、状态重置和重新打开。[证据](dolby-apo-progress.zh-CN.md)。系统集成尚未完成。 |
-| Windows APO 初始化 | 仅支持私有实验初始化结构。 | ✅ 标准初始化与共享工作进程代理通过测试，签名组件安装及回滚通过验证。❌ 尚未接入 Windows 音频图进行实际处理。[改动前后](audio-system-progress.zh-CN.md) |
+| I²C 与 L/R 路由 | 部分配置错误被忽略，仅检查 CH_BAL。 | ✅ 检测全部 236 项模拟故障；检查槽位和两个 DSP 输入。四颗功放已在 .17 启动。 |
+| PCM24 | 格式协商与帧提交失败。 | ✅ 研究组件组合通过 13 项 WASAPI 测试。 |
+| Dolby APO | 未支持 Windows 11 初始化。 | ✅ init2/init3 与原版输出离线验证通过。❌ 系统集成尚未完成。 |
+| MiSound | 应用 DSP 参数超时。 | ✅ 96 项命令编码比较通过。❌ DSP 音效尚未完成。 |
 
-[早期音量测量](baseline.md#pcm16-level-response) · [构建和测试详情](reference-build.md#driver-zip-4172716)
+系统级 Dolby、MiSound、实际 L/R 分离与 HyperOS 音质仍未验证。本次不宣称音量提升。
 
 ## 正在进行
 
-- ❌ **系统级 Dolby。** 原版库精确输出及标准 Windows 初始化已在独立测试中验证。安装的组件仍然没有产生音频宿主 APO 回调；系统处理尚未启用。[改动前后与当前问题](audio-system-progress.zh-CN.md)
-- ❌ **MiSound。** 已证明 Android 原版 HAL 回调只验证缓冲区，不处理音频采样。扬声器音效需要 DSP 路径，应用参数仍然超时。[详情](audio-system-progress.zh-CN.md)
-- ✅ **PCM24 传输。** 实验组件组合通过了原生 WASAPI 共享／独占时序测试和重复打开音频流的测试。[PCM24 结果](pcm24-progress.zh-CN.md)
-- ⏳ **PCM24 扬声器验证。** 确认功放遥测与实际声学输出。最新跟踪中没有功放事件，因此不能据此证明未触发保护故障。
-- ⏳ **音质与供电验证。** 对比 HyperOS 的音乐音质和最高音量，调查此前大音量音乐导致关机的原因，并在其他小米平板 5 上验证出厂校准。
-
-[测量结果](baseline.md) · [构建结果](reference-build.md) · [上游源码](baseline.md#source-revisions)
+- ❌ **系统级 Dolby：** 完成所需重启后，验证音频宿主加载 APO 并实际处理音频帧。
+- ❌ **MiSound：** 解决原版 Qualcomm DSP 资源加载与参数应用确认路径。
+- ⏳ 仍须验证实际 L/R 分离、PCM24 扬声器输出、HyperOS 音质和最大音量安全性。
 
 ## ❤️ 帮助改善 nabu 的 Windows 音质
 

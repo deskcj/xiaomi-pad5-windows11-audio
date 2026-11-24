@@ -17,6 +17,7 @@
 
 #include "spb.h"
 #include "registers.h"
+#include "SpeakerRouting.h"
 
 //
 // String definitions

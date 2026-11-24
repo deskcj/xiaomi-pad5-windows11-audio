@@ -1,0 +1,341 @@
+{
+  "date": "2026-11-25",
+  "driver_version": "4.17.27.17",
+  "apo_prototype_version": "2.0.0.4",
+  "published_driver_zip_version": "4.17.27.16",
+  "register_fault_model": {
+    "NativeArm64": true,
+    "FaultModelOnly": true,
+    "AudioDeviceOpened": false,
+    "DriversInstalled": false,
+    "PropagatedCandidateIoFailures": 236,
+    "PropagatedBaselineIoFailures": 20,
+    "BaselineIoFailureCases": 224,
+    "BaselineIgnoredIoFailures": 204,
+    "MismatchingReadbacksRejected": 16,
+    "InvalidUidAndClockCases": 11,
+    "HealthyCases": [
+      {
+        "Uid": 0,
+        "Operation": 0,
+        "ProgrammingMatchesBaseline": true,
+        "BaselineOperations": 28,
+        "CandidateOperations": 28
+      },
+      {
+        "Uid": 0,
+        "Operation": 1,
+        "ProgrammingMatchesBaseline": true,
+        "BaselineOperations": 7,
+        "CandidateOperations": 7
+      },
+      {
+        "Uid": 0,
+        "Operation": 2,
+        "ProgrammingMatchesBaseline": true,
+        "BaselineOperations": 17,
+        "CandidateOperations": 17
+      },
+      {
+        "Uid": 0,
+        "Operation": 3,
+        "ProgrammingMatchesBaseline": true,
+        "BaselineOperations": 4,
+        "CandidateOperations": 7
+      },
+      {
+        "Uid": 1,
+        "Operation": 0,
+        "ProgrammingMatchesBaseline": true,
+        "BaselineOperations": 28,
+        "CandidateOperations": 28
+      },
+      {
+        "Uid": 1,
+        "Operation": 1,
+        "ProgrammingMatchesBaseline": true,
+        "BaselineOperations": 7,
+        "CandidateOperations": 7
+      },
+      {
+        "Uid": 1,
+        "Operation": 2,
+        "ProgrammingMatchesBaseline": true,
+        "BaselineOperations": 17,
+        "CandidateOperations": 17
+      },
+      {
+        "Uid": 1,
+        "Operation": 3,
+        "ProgrammingMatchesBaseline": true,
+        "BaselineOperations": 4,
+        "CandidateOperations": 7
+      },
+      {
+        "Uid": 2,
+        "Operation": 0,
+        "ProgrammingMatchesBaseline": true,
+        "BaselineOperations": 28,
+        "CandidateOperations": 28
+      },
+      {
+        "Uid": 2,
+        "Operation": 1,
+        "ProgrammingMatchesBaseline": true,
+        "BaselineOperations": 7,
+        "CandidateOperations": 7
+      },
+      {
+        "Uid": 2,
+        "Operation": 2,
+        "ProgrammingMatchesBaseline": true,
+        "BaselineOperations": 17,
+        "CandidateOperations": 17
+      },
+      {
+        "Uid": 2,
+        "Operation": 3,
+        "ProgrammingMatchesBaseline": true,
+        "BaselineOperations": 4,
+        "CandidateOperations": 7
+      },
+      {
+        "Uid": 3,
+        "Operation": 0,
+        "ProgrammingMatchesBaseline": true,
+        "BaselineOperations": 28,
+        "CandidateOperations": 28
+      },
+      {
+        "Uid": 3,
+        "Operation": 1,
+        "ProgrammingMatchesBaseline": true,
+        "BaselineOperations": 7,
+        "CandidateOperations": 7
+      },
+      {
+        "Uid": 3,
+        "Operation": 2,
+        "ProgrammingMatchesBaseline": true,
+        "BaselineOperations": 17,
+        "CandidateOperations": 17
+      },
+      {
+        "Uid": 3,
+        "Operation": 3,
+        "ProgrammingMatchesBaseline": true,
+        "BaselineOperations": 4,
+        "CandidateOperations": 7
+      }
+    ],
+    "RoutingCases": [
+      {
+        "Uid": 0,
+        "Position": "BR",
+        "Channel": "R",
+        "HyperOsSwap": true,
+        "ChannelBalance": "0x400000",
+        "Passed": true
+      },
+      {
+        "Uid": 1,
+        "Position": "TR",
+        "Channel": "R",
+        "HyperOsSwap": true,
+        "ChannelBalance": "0x400000",
+        "Passed": true
+      },
+      {
+        "Uid": 2,
+        "Position": "BL",
+        "Channel": "L",
+        "HyperOsSwap": false,
+        "ChannelBalance": "0x0",
+        "Passed": true
+      },
+      {
+        "Uid": 3,
+        "Position": "TL",
+        "Channel": "L",
+        "HyperOsSwap": false,
+        "ChannelBalance": "0x0",
+        "Passed": true
+      }
+    ]
+  },
+  "amplifier_start": {
+    "version": "4.17.27.17",
+    "devices": [
+      {
+        "Uid": 0,
+        "Started": true,
+        "NeedsRestart": false,
+        "Problem": 0
+      },
+      {
+        "Uid": 1,
+        "Started": true,
+        "NeedsRestart": false,
+        "Problem": 0
+      },
+      {
+        "Uid": 2,
+        "Started": true,
+        "NeedsRestart": false,
+        "Problem": 0
+      },
+      {
+        "Uid": 3,
+        "Started": true,
+        "NeedsRestart": false,
+        "Problem": 0
+      }
+    ]
+  },
+  "zero_input_wasapi": {
+    "input_numeric_peak": 0,
+    "mixer_changed": false,
+    "initialize_hr": "0x00000000",
+    "frames_submitted": 101280,
+    "audio_started": true,
+    "maximum_meter_peak": 3.0517811e-05,
+    "final_hr": "0x00000000",
+    "passed": true
+  },
+  "apo_offline": {
+    "audio_device_opened": false,
+    "registered_with_windows_in_digital_tests": false,
+    "init2": {
+      "cases": [
+        {
+          "Flags": 1,
+          "Latency": 0,
+          "Effects": 0,
+          "Passed": true
+        },
+        {
+          "Flags": 1,
+          "Latency": 0,
+          "Effects": 0,
+          "Passed": true
+        },
+        {
+          "Flags": 3,
+          "Latency": 0,
+          "Effects": 1,
+          "Passed": true
+        },
+        {
+          "Flags": 5,
+          "Latency": 0,
+          "Effects": 0,
+          "Passed": true
+        },
+        {
+          "Flags": 1,
+          "Latency": 1280000,
+          "Effects": 1,
+          "Passed": true
+        },
+        {
+          "Flags": 1,
+          "Latency": 0,
+          "Effects": 0,
+          "Passed": true
+        },
+        {
+          "Flags": 3,
+          "Latency": 0,
+          "Effects": 1,
+          "Passed": true
+        }
+      ],
+      "reference_frames": 196608,
+      "callbacks": 529,
+      "unexpected_frames": 0,
+      "dry_fallback_frames": 0
+    },
+    "init3": {
+      "cases": [
+        {
+          "Flags": 1,
+          "Latency": 0,
+          "Effects": 0,
+          "Passed": true
+        },
+        {
+          "Flags": 1,
+          "Latency": 0,
+          "Effects": 0,
+          "Passed": true
+        },
+        {
+          "Flags": 3,
+          "Latency": 0,
+          "Effects": 1,
+          "Passed": true
+        },
+        {
+          "Flags": 5,
+          "Latency": 0,
+          "Effects": 0,
+          "Passed": true
+        },
+        {
+          "Flags": 1,
+          "Latency": 1280000,
+          "Effects": 1,
+          "Passed": true
+        },
+        {
+          "Flags": 1,
+          "Latency": 0,
+          "Effects": 0,
+          "Passed": true
+        },
+        {
+          "Flags": 3,
+          "Latency": 0,
+          "Effects": 1,
+          "Passed": true
+        }
+      ],
+      "reference_frames": 196608,
+      "callbacks": 529,
+      "unexpected_frames": 0,
+      "dry_fallback_frames": 0
+    },
+    "original_zero_input_frames": 49152,
+    "original_zero_output_peak": 0,
+    "signed_effectpack_staged": true,
+    "component_install_requested_reboot": true
+  },
+  "scope": {
+    "system_dolby_proven": false,
+    "system_misound_proven": false,
+    "acoustic_lr_separation_proven": false,
+    "new_loudness_improvement_proven": false,
+    "hyperos_acoustic_parity_proven": false,
+    "maximum_volume_safety_proven": false,
+    "original_shutdown_cause_proven": false
+  },
+  "source_sha256": {
+    "driver/cs35l41.c": "552ea16eb0e4016516c72fc7a8d85a46fe81c4036cff2798c16ff318e2187ec2",
+    "driver/cs35l41.h": "3d89eb6a3adc675ff7820cb0b08d494897dd5a2cb8a121aa782d9c0ca30ddd6c",
+    "driver/cs35l41_dsp.c": "28bcf634d566dae935ef3fbf3c2f9d03973c3dd9fbdfdc6a048c8cc8a555d9ca",
+    "driver/cs35l41_dsp.h": "9057e185dfcae496f05dd0be9078206fd1436cf1e613b3c21088cc1e1b0af7df",
+    "driver/cs35l41.inf": "1c8dd37c34833149fb8bcc69f90e9b66d742f4d3f82750cdb533ae400f40d302",
+    "driver/cs35l41.vcxproj": "06036aa89bd5c3895a0998005e334fc3061cc6a313c911f11ba52bda7c98680c",
+    "driver/registers.h": "2d859fdf13f99aaab9bbf86269f86df21e72fd3e8f7a485073ff57531d14095a",
+    "driver/spb.c": "b338c928512d593115ff5e7aeb7eba5c8be23bcdaf79eb1fbec4e92655e43293",
+    "driver/spb.h": "abda4d268ce290486a16c9b5532fe83bcbe5372126f60da30050c23012d730ac",
+    "driver/trace.h": "f726c52ddb2b6666570dfcf12e2f100c6d33b259eadd6476b42d8cd9892c744d",
+    "driver/SpeakerRouting.h": "9e66d35ed179de6dfe904375e439565ea472ace60ae0e6ed68054fa4ddb362a3",
+    "driver/SpeakerRouting.c": "19f13ff1fbecc0a9bd82728c4a877aece783c836245afddcc494c6119e34f6b5"
+  },
+  "reference_sha256": {
+    "mixer_paths_overlay_static.xml": "9e7a4025ccc35774d0826d4b8990fd94659a3728c0e93dc405a67f61bb986ec3",
+    "cs35l41.c": "407440d35e6909366e949ccdb9651c76825bdb1e2bdaca37bf85a00cb6c0f0f4"
+  },
+  "source_hash_encoding": "UTF-8 with LF newlines (Git contents)"
+}

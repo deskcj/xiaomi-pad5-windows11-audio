@@ -134,8 +134,8 @@
   </ItemGroup>
   <ItemGroup>
     <Inf Include="cs35l41.inf">
-      <DateStamp>11/24/2026</DateStamp>
-      <TimeStamp>4.17.27.16</TimeStamp>
+      <DateStamp>11/25/2026</DateStamp>
+      <TimeStamp>4.17.27.17</TimeStamp>
       <FileType>Document</FileType>
     </Inf>
   </ItemGroup>
@@ -143,6 +143,7 @@
     <ClCompile Include="cs35l41.c" />
     <ClCompile Include="cs35l41_dsp.c" />
     <ClCompile Include="spb.c" />
+    <ClCompile Include="SpeakerRouting.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cs35l41.h" />
@@ -150,6 +151,7 @@
     <ClInclude Include="registers.h" />
     <ClInclude Include="spb.h" />
     <ClInclude Include="trace.h" />
+    <ClInclude Include="SpeakerRouting.h" />
   </ItemGroup>
   <ItemGroup>
     <FilesToPackage Include="firmware\cs35l41-dsp1-spk-prot.wmfw" />

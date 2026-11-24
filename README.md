@@ -18,56 +18,54 @@ Driver research for the four internal Cirrus Logic CS35L41 amplifiers on Xiaomi 
 
 | Driver ZIP | Driver source |
 | --- | --- |
-| [Download 4.17.27.16 for ARM64](https://github.com/deskcj/xiaomi-pad5-windows11-audio/releases/download/v4.17.27.16/xiaomi-pad5-audio-4.17.27.16-arm64-driver.zip) | [C source, headers, INF and EWDK project](driver/) |
+| [Download 4.17.27.16 for ARM64](https://github.com/deskcj/xiaomi-pad5-windows11-audio/releases/download/v4.17.27.16/xiaomi-pad5-audio-4.17.27.16-arm64-driver.zip) | [Development C/H source, INF and EWDK project](driver/) |
 
 The ZIP includes a PowerShell installer and rollback. Use the four factory calibration pairs from your own tablet's HyperOS installation. [Installation instructions](driver/INSTALL.md)
 
+Download: **4.17.27.16**. Development source: **4.17.27.17**. The published ZIP does not include system Dolby or MiSound.
+
 ## Update history
 
-### 25 November 2026 — original MiSound control encoding verified
+### 2026-11-25 — 4.17.27.17 / APO 2.0.0.4 — development
 
-- ✅ Added a native ARM64 command encoder from the original Android contract: 96 offline comparisons against executed original machine code passed. This verifies control data, not speaker processing. [Before/after and remaining work](docs/audio-system-progress.md) · [C source and header](driver/dsp/)
+- ✅ Fixed ignored I²C errors and added L/R route readback checks. Four amplifiers started on **4.17.27.17**; the zero-input WASAPI stream passed.
+- ✅ Added Windows 11 APO initialization: **7 + 7 offline cases** passed; each 196,608-frame stereo render matched the original.
 
-### 24 November 2026 — system integration: verified progress and remaining blockers
+[Measured evidence](docs/audio-system-progress.md)
 
-- ✅ The original Dolby prototype passed official Windows APO initialization and worker contention tests; all 196,608 stereo frames matched the reference again. Signed APO installation and clean rollback were checked without reboot.
-- ❌ System-wide Dolby and MiSound remain unfinished: Windows has not activated the APO, and the original MiSound HAL callback performs no sample processing. [Before/after comparison, evidence and remaining tasks](docs/audio-system-progress.md)
+<details>
+<summary>Previous updates</summary>
 
-### 24 November 2026 — original Dolby connected to a COM APO prototype
+#### 2026-11-25 — MiSound
 
-- ✅ The unregistered ARM64 APO now receives original Android Dolby output through a separate worker. All 196,608 stereo frames matched the reference in both regular and irregular callback tests. Seven digital scenarios, COM reopen and 339 native math ABI cases passed.
-- Worker interruption preserves the delayed original signal; processing recovers after a pause. System-wide Dolby and MiSound remain unfinished. These checks opened no audio device and installed no driver. [Evidence and remaining work](docs/dolby-apo-progress.md)
+MiSound control encoder: 96 original-machine-code comparisons passed; DSP processing remains unfinished.
 
-### 24 November 2026 — verified PCM24 transport
+#### 2026-11-24 — Dolby APO
 
-- ✅ Fixed format negotiation and PCM24 word packing. The experimental component set passed all 13 native ARM64 WASAPI timing checks, including 20-second shared/exclusive streams and ten reopen cycles. The 10 ms buffer notification interval improved from 19.978 ms to 9.994 ms.
-- The one-second −66 dBFS PCM24 stream was accepted by Windows. Android sound quality, additional loudness and maximum-volume safety remain unconfirmed. [Results and remaining work](docs/pcm24-progress.md) · [Measurement data](docs/results/pcm24-2026-11-24.json)
+Original Dolby ↔ COM prototype: exact stereo output, fallback/reset/reopen and 339 math ABI cases passed. [↗](docs/dolby-apo-progress.md)
 
-These results apply to the PCM24 research configuration. The download above remains the existing Cirrus 4.17.27.16 package.
+#### 2026-11-24 — PCM24
 
-## Status · 25 November 2026
+PCM24 research set: all 13 timing/reopen tests passed; average 10 ms notification improved from 19.978 to 9.994 ms. [↗](docs/pcm24-progress.md)
 
-| Area | At the start | Current result |
+</details>
+
+## Before → after
+
+| Area | Before | Proven now |
 | --- | --- | --- |
-| PCM24 transport | Stream opening failed; later trials supplied about 50% and 75% of the required frames. | ✅ 48 kHz stereo PCM24 in 32-bit containers passed all 13 timing checks. Exclusive playback supplied 961,440 frames over 20.006312 seconds of audio clock time. [Evidence](docs/pcm24-progress.md) |
-| Amplifiers | map220v 16.45.25.900 routed the serial input directly to the DAC. | ✅ The Cirrus build routes stereo through the amplifier DSP with the original HyperOS speaker protection and music profiles. All four amplifiers start. |
-| Loud playback on the PCM16 baseline | 4.17.27.8 was louder on the selected test tones and the tablet powered off once during loud music. | ✅ Earlier, 4.17.27.15 played music with external power at 100% Windows volume for a measured 3 min 33 s without shutting down or increasing the recorded protection counters. This result does not validate the new PCM24 configuration at maximum volume. |
-| Factory calibration | The local build compiled the test tablet's calibration into its binary. | ✅ The public 4.17.27.16 installer reads the target tablet's HyperOS calibration. The ZIP install, PCM16 and native stereo stream opening, and rollback were tested in one Windows session. |
-| Standalone Dolby processing | HyperOS Dolby playback on Windows had yet to be demonstrated. | ✅ The original library played 59.84 seconds through the speakers in a standalone process with zero buffer underruns. A separate Float32 test matched the reference output byte for byte. System-wide Dolby remains unfinished. |
-| Dolby ↔ COM APO prototype | The default COM instance was passthrough; worker queues were connected only by the research factory. | ✅ The default factory now connects original Dolby through shared memory in an unregistered digital harness. Exact reference output, fallback, reset and reopen passed. [Evidence](docs/dolby-apo-progress.md). This is not system-wide integration. |
-| Windows APO initialization | Only the private lab init payload was supported. | ✅ Official system-init and shared worker-broker tests passed; signed component installation and rollback passed. ❌ Actual processing in the Windows graph remains missing. [Before/after](docs/audio-system-progress.md) |
+| I²C and L/R route | Some configuration errors were ignored; only CH_BAL was checked. | ✅ 236 simulated failures detected; slot pair and both DSP inputs checked. Four amplifiers start on .17. |
+| PCM24 | Format and frame delivery failed. | ✅ 13 WASAPI timing/reopen checks passed on the research set. |
+| Dolby APO | No Windows 11 initialization path. | ✅ Init2/init3 and original output verified offline. ❌ System activation remains open. |
+| MiSound | DSP parameter application timed out. | ✅ 96 command-encoding comparisons passed. ❌ DSP effect remains open. |
 
-[Earlier level measurements](docs/baseline.md#pcm16-level-response) · [Release build and test details](docs/reference-build.md#driver-zip-4172716)
+System Dolby, MiSound, acoustic L/R separation and HyperOS-quality sound remain unconfirmed. No new loudness increase is claimed.
 
 ## In progress
 
-- ❌ **System-wide Dolby.** Exact original-library processing and official Windows initialization passed standalone. The installed component still produced zero audio-host APO callbacks; actual system processing is not active. [Before/after and current blocker](docs/audio-system-progress.md)
-- ❌ **MiSound.** The original Android HAL callback was proven to validate buffers without processing samples. Its speaker effect needs the DSP path, where parameter application still times out. [Details](docs/audio-system-progress.md)
-- ✅ **PCM24 transport.** Native WASAPI shared/exclusive timing and repeated stream opening passed on the experimental component set. [PCM24 results](docs/pcm24-progress.md)
-- ⏳ **PCM24 speaker validation.** Confirm amplifier telemetry and acoustic output. The latest traces contain no amplifier events, so they cannot establish that protection faults were absent.
-- ⏳ **Quality and power validation.** Compare music quality and maximum loudness with HyperOS, investigate the earlier loud-music shutdown, and validate factory calibration on other Xiaomi Pad 5 units.
-
-[Measurements](docs/baseline.md) · [Build results](docs/reference-build.md) · [Upstream sources](docs/baseline.md#source-revisions)
+- ❌ **System Dolby:** verify audio-host loading and processed frames after the requested restart.
+- ❌ **MiSound:** resolve original Qualcomm DSP resource loading and parameter acknowledgement.
+- ⏳ Physical L/R separation, PCM24 speaker output, HyperOS sound quality and maximum-volume safety still need validation.
 
 ## ❤️ Help bring better sound to Windows on nabu
 

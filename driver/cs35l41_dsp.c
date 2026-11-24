@@ -469,6 +469,7 @@ end:
 static void cs_dsp_parse_wmfw_v3_id_header(struct cs_dsp *dsp,
 					   struct wmfw_v3_id_hdr *fw, size_t nalgs)
 {
+	UNREFERENCED_PARAMETER(nalgs);
 	dsp->fw_id = _byteswap_ulong(fw->id);
 	dsp->fw_id_version = _byteswap_ulong(fw->ver);
 	dsp->fw_vendor_id = _byteswap_ulong(fw->vendor_id);
@@ -1180,7 +1181,8 @@ NTSTATUS cs35l41_dsp_apply_stock_channel(PCS35L41_CONTEXT pDevice)
     const UINT32 channelBalanceOffset = 73;
     const struct cs_dsp_region *memory = cs_dsp_find_region(WMFW_ADSP2_XM);
     const struct cs_dsp_alg_region *cspl = cs_dsp_find_alg_region(pDevice, WMFW_ADSP2_XM, csplId);
-    if ((UINT32)pDevice->UID > 3 || memory == NULL || cspl == NULL)
+    NabuSpeakerRoute route;
+    if (NabuResolveSpeakerRoute((UINT32)pDevice->UID, &route) != 0 || memory == NULL || cspl == NULL)
         return STATUS_INVALID_DEVICE_STATE;
 
     UINT32 address = region_to_reg(memory, cspl->base + channelBalanceOffset);
@@ -1194,7 +1196,7 @@ NTSTATUS cs35l41_dsp_apply_stock_channel(PCS35L41_CONTEXT pDevice)
     if (!NT_SUCCESS(status))
         return status;
 
-    UINT32 expected = (pDevice->UID == 0 || pDevice->UID == 1) ? 0x400000 : 0;
+    UINT32 expected = route.ChannelBalance;
     status = cs35l41_reg_write(pDevice, address, expected);
     if (!NT_SUCCESS(status))
         return status;
@@ -1203,7 +1205,27 @@ NTSTATUS cs35l41_dsp_apply_stock_channel(PCS35L41_CONTEXT pDevice)
     status = cs35l41_reg_read(pDevice, address, &readback);
     if (!NT_SUCCESS(status))
         return status;
-    return (readback & 0xffffff) == expected ? STATUS_SUCCESS : STATUS_DEVICE_DATA_ERROR;
+    if ((readback & 0xffffff) != expected)
+        return STATUS_DEVICE_DATA_ERROR;
+
+    // A successful CH_BAL write alone cannot verify either serial channel.
+    // Check the actual Windows slot pair and both DSP input muxes before enabling
+    // the amplifier. Do not compensate for a failed route with gain changes.
+    status = cs35l41_reg_read(pDevice, CS35L41_SP_FRAME_RX_SLOT, &readback);
+    if (!NT_SUCCESS(status))
+        return status;
+    if (((readback & CS35L41_ASP_RX1_SLOT_MASK) >> CS35L41_ASP_RX1_SLOT_SHIFT) != route.Rx1Slot ||
+        ((readback & CS35L41_ASP_RX2_SLOT_MASK) >> CS35L41_ASP_RX2_SLOT_SHIFT) != route.Rx2Slot)
+        return STATUS_DEVICE_DATA_ERROR;
+    status = cs35l41_reg_read(pDevice, CS35L41_DSP1_RX1_SRC, &readback);
+    if (!NT_SUCCESS(status))
+        return status;
+    if (readback != CS35L41_INPUT_SRC_ASPRX1)
+        return STATUS_DEVICE_DATA_ERROR;
+    status = cs35l41_reg_read(pDevice, CS35L41_DSP1_RX2_SRC, &readback);
+    if (!NT_SUCCESS(status))
+        return status;
+    return readback == CS35L41_INPUT_SRC_ASPRX2 ? STATUS_SUCCESS : STATUS_DEVICE_DATA_ERROR;
 }
 
 NTSTATUS cs35l41_dsp_init(PCS35L41_CONTEXT pDevice) {

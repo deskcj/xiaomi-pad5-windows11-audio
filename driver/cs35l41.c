@@ -687,6 +687,11 @@ static NTSTATUS cs35l41_component_set_sysclk(PCS35L41_CONTEXT pDevice,
 {
 	UINT32 fs1_val = 0, fs2_val = 0, val;
 	INT32 extclk_cfg;
+	if (freq == 0)
+		return STATUS_INVALID_PARAMETER;
+	extclk_cfg = cs35l41_get_clk_config(freq);
+	if (!NT_SUCCESS(extclk_cfg))
+		return extclk_cfg;
 
 	if (freq > 6000000) {
 		fs1_val = 3 * 4 + 4;
@@ -702,74 +707,82 @@ static NTSTATUS cs35l41_component_set_sysclk(PCS35L41_CONTEXT pDevice,
 
 	val = fs1_val;
 	val |= (fs2_val << CS35L41_FS2_WINDOW_SHIFT) & CS35L41_FS2_WINDOW_MASK;
-	cs35l41_reg_write(pDevice, CS35L41_TEST_KEY_CTL, 0x00000055);
-	cs35l41_reg_write(pDevice, CS35L41_TEST_KEY_CTL, 0x000000AA);
-	cs35l41_reg_write(pDevice, CS35L41_TST_FS_MON0, val);
-	cs35l41_reg_write(pDevice, CS35L41_TEST_KEY_CTL, 0x000000CC);
-	cs35l41_reg_write(pDevice, CS35L41_TEST_KEY_CTL, 0x00000033);
-
-	extclk_cfg = cs35l41_get_clk_config(freq);
-
-	cs35l41_reg_update_bits(pDevice,
+	NTSTATUS status = cs35l41_write_protected(pDevice, CS35L41_TST_FS_MON0, val);
+	if (!NT_SUCCESS(status))
+		return status;
+	status = cs35l41_reg_update_bits(pDevice,
 		CS35L41_SP_RATE_CTRL, 0x3F,
 		extclk_cfg);
+	if (!NT_SUCCESS(status))
+		return status;
 
-	cs35l41_reg_update_bits(pDevice, CS35L41_PLL_CLK_CTRL,
+	status = cs35l41_reg_update_bits(pDevice, CS35L41_PLL_CLK_CTRL,
 		CS35L41_PLL_OPENLOOP_MASK,
 		1 << CS35L41_PLL_OPENLOOP_SHIFT);
-	cs35l41_reg_update_bits(pDevice, CS35L41_PLL_CLK_CTRL,
+	if (!NT_SUCCESS(status)) return status;
+	status = cs35l41_reg_update_bits(pDevice, CS35L41_PLL_CLK_CTRL,
 		CS35L41_REFCLK_FREQ_MASK,
 		extclk_cfg << CS35L41_REFCLK_FREQ_SHIFT);
-	cs35l41_reg_update_bits(pDevice, CS35L41_PLL_CLK_CTRL,
+	if (!NT_SUCCESS(status)) return status;
+	status = cs35l41_reg_update_bits(pDevice, CS35L41_PLL_CLK_CTRL,
 		CS35L41_PLL_CLK_EN_MASK,
 		0 << CS35L41_PLL_CLK_EN_SHIFT);
-	cs35l41_reg_update_bits(pDevice, CS35L41_PLL_CLK_CTRL,
+	if (!NT_SUCCESS(status)) return status;
+	status = cs35l41_reg_update_bits(pDevice, CS35L41_PLL_CLK_CTRL,
 		CS35L41_PLL_CLK_SEL_MASK,
 		source);
-	cs35l41_reg_update_bits(pDevice, CS35L41_PLL_CLK_CTRL,
+	if (!NT_SUCCESS(status)) return status;
+	status = cs35l41_reg_update_bits(pDevice, CS35L41_PLL_CLK_CTRL,
 		CS35L41_PLL_OPENLOOP_MASK,
 		0 << CS35L41_PLL_OPENLOOP_SHIFT);
-	cs35l41_reg_update_bits(pDevice, CS35L41_PLL_CLK_CTRL,
+	if (!NT_SUCCESS(status)) return status;
+	status = cs35l41_reg_update_bits(pDevice, CS35L41_PLL_CLK_CTRL,
 		CS35L41_PLL_CLK_EN_MASK,
 		1 << CS35L41_PLL_CLK_EN_SHIFT);
-
-	return STATUS_SUCCESS;
+	return status;
 }
 
 static NTSTATUS cs35l41_pcm_hw_params(PCS35L41_CONTEXT pDevice)
 {
 	INT32 asp_width = 32;
 	INT32 asp_wl = 16;
+	NabuSpeakerRoute route;
+	if (NabuResolveSpeakerRoute((UINT32)pDevice->UID, &route) != 0)
+		return STATUS_INVALID_DEVICE_STATE;
 
-	cs35l41_reg_update_bits(pDevice, CS35L41_GLOBAL_CLK_CTRL,
+	NTSTATUS status = cs35l41_reg_update_bits(pDevice, CS35L41_GLOBAL_CLK_CTRL,
 		CS35L41_GLOBAL_FS_MASK,
 		0x3 << CS35L41_GLOBAL_FS_SHIFT);
+	if (!NT_SUCCESS(status)) return status;
 
-	cs35l41_component_set_sysclk(pDevice, CS35L41_PLLSRC_SCLK, Q6AFE_LPASS_IBIT_CLK_1_P536_MHZ);
+	status = cs35l41_component_set_sysclk(pDevice, CS35L41_PLLSRC_SCLK, Q6AFE_LPASS_IBIT_CLK_1_P536_MHZ);
+	if (!NT_SUCCESS(status)) return status;
 
-	cs35l41_reg_update_bits(pDevice, CS35L41_SP_FORMAT,
+	status = cs35l41_reg_update_bits(pDevice, CS35L41_SP_FORMAT,
 		CS35L41_ASP_WIDTH_RX_MASK,
 		asp_width << CS35L41_ASP_WIDTH_RX_SHIFT);
-	cs35l41_reg_update_bits(pDevice, CS35L41_SP_RX_WL,
+	if (!NT_SUCCESS(status)) return status;
+	status = cs35l41_reg_update_bits(pDevice, CS35L41_SP_RX_WL,
 		CS35L41_ASP_RX_WL_MASK,
 		asp_wl << CS35L41_ASP_RX_WL_SHIFT);
+	if (!NT_SUCCESS(status)) return status;
 
     // QCAUD uses the Windows serial slots 0/1. Feed both slots to every amplifier.
     // The stock Android DSP then selects the physical left/right pair via CH_BAL.
-    NTSTATUS status = cs35l41_reg_update_bits(pDevice, CS35L41_SP_FRAME_RX_SLOT,
+    status = cs35l41_reg_update_bits(pDevice, CS35L41_SP_FRAME_RX_SLOT,
         CS35L41_ASP_RX1_SLOT_MASK | CS35L41_ASP_RX2_SLOT_MASK,
-        1 << CS35L41_ASP_RX2_SLOT_SHIFT);
+        (route.Rx1Slot << CS35L41_ASP_RX1_SLOT_SHIFT) | (route.Rx2Slot << CS35L41_ASP_RX2_SLOT_SHIFT));
     if (!NT_SUCCESS(status))
         return status;
 
-	cs35l41_reg_update_bits(pDevice, CS35L41_SP_FORMAT,
+	status = cs35l41_reg_update_bits(pDevice, CS35L41_SP_FORMAT,
 		CS35L41_ASP_WIDTH_TX_MASK,
 		asp_width << CS35L41_ASP_WIDTH_TX_SHIFT);
-	cs35l41_reg_update_bits(pDevice, CS35L41_SP_TX_WL,
+	if (!NT_SUCCESS(status)) return status;
+	status = cs35l41_reg_update_bits(pDevice, CS35L41_SP_TX_WL,
 		CS35L41_ASP_TX_WL_MASK,
 		asp_wl << CS35L41_ASP_TX_WL_SHIFT);
-
-	return STATUS_SUCCESS;
+	return status;
 }
 
 static NTSTATUS cs35l41_set_dai_fmt(PCS35L41_CONTEXT pDevice)
@@ -779,29 +792,33 @@ static NTSTATUS cs35l41_set_dai_fmt(PCS35L41_CONTEXT pDevice)
 	INT32 slave_mode = 0; //SND_SOC_DAIFMT_CBS_CFS
 	INT32 asp_fmt = 2; //I2S
 
-	cs35l41_reg_update_bits(pDevice, CS35L41_SP_FORMAT,
+	NTSTATUS status = cs35l41_reg_update_bits(pDevice, CS35L41_SP_FORMAT,
 		CS35L41_ASP_FMT_MASK,
 		asp_fmt << CS35L41_ASP_FMT_SHIFT);
+	if (!NT_SUCCESS(status)) return status;
 
-	cs35l41_reg_update_bits(pDevice, CS35L41_SP_FORMAT,
+	status = cs35l41_reg_update_bits(pDevice, CS35L41_SP_FORMAT,
 		CS35L41_SCLK_MSTR_MASK,
 		slave_mode << CS35L41_SCLK_MSTR_SHIFT);
-	cs35l41_reg_update_bits(pDevice, CS35L41_SP_FORMAT,
+	if (!NT_SUCCESS(status)) return status;
+	status = cs35l41_reg_update_bits(pDevice, CS35L41_SP_FORMAT,
 		CS35L41_LRCLK_MSTR_MASK,
 		slave_mode << CS35L41_LRCLK_MSTR_SHIFT);
+	if (!NT_SUCCESS(status)) return status;
 
-	cs35l41_reg_update_bits(pDevice, CS35L41_AMP_DIG_VOL_CTRL,
+	status = cs35l41_reg_update_bits(pDevice, CS35L41_AMP_DIG_VOL_CTRL,
 		CS35L41_AMP_PCM_VOL_MASK,
 		0 << CS35L41_AMP_PCM_VOL_SHIFT);
+	if (!NT_SUCCESS(status)) return status;
 
-	cs35l41_reg_update_bits(pDevice, CS35L41_SP_FORMAT,
+	status = cs35l41_reg_update_bits(pDevice, CS35L41_SP_FORMAT,
 		CS35L41_LRCLK_INV_MASK,
 		lrclk_fmt << CS35L41_LRCLK_INV_SHIFT);
-	cs35l41_reg_update_bits(pDevice, CS35L41_SP_FORMAT,
+	if (!NT_SUCCESS(status)) return status;
+	status = cs35l41_reg_update_bits(pDevice, CS35L41_SP_FORMAT,
 		CS35L41_SCLK_INV_MASK,
 		sclk_fmt << CS35L41_SCLK_INV_SHIFT);
-
-	return STATUS_SUCCESS;
+	return status;
 }
 
 static BOOLEAN cs35l41_check_cspl_mbox_sts(enum cs35l41_cspl_mbox_cmd cmd,
@@ -1343,6 +1360,9 @@ StartCodec(
         return status;
 
     status = cs35l41_dsp_apply_stock_channel(pDevice);
+    TraceLoggingWrite(g_Cs35l41SpeakerProvider, "NabuSpeakerRoutingCheck",
+        TraceLoggingUInt32((UINT32)pDevice->UID, "AmplifierUid"),
+        TraceLoggingNTStatus(status, "Result"));
     if (!NT_SUCCESS(status))
         return status;
 
