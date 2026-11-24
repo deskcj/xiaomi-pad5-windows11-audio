@@ -22,14 +22,24 @@ Driver research for the four internal Cirrus Logic CS35L41 amplifiers on Xiaomi 
 
 The ZIP includes a PowerShell installer and rollback. Use the four factory calibration pairs from your own tablet's HyperOS installation. [Installation instructions](driver/INSTALL.md)
 
+## Update history
+
+### 24 November 2026 — verified PCM24 transport
+
+- ✅ Fixed format negotiation and PCM24 word packing. The experimental component set passed all 13 native ARM64 WASAPI timing checks, including 20-second shared/exclusive streams and ten reopen cycles. The 10 ms buffer notification interval improved from 19.978 ms to 9.994 ms.
+- The one-second −66 dBFS PCM24 stream was accepted by Windows. Android sound quality, additional loudness and maximum-volume safety remain unconfirmed. [Results and remaining work](docs/pcm24-progress.md) · [Measurement data](docs/results/pcm24-2026-11-24.json)
+
+These results apply to the PCM24 research configuration. The download above remains the existing Cirrus 4.17.27.16 package.
+
 ## Status · 24 November 2026
 
 | Area | At the start | Current result |
 | --- | --- | --- |
+| PCM24 transport | Stream opening failed; later trials supplied about 50% and 75% of the required frames. | ✅ 48 kHz stereo PCM24 in 32-bit containers passed all 13 timing checks. Exclusive playback supplied 961,440 frames over 20.006312 seconds of audio clock time. [Evidence](docs/pcm24-progress.md) |
 | Amplifiers | map220v 16.45.25.900 routed the serial input directly to the DAC. | ✅ The Cirrus build routes stereo through the amplifier DSP with the original HyperOS speaker protection and music profiles. All four amplifiers start. |
-| Loud playback | 4.17.27.8 was louder on the selected test tones and the tablet powered off once during loud music. | ✅ With 4.17.27.15, the test tablet played music from the charger at 100% Windows volume. The interval from first to last signal was 3 min 33 s. The tablet remained on and protection counters recorded no excessive excursion, overheating or abnormal muting. |
+| Loud playback on the PCM16 baseline | 4.17.27.8 was louder on the selected test tones and the tablet powered off once during loud music. | ✅ Earlier, 4.17.27.15 played music with external power at 100% Windows volume for a measured 3 min 33 s without shutting down or increasing the recorded protection counters. This result does not validate the new PCM24 configuration at maximum volume. |
 | Factory calibration | The local build compiled the test tablet's calibration into its binary. | ✅ The public 4.17.27.16 installer reads the target tablet's HyperOS calibration. The ZIP install, PCM16 and native stereo stream opening, and rollback were tested in one Windows session. |
-| Dolby processing | HyperOS Dolby playback on Windows had yet to be demonstrated. | ✅ The original library played 59.84 seconds through the speakers in a standalone process with zero buffer underruns. A separate Float32 test matched the reference output byte for byte. |
+| Standalone Dolby processing | HyperOS Dolby playback on Windows had yet to be demonstrated. | ✅ The original library played 59.84 seconds through the speakers in a standalone process with zero buffer underruns. A separate Float32 test matched the reference output byte for byte. System-wide Dolby remains unfinished. |
 
 [Earlier level measurements](docs/baseline.md#pcm16-level-response) · [Release build and test details](docs/reference-build.md#driver-zip-4172716)
 
@@ -37,8 +47,9 @@ The ZIP includes a PowerShell installer and rollback. Use the four factory calib
 
 - ❌ **System-wide Dolby.** The control graph with stock Qualcomm modules opens normally. The 1.0.2140.17 preload trial still failed to open the Dolby graph with `0x8007045D`. The boot trace confirmed submission of the file mapping table. Loading the Dolby module on the DSP remains unconfirmed.
 - ❌ **MiSound.** In the tested Qualcomm configurations, the DSP opened the graph and then timed out while applying effect parameters.
-- ❌ **24-bit speaker playback.** The tested configurations failed to play a 24-bit stream.
-- ⏳ **Validation.** Compare music quality and maximum loudness with HyperOS, and validate factory calibration on other Xiaomi Pad 5 units.
+- ✅ **PCM24 transport.** Native WASAPI shared/exclusive timing and repeated stream opening passed on the experimental component set. [PCM24 results](docs/pcm24-progress.md)
+- ⏳ **PCM24 speaker validation.** Confirm amplifier telemetry and acoustic output. The latest traces contain no amplifier events, so they cannot establish that protection faults were absent.
+- ⏳ **Quality and power validation.** Compare music quality and maximum loudness with HyperOS, investigate the earlier loud-music shutdown, and validate factory calibration on other Xiaomi Pad 5 units.
 
 [Measurements](docs/baseline.md) · [Build results](docs/reference-build.md) · [Upstream sources](docs/baseline.md#source-revisions)
 

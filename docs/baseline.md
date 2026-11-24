@@ -126,7 +126,11 @@ A separate Float32 test paced the input in 480-frame chunks and processed batche
 
 ## 24-bit speaker playback
 
-24-bit playback failed in the tested Qualcomm and Cirrus configurations. In one trial with the stock physical link, WASAPI accepted exclusive 24-in-32 on initialization, but the first buffer request failed with `0x80070032`. After rollback and restart, PCM16 and the native Windows mix opened successfully. All four amplifiers were running Cirrus 4.17.27.8, and both stereo channels passed the microphone tone check.
+**Update, 24 November 2026:** the complete PCM24 research configuration passed all 13 native ARM64 WASAPI timing checks and a bounded nonzero stream. The exclusive 10 ms buffer notification interval improved from 19.978 ms to 9.994 ms. [Before/after measurements and scope](pcm24-progress.md) · [Measurement data](results/pcm24-2026-11-24.json)
+
+Earlier 24-bit trials failed in the tested Qualcomm and Cirrus configurations. In one trial with the stock physical link, WASAPI accepted exclusive 24-in-32 on initialization, but the first buffer request failed with `0x80070032`. After rollback and restart, PCM16 and the native Windows mix opened successfully. All four amplifiers were running Cirrus 4.17.27.8, and both stereo channels passed the microphone tone check.
+
+The new result establishes PCM24 stream transport and buffer cadence. It does not establish acoustic parity with HyperOS, system-wide Dolby/MiSound or maximum-volume safety. The current PCM24 amplifier traces contain no amplifier events; zero recorded fault events therefore cannot demonstrate that amplifier protections remained clear.
 
 
 ## Source revisions
