@@ -34,7 +34,7 @@
     "MicrosoftPrivateSchemaUsed": false,
     "HardwareId": "SWC\\VEN_DSKC&CID_NABUDOLBYGLOBAL",
     "RequiresDriverBoundSfxExtension": true,
-    "LiveTrialHarnessNeedsApo5Support": true,
+    "LiveTrialHarnessNeedsApo5Support": false,
     "DriverBoundExtensionCandidate": "1.0.2140.35",
     "KernelChanged": false,
     "GainOrProtectionChanged": false,
@@ -49,7 +49,11 @@
       "NabuDolbyGlobal.cat": "9689cffaf11b2e983ffc926df551f82c258afbf29d2c321fe848c2a9d07f36da",
       "NabuDolbyBridge.dll": "dc0c29a144090f83b4532c215332f1a0c96aa4c99ca9db1ccdbc1bb5c117889c"
     },
-    "RollbackActuallyExercised": false
+    "RollbackActuallyExercised": false,
+    "TrialRunnerPrepared": true,
+    "ReadOnlyPreflightPassed": true,
+    "NonElevatedTokenRefusalChecked": true,
+    "ActualHardwareTrialPerformed": false
   },
   "QueueRegression": {
     "audio_opened": false,

@@ -27,7 +27,7 @@ GPIO 中断及保护掩码配置现会传递错误，并在开启 DSP/功放前�
 
 **MiSound 文件路由：** 用 Ghidra 分析了六个 Windows FastRPC 函数。四项隔离的原版机器码测试复现默认 `%DriverData%\Qualcomm\fastRPC` 搜索和 `0x102020` 内核路径查询。所有 OS/CRT 调用、设备获取及 FILE 管理均被拦截，文件打开与内核响应使用模拟。当前扬声器资源映射和字节与 HyperOS 一致，但实际监听进程、资源打开及 ADM 确认仍未验证。该设备列表中没有 `adsp_avs_config.acdb` 映射，这只是观察结果，尚不能确定为故障原因。
 
-.5 组件包也通过 Inf2Cat、目录签名及 INF/DLL 成员验证。候选包不再注册公共全局包，已保存 .4 的原始 INF/CAT/DLL 以供回滚。没有进行安装或回滚试验，联合 .5/.35 测试脚本仍需准备。
+.5 组件包也通过 Inf2Cat、目录签名及 INF/DLL 成员验证。候选包不再注册公共全局包，已保存 .4 的原始 INF/CAT/DLL 以供回滚。联合 .5/.35 脚本通过只读预检，并拒绝非管理员令牌，没有安装、启动处理进程、播放声音或打开 UAC。实际集成及回滚仍未测试。
 
 [队列、构建及路由证据](results/audio-transport-2026-11-25.json) · [Qualcomm 守护进程架构](https://github.com/qualcomm/fastrpc/blob/development/Docs/daemons.md)
 
