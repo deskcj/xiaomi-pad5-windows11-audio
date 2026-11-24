@@ -28,9 +28,9 @@ Download: **4.17.27.16**. Development source: **4.17.27.18**. The published ZIP 
 
 ### 2026-11-25 — 4.17.27.18 — development
 
-- ✅ .18 now checks IRQ/GPIO I²C errors and readbacks: 11 injected failures and 4 invalid readbacks rejected; original healthy writes unchanged.
-- ✅ Four amplifiers loaded without a Windows reboot. Real route/IRQ checks, zero-input playback and four quiet digital L/R tests passed.
-- ⏳ Dolby global pack enumeration fixed; system processing still reports zero frames.
+- ✅ Quiet L/R retest passed; raw ACPI + Android DTS confirm the four-amplifier board mapping.
+- ✅ Original Dolby: 196,608 frames exact; MiSound encoder: 96 fresh original/native comparisons passed.
+- ⏳ OEM endpoint rejects the public global Dolby pack. Signed driver-bound .35 candidate prepared; system Dolby/MiSound remain open.
 
 [Measured evidence](docs/audio-system-progress.md)
 
@@ -63,15 +63,15 @@ PCM24 research set: all 13 timing/reopen tests passed; average 10 ms notificatio
 | Area | Before | Proven now |
 | --- | --- | --- |
 | IRQ/GPIO and routing | IRQ setup ignored I²C errors; only CH_BAL was checked. | ✅ .18 rejects failed IRQ setup; real readbacks passed on all four amplifiers. |
-| Digital L/R | Separation unmeasured. | ✅ Four quiet 800 Hz loopback cases passed, normal and RAW. Physical speaker positions remain unverified. |
-| Dolby APO | Global pack attached under AUDD; no system processing. | ✅ COMPUTER enumeration and selection accepted. ❌ Zero APO processing frames. |
+| Digital L/R | Separation unmeasured. | ✅ Four quiet cases passed; opposite 800 Hz tone <0.1%. UID/I²C board mapping matches Android. Acoustic isolation remains unverified. |
+| Dolby APO | Global pack attached under AUDD; no system processing. | ✅ Identified OEM exclusion of the public global pack; .35 driver-bound candidate built. ❌ System processing unproven. |
 | PCM24 / MiSound | Format/pacing failures; DSP parameters timed out. | ✅ Earlier 13 PCM24 and 96 encoder cases. ❌ MiSound DSP processing and acoustic parity remain open. |
 
 System Dolby, MiSound, acoustic L/R separation and HyperOS-quality sound remain unconfirmed. No new loudness increase is claimed.
 
 ## In progress
 
-- ❌ **System Dolby:** resolve endpoint eligibility/graph selection; registration and manual selection do not yet load the APO.
+- ❌ **System Dolby:** validate the driver-bound SFX candidate; public global packs are inapplicable to this OEM endpoint.
 - ❌ **MiSound:** resolve original DSP resource loading and parameter acknowledgement.
 - ⏳ Physical per-speaker L/R, PCM24 output, HyperOS quality and maximum-volume safety remain unverified.
 

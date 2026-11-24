@@ -1,0 +1,332 @@
+{
+  "Date": "2026-11-25",
+  "InstalledCirrusVersion": "4.17.27.18",
+  "PublishedDriverZipVersion": "4.17.27.16",
+  "NewDriverInstalled": false,
+  "RebootPerformed": false,
+  "AudioServicesRestarted": false,
+  "QuietDigitalStereo": {
+    "endpoint": "{0.0.0.00000000}.{9d311770-9130-4295-bfc6-e64627ad96d3}",
+    "input_peak_limit": 0.001,
+    "input_dbfs": -60,
+    "registry_modified": false,
+    "acoustic_lr_proven": false,
+    "maximum_volume_safety_proven": false,
+    "cases": [
+      {
+        "channel": "L",
+        "raw": false,
+        "hr": "0x00000000",
+        "submitted_frames": 82560,
+        "captured_frames": 77280,
+        "active_frames": 20074,
+        "rms": [
+          1.55536910545e-05,
+          0
+        ],
+        "peak": [
+          3.0517578125e-05,
+          0
+        ],
+        "opposite_rms_ratio": 0,
+        "tone_800hz_amplitudes": [
+          1.46689076254e-05,
+          0
+        ],
+        "opposite_tone_ratio": 0,
+        "digital_separation_passed": true,
+        "capture_discontinuities": 1,
+        "nonfinite_frames": 0,
+        "maximum_meter_peak": 0.00103759789,
+        "passed": true
+      },
+      {
+        "channel": "R",
+        "raw": false,
+        "hr": "0x00000000",
+        "submitted_frames": 82080,
+        "captured_frames": 77760,
+        "active_frames": 20101,
+        "rms": [
+          0,
+          1.55160357248e-05
+        ],
+        "peak": [
+          0,
+          3.0517578125e-05
+        ],
+        "opposite_rms_ratio": 0,
+        "tone_800hz_amplitudes": [
+          0,
+          1.4595981579e-05
+        ],
+        "opposite_tone_ratio": 0,
+        "digital_separation_passed": true,
+        "capture_discontinuities": 1,
+        "nonfinite_frames": 0,
+        "maximum_meter_peak": 0.00103759789,
+        "passed": true
+      },
+      {
+        "channel": "L",
+        "raw": true,
+        "hr": "0x00000000",
+        "submitted_frames": 82560,
+        "captured_frames": 77280,
+        "active_frames": 20151,
+        "rms": [
+          1.55834929858e-05,
+          1.03564642812e-06
+        ],
+        "peak": [
+          3.0517578125e-05,
+          3.0517578125e-05
+        ],
+        "opposite_rms_ratio": 0.0664579134516,
+        "tone_800hz_amplitudes": [
+          1.46746722465e-05,
+          1.08105574708e-08
+        ],
+        "opposite_tone_ratio": 0.000736681357456,
+        "digital_separation_passed": true,
+        "capture_discontinuities": 1,
+        "nonfinite_frames": 0,
+        "maximum_meter_peak": 0.00103759789,
+        "passed": true
+      },
+      {
+        "channel": "R",
+        "raw": true,
+        "hr": "0x00000000",
+        "submitted_frames": 82560,
+        "captured_frames": 77280,
+        "active_frames": 20181,
+        "rms": [
+          9.63300689017e-07,
+          1.5595088711e-05
+        ],
+        "peak": [
+          3.0517578125e-05,
+          3.0517578125e-05
+        ],
+        "opposite_rms_ratio": 0.061769490823,
+        "tone_800hz_amplitudes": [
+          1.33607734424e-08,
+          1.46859763802e-05
+        ],
+        "opposite_tone_ratio": 0.000909764056301,
+        "digital_separation_passed": true,
+        "capture_discontinuities": 1,
+        "nonfinite_frames": 0,
+        "maximum_meter_peak": 0.00103759789,
+        "passed": true
+      }
+    ],
+    "volume_before": 0.0599999912,
+    "volume_after": 0.0599999912,
+    "volume_unchanged": true,
+    "passed": true
+  },
+  "BoardMapping": {
+    "DriverMappingMatchesRawAcpiAndOriginalDts": true,
+    "Rows": [
+      {
+        "AcpiDevice": "CSL1",
+        "Uid": 0,
+        "I2cAddress": "0x40",
+        "Bus": "\\_SB.I2C8",
+        "Speed": 100000,
+        "DtsCorner": "DR",
+        "DriverPosition": "NabuBottomRight",
+        "DriverChannel": "NabuChannelRight",
+        "DriverBalance": "0x400000",
+        "RawAmlOffset": "0x479c4",
+        "RawAmlPackageSha256": "c186f4fcac9b3391df7138ebee1d0ed0c88518b6121f5332db77d67fb523f041",
+        "Matched": true
+      },
+      {
+        "AcpiDevice": "CSL2",
+        "Uid": 1,
+        "I2cAddress": "0x41",
+        "Bus": "\\_SB.I2C8",
+        "Speed": 100000,
+        "DtsCorner": "UR",
+        "DriverPosition": "NabuTopRight",
+        "DriverChannel": "NabuChannelRight",
+        "DriverBalance": "0x400000",
+        "RawAmlOffset": "0x47a64",
+        "RawAmlPackageSha256": "ef82b883213754dc471ac304596f9688fee85cd75b8791aa38420529280a9190",
+        "Matched": true
+      },
+      {
+        "AcpiDevice": "CSL3",
+        "Uid": 2,
+        "I2cAddress": "0x42",
+        "Bus": "\\_SB.I2C8",
+        "Speed": 100000,
+        "DtsCorner": "DL",
+        "DriverPosition": "NabuBottomLeft",
+        "DriverChannel": "NabuChannelLeft",
+        "DriverBalance": "0x0",
+        "RawAmlOffset": "0x47b04",
+        "RawAmlPackageSha256": "1965e5c23b31ac34223bbdf38eabd43df563a015d62c33a409f3dc1d4cc12fd6",
+        "Matched": true
+      },
+      {
+        "AcpiDevice": "CSL4",
+        "Uid": 3,
+        "I2cAddress": "0x43",
+        "Bus": "\\_SB.I2C8",
+        "Speed": 100000,
+        "DtsCorner": "UL",
+        "DriverPosition": "NabuTopLeft",
+        "DriverChannel": "NabuChannelLeft",
+        "DriverBalance": "0x0",
+        "RawAmlOffset": "0x47ba5",
+        "RawAmlPackageSha256": "157cef99d8e46bcf2cd9afc5e5c3a213929dcc0b88a806f598196e280264792d",
+        "Matched": true
+      }
+    ],
+    "DsdtSha256": "b4eeefa8758fed3935b68080407273a0f2e121c223c864999c399fe92835d2b6",
+    "DtsSha256": "7e6f72f4071c6668faef3bda5e9fca47ea05fc85aa77bf0b34145a5610fa991b",
+    "RouteSourceSha256": "19f13ff1fbecc0a9bd82728c4a877aece783c836245afddcc494c6119e34f6b5",
+    "AcousticSpeakerPositionsProven": false,
+    "RealAmplifierChannelIsolationProven": false,
+    "DriverChanged": false,
+    "PhysicalAudioStarted": false,
+    "Note": "Raw AML UID/I2C descriptors independently confirm the mapping despite unrelated ASL decoder duplicate-name errors. Sound pressure and real channel isolation still need measurement."
+  },
+  "DolbyOffline": {
+    "OriginalLibrary": "libswdap.so",
+    "OriginalFrames": 196608,
+    "InitCasesPassed": 7,
+    "UnexpectedFrames": 0,
+    "DryFallbackFrames": 0,
+    "OriginalOutputMatched": true,
+    "AudioDeviceOpened": false,
+    "SystemGraphUsed": false
+  },
+  "MiSoundOffline": {
+    "OriginalLibrarySha256": "6340604109aefb8f6e24e3e877dc19f8e118dc9eeebacf1e8301a81433061b2c",
+    "OriginalMachineCodeExecuted": true,
+    "NativeArchitecture": "ARM64",
+    "CasesPassed": 96,
+    "CasesTotal": 96,
+    "DspDispatchIntercepted": true,
+    "NativeSourceSha256": "1f7b8c10f7a9e92a701e742319503e78a0768d975044afcf23356024a68cb85d",
+    "AudioDeviceOpened": false,
+    "DspEffectApplied": false
+  },
+  "DolbySystem": {
+    "audio_opened": false,
+    "drivers_changed": false,
+    "registry_modified": false,
+    "system_dolby_proven": false,
+    "preflight_hr": "0x00000000",
+    "requested_hr": "0x00000000",
+    "requested_vt": 0,
+    "requested": null,
+    "requested_own_pack": false,
+    "applied_hr": "0x00000000",
+    "applied_vt": 65,
+    "applied_guid": "{00D5B26C-4D0F-4A83-BB69-C2F12DC5FB10}",
+    "applied_own_pack": false,
+    "requested_matches_applied": false,
+    "non_inbox_hr": "0x00000000",
+    "non_inbox_vt": 11,
+    "has_non_inbox_inf": true,
+    "sideband_hr": "0x00000000",
+    "sideband_vt": 0,
+    "is_sideband": false,
+    "oem_filter_would_reject_public_global_pack": true,
+    "read_passed": true,
+    "PreviousSelectionPersistedButNotApplied": true,
+    "PreviousSystemFramesProcessed": 0,
+    "CandidateExtensionVersion": "1.0.2140.35",
+    "CandidateInf2CatPassed": true,
+    "CandidateSignatureVerified": true,
+    "CandidateInstalled": false,
+    "DriverBoundPreflightPassed": true,
+    "RollbackValuesReadBack": 15,
+    "RollbackHardwareTestPerformed": false
+  },
+  "MiSoundResources": {
+    "WindowsDspSha256": "7f803ec3c56a2ad43c414b587d68d5b0681fb7dd379b90ee4f82fcbf7f8ae764",
+    "HyperOsDspSha256": "3bdf15fd2102c0b808decfde615adf8797adc7fdd0406076dc9e4e50ef562ab7",
+    "ComparedRegions": [
+      {
+        "Name": "MiSound resource-init code window",
+        "VirtualAddress": "0xb03fa4d4",
+        "Bytes": 1184,
+        "HyperOsSha256": "c8fe50f9b9a1d201cda046d1401313a6841d64557272bf703ccac017068e2c3a",
+        "WindowsSha256": "c8fe50f9b9a1d201cda046d1401313a6841d64557272bf703ccac017068e2c3a",
+        "Identical": true,
+        "ChangedBytes": 0
+      },
+      {
+        "Name": "MiSound resource-init tail",
+        "VirtualAddress": "0xb046f260",
+        "Bytes": 32,
+        "HyperOsSha256": "e0549b3c80d811669049e18db21171f22529f10aa5eafe84f1dca0ed11d886f8",
+        "WindowsSha256": "e0549b3c80d811669049e18db21171f22529f10aa5eafe84f1dca0ed11d886f8",
+        "Identical": true,
+        "ChangedBytes": 0
+      },
+      {
+        "Name": "MiSound resource names and diagnostics",
+        "VirtualAddress": "0xb0749ca4",
+        "Bytes": 396,
+        "HyperOsSha256": "7f0ffdf50d5edc0d50853efa7a02d6a95719bd0f819d1b80febd5aabfbdf2dbd",
+        "WindowsSha256": "7f0ffdf50d5edc0d50853efa7a02d6a95719bd0f819d1b80febd5aabfbdf2dbd",
+        "Identical": true,
+        "ChangedBytes": 0
+      },
+      {
+        "Name": "DSP file-open entry window",
+        "VirtualAddress": "0xb047e1f0",
+        "Bytes": 256,
+        "HyperOsSha256": "737091d55751bb672e8c25df07078c528acf598f6d1ca3a73c419deab1f217ff",
+        "WindowsSha256": "737091d55751bb672e8c25df07078c528acf598f6d1ca3a73c419deab1f217ff",
+        "Identical": true,
+        "ChangedBytes": 0
+      },
+      {
+        "Name": "DSP service-open entry window",
+        "VirtualAddress": "0xb04ad3f0",
+        "Bytes": 256,
+        "HyperOsSha256": "fbf0cd5cdbd7d8b0da874781bc82d30bae054b7cff35fa6e6c2cf0b0d4a1ef78",
+        "WindowsSha256": "fbf0cd5cdbd7d8b0da874781bc82d30bae054b7cff35fa6e6c2cf0b0d4a1ef78",
+        "Identical": true,
+        "ChangedBytes": 0
+      }
+    ],
+    "Resources": [
+      {
+        "Name": "misound_res_spk.bin",
+        "Bytes": 5592,
+        "Identical": true,
+        "HyperOsSha256": "4d617682a2ac00a2a9fc43f51f3fda86fc61aabcbee250245029a1769e63292d",
+        "WindowsSha256": "4d617682a2ac00a2a9fc43f51f3fda86fc61aabcbee250245029a1769e63292d"
+      },
+      {
+        "Name": "misound_res_spk4ch.bin",
+        "Bytes": 5720,
+        "Identical": true,
+        "HyperOsSha256": "86dedc55e40ed6f24ccfb268e5197c599e48741d311cd8ebb285ab083df77ead",
+        "WindowsSha256": "86dedc55e40ed6f24ccfb268e5197c599e48741d311cd8ebb285ab083df77ead"
+      }
+    ],
+    "DspCodeExecuted": false,
+    "NewDspCommandsSent": false,
+    "DriversInstalled": false,
+    "AudioOpened": false,
+    "SystemMiSoundProven": false,
+    "FullFirmwareEquivalenceProven": false,
+    "Interpretation": "Equal selected regions only establish that these resource-init/file-service code windows are already present; actual topology, resource opening and parameter acknowledgements still require investigation."
+  },
+  "SystemDolbyProven": false,
+  "SystemMiSoundProven": false,
+  "AcousticChannelIsolationProven": false,
+  "HyperOsAcousticParityProven": false,
+  "MaximumVolumeSafetyProven": false
+}
