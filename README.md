@@ -22,19 +22,27 @@ Driver research for the four internal Cirrus Logic CS35L41 amplifiers on Xiaomi 
 
 The ZIP includes a PowerShell installer and rollback. Use the four factory calibration pairs from your own tablet's HyperOS installation. [Installation instructions](driver/INSTALL.md)
 
-Download: **4.17.27.16**. Development source: **4.17.27.17**. The published ZIP does not include system Dolby or MiSound.
+Download: **4.17.27.16**. Development source: **4.17.27.18**. The published ZIP does not include system Dolby or MiSound.
 
 ## Update history
 
-### 2026-11-25 — 4.17.27.17 / APO 2.0.0.4 — development
+### 2026-11-25 — 4.17.27.18 — development
 
-- ✅ Fixed ignored I²C errors and added L/R route readback checks. Four amplifiers started on **4.17.27.17**; the zero-input WASAPI stream passed.
-- ✅ Added Windows 11 APO initialization: **7 + 7 offline cases** passed; each 196,608-frame stereo render matched the original.
+- ✅ .18 now checks IRQ/GPIO I²C errors and readbacks: 11 injected failures and 4 invalid readbacks rejected; original healthy writes unchanged.
+- ✅ Four amplifiers loaded without a Windows reboot. Real route/IRQ checks, zero-input playback and four quiet digital L/R tests passed.
+- ⏳ Dolby global pack enumeration fixed; system processing still reports zero frames.
 
 [Measured evidence](docs/audio-system-progress.md)
 
 <details>
 <summary>Previous updates</summary>
+
+#### 2026-11-25 — 4.17.27.17 / APO 2.0.0.4 — development
+
+- ✅ Fixed ignored I²C errors and added L/R route readback checks. Four amplifiers started on **4.17.27.17**; the zero-input WASAPI stream passed.
+- ✅ Added Windows 11 APO initialization: **7 + 7 offline cases** passed; each 196,608-frame stereo render matched the original.
+
+[Measured evidence](docs/audio-system-progress.md)
 
 #### 2026-11-25 — MiSound
 
@@ -54,18 +62,18 @@ PCM24 research set: all 13 timing/reopen tests passed; average 10 ms notificatio
 
 | Area | Before | Proven now |
 | --- | --- | --- |
-| I²C and L/R route | Some configuration errors were ignored; only CH_BAL was checked. | ✅ 236 simulated failures detected; slot pair and both DSP inputs checked. Four amplifiers start on .17. |
-| PCM24 | Format and frame delivery failed. | ✅ 13 WASAPI timing/reopen checks passed on the research set. |
-| Dolby APO | No Windows 11 initialization path. | ✅ Init2/init3 and original output verified offline. ❌ System activation remains open. |
-| MiSound | DSP parameter application timed out. | ✅ 96 command-encoding comparisons passed. ❌ DSP effect remains open. |
+| IRQ/GPIO and routing | IRQ setup ignored I²C errors; only CH_BAL was checked. | ✅ .18 rejects failed IRQ setup; real readbacks passed on all four amplifiers. |
+| Digital L/R | Separation unmeasured. | ✅ Four quiet 800 Hz loopback cases passed, normal and RAW. Physical speaker positions remain unverified. |
+| Dolby APO | Global pack attached under AUDD; no system processing. | ✅ COMPUTER enumeration and selection accepted. ❌ Zero APO processing frames. |
+| PCM24 / MiSound | Format/pacing failures; DSP parameters timed out. | ✅ Earlier 13 PCM24 and 96 encoder cases. ❌ MiSound DSP processing and acoustic parity remain open. |
 
 System Dolby, MiSound, acoustic L/R separation and HyperOS-quality sound remain unconfirmed. No new loudness increase is claimed.
 
 ## In progress
 
-- ❌ **System Dolby:** verify audio-host loading and processed frames after the requested restart.
-- ❌ **MiSound:** resolve original Qualcomm DSP resource loading and parameter acknowledgement.
-- ⏳ Physical L/R separation, PCM24 speaker output, HyperOS sound quality and maximum-volume safety still need validation.
+- ❌ **System Dolby:** resolve endpoint eligibility/graph selection; registration and manual selection do not yet load the APO.
+- ❌ **MiSound:** resolve original DSP resource loading and parameter acknowledgement.
+- ⏳ Physical per-speaker L/R, PCM24 output, HyperOS quality and maximum-volume safety remain unverified.
 
 ## ❤️ Help bring better sound to Windows on nabu
 

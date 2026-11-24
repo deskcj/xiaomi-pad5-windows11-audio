@@ -2,30 +2,30 @@
 
 [English](audio-system-progress.md) · [Русский](audio-system-progress.ru.md) · [简体中文](audio-system-progress.zh-CN.md)
 
-System Dolby, MiSound, acoustic L/R separation and HyperOS-quality sound remain unconfirmed. No new loudness increase is claimed.
+No loudness or HyperOS-quality improvement is claimed. Quiet digital loopback is not an acoustic speaker test.
 
 | Area | Before | Proven now |
 | --- | --- | --- |
-| Amplifier routing | Only CH_BAL was read back. | ✅ Slots 0/1, both DSP inputs and CH_BAL checked; layout matches original HyperOS controls. |
-| I²C failures | 20 of 224 simulated failures were propagated; 204 were ignored. | ✅ All 236 candidate failure cases propagated; 16 mismatching readbacks rejected. |
-| Installed driver | Working .15 baseline. | ✅ .17 started all four amplifiers; 101,280 zero-input WASAPI frames passed. |
-| Dolby APO | Init3 and Windows 11 context settings were unsupported. | ✅ Seven init2 + seven init3 cases; 196,608 reference frames each, exact. System processing unproven. |
-| PCM24 | Negotiation and pacing failed. | ✅ 13 timing/reopen checks passed on the existing research set; speaker validation remains. |
-| MiSound | DSP dispatch timed out. | ✅ 96 original control-encoding comparisons passed; resource/ack path remains open. |
+| IRQ/GPIO and routing | IRQ setup ignored I²C errors; only CH_BAL was checked. | ✅ .18 rejects failed IRQ setup; real readbacks passed on all four amplifiers. |
+| Digital L/R | Separation unmeasured. | ✅ Four quiet 800 Hz loopback cases passed, normal and RAW. Physical speaker positions remain unverified. |
+| Dolby APO | Global pack attached under AUDD; no system processing. | ✅ COMPUTER enumeration and selection accepted. ❌ Zero APO processing frames. |
+| PCM24 / MiSound | Format/pacing failures; DSP parameters timed out. | ✅ Earlier 13 PCM24 and 96 encoder cases. ❌ MiSound DSP processing and acoustic parity remain open. |
 
-The .17 register writes on successful paths match the saved .16 source. Fault tests use an in-memory register model. The live WASAPI source contained only zeros; its approximately one-PCM16-LSB meter reading is converter dither. Neither test measures speaker quality.
+GPIO interrupt configuration and the protection mask now propagate errors and verify readbacks before DSP/amp enablement. The healthy writes, firmware, coefficients and factory calibration remain unchanged. EWDK, catalog generation and signing passed.
 
-APO 2.0.0.4 passed standalone Windows 10/11 initialization and original Dolby output comparisons without opening an audio device. Its signed EffectPack/component packages were staged; Windows requested a restart. No processing in normal Windows applications is proven.
+Actual kernel events confirmed route and IRQ checks on UID 0–3. Four -60 dBFS source tests passed without changing the 6% endpoint volume. The earlier total-RMS criterion also failed on baseline .17 because PCM16 dither was large relative to this very quiet signal; the corrected measurement compares the coherent 800 Hz tone and retains raw RMS/peaks. Neither criterion measures acoustic speaker quality.
+
+The corrected Dolby COMPUTER extension registered its global pack without a reboot. Explicit selection succeeded, but audiodg still supplied zero APO callbacks/processed frames. The temporary extension was removed and the selection restored. Protection counters showed no overtemperature/overexcursion in this small-signal session; a latched VmonLowFlag was observed before codec restart. This does not identify the earlier loud-music shutdown or prove maximum-volume safety.
 
 ## In progress
 
-- ❌ **System Dolby:** verify audio-host loading and processed frames after the requested restart.
-- ❌ **MiSound:** resolve original Qualcomm DSP resource loading and parameter acknowledgement.
-- ⏳ Physical L/R separation, PCM24 speaker output, HyperOS sound quality and maximum-volume safety still need validation.
+- ❌ **System Dolby:** resolve endpoint eligibility/graph selection; registration and manual selection do not yet load the APO.
+- ❌ **MiSound:** resolve original DSP resource loading and parameter acknowledgement.
+- ⏳ Physical per-speaker L/R, PCM24 output, HyperOS quality and maximum-volume safety remain unverified.
 
-Download: **4.17.27.16**. Development source: **4.17.27.17**. The published ZIP does not include system Dolby or MiSound.
+Download: **4.17.27.16**. Development source: **4.17.27.18**. The public ZIP does not include system Dolby or MiSound.
 
-[Measured evidence · 2026-11-25](results/audio-routing-apo-2026-11-25.json) · [2026-11-24](results/audio-system-2026-11-24.json)
+[Measured evidence · 2026-11-25](results/audio-postboot-2026-11-25.json) · [Earlier](results/audio-routing-apo-2026-11-25.json)
 
 <details>
 <summary>Earlier evidence (24–25 November 2026)</summary>

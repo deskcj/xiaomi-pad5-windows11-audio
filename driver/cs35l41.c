@@ -1185,6 +1185,46 @@ static VOID cs35l41_trace_speaker_protection(PCS35L41_CONTEXT pDevice, BOOLEAN o
         TraceLoggingUInt32(counters[5], "VmonLowFlag"));
 }
 
+static NTSTATUS cs35l41_configure_irq_gpio(PCS35L41_CONTEXT pDevice)
+{
+    // Preserve the original input GPIO1, active-low GPIO2 interrupt function
+    // and protection mask. A failed transaction must stop startup before DSP
+    // or amplifier enablement, instead of silently losing fault reporting.
+    const UINT32 gpioMask = CS35L41_GPIO_POL_MASK | CS35L41_GPIO_DIR_MASK;
+    NTSTATUS status = cs35l41_reg_update_bits(pDevice, CS35L41_GPIO1_CTRL1,
+        gpioMask, 1U << CS35L41_GPIO_DIR_SHIFT);
+    if (!NT_SUCCESS(status))
+        return status;
+    status = cs35l41_reg_update_bits(pDevice, CS35L41_GPIO2_CTRL1, gpioMask, 0);
+    if (!NT_SUCCESS(status))
+        return status;
+    status = cs35l41_reg_update_bits(pDevice, CS35L41_GPIO_PAD_CONTROL,
+        CS35L41_GPIO2_CTRL_MASK, 4U << CS35L41_GPIO2_CTRL_SHIFT);
+    if (!NT_SUCCESS(status))
+        return status;
+    status = cs35l41_reg_write(pDevice, CS35L41_IRQ1_MASK1, CS35L41_INT1_MASK_DEFAULT);
+    if (!NT_SUCCESS(status))
+        return status;
+
+    static const struct { UINT32 Reg; UINT32 Mask; UINT32 Expected; } checks[] = {
+        { CS35L41_GPIO1_CTRL1, CS35L41_GPIO_POL_MASK | CS35L41_GPIO_DIR_MASK,
+            1U << CS35L41_GPIO_DIR_SHIFT },
+        { CS35L41_GPIO2_CTRL1, CS35L41_GPIO_POL_MASK | CS35L41_GPIO_DIR_MASK, 0 },
+        { CS35L41_GPIO_PAD_CONTROL, CS35L41_GPIO2_CTRL_MASK,
+            4U << CS35L41_GPIO2_CTRL_SHIFT },
+        { CS35L41_IRQ1_MASK1, 0xffffffffU, CS35L41_INT1_MASK_DEFAULT }
+    };
+    for (UINT32 index = 0; index < sizeof(checks) / sizeof(checks[0]); index++) {
+        UINT32 actual;
+        status = cs35l41_reg_read(pDevice, checks[index].Reg, &actual);
+        if (!NT_SUCCESS(status))
+            return status;
+        if ((actual & checks[index].Mask) != checks[index].Expected)
+            return STATUS_DEVICE_CONFIGURATION_ERROR;
+    }
+    return STATUS_SUCCESS;
+}
+
 NTSTATUS
 StartCodec(
 	PCS35L41_CONTEXT pDevice
@@ -1275,42 +1315,12 @@ StartCodec(
 	if (!NT_SUCCESS(status))
 		return status;
 
-	struct cs35l41_gpio_cfg gpio1;
-	struct cs35l41_gpio_cfg gpio2;
-
-	gpio1.pol_inv = FALSE;
-	gpio1.out_en = FALSE;
-	gpio1.func = 0;
-	gpio1.valid = FALSE;
-
-	gpio2.pol_inv = FALSE;
-	gpio2.out_en = TRUE;
-	//GpioInt in ACPI should be:
-	//ActiveLow == func 2 or 4
-	//ActiveHigh == func 5
-	gpio2.func = 4;
-	gpio2.valid = TRUE;
-	//E1000001 downstream
-	cs35l41_reg_update_bits(pDevice, CS35L41_GPIO1_CTRL1,
-		CS35L41_GPIO_POL_MASK | CS35L41_GPIO_DIR_MASK,
-		gpio1.pol_inv << CS35L41_GPIO_POL_SHIFT |
-		!gpio1.out_en << CS35L41_GPIO_DIR_SHIFT);
-
-	//61000001 downstream
-	cs35l41_reg_update_bits(pDevice, CS35L41_GPIO2_CTRL1,
-		CS35L41_GPIO_POL_MASK | CS35L41_GPIO_DIR_MASK,
-		gpio2.pol_inv << CS35L41_GPIO_POL_SHIFT |
-		!gpio2.out_en << CS35L41_GPIO_DIR_SHIFT);
-
-	if (gpio1.valid)
-		cs35l41_reg_update_bits(pDevice, CS35L41_GPIO_PAD_CONTROL, CS35L41_GPIO1_CTRL_MASK,
-			gpio1.func << CS35L41_GPIO1_CTRL_SHIFT);
-
-	if (gpio2.valid)
-		cs35l41_reg_update_bits(pDevice, CS35L41_GPIO_PAD_CONTROL, CS35L41_GPIO2_CTRL_MASK,
-			gpio2.func << CS35L41_GPIO2_CTRL_SHIFT);
-
-	cs35l41_reg_write(pDevice, CS35L41_IRQ1_MASK1, CS35L41_INT1_MASK_DEFAULT);
+    status = cs35l41_configure_irq_gpio(pDevice);
+    TraceLoggingWrite(g_Cs35l41SpeakerProvider, "NabuInterruptConfigurationCheck",
+        TraceLoggingUInt32((UINT32)pDevice->UID, "AmplifierUid"),
+        TraceLoggingNTStatus(status, "Result"));
+    if (!NT_SUCCESS(status))
+        return status;
 
 	//Load DSP firmware
 	status = cs35l41_dsp_init(pDevice);
