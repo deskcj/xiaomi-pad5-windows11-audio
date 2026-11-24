@@ -2,6 +2,8 @@
 
 [English](dolby-apo-progress.md) · [Русский](dolby-apo-progress.ru.md) · [简体中文](dolby-apo-progress.zh-CN.md)
 
+> [Newer system-integration results and before/after comparison](audio-system-progress.md).
+
 **Proven:** an unregistered native ARM64 COM APO receives the original Android Dolby renderer's Float32 output through a separate process. Regular and irregular callback tests each matched all 196,608 stereo frames byte for byte. **System-wide Dolby and MiSound remain unfinished.**
 
 The original `libswdap.so` runs in an isolated ARM64 guest using captured Dynamic / speaker_landscape parameters verified against HyperOS ACDB. This remains emulated Android code, not a native Windows Dolby library. No EQ, amplifier gain or protection limits were increased.
@@ -20,7 +22,7 @@ Seven digital scenarios passed: regular callbacks, irregular callbacks, worker e
 
 ## Remaining work
 
-- ❌ Actual Windows audio-graph initialization, worker broker, component registration and processing-mode validation. The lab initialization payload is not the system property-store initialization used by Windows.
+- ❌ Actual Windows audio-graph activation and processing. Official property-store initialization, the worker broker and component installation have since passed their separate checks; [current system-integration results](audio-system-progress.md) distinguish these from live processing.
 - ❌ MiSound integration and the unresolved Qualcomm DSP module-loading path.
 - ⏳ Long-running playback under load, amplifier telemetry, acoustic comparison with Android and maximum-volume safety. The earlier shutdown cause remains unknown.
 

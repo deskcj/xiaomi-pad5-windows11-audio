@@ -24,6 +24,11 @@ The ZIP includes a PowerShell installer and rollback. Use the four factory calib
 
 ## Update history
 
+### 24 November 2026 — system integration: verified progress and remaining blockers
+
+- ✅ The original Dolby prototype passed official Windows APO initialization and worker contention tests; all 196,608 stereo frames matched the reference again. Signed APO installation and clean rollback were checked without reboot.
+- ❌ System-wide Dolby and MiSound remain unfinished: Windows has not activated the APO, and the original MiSound HAL callback performs no sample processing. [Before/after comparison, evidence and remaining tasks](docs/audio-system-progress.md)
+
 ### 24 November 2026 — original Dolby connected to a COM APO prototype
 
 - ✅ The unregistered ARM64 APO now receives original Android Dolby output through a separate worker. All 196,608 stereo frames matched the reference in both regular and irregular callback tests. Seven digital scenarios, COM reopen and 339 native math ABI cases passed.
@@ -46,13 +51,14 @@ These results apply to the PCM24 research configuration. The download above rema
 | Factory calibration | The local build compiled the test tablet's calibration into its binary. | ✅ The public 4.17.27.16 installer reads the target tablet's HyperOS calibration. The ZIP install, PCM16 and native stereo stream opening, and rollback were tested in one Windows session. |
 | Standalone Dolby processing | HyperOS Dolby playback on Windows had yet to be demonstrated. | ✅ The original library played 59.84 seconds through the speakers in a standalone process with zero buffer underruns. A separate Float32 test matched the reference output byte for byte. System-wide Dolby remains unfinished. |
 | Dolby ↔ COM APO prototype | The default COM instance was passthrough; worker queues were connected only by the research factory. | ✅ The default factory now connects original Dolby through shared memory in an unregistered digital harness. Exact reference output, fallback, reset and reopen passed. [Evidence](docs/dolby-apo-progress.md). This is not system-wide integration. |
+| Windows APO initialization | Only the private lab init payload was supported. | ✅ Official system-init and shared worker-broker tests passed; signed component installation and rollback passed. ❌ Actual processing in the Windows graph remains missing. [Before/after](docs/audio-system-progress.md) |
 
 [Earlier level measurements](docs/baseline.md#pcm16-level-response) · [Release build and test details](docs/reference-build.md#driver-zip-4172716)
 
 ## In progress
 
-- ❌ **System-wide Dolby.** The software path now passes exact-reference tests through a COM APO prototype, including interruption recovery. Windows audio-graph integration is still missing. The Qualcomm DSP preload path remains unconfirmed after `0x8007045D`. [APO progress](docs/dolby-apo-progress.md)
-- ❌ **MiSound.** In the tested Qualcomm configurations, the DSP opened the graph and then timed out while applying effect parameters.
+- ❌ **System-wide Dolby.** Exact original-library processing and official Windows initialization passed standalone. The installed component still produced zero audio-host APO callbacks; actual system processing is not active. [Before/after and current blocker](docs/audio-system-progress.md)
+- ❌ **MiSound.** The original Android HAL callback was proven to validate buffers without processing samples. Its speaker effect needs the DSP path, where parameter application still times out. [Details](docs/audio-system-progress.md)
 - ✅ **PCM24 transport.** Native WASAPI shared/exclusive timing and repeated stream opening passed on the experimental component set. [PCM24 results](docs/pcm24-progress.md)
 - ⏳ **PCM24 speaker validation.** Confirm amplifier telemetry and acoustic output. The latest traces contain no amplifier events, so they cannot establish that protection faults were absent.
 - ⏳ **Quality and power validation.** Compare music quality and maximum loudness with HyperOS, investigate the earlier loud-music shutdown, and validate factory calibration on other Xiaomi Pad 5 units.

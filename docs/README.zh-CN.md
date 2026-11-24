@@ -24,6 +24,11 @@ ZIP 包含 PowerShell 安装与回滚脚本。请准备当前平板原版 HyperO
 
 ## 更新记录
 
+### 2026 年 11 月 24 日 — 系统集成：已验证的进展与剩余问题
+
+- ✅ 原版 Dolby 原型通过标准 Windows APO 初始化与代理槽占用测试；全部 196,608 个双声道帧再次与参考结果一致。已验证签名 APO 安装与完整回滚，无须重启 Windows。
+- ❌ 系统级 Dolby 和 MiSound 尚未完成：Windows 未激活 APO，原版 MiSound HAL 回调也不处理音频采样。[改动前后、验证结果与剩余任务](audio-system-progress.zh-CN.md)
+
 ### 2026 年 11 月 24 日 — 原版 Dolby 已连接到 COM APO 原型
 
 - ✅ 尚未注册的 ARM64 APO 通过独立工作进程接收 Android 原版 Dolby 输出。在固定大小和不规则大小回调测试中，全部 196,608 个双声道帧与参考结果完全一致。七项数字测试、COM 重新打开和 339 项原生数学 ABI 检查均通过。
@@ -46,13 +51,14 @@ ZIP 包含 PowerShell 安装与回滚脚本。请准备当前平板原版 HyperO
 | 出厂校准 | 本地构建把测试平板的校准数据编译进驱动。 | ✅ 公开版 4.17.27.16 读取安装目标平板的 HyperOS 校准文件。已在同一次 Windows 启动中验证 ZIP 安装、打开 PCM16 与系统格式立体声流及回滚。 |
 | 独立进程中的 Dolby 处理 | 当时尚未验证 HyperOS Dolby 能否在 Windows 上播放。 | ✅ 原版库在独立进程中通过内置扬声器播放了 59.84 秒，期间未出现缓冲区欠载。单独进行的 Float32 测试中，输出和参考结果逐字节一致。系统级 Dolby 尚未完成。 |
 | Dolby ↔ COM APO 原型 | 默认 COM 实例仅直通，只有实验工厂函数能够连接处理队列。 | ✅ 默认工厂现可通过共享内存连接原版 Dolby，在未注册的数字测试中验证了参考输出、故障直通、状态重置和重新打开。[证据](dolby-apo-progress.zh-CN.md)。系统集成尚未完成。 |
+| Windows APO 初始化 | 仅支持私有实验初始化结构。 | ✅ 标准初始化与共享工作进程代理通过测试，签名组件安装及回滚通过验证。❌ 尚未接入 Windows 音频图进行实际处理。[改动前后](audio-system-progress.zh-CN.md) |
 
 [早期音量测量](baseline.md#pcm16-level-response) · [构建和测试详情](reference-build.md#driver-zip-4172716)
 
 ## 正在进行
 
-- ❌ **系统级 Dolby。** 软件路径已通过 COM APO 原型的参考比较和暂停恢复测试，但尚未接入 Windows 音频图。Qualcomm DSP 预加载路径在出现 `0x8007045D` 后仍未得到确认。[APO 进展](dolby-apo-progress.zh-CN.md)
-- ❌ **MiSound。** 在已测试的 Qualcomm 配置中，DSP 能够打开拓扑，随后在应用音效参数时超时。
+- ❌ **系统级 Dolby。** 原版库精确输出及标准 Windows 初始化已在独立测试中验证。安装的组件仍然没有产生音频宿主 APO 回调；系统处理尚未启用。[改动前后与当前问题](audio-system-progress.zh-CN.md)
+- ❌ **MiSound。** 已证明 Android 原版 HAL 回调只验证缓冲区，不处理音频采样。扬声器音效需要 DSP 路径，应用参数仍然超时。[详情](audio-system-progress.zh-CN.md)
 - ✅ **PCM24 传输。** 实验组件组合通过了原生 WASAPI 共享／独占时序测试和重复打开音频流的测试。[PCM24 结果](pcm24-progress.zh-CN.md)
 - ⏳ **PCM24 扬声器验证。** 确认功放遥测与实际声学输出。最新跟踪中没有功放事件，因此不能据此证明未触发保护故障。
 - ⏳ **音质与供电验证。** 对比 HyperOS 的音乐音质和最高音量，调查此前大音量音乐导致关机的原因，并在其他小米平板 5 上验证出厂校准。

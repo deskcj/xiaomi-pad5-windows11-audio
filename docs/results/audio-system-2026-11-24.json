@@ -1,0 +1,113 @@
+{
+  "date": "2026-11-24",
+  "official_system_init": {
+    "passed": true,
+    "structure": "APOInitSystemEffects2",
+    "cases": [
+      {
+        "Flags": 1,
+        "Latency": 0,
+        "Effects": 0,
+        "Passed": true
+      },
+      {
+        "Flags": 1,
+        "Latency": 0,
+        "Effects": 0,
+        "Passed": true
+      },
+      {
+        "Flags": 3,
+        "Latency": 0,
+        "Effects": 0,
+        "Passed": true
+      },
+      {
+        "Flags": 5,
+        "Latency": 0,
+        "Effects": 0,
+        "Passed": true
+      },
+      {
+        "Flags": 1,
+        "Latency": 1280000,
+        "Effects": 1,
+        "Passed": true
+      },
+      {
+        "Flags": 1,
+        "Latency": 0,
+        "Effects": 0,
+        "Passed": true
+      }
+    ],
+    "reference_stereo_frames": 196608,
+    "unexpected_frames": 0,
+    "wet_frames": 196608,
+    "dry_fallback_frames": 0,
+    "callbacks": 529,
+    "configured_delay_ms": 128,
+    "registered_with_windows": false,
+    "audio_device_opened": false
+  },
+  "component_trial": {
+    "component_device_status": "OK",
+    "signed_packages_accepted": 2,
+    "reboot_requested": false,
+    "full_audio_host_restart_checked": true,
+    "windows_graph_processed": false,
+    "apo_initialization_events_from_audio_host": 0,
+    "restore_errors": 0,
+    "baseline_after_restore_passed": true
+  },
+  "misound_hal": {
+    "library_sha256": "6340604109aefb8f6e24e3e877dc19f8e118dc9eeebacf1e8301a81433061b2c",
+    "function": "MiSound_process",
+    "elf_virtual_address": "0xb168",
+    "function_bytes": 68,
+    "original_machine_code_used": true,
+    "cases": [
+      {
+        "Name": "valid-separate",
+        "ReturnHex": "0x0",
+        "OutputBufferUnchanged": true,
+        "OutputEqualsInput": false,
+        "Passed": true
+      },
+      {
+        "Name": "valid-in-place",
+        "ReturnHex": "0x0",
+        "OutputBufferUnchanged": true,
+        "OutputEqualsInput": true,
+        "Passed": true
+      },
+      {
+        "Name": "mismatched-count",
+        "ReturnHex": "0xffffffea",
+        "OutputBufferUnchanged": true,
+        "OutputEqualsInput": false,
+        "Passed": true
+      },
+      {
+        "Name": "null-context",
+        "ReturnHex": "0xffffffea",
+        "OutputBufferUnchanged": true,
+        "OutputEqualsInput": false,
+        "Passed": true
+      }
+    ],
+    "sample_processing_observed": false,
+    "speaker_processing_requires_dsp_path": true
+  },
+  "scope": {
+    "system_dolby_proven": false,
+    "misound_proven": false,
+    "additional_loudness_proven_in_this_update": false,
+    "android_acoustic_parity_proven": false,
+    "maximum_volume_safety_proven": false,
+    "original_shutdown_cause_proven": false,
+    "new_kernel_driver_installed": false,
+    "new_driver_release_published": false,
+    "reboot_performed": false
+  }
+}

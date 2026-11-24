@@ -2,6 +2,8 @@
 
 [English](dolby-apo-progress.md) · [Русский](dolby-apo-progress.ru.md) · [简体中文](dolby-apo-progress.zh-CN.md)
 
+> [最新系统集成结果与改动前后对比](audio-system-progress.zh-CN.md).
+
 **已验证：**尚未注册的原生 ARM64 COM APO 通过独立进程接收 Android 原版 Dolby 的 Float32 输出。固定大小和不规则大小回调测试中，各有 196,608 个双声道帧与参考结果逐字节一致。**系统级 Dolby 和 MiSound 仍未完成。**
 
 原版 `libswdap.so` 在隔离的 ARM64 环境中运行，使用与 HyperOS ACDB 核对过的 Dynamic / speaker_landscape 参数。它仍是模拟执行的 Android 代码，不是原生 Windows Dolby 库。没有提高均衡器、功放增益或保护阈值。
@@ -20,7 +22,7 @@
 
 ## 待完成
 
-- ❌ Windows 实际音频图初始化、工作进程管理、组件注册和处理模式验证。实验初始化数据不是 Windows 系统属性存储初始化数据。
+- ❌ 在实际 Windows 音频图中激活并处理音频。标准属性存储初始化、工作进程代理与组件安装已通过各自的独立检查；[最新系统集成结果](audio-system-progress.zh-CN.md)将这些结果与实际系统处理区分开。
 - ❌ MiSound 集成及 Qualcomm DSP 模块加载问题。
 - ⏳ 负载下的长期播放、功放遥测、与 Android 的声学比较及最大音量安全性。此前关机的原因仍未确定。
 
