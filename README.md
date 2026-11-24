@@ -24,6 +24,10 @@ The ZIP includes a PowerShell installer and rollback. Use the four factory calib
 
 ## Update history
 
+### 25 November 2026 — original MiSound control encoding verified
+
+- ✅ Added a native ARM64 command encoder from the original Android contract: 96 offline comparisons against executed original machine code passed. This verifies control data, not speaker processing. [Before/after and remaining work](docs/audio-system-progress.md) · [C source and header](driver/dsp/)
+
 ### 24 November 2026 — system integration: verified progress and remaining blockers
 
 - ✅ The original Dolby prototype passed official Windows APO initialization and worker contention tests; all 196,608 stereo frames matched the reference again. Signed APO installation and clean rollback were checked without reboot.
@@ -41,7 +45,7 @@ The ZIP includes a PowerShell installer and rollback. Use the four factory calib
 
 These results apply to the PCM24 research configuration. The download above remains the existing Cirrus 4.17.27.16 package.
 
-## Status · 24 November 2026
+## Status · 25 November 2026
 
 | Area | At the start | Current result |
 | --- | --- | --- |

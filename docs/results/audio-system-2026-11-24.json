@@ -109,5 +109,220 @@
     "new_kernel_driver_installed": false,
     "new_driver_release_published": false,
     "reboot_performed": false
-  }
+  },
+  "misound_parameter_encoder": {
+    "original_machine_code_reference": true,
+    "original_library_sha256": "6340604109aefb8f6e24e3e877dc19f8e118dc9eeebacf1e8301a81433061b2c",
+    "original_function_elf_address": "0xf774",
+    "original_base64_encoder_elf_address": "0xefcc",
+    "native_architecture": "ARM64",
+    "native_cases_passed": 96,
+    "source_sha256": "1f7b8c10f7a9e92a701e742319503e78a0768d975044afcf23356024a68cb85d",
+    "case_groups": [
+      {
+        "parameter_type": 0,
+        "cases": 4,
+        "all_match_original": true,
+        "original_dispatch_supported": false
+      },
+      {
+        "parameter_type": 1,
+        "cases": 4,
+        "all_match_original": true,
+        "original_dispatch_supported": true
+      },
+      {
+        "parameter_type": 2,
+        "cases": 4,
+        "all_match_original": true,
+        "original_dispatch_supported": true
+      },
+      {
+        "parameter_type": 3,
+        "cases": 4,
+        "all_match_original": true,
+        "original_dispatch_supported": true
+      },
+      {
+        "parameter_type": 4,
+        "cases": 4,
+        "all_match_original": true,
+        "original_dispatch_supported": true
+      },
+      {
+        "parameter_type": 5,
+        "cases": 4,
+        "all_match_original": true,
+        "original_dispatch_supported": true
+      },
+      {
+        "parameter_type": 6,
+        "cases": 4,
+        "all_match_original": true,
+        "original_dispatch_supported": false
+      },
+      {
+        "parameter_type": 7,
+        "cases": 4,
+        "all_match_original": true,
+        "original_dispatch_supported": true
+      },
+      {
+        "parameter_type": 8,
+        "cases": 4,
+        "all_match_original": true,
+        "original_dispatch_supported": true
+      },
+      {
+        "parameter_type": 9,
+        "cases": 4,
+        "all_match_original": true,
+        "original_dispatch_supported": true
+      },
+      {
+        "parameter_type": 10,
+        "cases": 4,
+        "all_match_original": true,
+        "original_dispatch_supported": true
+      },
+      {
+        "parameter_type": 11,
+        "cases": 4,
+        "all_match_original": true,
+        "original_dispatch_supported": false
+      },
+      {
+        "parameter_type": 12,
+        "cases": 4,
+        "all_match_original": true,
+        "original_dispatch_supported": false
+      },
+      {
+        "parameter_type": 13,
+        "cases": 4,
+        "all_match_original": true,
+        "original_dispatch_supported": false
+      },
+      {
+        "parameter_type": 14,
+        "cases": 4,
+        "all_match_original": true,
+        "original_dispatch_supported": false
+      },
+      {
+        "parameter_type": 15,
+        "cases": 4,
+        "all_match_original": true,
+        "original_dispatch_supported": true
+      },
+      {
+        "parameter_type": 16,
+        "cases": 4,
+        "all_match_original": true,
+        "original_dispatch_supported": true
+      },
+      {
+        "parameter_type": 17,
+        "cases": 4,
+        "all_match_original": true,
+        "original_dispatch_supported": true
+      },
+      {
+        "parameter_type": 18,
+        "cases": 4,
+        "all_match_original": true,
+        "original_dispatch_supported": true
+      },
+      {
+        "parameter_type": 19,
+        "cases": 4,
+        "all_match_original": true,
+        "original_dispatch_supported": true
+      },
+      {
+        "parameter_type": 20,
+        "cases": 4,
+        "all_match_original": true,
+        "original_dispatch_supported": true
+      },
+      {
+        "parameter_type": 21,
+        "cases": 4,
+        "all_match_original": true,
+        "original_dispatch_supported": true
+      },
+      {
+        "parameter_type": 22,
+        "cases": 4,
+        "all_match_original": true,
+        "original_dispatch_supported": true
+      },
+      {
+        "parameter_type": 23,
+        "cases": 4,
+        "all_match_original": true,
+        "original_dispatch_supported": true
+      }
+    ],
+    "base64_padding_omitted_as_in_original": true,
+    "audio_opened": false,
+    "kernel_driver_installed": false,
+    "parameters_applied_to_dsp": false,
+    "system_misound_proven": false
+  },
+  "silent_selection_trial": {
+    "audio_started": false,
+    "non_silent_frames_submitted": 0,
+    "default_initialize_hresult": "0x800700ff",
+    "media_initialize_hresult": "0x00000000",
+    "raw_initialize_hresult": "0x00000000",
+    "audiodg_heap_failure_observed_in_trial_window": true,
+    "audiodg_exception": "0xc0000374",
+    "nabu_dll_listed_in_wer_loaded_modules": false,
+    "cause_established": false,
+    "restore_errors": 0,
+    "all_baseline_initializations_restored": true
+  },
+  "updated_date": "2026-11-25",
+  "dolby_discovery_fix": {
+    "prototype_clsid": "{9DF8834A-209E-4CC1-BC73-BB4353ADFA9F}",
+    "discovery_reports_effect_without_claiming_worker": true,
+    "discovery_works_with_occupied_worker": true,
+    "raw_reports_no_effect": true,
+    "initialization_cases_passed": 7,
+    "reference_stereo_frames": 196608,
+    "unexpected_frames": 0,
+    "audio_device_opened_in_reference_test": false,
+    "windows_graph_processing_proven": false
+  },
+  "latest_integration_trials": [
+    {
+      "registration": "classic global COM + signed Driver Store DLL",
+      "role": "SFX with corrected discovery",
+      "audio_services_restarted": false,
+      "kernel_drivers_changed": false,
+      "reboot_performed": false,
+      "input_peak": 0,
+      "frames_submitted": 100800,
+      "maximum_meter_peak": 3.0517811e-05,
+      "zero_input_stream_passed": true,
+      "apo_processing_observed": false,
+      "temporary_package_removed": true,
+      "restore_errors": 0
+    },
+    {
+      "registration": "classic global COM + signed Driver Store DLL",
+      "role": "legacy GFX without modern selectors",
+      "audio_services_restarted": false,
+      "kernel_drivers_changed": false,
+      "reboot_performed": false,
+      "input_peak": 0,
+      "frames_submitted": 101280,
+      "maximum_meter_peak": 3.0517811e-05,
+      "zero_input_stream_passed": true,
+      "apo_processing_observed": false,
+      "temporary_package_removed": true,
+      "restore_errors": 0
+    }
+  ]
 }
