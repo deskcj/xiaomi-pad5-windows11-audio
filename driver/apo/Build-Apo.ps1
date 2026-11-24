@@ -6,11 +6,22 @@ if(-not $env:INCLUDE -or -not $env:LIB){throw 'Run from an EWDK build environmen
 $out=[IO.Path]::GetFullPath($OutputDirectory)
 if(Test-Path -LiteralPath $out){throw 'Choose a new output directory to preserve previous builds.'}
 New-Item -ItemType Directory -Path $out | Out-Null
+$sourceFiles=Get-ChildItem -LiteralPath $PSScriptRoot -File | Where-Object Extension -in @('.cpp','.h') | Sort-Object Name
+$identityBytes=[IO.MemoryStream]::new()
+foreach($sourceFile in $sourceFiles){
+    $canonical=$sourceFile.Name+"`n"+[IO.File]::ReadAllText($sourceFile.FullName).Replace("`r`n","`n")+[char]0
+    $bytes=[Text.Encoding]::UTF8.GetBytes($canonical)
+    $identityBytes.Write($bytes,0,$bytes.Length)
+}
+$sha=[Security.Cryptography.SHA256]::Create()
+try{$sourceFingerprint=[BitConverter]::ToString($sha.ComputeHash($identityBytes.ToArray())).Replace('-','').ToLowerInvariant()}finally{$sha.Dispose();$identityBytes.Dispose()}
+$identityHeader="#pragma once`ninline constexpr wchar_t NabuApoBuildTag[]=L`"2.0.0.7-lab`";`ninline constexpr wchar_t NabuApoSourceFingerprint[]=L`"$sourceFingerprint`";`n"
+[IO.File]::WriteAllText((Join-Path $out 'ApoBuildIdentity.h'),$identityHeader,[Text.UTF8Encoding]::new($false))
 $objects=@()
 foreach($stem in @('NabuDolbyApo','DolbySharedTransport','DolbyBank','ApoDiagnostics','DigitalHarness')){
     $object=Join-Path $out ($stem+'.obj')
     $log=Join-Path $out ($stem+'.log')
-    & $compiler /nologo /c /std:c++17 /MT /W4 /WX /wd4505 /O2 /GS /guard:cf /GR- /D_WIN32_WINNT=0x0A00 ('/Fo'+$object) (Join-Path $PSScriptRoot ($stem+'.cpp')) *> $log
+    & $compiler /nologo /c /std:c++17 /MT /W4 /WX /wd4505 /O2 /GS /guard:cf /GR- /D_WIN32_WINNT=0x0A00 ('/I'+$out) ('/Fo'+$object) (Join-Path $PSScriptRoot ($stem+'.cpp')) *> $log
     if($LASTEXITCODE -ne 0){throw "Compile failed: $log"}
     $objects+=$object
 }
@@ -21,7 +32,8 @@ if($LASTEXITCODE -ne 0){throw "Link failed: $linkLog"}
 $hashes=[ordered]@{}
 Get-ChildItem -LiteralPath $PSScriptRoot -File | Where-Object Extension -in @('.cpp','.h','.ps1') | ForEach-Object {$hashes[$_.Name]=(Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()}
 [ordered]@{
-    CandidateVersion='2.0.0.5-lab';Architecture='ARM64';Registered=$false
+    CandidateVersion='2.0.0.7-lab';Architecture='ARM64';Registered=$false
+    SourceFingerprint=$sourceFingerprint
     Signed=$false;SystemEffectsProven=$false
     DllSha256=(Get-FileHash -LiteralPath $dll -Algorithm SHA256).Hash.ToLowerInvariant()
     SourceSha256=$hashes

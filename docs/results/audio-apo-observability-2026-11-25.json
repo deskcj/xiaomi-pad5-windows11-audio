@@ -1,0 +1,582 @@
+{
+  "Date": "2026-11-25",
+  "InstalledCirrusVersion": "4.17.27.18",
+  "InstalledApoVersion": "2.0.0.4",
+  "CandidateApoVersion": "2.0.0.7-lab",
+  "Build": {
+    "CandidateVersion": "2.0.0.7-lab",
+    "Architecture": "ARM64",
+    "Registered": false,
+    "SourceFingerprint": "70d1e9f50e2a7b0ba3caed1028663bce1f4207e3dd3d62611dd939786c1219a8",
+    "Signed": false,
+    "SystemEffectsProven": false,
+    "DllSha256": "fe3f6198163fa1842c2bc07b4c5771f0360e01b8fce56378c50562762d5e810c",
+    "SourceSha256": {
+      "ApoDiagnostics.cpp": "227e10a9b5ef720ac2e18e932f1643f4ee34ab35d75988fa0d535b653da70a32",
+      "ApoDiagnostics.h": "f9e3cec1792f9c7af3010c7fdff13001b36b021107bb2373bf11aad7d01ff863",
+      "Build-Apo.ps1": "07791c8e08bcbf0419fd932c8a20b44980bfd6f1cf4b245cf903c4ab539dcdd0",
+      "DigitalHarness.cpp": "a234e82dbb347f5550c92f596335bfdeae2b17e14a150d806ea9070c42749589",
+      "DolbyBank.cpp": "b6ce1f90e8f0a4f7cf9c7ab43815a7923178aed7dc328f9a59eef4210b9d43aa",
+      "DolbyBank.h": "d2e8611e4d2abf71acd65352062923c13d16bd2242316989a38b9ddb971702ed",
+      "DolbyBlockQueue.h": "b7df0202bdc53498e952cc67e2ff806ad78506f169ff578d257fa0241d0b763e",
+      "DolbyFallback.h": "41a8aad572daa3298ea84bbfee0f2a13135caad0640a9d368f568963b42b2db4",
+      "DolbySharedTransport.cpp": "3168665506ff191769f1ce1574560f7527fa680817d96fa2f6136b35bb735d75",
+      "DolbySharedTransport.h": "61d753c5dce4d8c3f208f9557c7189afc7fcbdde193a7588b232fe7772950c95",
+      "DolbyStream.h": "78e8dfc38f52b480ebc62975e83bbd271105969ffc3a33cbffc9ac37fb5d68b5",
+      "NabuDolbyApo.cpp": "0c83ab6df0ae73b42f4a7296d1a0018bd2fc2ce02991c4deb56f56ccd0306ac0",
+      "NabuDolbyApo.h": "afa308a9eba57e84f7762c3e77ca1f469a5797a98b2956df39e07e74cc46a647"
+    }
+  },
+  "Package": {
+    "Version": "2.0.0.7",
+    "CatalogSignedAndVerified": true,
+    "Installed": false,
+    "Registered": false,
+    "GlobalEffectPackRemovedFromCandidate": true,
+    "MicrosoftPrivateSchemaUsed": false,
+    "HardwareId": "SWC\\VEN_DSKC&CID_NABUDOLBYGLOBAL",
+    "RequiresDriverBoundSfxExtension": true,
+    "LiveTrialHarnessNeedsApo7Support": false,
+    "DriverBoundExtensionCandidate": "1.0.2140.35",
+    "KernelChanged": false,
+    "GainOrProtectionChanged": false,
+    "SystemDolbyProven": false,
+    "PackageFiles": {
+      "NabuDolbyApo.inf": "5dbba72b6089a54eb0ea67c9f380838051e2568386b361879b0f354c365b6ab7",
+      "NabuDolbyBridge.dll": "fe3f6198163fa1842c2bc07b4c5771f0360e01b8fce56378c50562762d5e810c",
+      "nabudolbyapo.cat": "26de0adb5e23144659266b664d95870b6df6c5c0e2b4cbfa6e18837d3c74ed3f"
+    },
+    "RollbackFiles": {
+      "NabuDolbyGlobal.inf": "046f03b6c180d5f004af371914a326c2326c17933a8bd72e3ac3497b9b48f08d",
+      "NabuDolbyGlobal.cat": "9689cffaf11b2e983ffc926df551f82c258afbf29d2c321fe848c2a9d07f36da",
+      "NabuDolbyBridge.dll": "dc0c29a144090f83b4532c215332f1a0c96aa4c99ca9db1ccdbc1bb5c117889c"
+    },
+    "RollbackActuallyExercised": false,
+    "ReadOnlyPreflightPassed": true,
+    "NonElevatedTokenRefused": true,
+    "TraceCorrelationPrepared": true,
+    "ActualHardwareTrialPerformed": false
+  },
+  "LoggingContracts": {
+    "audio_device_opened": false,
+    "driver_installed": false,
+    "cases": [
+      {
+        "name": "logger_success",
+        "passed": true,
+        "queries": 1,
+        "log_records": 2,
+        "logger_refs_final": 1,
+        "rt_logging": false,
+        "exact_bypass": true,
+        "format_error_logged": false
+      },
+      {
+        "name": "service_unavailable",
+        "passed": true,
+        "queries": 1,
+        "log_records": 0,
+        "logger_refs_final": 1,
+        "rt_logging": false,
+        "exact_bypass": true,
+        "format_error_logged": false
+      },
+      {
+        "name": "success_null_service",
+        "passed": true,
+        "queries": 1,
+        "log_records": 0,
+        "logger_refs_final": 1,
+        "rt_logging": false,
+        "exact_bypass": true,
+        "format_error_logged": false
+      },
+      {
+        "name": "missing_provider",
+        "passed": true,
+        "queries": 0,
+        "log_records": 0,
+        "logger_refs_final": 1,
+        "rt_logging": false,
+        "exact_bypass": true,
+        "format_error_logged": false
+      },
+      {
+        "name": "raw_bypass",
+        "passed": true,
+        "queries": 1,
+        "log_records": 2,
+        "logger_refs_final": 1,
+        "rt_logging": false,
+        "exact_bypass": true,
+        "format_error_logged": false
+      },
+      {
+        "name": "discovery_bypass",
+        "passed": true,
+        "queries": 1,
+        "log_records": 2,
+        "logger_refs_final": 1,
+        "rt_logging": false,
+        "exact_bypass": true,
+        "format_error_logged": false
+      },
+      {
+        "name": "invalid_format_logged",
+        "passed": true,
+        "queries": 1,
+        "log_records": 2,
+        "logger_refs_final": 1,
+        "rt_logging": false,
+        "exact_bypass": false,
+        "format_error_logged": true
+      }
+    ],
+    "passed": true,
+    "dll_unloadable": true
+  },
+  "EpochCounters": {
+    "audio_opened": false,
+    "synthetic_counter_seed": true,
+    "cases": [
+      {
+        "name": "first_owner",
+        "lock_cleared_old_counters": true,
+        "fresh_callback_counted": true,
+        "reset_cleared_old_counters": true,
+        "passed": true
+      },
+      {
+        "name": "reopened_owner",
+        "lock_cleared_old_counters": true,
+        "fresh_callback_counted": true,
+        "reset_cleared_old_counters": true,
+        "passed": true
+      }
+    ],
+    "dll_unloadable": true,
+    "passed": true
+  },
+  "ObserverSyntheticTests": {
+    "SyntheticFixtures": true,
+    "HardwareTestPerformed": false,
+    "AudioOpened": false,
+    "Passed": true,
+    "Cases": [
+      {
+        "Case": "complete_match",
+        "Passed": true,
+        "Correlated": true
+      },
+      {
+        "Case": "registration_only",
+        "Passed": true,
+        "Correlated": false
+      },
+      {
+        "Case": "no_lock",
+        "Passed": true,
+        "Correlated": false
+      },
+      {
+        "Case": "no_initialize",
+        "Passed": true,
+        "Correlated": false
+      },
+      {
+        "Case": "different_source",
+        "Passed": true,
+        "Correlated": false
+      },
+      {
+        "Case": "different_pid",
+        "Passed": true,
+        "Correlated": false
+      },
+      {
+        "Case": "dry_only",
+        "Passed": true,
+        "Correlated": false
+      },
+      {
+        "Case": "helper_counter_pid",
+        "Passed": true,
+        "Correlated": false
+      },
+      {
+        "Case": "other_stream_same_pid",
+        "Passed": true,
+        "Correlated": false
+      },
+      {
+        "Case": "old_epoch_same_stream",
+        "Passed": true,
+        "Correlated": false
+      },
+      {
+        "Case": "stale_wet_without_new_frames",
+        "Passed": true,
+        "Correlated": false
+      },
+      {
+        "Case": "old_build",
+        "Passed": true,
+        "Correlated": false
+      },
+      {
+        "Case": "raw",
+        "Passed": true,
+        "Correlated": false
+      },
+      {
+        "Case": "discovery",
+        "Passed": true,
+        "Correlated": false
+      },
+      {
+        "Case": "lock_failed",
+        "Passed": true,
+        "Correlated": false
+      },
+      {
+        "Case": "no_transport",
+        "Passed": true,
+        "Correlated": false
+      },
+      {
+        "Case": "payload_pid_spoof",
+        "Passed": true,
+        "Correlated": false
+      }
+    ]
+  },
+  "ArchivedTraceReaderCheck": {
+    "ArchivedTraceRead": true,
+    "NewHardwareTest": false,
+    "NoApoEventsExpected": true,
+    "Passed": true,
+    "Readback": {
+      "TraceSha256": "c6bf09490178552e7eeaf806f9dde284a27c418ed6222fece7f43902dfaa83be",
+      "EventsLost": 0,
+      "Events": [],
+      "Malformed": [],
+      "LiveTracingStarted": false
+    },
+    "Correlation": {
+      "InitializationCorrelated": false,
+      "StreamLockCorrelated": false,
+      "ZeroInputProcessingCorrelated": false,
+      "MatchedAudiodgPids": [],
+      "AcceptedEvents": [],
+      "AcousticLrProven": false,
+      "HyperOsQualityProven": false,
+      "Interpretation": "Correlation of supplied trace/counter records only; real trial provenance must be established by the collector."
+    }
+  },
+  "Lifecycle": {
+    "Passed": true,
+    "Scenarios": [
+      {
+        "Label": "normal",
+        "Passed": true,
+        "Comparison": {
+          "ReferenceFrames": 196608,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        },
+        "Generation": 1,
+        "Callbacks": 423,
+        "FramesProcessed": 202752,
+        "FramesWet": 196608
+      },
+      {
+        "Label": "irregular",
+        "Passed": true,
+        "Comparison": {
+          "ReferenceFrames": 196608,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        },
+        "Generation": 1,
+        "Callbacks": 529,
+        "FramesProcessed": 202752,
+        "FramesWet": 196608
+      },
+      {
+        "Label": "exit",
+        "Passed": true,
+        "Comparison": {
+          "ReferenceFrames": 98304,
+          "ExactDryFallbackFrames": 98304,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": false
+        },
+        "Generation": 1,
+        "Callbacks": 423,
+        "FramesProcessed": 202752,
+        "FramesWet": 98304
+      },
+      {
+        "Label": "pause",
+        "Passed": true,
+        "Comparison": {
+          "ReferenceFrames": 171072,
+          "ExactDryFallbackFrames": 25536,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        },
+        "Generation": 1,
+        "Callbacks": 423,
+        "FramesProcessed": 202752,
+        "FramesWet": 171072
+      },
+      {
+        "Label": "reset",
+        "Passed": true,
+        "Comparison": {
+          "ReferenceFrames": 190464,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        },
+        "Generation": 2,
+        "Callbacks": 218,
+        "FramesProcessed": 104448,
+        "FramesWet": 98304
+      },
+      {
+        "Label": "bypass",
+        "Passed": true,
+        "Comparison": {
+          "ExactZeroLatencyBypass": true
+        },
+        "Generation": 0,
+        "Callbacks": 0,
+        "FramesProcessed": 0,
+        "FramesWet": 0
+      },
+      {
+        "Label": "absent",
+        "Passed": true,
+        "Comparison": {
+          "ReferenceFrames": 1,
+          "ExactDryFallbackFrames": 196607,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": false
+        },
+        "Generation": 1,
+        "Callbacks": 423,
+        "FramesProcessed": 202752,
+        "FramesWet": 0
+      }
+    ],
+    "AudioDeviceOpened": false
+  },
+  "KernelRpcDaemon": {
+    "Inventory": {
+      "Driver": {
+        "Name": "qcadsprpcd",
+        "State": "Running",
+        "PathName": "C:\\Windows\\system32\\DriverStore\\FileRepository\\qcadsprpcd8150.inf_arm64_72331387c2d562e1\\qcadsprpcd8150.sys"
+      },
+      "Device": {
+        "Name": "Qualcomm(R) Audio RPC Daemon Device",
+        "DeviceID": "ACPI\\QCOM058A\\2&DABA3FF&0",
+        "Status": "OK",
+        "ConfigManagerErrorCode": 0
+      }
+    },
+    "ImageSha256": "92e4fc7dece7c9e2b225ee66b48a5957888bcfa57d759a9bdafc2cac5682bc33",
+    "KernelDriverRunning": true,
+    "AppsStdRegistrationLocated": true,
+    "AudioPdBranchLocated": true,
+    "ResourcePathHandlerLocated": true,
+    "ActiveListenerAcknowledgementObserved": false,
+    "ArchivedTraceAudit": {
+      "ArchiveOnly": true,
+      "LiveTracingStarted": false,
+      "AudioOpened": false,
+      "DriversChanged": false,
+      "MessageGuid": "90e93d14-4113-38bf-72e7-95d1b3df07a3",
+      "Traces": [
+        {
+          "Trace": "adsprpcd-buffer.etl",
+          "TraceSha256": "c6bf09490178552e7eeaf806f9dde284a27c418ed6222fece7f43902dfaa83be",
+          "ArchivedTrace": true,
+          "NewHardwareTest": false,
+          "EventsLost": 0,
+          "Providers": {
+            "68fdd900-4a3e-11d1-84f4-0000f80464e3": 5,
+            "90e93d14-4113-38bf-72e7-95d1b3df07a3": 2
+          },
+          "DaemonMessages": [
+            {
+              "MessageId": 14,
+              "TimeUtc": "2026-11-23T09:35:47.483051+00:00",
+              "ProcessId": 4,
+              "ThreadId": 352,
+              "Payload": "466173745250434472697665724430456e74727900"
+            },
+            {
+              "MessageId": 15,
+              "TimeUtc": "2026-11-23T09:35:47.483053+00:00",
+              "ProcessId": 4,
+              "ThreadId": 352,
+              "Payload": "466173745250434472697665724430456e74727900"
+            }
+          ]
+        },
+        {
+          "Trace": "fastrpc-boot-wpp.etl",
+          "TraceSha256": "d39f670845c535570722c0085bfbf481a8d398e087502f101d300848606f0e6f",
+          "ArchivedTrace": true,
+          "NewHardwareTest": false,
+          "EventsLost": 0,
+          "Providers": {
+            "68fdd900-4a3e-11d1-84f4-0000f80464e3": 16,
+            "59fb4b1f-bfe2-348f-b85e-d86ac2b95e91": 710,
+            "32139a9f-497d-3fcd-815c-628bdc364153": 6737,
+            "5af280c4-9ad4-3828-53ca-de51a4ff3e60": 15,
+            "ad78fca8-d0ea-3904-4961-e009f29916e6": 4142,
+            "58230b4a-9595-344e-204c-838b9c2678ec": 22,
+            "594319be-d797-3037-948b-de8e6075169c": 29,
+            "7f52e4f1-e3b1-3d15-3fdd-24e7388c5241": 174,
+            "49e866e9-1c8b-33f8-f012-e0fe4da514fb": 164,
+            "740f597e-6edc-3339-82a1-be21e0d6fc39": 12,
+            "2b4101d9-480c-3665-390d-aea8a7abea40": 4,
+            "d1124dce-53be-350a-e4d6-ecd05e08c0af": 18,
+            "b083543d-948a-3770-1b6a-ed50debd63da": 40,
+            "448265bd-6282-396a-2564-c5da5e1bf2ed": 1033,
+            "eda96c38-7a02-3e93-62a6-15d956725b97": 85,
+            "0e69dfb2-6762-3912-5d2d-ac2aeed118b6": 184,
+            "20d632dc-9639-3b1d-b0b1-5ec6a54b8c88": 28,
+            "8b4eec80-f810-3226-b715-a23326af0dd3": 22,
+            "ae7350a2-25d4-342e-e98a-924051e0e14b": 136,
+            "608b3a70-2a47-3cb1-e35a-bba5eba25bb7": 21,
+            "2c3cac09-9f2d-3797-803a-4c531332fd4f": 8,
+            "4965b4ee-2eb2-3117-e0e9-ddc573c0e65e": 14,
+            "efceb46d-c382-3638-cdf9-565f58d8c675": 34,
+            "8ad8945b-61fe-3077-bacc-6fa137469389": 82,
+            "0b1d7320-f18b-3298-74ec-58b04f2b91ec": 9,
+            "ecce20b2-b886-3f61-9f06-18b96d026cd9": 63,
+            "6ff071cb-b75d-386a-f476-a841ac2c25b6": 133,
+            "91a7239c-c1aa-3f14-a08a-f8575dd9e86c": 106,
+            "033b4ca2-426a-31b8-b8c4-0cbc47fbedff": 190,
+            "91e484cb-46ba-33e8-0274-32a50fca7da5": 16,
+            "e2d5f0a9-d094-343a-c3f5-ce41130ac4cf": 5,
+            "f746ce80-fbdc-3965-f73b-552dcde560dc": 13,
+            "90e93d14-4113-38bf-72e7-95d1b3df07a3": 2,
+            "92b5ec92-5ea3-3945-0868-17ca02d9688e": 24,
+            "c25214ee-4d88-3e80-821f-a35efd5cd85e": 4,
+            "25ff9ea3-ee72-39a1-4c6c-e086a50614ff": 43,
+            "2763ab02-d763-3751-e66b-a228b565cc45": 4,
+            "1d7beaa1-f1fc-301c-f3a3-bca7b75e0c47": 4,
+            "15279c12-d4a1-32bb-f68d-9fc73c7c1a5e": 4,
+            "6ef20881-d1ee-3e3f-a66b-9cb368a6c594": 44,
+            "0cca8c18-c36c-427e-bece-a1baa2161e14": 2793,
+            "e29d1961-3119-38de-7ccc-e3b3d4a2f56e": 6,
+            "9721841e-0263-37f9-b980-383d8376fb48": 17,
+            "78cbbb0c-e53e-3c2e-1d63-e7b09c806349": 832,
+            "8b8fecfa-db87-32af-569f-fb2fc306712c": 54,
+            "ee204763-0bd2-31b9-83ff-fee757c15cbc": 108,
+            "f36db503-c029-38c8-c322-886ba036d576": 29,
+            "c84c86d2-2c87-39a8-ea83-e3ade07bc56d": 4,
+            "a4726f1a-9690-3c2a-9008-918ee98ae820": 10,
+            "f3db9ece-da55-3ec8-7411-2ec3fc342a93": 46,
+            "6676ce1d-247a-30df-6917-44976d95fa79": 7,
+            "09514736-2eba-3fbd-7564-4d0a54d4332c": 8,
+            "585c6caa-1ec7-3e76-1b3e-05bb96adfa1b": 989,
+            "d8d0e26b-fe2b-380a-be8c-136dcc614a5f": 215,
+            "4a48a928-4923-38fc-e39f-ee23d658a0bb": 33,
+            "ae5fa90b-8779-37e4-cecb-20bb4871828f": 38,
+            "a72ed05b-1f14-30e3-6dab-ac3f2d953200": 2,
+            "557d9571-cc28-304b-0420-1fdc3deb0a78": 2,
+            "2a781fee-cd9e-309f-3a09-544fbe8912ef": 1,
+            "ad70e188-b6df-30ea-8071-dae557839d0a": 1,
+            "be20e1c1-482c-33b0-94fb-790d2c12145d": 1,
+            "11b55c3b-6b07-361d-aedb-7c7374ddd663": 2,
+            "92ae80cd-3fd2-3f69-8b79-6cdbc495a90b": 65,
+            "b3a5e847-76bb-38f0-a5af-6ca9e99db15a": 5,
+            "470ba01e-2135-3c87-8fb3-32798e7b25cb": 92,
+            "37e89b53-e2f3-341d-bcdd-f5d2c90c49db": 168,
+            "b9ab0550-4cf3-3702-cdb2-81c60b8283a5": 20231,
+            "f079bb49-dfd7-3580-a52c-e6fe10940bb8": 23,
+            "98624392-c194-3608-b967-7fe50023bda5": 23,
+            "67533e21-9ed5-3612-bd26-73b53f6b27fa": 21,
+            "a6e8f1ea-a1b4-3a58-5fa4-8b876c3e0a07": 11943,
+            "8f84a766-e12d-304f-ef21-e9a325c04784": 4431,
+            "7e36d491-a7c5-3c7b-8e10-95addb8231ac": 2564,
+            "4aaf93ac-8647-3c04-6506-c6e258902ae2": 2,
+            "e68b2ee4-2e45-3b37-3edc-afa596a0e9c2": 12,
+            "ce8a7075-0872-3925-9832-41b4782a36b6": 11,
+            "0bc26f94-ea07-3978-d613-a7bbb78f3563": 11,
+            "9747f62f-7c49-36f9-a4f7-30f14129b283": 7,
+            "954be0ce-1e39-3b42-eff4-588533235898": 174
+          },
+          "DaemonMessages": [
+            {
+              "MessageId": 14,
+              "TimeUtc": "2026-11-23T14:11:33.681145+00:00",
+              "ProcessId": 4,
+              "ThreadId": 680,
+              "Payload": "466173745250434472697665724430456e74727900"
+            },
+            {
+              "MessageId": 15,
+              "TimeUtc": "2026-11-23T14:11:33.681146+00:00",
+              "ProcessId": 4,
+              "ThreadId": 680,
+              "Payload": "466173745250434472697665724430456e74727900"
+            }
+          ]
+        }
+      ],
+      "MiSoundProcessingProven": false
+    }
+  },
+  "TokenGate": {
+    "RefusedNonElevatedToken": true,
+    "UacPromptOpened": false,
+    "DriverInstalled": false,
+    "AudioStarted": false,
+    "WorkerStarted": false,
+    "RebootPerformed": false,
+    "AmplifiersHealthy": true,
+    "KernelAndCalibrationUnchanged": true,
+    "TrialDirectory": "bound-apo7-trial-20261125-045046"
+  },
+  "DriverInstalled": false,
+  "RebootPerformed": false,
+  "AudioOpened": false,
+  "GainOrProtectionChanged": false,
+  "AcousticLrProven": false,
+  "SystemDolbyProven": false,
+  "SystemMiSoundProven": false,
+  "Interpretation": "New APO code fixes telemetry attribution and adds standard diagnostics. Native software checks, read-only inventory and old ETL analysis do not establish live system effects or acoustic speaker quality."
+}

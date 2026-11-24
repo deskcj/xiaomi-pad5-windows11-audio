@@ -17,6 +17,16 @@ View *map(HANDLE handle) {
     *view={handle,data};return view;
 }
 }
+void nabu_diag_message(const WCHAR *message) {
+    // Called only by Initialize/LockForProcess. Reset and APOProcess must not log.
+    DWORD error=GetLastError();
+    REGHANDLE event=0;
+    if (message && EventRegister(&Provider,nullptr,nullptr,&event)==ERROR_SUCCESS) {
+        EventWriteString(event,4,0,message);
+        EventUnregister(event);
+    }
+    SetLastError(error);
+}
 void nabu_diag(UINT32 field,LONG value,bool increment) {
     // This diagnostics path is used only outside APOProcess.
     DWORD error=GetLastError();

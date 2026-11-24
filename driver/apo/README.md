@@ -1,8 +1,10 @@
-# Dolby APO development source · 2.0.0.5-lab
+# Dolby APO development source · 2.0.0.7-lab
 
 Native ARM64 COM transport, stereo queues, delayed dry fallback and diagnostics. The separate worker runs original Android Dolby code; that library and worker runtime are not included here. This source does not implement MiSound processing.
 
 The stale-reply fix preserves valid processed blocks after discarded old replies. Six queue comparisons, nine boundary/safety cases and seven original-worker lifecycle scenarios passed offline. These checks opened no audio device and do not establish system Dolby or acoustic L/R separation. The transport delay remains 128 ms.
+
+The .7 prototype adds Windows 11 logging of source identity, mapping name and epoch, and clears old frame counters on reset/reopen. Seven logging contracts, two native counter cases and seven original-worker scenarios passed. `APOProcess` and `Reset` perform no logging. The build script generates the source fingerprint header inside the output folder.
 
 From an ARM64 EWDK 10.0.26100 environment, run `powershell.exe -File .\Build-Apo.ps1 -OutputDirectory <new-folder>`. The lab DLL is unsigned and unregistered; this script does not install anything. `DigitalHarness.cpp` provides the in-memory COM test interface.
 

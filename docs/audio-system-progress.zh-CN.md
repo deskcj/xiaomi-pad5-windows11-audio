@@ -4,11 +4,17 @@
 
 不宣称音量提升或达到 HyperOS 音质。安静的数字回环不是扬声器声学测量。
 
+**最新 · APO 2.0.0.7-lab：** 增加 Windows 11 源码指纹、映射名称及代次日志。重置/重新打开时清零旧帧计数，避免把前一个实例的结果误认为新处理。七项日志协议、两项原生计数测试及七项原版处理进程场景通过；常规/不规则渲染各精确匹配 196,608 帧。日志仅在 Initialize/LockForProcess 中调用，Reset/APOProcess 中没有日志。十七项模拟观察器测试拒绝错误构建、流、代次及测试程序 PID。这些是软件检查；签名 .7/.35 测试已准备，但候选尚未安装。
+
+**MiSound 调查：** 已安装的 `qcadsprpcd` 内核驱动正在运行，ACPI 设备无错误。Ghidra 确认 `apps_std` 注册、`audiopd` 分支及资源路径处理。两个旧跟踪文件仅包含两条名为 `FastRPCDriverD0Entry` 的驱动消息；它们不证明监听进程已工作、资源已打开或 ADM 已回复。此前“没有监听进程”的假设不足以支持启动另一项服务。
+
+[最新构建及证据](results/audio-apo-observability-2026-11-25.json) · [Microsoft 日志框架](https://learn.microsoft.com/en-us/windows-hardware/drivers/audio/windows-11-apis-for-audio-processing-objects) · [Reset 限制](https://learn.microsoft.com/en-us/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobject-reset)
+
 | 项目 | 改动前 | 当前已验证结果 |
 | --- | --- | --- |
 | IRQ/GPIO 与路由 | IRQ 配置忽略 I²C 错误，仅检查 CH_BAL。 | ✅ .18 拒绝 IRQ 故障，四颗功放的实际回读通过。 |
 | 数字 L/R | 未测量分离。 | ✅ 四项安静测试通过；另一声道的 800 Hz 音调低于 0.1%。UID/I²C 映射与 Android 一致。声学隔离尚未验证。 |
-| Dolby APO | 过期回复可能使有效音频块进入直通，系统处理未完成。 | ✅ .5 修复队列，6 + 9 + 7 项离线测试通过；.35 绑定已准备。❌ 系统处理尚未验证。 |
+| Dolby APO | 注册状态或旧计数可能被误认为实际执行。 | ✅ .7 标识构建、音频流及代次，清零旧计数。❌ 系统执行尚未验证。 |
 | PCM24 / MiSound | 格式/时序失败，DSP 参数超时。 | ✅ 此前 13 项 PCM24 与 96 项编码测试通过。❌ MiSound DSP 与实际音质一致性尚未完成。 |
 
 GPIO 中断及保护掩码配置现会传递错误，并在开启 DSP/功放前验证回读。成功路径写入、固件、系数和出厂校准不变。EWDK 构建、目录生成及签名通过。

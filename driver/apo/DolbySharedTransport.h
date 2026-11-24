@@ -38,6 +38,7 @@ struct NabuTransportView {
     NabuSharedTransport *shared;
     bool pinned;
     bool worker;
+    WCHAR name[NabuTransportNameChars]; // Local view only; shared wire layout is unchanged.
 };
 
 struct NabuApoTransportInit {

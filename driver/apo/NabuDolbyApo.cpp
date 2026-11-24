@@ -5,6 +5,8 @@
 #include "DolbySharedTransport.h"
 #include "DolbyBank.h"
 #include "ApoDiagnostics.h"
+#include <ApoBuildIdentity.h>
+#include <strsafe.h>
 
 namespace {
 
@@ -12,6 +14,8 @@ constexpr GUID PcmFloat = {3, 0, 0x10, {0x80, 0, 0, 0xaa, 0, 0x38, 0x9b, 0x71}};
 constexpr UINT32 SampleRate = 48000;
 constexpr UINT32 Channels = 2;
 constexpr DWORD StereoChannelMask = 3;
+// SID_AudioProcessingObjectLoggingService from the Windows 11 SDK.
+constexpr GUID LoggingServiceId={0x8b8008af,0x09f9,0x456e,{0xa1,0x73,0xbd,0xb5,0x84,0x99,0xbc,0xe7}};
 volatile LONG Objects;
 volatile LONG ServerLocks;
 
@@ -80,6 +84,7 @@ public:
     {
         ULONG remaining = InterlockedDecrement(&references_);
         if (!remaining) {
+            if (logging_) { logging_->Release(); logging_=nullptr; }
             free_delay();
             if (transport_) {
                 InterlockedExchange(&transport_->shared->apo_claim, 0);
@@ -132,6 +137,12 @@ public:
                 auto *fx3 = reinterpret_cast<APOInitSystemEffects3 *>(data);
                 discovering = fx3->InitializeForDiscoveryOnly != FALSE;
                 raw = fx3->AudioProcessingMode == Raw;
+                mode_flags_=(raw?1U:0U)|(discovering?2U:0U);
+                if (fx3->pServiceProvider) {
+                    logging_status_=fx3->pServiceProvider->QueryService(LoggingServiceId,
+                        __uuidof(IAudioProcessingObjectLoggingService),reinterpret_cast<void **>(&logging_));
+                    if (FAILED(logging_status_) && logging_) { logging_->Release(); logging_=nullptr; }
+                }
                 nabu_diag(6,fx3->InitializeForDiscoveryOnly);nabu_diag(7,raw);
                 // Windows 11's settings framework uses a context-specific store
                 // activated on the last collection device, not the init2 pointer.
@@ -158,6 +169,7 @@ public:
                 auto *fx2 = reinterpret_cast<APOInitSystemEffects2 *>(data);
                 discovering = fx2->InitializeForDiscoveryOnly != FALSE;
                 raw = fx2->AudioProcessingMode == Raw;
+                mode_flags_=(raw?1U:0U)|(discovering?2U:0U);
                 nabu_diag(6,fx2->InitializeForDiscoveryOnly);nabu_diag(7,fx2->AudioProcessingMode==Raw);
             }
             if (!raw && (properties || bytes == sizeof(APOInitSystemEffects3))) {
@@ -190,6 +202,7 @@ public:
             InterlockedExchange(&transport_->shared->init_kind, init_kind_);
         }
         initialized_ = true;
+        log_event(L"Initialize",S_OK);
         return S_OK;
     }
 
@@ -290,41 +303,41 @@ public:
     {
         nabu_diag(9,0,true);nabu_diag(15,LONG(delay_));
         if (!initialized_)
-            return APOERR_NOT_INITIALIZED;
+            return lock_result(APOERR_NOT_INITIALIZED);
         if (max_frames_)
-            return APOERR_APO_LOCKED;
+            return lock_result(APOERR_APO_LOCKED);
         if (input_count != 1 || output_count != 1)
-            return APOERR_NUM_CONNECTIONS_INVALID;
+            return lock_result(APOERR_NUM_CONNECTIONS_INVALID);
         if (!inputs || !outputs || !inputs[0] || !outputs[0])
-            return E_POINTER;
+            return lock_result(E_POINTER);
         const auto &input = *inputs[0];
         const auto &output = *outputs[0];
         if (input.u32Signature != APO_CONNECTION_DESCRIPTOR_SIGNATURE ||
             output.u32Signature != APO_CONNECTION_DESCRIPTOR_SIGNATURE ||
             !stereo_float(input.pFormat) || !stereo_float(output.pFormat))
-            return APOERR_INVALID_CONNECTION_FORMAT;
+            return lock_result(APOERR_INVALID_CONNECTION_FORMAT);
         if (!input.u32MaxFrameCount || output.u32MaxFrameCount < input.u32MaxFrameCount)
-            return APOERR_INVALID_OUTPUT_MAXFRAMECOUNT;
+            return lock_result(APOERR_INVALID_OUTPUT_MAXFRAMECOUNT);
 
         if (delay_) {
             if (transport_ && !nabu_pin_transport(transport_))
-                return lock_error(GetLastError());
+                return lock_result(lock_error(GetLastError()));
             if (!VirtualLock(this, sizeof(*this)))
-                return lock_error(GetLastError());
+                return lock_result(lock_error(GetLastError()));
             self_pinned_ = true;
             delay_frames_ = static_cast<StereoFrame *>(VirtualAlloc(nullptr, delay_bytes(),
                 MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE));
             if (!delay_frames_)
-                return E_OUTOFMEMORY;
+                return lock_result(E_OUTOFMEMORY);
             if (!VirtualLock(delay_frames_, delay_bytes())) {
                 HRESULT error = HRESULT_FROM_WIN32(GetLastError());
                 free_delay();
-                return error;
+                return lock_result(error);
             }
             reset_stream();
         }
         max_frames_ = input.u32MaxFrameCount;
-        return S_OK;
+        return lock_result(S_OK);
     }
 
     HRESULT STDMETHODCALLTYPE UnlockForProcess() override
@@ -382,6 +395,27 @@ public:
     }
 
 private:
+    void log_event(const WCHAR *phase,HRESULT status)
+    {
+        DWORD error=GetLastError();
+        WCHAR message[512]={};
+        if (SUCCEEDED(StringCchPrintfW(message,ARRAYSIZE(message),
+                L"NabuApo build=%ls source=%ls phase=%ls hr=0x%08lx pid=%lu init=%ld mode=%u transport=%u delay=%u logger=0x%08lx queue=%ls epoch=%u",
+                NabuApoBuildTag,NabuApoSourceFingerprint,phase,status,GetCurrentProcessId(),
+                init_kind_,mode_flags_,transport_?1U:0U,delay_,logging_status_,
+                transport_?transport_->name:L"-",generation_))) {
+            nabu_diag_message(message);
+            if (logging_) logging_->ApoLog(FAILED(status)?APO_LOG_LEVEL_ERROR:APO_LOG_LEVEL_INFO,L"%ls",message);
+        }
+        SetLastError(error);
+    }
+
+    HRESULT lock_result(HRESULT status)
+    {
+        log_event(L"LockForProcess",status);
+        return status;
+    }
+
     HRESULT lock_error(DWORD error)
     {
         nabu_diag(10,LONG(error));
@@ -398,6 +432,11 @@ private:
         dolby_stream_init(&stream_, delay_frames_, delay_, requests_, replies_, generation_);
         if (transport_) {
             stream_.requests_dropped = &transport_->shared->requests_dropped;
+            // Frame telemetry belongs to the new epoch, not the previous owner.
+            InterlockedExchange(&transport_->shared->callbacks,0);
+            InterlockedExchange64(&transport_->shared->frames_processed,0);
+            InterlockedExchange64(&transport_->shared->frames_wet,0);
+            InterlockedExchange64(&transport_->shared->frames_dry,0);
         }
     }
 
@@ -424,6 +463,9 @@ private:
     bool system_init_ = false;
     bool discovery_effect_ = false;
     LONG init_kind_ = 0;
+    UINT32 mode_flags_=0;
+    HRESULT logging_status_=E_NOINTERFACE;
+    IAudioProcessingObjectLoggingService *logging_=nullptr;
     StereoFrame *delay_frames_ = nullptr;
     DolbyStream stream_ = {};
 };
@@ -510,6 +552,11 @@ STDAPI DllCanUnloadNow()
 {
     return InterlockedCompareExchange(&Objects, 0, 0) || InterlockedCompareExchange(&ServerLocks, 0, 0)
         ? S_FALSE : S_OK;
+}
+
+extern "C" __declspec(dllexport) const WCHAR *WINAPI NabuApoBuildFingerprint()
+{
+    return NabuApoSourceFingerprint;
 }
 
 #ifdef NABU_APO_RESEARCH

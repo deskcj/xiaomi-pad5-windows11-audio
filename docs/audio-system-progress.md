@@ -4,11 +4,17 @@
 
 No loudness or HyperOS-quality improvement is claimed. Quiet digital loopback is not an acoustic speaker test.
 
+**Latest · APO 2.0.0.7-lab:** added Windows 11 logging of the source fingerprint, mapping name and epoch. Old frame counters are cleared when a stream resets or reopens, preventing results from a previous owner being counted as new processing. Seven logging contracts, two native counter tests and seven original-worker scenarios passed; normal/irregular renders each remained exact for 196,608 frames. Logging is limited to Initialize/LockForProcess and excluded from Reset/APOProcess. Seventeen synthetic observer cases reject wrong builds, streams, generations and helper PIDs. These are software checks; the signed .7/.35 trial is prepared but has not installed a candidate.
+
+**MiSound investigation:** the installed `qcadsprpcd` kernel driver is running and its ACPI device reports no problem. Ghidra identified `apps_std` registration, the `audiopd` branch and the resource path handler. Two archived traces contain only two daemon messages named `FastRPCDriverD0Entry`; they do not establish an active listener, successful resource opening or ADM acknowledgement. Starting another user-mode listener is therefore not justified by the earlier absence hypothesis.
+
+[Latest build and evidence](results/audio-apo-observability-2026-11-25.json) · [Microsoft logging framework](https://learn.microsoft.com/en-us/windows-hardware/drivers/audio/windows-11-apis-for-audio-processing-objects) · [Reset constraints](https://learn.microsoft.com/en-us/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobject-reset)
+
 | Area | Before | Proven now |
 | --- | --- | --- |
 | IRQ/GPIO and routing | IRQ setup ignored I²C errors; only CH_BAL was checked. | ✅ .18 rejects failed IRQ setup; real readbacks passed on all four amplifiers. |
 | Digital L/R | Separation unmeasured. | ✅ Four quiet cases passed; opposite 800 Hz tone <0.1%. UID/I²C board mapping matches Android. Acoustic isolation remains unverified. |
-| Dolby APO | Stale replies could bypass valid processed blocks; no system processing. | ✅ .5 fixes the queue; 6 + 9 + 7 offline cases passed. .35 binding prepared. ❌ System processing unproven. |
+| Dolby APO | Registration or old counters could be mistaken for execution. | ✅ .7 identifies the build, stream and epoch; resets old counters. ❌ Live system processing unverified. |
 | PCM24 / MiSound | Format/pacing failures; DSP parameters timed out. | ✅ Earlier 13 PCM24 and 96 encoder cases. ❌ MiSound DSP processing and acoustic parity remain open. |
 
 GPIO interrupt configuration and the protection mask now propagate errors and verify readbacks before DSP/amp enablement. The healthy writes, firmware, coefficients and factory calibration remain unchanged. EWDK, catalog generation and signing passed.

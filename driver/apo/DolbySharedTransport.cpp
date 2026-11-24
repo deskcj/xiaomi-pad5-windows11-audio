@@ -1,5 +1,6 @@
 #include "DolbySharedTransport.h"
 #include <sddl.h>
+#include <strsafe.h>
 
 namespace {
 bool valid_name(const WCHAR *name)
@@ -41,6 +42,9 @@ NabuTransportView *nabu_open_transport(const WCHAR *name)
     if (!view)
         return nullptr;
     const auto *s = view->shared;
+    if (FAILED(StringCchCopyW(view->name,NabuTransportNameChars,name))) {
+        nabu_close_transport(view);SetLastError(ERROR_INVALID_NAME);return nullptr;
+    }
     if (s->signature != NabuTransportSignature || s->version != NabuTransportVersion ||
         s->bytes != sizeof(*s) || !s->delay_frames || s->delay_frames > 48000) {
         nabu_close_transport(view);
@@ -96,6 +100,9 @@ extern "C" void *WINAPI NabuTransportCreateSecured(const WCHAR *name, UINT32 del
     }
     auto *view = map_handle(mapping);
     if (view) {
+        if (FAILED(StringCchCopyW(view->name,NabuTransportNameChars,name))) {
+            nabu_close_transport(view);SetLastError(ERROR_INVALID_NAME);return nullptr;
+        }
         auto *s = view->shared;
         s->signature = NabuTransportSignature;
         s->version = NabuTransportVersion;
