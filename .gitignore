@@ -1,5 +1,6 @@
 /local/
 /driver/ARM64/
+/driver/apo/ARM64/
 /driver/x64/
 /driver/firmware/
 *.sys

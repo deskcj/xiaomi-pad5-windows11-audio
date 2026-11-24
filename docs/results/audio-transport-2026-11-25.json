@@ -1,0 +1,562 @@
+{
+  "Date": "2026-11-25",
+  "InstalledCirrusVersion": "4.17.27.18",
+  "CandidateApoVersion": "2.0.0.5-lab",
+  "Build": {
+    "CandidateVersion": "2.0.0.5-lab",
+    "Architecture": "ARM64",
+    "Registered": false,
+    "Signed": false,
+    "SystemEffectsProven": false,
+    "DllSha256": "f23989987ca17c793e92d9a7ae6d25779186941413e99b77bf7b19bb868b6278",
+    "SourceSha256": {
+      "ApoDiagnostics.cpp": "0c61852b2fb9f5ca74683c2acec7f426f4eb999dfe88b40afb9b2ca4242800f8",
+      "ApoDiagnostics.h": "a891c9133a4d0a30a86a98eabc41dfee033ac8d39fb8a3d7a3dbf5fd2702a7c6",
+      "Build-Apo.ps1": "0d8ecbb06f7203e9657effd978f85729819cf2b7028e4f45fbe23d051fe861d0",
+      "DigitalHarness.cpp": "a234e82dbb347f5550c92f596335bfdeae2b17e14a150d806ea9070c42749589",
+      "DolbyBank.cpp": "b6ce1f90e8f0a4f7cf9c7ab43815a7923178aed7dc328f9a59eef4210b9d43aa",
+      "DolbyBank.h": "d2e8611e4d2abf71acd65352062923c13d16bd2242316989a38b9ddb971702ed",
+      "DolbyBlockQueue.h": "b7df0202bdc53498e952cc67e2ff806ad78506f169ff578d257fa0241d0b763e",
+      "DolbyFallback.h": "41a8aad572daa3298ea84bbfee0f2a13135caad0640a9d368f568963b42b2db4",
+      "DolbySharedTransport.cpp": "c76b8eda0bdeaadc016f9f6c949b5280cefa235f6907baa5e19f2478cbc44bea",
+      "DolbySharedTransport.h": "9fab40a6100d9568d0245a25989b3987451ac66a235cc26221b59e458a141e38",
+      "DolbyStream.h": "78e8dfc38f52b480ebc62975e83bbd271105969ffc3a33cbffc9ac37fb5d68b5",
+      "NabuDolbyApo.cpp": "039df55b3d27cb2527eac28de764afff3c0609284aa2c93bc5b001b6048c98df",
+      "NabuDolbyApo.h": "afa308a9eba57e84f7762c3e77ca1f469a5797a98b2956df39e07e74cc46a647"
+    }
+  },
+  "PreparedComponentPackage": {
+    "Version": "2.0.0.5",
+    "CatalogSignedAndVerified": true,
+    "Installed": false,
+    "Registered": false,
+    "GlobalEffectPackRemovedFromCandidate": true,
+    "MicrosoftPrivateSchemaUsed": false,
+    "HardwareId": "SWC\\VEN_DSKC&CID_NABUDOLBYGLOBAL",
+    "RequiresDriverBoundSfxExtension": true,
+    "LiveTrialHarnessNeedsApo5Support": true,
+    "DriverBoundExtensionCandidate": "1.0.2140.35",
+    "KernelChanged": false,
+    "GainOrProtectionChanged": false,
+    "SystemDolbyProven": false,
+    "PackageFiles": {
+      "NabuDolbyApo.inf": "5e7ffc0e66af40379203fdcb3062124091f37c2036ffb11ca97a4d38de5b468e",
+      "NabuDolbyBridge.dll": "f23989987ca17c793e92d9a7ae6d25779186941413e99b77bf7b19bb868b6278",
+      "nabudolbyapo.cat": "475b2ec738ac1fe69135bb132b9d013297970643149342ffd9db3e62c459f383"
+    },
+    "RollbackFiles": {
+      "NabuDolbyGlobal.inf": "046f03b6c180d5f004af371914a326c2326c17933a8bd72e3ac3497b9b48f08d",
+      "NabuDolbyGlobal.cat": "9689cffaf11b2e983ffc926df551f82c258afbf29d2c321fe848c2a9d07f36da",
+      "NabuDolbyBridge.dll": "dc0c29a144090f83b4532c215332f1a0c96aa4c99ca9db1ccdbc1bb5c117889c"
+    },
+    "RollbackActuallyExercised": false
+  },
+  "QueueRegression": {
+    "audio_opened": false,
+    "driver_installed": false,
+    "original_android_reference_used": true,
+    "cases": [
+      {
+        "name": "healthy_4800",
+        "frames": 4800,
+        "stale_records": 0,
+        "original_matches": 4800,
+        "candidate_matches": 4800,
+        "original_wet": 4800,
+        "candidate_wet": 4800,
+        "candidate_dry": 0,
+        "candidate_reads": 5,
+        "passed": true
+      },
+      {
+        "name": "six_stale_4800",
+        "frames": 4800,
+        "stale_records": 6,
+        "original_matches": 2048,
+        "candidate_matches": 4800,
+        "original_wet": 2048,
+        "candidate_wet": 4800,
+        "candidate_dry": 0,
+        "candidate_reads": 11,
+        "passed": true
+      },
+      {
+        "name": "healthy_8192",
+        "frames": 8192,
+        "stale_records": 0,
+        "original_matches": 8192,
+        "candidate_matches": 8192,
+        "original_wet": 8192,
+        "candidate_wet": 8192,
+        "candidate_dry": 0,
+        "candidate_reads": 8,
+        "passed": true
+      },
+      {
+        "name": "six_stale_8192",
+        "frames": 8192,
+        "stale_records": 6,
+        "original_matches": 2048,
+        "candidate_matches": 8192,
+        "original_wet": 2048,
+        "candidate_wet": 8192,
+        "candidate_dry": 0,
+        "candidate_reads": 14,
+        "passed": true
+      },
+      {
+        "name": "eight_stale_bounded",
+        "frames": 4800,
+        "stale_records": 8,
+        "original_matches": 4800,
+        "candidate_matches": 4800,
+        "original_wet": 0,
+        "candidate_wet": 0,
+        "candidate_dry": 4800,
+        "candidate_reads": 8,
+        "passed": true
+      },
+      {
+        "name": "future_gap_alignment",
+        "frames": 4800,
+        "stale_records": 0,
+        "original_matches": 4800,
+        "candidate_matches": 4800,
+        "original_wet": 3776,
+        "candidate_wet": 3776,
+        "candidate_dry": 1024,
+        "candidate_reads": 4,
+        "passed": true
+      }
+    ],
+    "passed": true
+  },
+  "BoundaryRegression": {
+    "audio_opened": false,
+    "original_android_reference_used": true,
+    "cases": [
+      {
+        "name": "partial_replies_97_frame_callbacks",
+        "frames": 4800,
+        "exact_matches": 4800,
+        "wet": 4800,
+        "dry": 0,
+        "passed": true
+      },
+      {
+        "name": "seven_stale_4800",
+        "frames": 4800,
+        "exact_matches": 4800,
+        "wet": 4800,
+        "dry": 0,
+        "passed": true
+      },
+      {
+        "name": "seven_stale_16384",
+        "frames": 16384,
+        "exact_matches": 16384,
+        "wet": 16384,
+        "dry": 0,
+        "passed": true
+      },
+      {
+        "name": "scattered_seven_stale",
+        "frames": 8192,
+        "exact_matches": 8192,
+        "wet": 8192,
+        "dry": 0,
+        "passed": true
+      },
+      {
+        "name": "eight_stale_next_callback_recovers",
+        "frames": 9600,
+        "exact_matches": 9600,
+        "wet": 4800,
+        "dry": 4800,
+        "passed": true
+      },
+      {
+        "name": "queue_cursors_wrap",
+        "frames": 8192,
+        "exact_matches": 8192,
+        "wet": 8192,
+        "dry": 0,
+        "passed": true
+      },
+      {
+        "name": "unsafe_worker_samples_use_exact_dry",
+        "frames": 4800,
+        "exact_matches": 4800,
+        "wet": 4775,
+        "dry": 25,
+        "passed": true
+      },
+      {
+        "name": "nonblock_callback_sizes",
+        "frames": 8192,
+        "exact_matches": 8192,
+        "wet": 8192,
+        "dry": 0,
+        "passed": true
+      },
+      {
+        "name": "oversize_record_does_not_copy",
+        "passed": true
+      }
+    ],
+    "passed": true
+  },
+  "Lifecycle": {
+    "Passed": true,
+    "Completed": 7,
+    "AudioDeviceOpened": false,
+    "SystemDolbyProven": false,
+    "Scenarios": [
+      {
+        "Label": "normal",
+        "Passed": true,
+        "Comparison": {
+          "ReferenceFrames": 196608,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        },
+        "MaximumCallbackUs": 663.8020833333334,
+        "WetFrames": 196608,
+        "DryFrames": 0
+      },
+      {
+        "Label": "irregular",
+        "Passed": true,
+        "Comparison": {
+          "ReferenceFrames": 196608,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        },
+        "MaximumCallbackUs": 822.1875,
+        "WetFrames": 196608,
+        "DryFrames": 0
+      },
+      {
+        "Label": "exit",
+        "Passed": true,
+        "Comparison": {
+          "ReferenceFrames": 98208,
+          "ExactDryFallbackFrames": 98400,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": false
+        },
+        "MaximumCallbackUs": 252.13541666666666,
+        "WetFrames": 98208,
+        "DryFrames": 98400
+      },
+      {
+        "Label": "pause",
+        "Passed": true,
+        "Comparison": {
+          "ReferenceFrames": 168064,
+          "ExactDryFallbackFrames": 28544,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        },
+        "MaximumCallbackUs": 193.85416666666666,
+        "WetFrames": 168064,
+        "DryFrames": 28544
+      },
+      {
+        "Label": "reset",
+        "Passed": true,
+        "Comparison": {
+          "ReferenceFrames": 190464,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        },
+        "MaximumCallbackUs": 160.88541666666666,
+        "WetFrames": 98304,
+        "DryFrames": 0
+      },
+      {
+        "Label": "bypass",
+        "Passed": true,
+        "Comparison": {
+          "ExactZeroLatencyBypass": true
+        },
+        "MaximumCallbackUs": 36.822916666666664,
+        "WetFrames": 0,
+        "DryFrames": 0
+      },
+      {
+        "Label": "absent",
+        "Passed": true,
+        "Comparison": {
+          "ReferenceFrames": 1,
+          "ExactDryFallbackFrames": 196607,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": false
+        },
+        "MaximumCallbackUs": 1330.6770833333333,
+        "WetFrames": 0,
+        "DryFrames": 196608
+      }
+    ]
+  },
+  "MiSoundHostRouting": {
+    "OriginalWindowsLibrarySha256": "cdbad8b7263d757d476c2274d1f0cb725ab030f278c960a2acabaa4ed17f263d",
+    "OriginalMachineCodeExecuted": true,
+    "ImportsIntercepted": true,
+    "DeviceAcquisitionAndFileBookkeepingIntercepted": true,
+    "GuestLoggingDisabled": true,
+    "DllMainExecuted": false,
+    "RealDeviceOpened": false,
+    "DspCommandSent": false,
+    "SystemMiSoundProven": false,
+    "Completed": 4,
+    "Passed": true,
+    "Cases": [
+      {
+        "Resource": "misound_res_spk.bin",
+        "MockMappingAvailable": false,
+        "InitializerStatus": 0,
+        "SearchPathStatus": 0,
+        "SearchPath": ";C:\\Windows\\System32\\Drivers\\DriverData\\Qualcomm\\fastRPC",
+        "FileOpenStatus": 86,
+        "FileOpenCalls": [
+          {
+            "Path": "misound_res_spk.bin",
+            "Mode": "rb"
+          },
+          {
+            "Path": "misound_res_spk.bin",
+            "Mode": "rb"
+          },
+          {
+            "Path": "C:\\Windows\\System32\\Drivers\\DriverData\\Qualcomm\\fastRPC\\misound_res_spk.bin",
+            "Mode": "rb"
+          }
+        ],
+        "KernelResolverCalls": [
+          {
+            "Code": "0x102020",
+            "Remote": "misound_res_spk.bin",
+            "OutputBytes": 4
+          }
+        ],
+        "Passed": true,
+        "RealFileServiceProven": false
+      },
+      {
+        "Resource": "misound_res_spk.bin",
+        "MockMappingAvailable": true,
+        "InitializerStatus": 0,
+        "SearchPathStatus": 0,
+        "SearchPath": ";C:\\Windows\\System32\\Drivers\\DriverData\\Qualcomm\\fastRPC",
+        "FileOpenStatus": 0,
+        "FileOpenCalls": [
+          {
+            "Path": "misound_res_spk.bin",
+            "Mode": "rb"
+          },
+          {
+            "Path": "misound_res_spk.bin",
+            "Mode": "rb"
+          },
+          {
+            "Path": "C:\\Windows\\System32\\Drivers\\DriverData\\Qualcomm\\fastRPC\\misound_res_spk.bin",
+            "Mode": "rb"
+          },
+          {
+            "Path": "C:\\MOCK\\misound_res_spk.bin",
+            "Mode": "rb"
+          }
+        ],
+        "KernelResolverCalls": [
+          {
+            "Code": "0x102020",
+            "Remote": "misound_res_spk.bin",
+            "OutputBytes": 4
+          },
+          {
+            "Code": "0x102020",
+            "Remote": "misound_res_spk.bin",
+            "OutputBytes": 29
+          }
+        ],
+        "Passed": true,
+        "RealFileServiceProven": false
+      },
+      {
+        "Resource": "misound_res_spk4ch.bin",
+        "MockMappingAvailable": false,
+        "InitializerStatus": 0,
+        "SearchPathStatus": 0,
+        "SearchPath": ";C:\\Windows\\System32\\Drivers\\DriverData\\Qualcomm\\fastRPC",
+        "FileOpenStatus": 86,
+        "FileOpenCalls": [
+          {
+            "Path": "misound_res_spk4ch.bin",
+            "Mode": "rb"
+          },
+          {
+            "Path": "misound_res_spk4ch.bin",
+            "Mode": "rb"
+          },
+          {
+            "Path": "C:\\Windows\\System32\\Drivers\\DriverData\\Qualcomm\\fastRPC\\misound_res_spk4ch.bin",
+            "Mode": "rb"
+          }
+        ],
+        "KernelResolverCalls": [
+          {
+            "Code": "0x102020",
+            "Remote": "misound_res_spk4ch.bin",
+            "OutputBytes": 4
+          }
+        ],
+        "Passed": true,
+        "RealFileServiceProven": false
+      },
+      {
+        "Resource": "misound_res_spk4ch.bin",
+        "MockMappingAvailable": true,
+        "InitializerStatus": 0,
+        "SearchPathStatus": 0,
+        "SearchPath": ";C:\\Windows\\System32\\Drivers\\DriverData\\Qualcomm\\fastRPC",
+        "FileOpenStatus": 0,
+        "FileOpenCalls": [
+          {
+            "Path": "misound_res_spk4ch.bin",
+            "Mode": "rb"
+          },
+          {
+            "Path": "misound_res_spk4ch.bin",
+            "Mode": "rb"
+          },
+          {
+            "Path": "C:\\Windows\\System32\\Drivers\\DriverData\\Qualcomm\\fastRPC\\misound_res_spk4ch.bin",
+            "Mode": "rb"
+          },
+          {
+            "Path": "C:\\MOCK\\misound_res_spk4ch.bin",
+            "Mode": "rb"
+          }
+        ],
+        "KernelResolverCalls": [
+          {
+            "Code": "0x102020",
+            "Remote": "misound_res_spk4ch.bin",
+            "OutputBytes": 4
+          },
+          {
+            "Code": "0x102020",
+            "Remote": "misound_res_spk4ch.bin",
+            "OutputBytes": 32
+          }
+        ],
+        "Passed": true,
+        "RealFileServiceProven": false
+      }
+    ]
+  },
+  "MiSoundResourceMapping": {
+    "ReadOnly": true,
+    "LiveDspFileOpenObserved": false,
+    "SystemMiSoundProven": false,
+    "MappingAudit": {
+      "2&daba3ff&0": {
+        "selected_mapping_set": "Default",
+        "files": {
+          "misound_res_spk.bin": {
+            "hyperos_sha256": "4d617682a2ac00a2a9fc43f51f3fda86fc61aabcbee250245029a1769e63292d",
+            "expected_basename_key": "883f08187b9144d22a7239474c54df7db937c119593c010533acb9b096d60bea",
+            "mapping": {
+              "remote": "\\adsp\\misound_res_spk.bin",
+              "local": "C:\\Windows\\System32\\DriverStore\\FileRepository\\mipad5_subextadsp.inf_arm64_e64a881d87e7c285\\ADSP\\misound_res_spk.bin",
+              "registry_id": "883f08187b9144d22a7239474c54df7db937c119593c010533acb9b096d60bea",
+              "sha256": "4d617682a2ac00a2a9fc43f51f3fda86fc61aabcbee250245029a1769e63292d"
+            },
+            "matches_hyperos": true,
+            "uses_expected_key": true
+          },
+          "misound_res_spk4ch.bin": {
+            "hyperos_sha256": "86dedc55e40ed6f24ccfb268e5197c599e48741d311cd8ebb285ab083df77ead",
+            "expected_basename_key": "61e86824e3ad2f93dce82a8059770e115ee5c4bfe59597304a1b7b90e89635d0",
+            "mapping": {
+              "remote": "\\adsp\\misound_res_spk4ch.bin",
+              "local": "C:\\Windows\\System32\\DriverStore\\FileRepository\\mipad5_subextadsp.inf_arm64_e64a881d87e7c285\\ADSP\\misound_res_spk4ch.bin",
+              "registry_id": "61e86824e3ad2f93dce82a8059770e115ee5c4bfe59597304a1b7b90e89635d0",
+              "sha256": "86dedc55e40ed6f24ccfb268e5197c599e48741d311cd8ebb285ab083df77ead"
+            },
+            "matches_hyperos": true,
+            "uses_expected_key": true
+          },
+          "capi_v2_dap_cpdp.so": {
+            "hyperos_sha256": "a7f689a25ae5d2756a521f306e2bd54eb2981b76474040e00d3b1b7b648f0979",
+            "expected_basename_key": "6470bf057c24faad702cac7eb716b4e07fe6d1f95c94ea68a0821424d94a7669",
+            "mapping": {
+              "remote": "\\adsp\\capi_v2_dap_cpdp.so",
+              "local": "C:\\Windows\\System32\\DriverStore\\FileRepository\\mipad5_subextadsp.inf_arm64_e64a881d87e7c285\\ADSP\\capi_v2_dap_cpdp.so",
+              "registry_id": "6470bf057c24faad702cac7eb716b4e07fe6d1f95c94ea68a0821424d94a7669",
+              "sha256": "a7f689a25ae5d2756a521f306e2bd54eb2981b76474040e00d3b1b7b648f0979"
+            },
+            "matches_hyperos": true,
+            "uses_expected_key": true
+          },
+          "adsp_avs_config.acdb": {
+            "hyperos_sha256": "fbc8f66bc40909fb10cce0fb64a98782ce8b8db38ef9b5076dce084fff49d087",
+            "expected_basename_key": "c16b5084703e33a4642a33636e109ae76228079f045b268c038fc1292c25fa7f",
+            "mapping": null,
+            "matches_hyperos": false,
+            "uses_expected_key": false
+          }
+        }
+      }
+    },
+    "WindowsFastRpcLibrarySha256": "cdbad8b7263d757d476c2274d1f0cb725ab030f278c960a2acabaa4ed17f263d"
+  },
+  "WindowsFastRpcReview": {
+    "TargetedFunctionsReviewed": 6,
+    "LibraryExecutedByWindows": false,
+    "LibrarySha256": "cdbad8b7263d757d476c2274d1f0cb725ab030f278c960a2acabaa4ed17f263d",
+    "DefaultSearch": "%DriverData%\\Qualcomm\\fastRPC",
+    "KernelPathQuery": "0x102020",
+    "ActualListenerOwnershipObserved": false,
+    "ActualResourceOpenObserved": false,
+    "AdmAcknowledgementObserved": false,
+    "DriverDataEnumeration": "Access denied; contents unknown"
+  },
+  "NewDriverInstalled": false,
+  "RebootPerformed": false,
+  "AudioServicesRestarted": false,
+  "GainOrAmplifierProtectionChanged": false,
+  "SystemDolbyProven": false,
+  "SystemMiSoundProven": false,
+  "AcousticLrProven": false,
+  "MaximumVolumeSafetyProven": false,
+  "Interpretation": "Dolby queue robustness and original host path routing are software results. No new live system effect, acoustic or maximum-volume result is claimed."
+}

@@ -26,11 +26,11 @@ Download: **4.17.27.16**. Development source: **4.17.27.18**. The published ZIP 
 
 ## Update history
 
-### 2026-11-25 — 4.17.27.18 — development
+### 2026-11-25 — 4.17.27.18 / Dolby APO 2.0.0.5-lab
 
-- ✅ Quiet L/R retest passed; raw ACPI + Android DTS confirm the four-amplifier board mapping.
-- ✅ Original Dolby: 196,608 frames exact; MiSound encoder: 96 fresh original/native comparisons passed.
-- ⏳ OEM endpoint rejects the public global Dolby pack. Signed driver-bound .35 candidate prepared; system Dolby/MiSound remain open.
+- ✅ Fixed valid Dolby replies falling back to dry audio after stale replies: **6 + 9 + 7 offline cases** passed; 196,608-frame renders remain exact.
+- ✅ Four quiet digital L/R cases passed; raw ACPI + Android DTS confirm the four-amplifier mapping. [APO source](driver/apo/)
+- ⏳ MiSound host file routing isolated in four mocked machine-code cases. System Dolby/MiSound and acoustic L/R remain unverified; .35 binding awaits a live trial.
 
 [Measured evidence](docs/audio-system-progress.md)
 
@@ -64,7 +64,7 @@ PCM24 research set: all 13 timing/reopen tests passed; average 10 ms notificatio
 | --- | --- | --- |
 | IRQ/GPIO and routing | IRQ setup ignored I²C errors; only CH_BAL was checked. | ✅ .18 rejects failed IRQ setup; real readbacks passed on all four amplifiers. |
 | Digital L/R | Separation unmeasured. | ✅ Four quiet cases passed; opposite 800 Hz tone <0.1%. UID/I²C board mapping matches Android. Acoustic isolation remains unverified. |
-| Dolby APO | Global pack attached under AUDD; no system processing. | ✅ Identified OEM exclusion of the public global pack; .35 driver-bound candidate built. ❌ System processing unproven. |
+| Dolby APO | Stale replies could bypass valid processed blocks; no system processing. | ✅ .5 fixes the queue; 6 + 9 + 7 offline cases passed. .35 binding prepared. ❌ System processing unproven. |
 | PCM24 / MiSound | Format/pacing failures; DSP parameters timed out. | ✅ Earlier 13 PCM24 and 96 encoder cases. ❌ MiSound DSP processing and acoustic parity remain open. |
 
 System Dolby, MiSound, acoustic L/R separation and HyperOS-quality sound remain unconfirmed. No new loudness increase is claimed.

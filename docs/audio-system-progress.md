@@ -8,7 +8,7 @@ No loudness or HyperOS-quality improvement is claimed. Quiet digital loopback is
 | --- | --- | --- |
 | IRQ/GPIO and routing | IRQ setup ignored I²C errors; only CH_BAL was checked. | ✅ .18 rejects failed IRQ setup; real readbacks passed on all four amplifiers. |
 | Digital L/R | Separation unmeasured. | ✅ Four quiet cases passed; opposite 800 Hz tone <0.1%. UID/I²C board mapping matches Android. Acoustic isolation remains unverified. |
-| Dolby APO | Global pack attached under AUDD; no system processing. | ✅ Identified OEM exclusion of the public global pack; .35 driver-bound candidate built. ❌ System processing unproven. |
+| Dolby APO | Stale replies could bypass valid processed blocks; no system processing. | ✅ .5 fixes the queue; 6 + 9 + 7 offline cases passed. .35 binding prepared. ❌ System processing unproven. |
 | PCM24 / MiSound | Format/pacing failures; DSP parameters timed out. | ✅ Earlier 13 PCM24 and 96 encoder cases. ❌ MiSound DSP processing and acoustic parity remain open. |
 
 GPIO interrupt configuration and the protection mask now propagate errors and verify readbacks before DSP/amp enablement. The healthy writes, firmware, coefficients and factory calibration remain unchanged. EWDK, catalog generation and signing passed.
@@ -22,6 +22,14 @@ The latest quiet retest passed four normal/RAW L/R cases at unchanged 6% endpoin
 A fresh standalone Dolby init3 render matched all 196,608 reference frames (seven initialization cases, zero unexpected/dry frames). The rebuilt ARM64 MiSound encoder again matched 96 cases executed on original Android machine code. Neither test proves system effects. Ghidra plus read-only endpoint properties identified the public global-pack OEM filter. Driver-bound SFX extension .35 passed catalog/signature checks and read-only preflight; it is not installed. Two resources and selected MiSound DSP regions match HyperOS; actual resource opening/parameter acknowledgement remains unresolved.
 
 [Latest evidence](results/audio-effects-integration-2026-11-25.json)
+
+**Dolby 2.0.0.5-lab:** the old queue budget counted valid replies as well as stale replies. With six stale records, only 2,048 of 4,800 / 8,192 valid frames stayed processed; the candidate preserves all 4,800 / 8,192. Six comparisons and nine boundary/safety cases passed, including cursor wrap, recovery and rejecting NaN/Inf. A fresh ARM64 build from the [published source](../driver/apo/) passed all seven original-worker scenarios; normal and irregular renders each matched 196,608 frames. The DLL remains unsigned, unregistered and uninstalled; delay stays 128 ms.
+
+**MiSound file routing:** six Windows FastRPC functions were reviewed in Ghidra. Four isolated original-machine-code cases reproduced the default `%DriverData%\Qualcomm\fastRPC` search and the `0x102020` kernel path query. All OS/CRT imports, device acquisition and FILE bookkeeping were intercepted; the kernel resolver and file opening were mocked. The current speaker resource mappings and bytes match HyperOS, but actual listener ownership, resource opening and ADM acknowledgement remain unproven. The absent `adsp_avs_config.acdb` mapping in this device's list is an observation, not an established failure cause.
+
+The .5 component package also passed Inf2Cat and catalog/member signature verification. It omits public global-pack registration; exact .4 INF/CAT/DLL rollback files were retained. No installation or rollback trial was performed. A combined .5/.35 trial runner still needs preparation.
+
+[Queue, build and routing evidence](results/audio-transport-2026-11-25.json) · [Qualcomm daemon architecture](https://github.com/qualcomm/fastrpc/blob/development/Docs/daemons.md)
 
 ## In progress
 
