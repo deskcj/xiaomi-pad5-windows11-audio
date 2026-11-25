@@ -26,14 +26,20 @@ Download: **4.17.27.16**. Development source: **4.17.27.18**. The published ZIP 
 
 ## Update history
 
-### 2026-11-25 — original DSP GET and bounded readback
+### 2026-11-25 — DSP reply validation and original stereo source
+
+- ✅ Source now checks reply token, both endpoints, opcode and DSP status; a basic receipt cannot prove parameter data.
+- ✅ Offline ARM64 checks passed: 112 original-code GET readbacks, 100 in-band packets and 73 memory cases. Captured Xiaomi Channel Swap agrees with our four-amp table.
+- ❌ System Dolby/MiSound, physical L/R and maximum-volume safety remain unverified. Installed .18 / APO .4 is unchanged; .10/.36 is prepared.
+
+<details>
+<summary>Previous updates</summary>
+
+#### 2026-11-25 — original DSP GET and bounded readback
 
 - ✅ Added the original ADM GET body and strict readback checks: **112 original comparisons + 76 memory cases** pass.
 - ✅ Native Windows cache access and earlier MiSound/factory tests still pass in the nine-component ARM64 library.
 - ❌ The last MiSound cache query returned error 31. System Dolby/MiSound, physical L/R and maximum-volume safety remain unverified; installed .18 is unchanged.
-
-<details>
-<summary>Previous updates</summary>
 
 #### 2026-11-25 — Native Windows calibration access and stream selectors
 

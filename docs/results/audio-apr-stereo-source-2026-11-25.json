@@ -1,0 +1,318 @@
+{
+  "Date": "2026-11-25",
+  "InstalledKernel": "4.17.27.18",
+  "InstalledApo": "2.0.0.4",
+  "PublicZip": "4.17.27.16",
+  "Change": {
+    "Source": "driver/dsp/QualcommPpReadback.c/.h",
+    "Function": "NabuQcomValidateAdmGetReply",
+    "Checked": [
+      "Exact standard APR header/packet size",
+      "Both reply endpoints",
+      "Transaction token",
+      "ADM V6 response opcode",
+      "Zero DSP status",
+      "Explicit in-band/out-of-band source",
+      "Exact bounded v3 parameter header/payload"
+    ],
+    "BasicResponseNeverProvesData": true,
+    "ExtendedHeadersUnsupported": true,
+    "OriginalOemReplyBufferBytes": 144
+  },
+  "Scope": {
+    "NewCodeTestedOffline": true,
+    "LiveDspAckProven": false,
+    "SystemDolbyProven": false,
+    "SystemMiSoundProven": false,
+    "PhysicalLrProven": false,
+    "HardwarePcm24Proven": false,
+    "HyperOsParityProven": false,
+    "MaximumVolumeSafetyProven": false,
+    "DriverInstalled": false,
+    "AudioStarted": false,
+    "Rebooted": false,
+    "GainOrProtectionChanged": false,
+    "CalibrationValuesApproved": false
+  },
+  "Build": {
+    "Architecture": "ARM64",
+    "SourceSha256": {
+      "QualcommPpReadback.c": "676d25cf2fcb0e804a1271d5d9a233285073cc1c0db2f93cc576e1273dce570b",
+      "QualcommPpReadback.h": "bedafd485e3ba627339155e9ec0115b2b93744efc4ad3b85d12a20339daad3fe"
+    },
+    "LibrarySha256": "30ccb1f3abc391468b8b52eb49c2d9175aed65b194377331097601de6a026962",
+    "DllSha256": "d98e3b4ce1d08ed6a459a7a2a1efa7cc3a40097d61b03c3e447e32c3a8c61e6d"
+  },
+  "Tests": {
+    "Passed": true,
+    "OriginalMappedGetCases": 112,
+    "ExactFactoryCases": 91,
+    "InBandPacketCases": 100,
+    "RejectedCases": 21,
+    "UnalignedWirePacketChecked": true,
+    "ChangedPayloadStructurallyAccepted": true,
+    "DllSha256": "d98e3b4ce1d08ed6a459a7a2a1efa7cc3a40097d61b03c3e447e32c3a8c61e6d",
+    "OriginalQcadcmSha256": "b82cabb860404edd71cb38ce28720c74628dd3ad12e20f8ecbd874853cac0edd",
+    "OriginalHandlerRva": "0x90ae8",
+    "Scope": {
+      "OriginalMachineMappedReadbackExecuted": true,
+      "OriginalCoppLookupExecuted": true,
+      "ActiveContextAndMappingMocked": true,
+      "OriginalTransportAndReplyMocked": true,
+      "AprEnvelopeFixturesConstructed": true,
+      "LiveDspAckProven": false,
+      "AudioOpened": false,
+      "DriverInstalled": false,
+      "CalibrationValuesApproved": false
+    }
+  },
+  "NativeMemoryTests": {
+    "passed": true,
+    "cases": 73,
+    "real_noaccess_pages": true,
+    "rejected_envelopes_do_not_read_mapping": true,
+    "dsp_commands_sent": false,
+    "DllSha256": "d98e3b4ce1d08ed6a459a7a2a1efa7cc3a40097d61b03c3e447e32c3a8c61e6d"
+  },
+  "EarlierReadbackMemoryRegression": {
+    "passed": true,
+    "cases": 76,
+    "real_noaccess_pages": true,
+    "dsp_commands_sent": false,
+    "DllSha256": "d98e3b4ce1d08ed6a459a7a2a1efa7cc3a40097d61b03c3e447e32c3a8c61e6d"
+  },
+  "StereoConfigurationAudit": {
+    "Passed": true,
+    "Rows": [
+      {
+        "Name": "BR",
+        "Uid": 0,
+        "AndroidMixerRxSlots": [
+          4,
+          5
+        ],
+        "WindowsRxSlots": [
+          0,
+          1
+        ],
+        "AndroidChannelSwap": "On",
+        "WindowsChannelBalance": "0x400000",
+        "CapturedDaiFormats": [
+          "0x4004"
+        ],
+        "CapturedRightChannelAmpProperty": false,
+        "AndroidI2sSlotReversalApplies": false,
+        "DspInputs": [
+          "ASPRX1",
+          "ASPRX2"
+        ],
+        "ChannelBalanceMatches": true
+      },
+      {
+        "Name": "TR",
+        "Uid": 1,
+        "AndroidMixerRxSlots": [
+          4,
+          5
+        ],
+        "WindowsRxSlots": [
+          0,
+          1
+        ],
+        "AndroidChannelSwap": "On",
+        "WindowsChannelBalance": "0x400000",
+        "CapturedDaiFormats": [
+          "0x4004"
+        ],
+        "CapturedRightChannelAmpProperty": false,
+        "AndroidI2sSlotReversalApplies": false,
+        "DspInputs": [
+          "ASPRX1",
+          "ASPRX2"
+        ],
+        "ChannelBalanceMatches": true
+      },
+      {
+        "Name": "BL",
+        "Uid": 2,
+        "AndroidMixerRxSlots": [
+          4,
+          5
+        ],
+        "WindowsRxSlots": [
+          0,
+          1
+        ],
+        "AndroidChannelSwap": "Off",
+        "WindowsChannelBalance": "0x0",
+        "CapturedDaiFormats": [
+          "0x4004"
+        ],
+        "CapturedRightChannelAmpProperty": false,
+        "AndroidI2sSlotReversalApplies": false,
+        "DspInputs": [
+          "ASPRX1",
+          "ASPRX2"
+        ],
+        "ChannelBalanceMatches": true
+      },
+      {
+        "Name": "TL",
+        "Uid": 3,
+        "AndroidMixerRxSlots": [
+          4,
+          5
+        ],
+        "WindowsRxSlots": [
+          0,
+          1
+        ],
+        "AndroidChannelSwap": "Off",
+        "WindowsChannelBalance": "0x0",
+        "CapturedDaiFormats": [
+          "0x4004"
+        ],
+        "CapturedRightChannelAmpProperty": false,
+        "AndroidI2sSlotReversalApplies": false,
+        "DspInputs": [
+          "ASPRX1",
+          "ASPRX2"
+        ],
+        "ChannelBalanceMatches": true
+      }
+    ],
+    "XiaomiSourceSha256": "407440d35e6909366e949ccdb9651c76825bdb1e2bdaca37bf85a00cb6c0f0f4",
+    "XiaomiSourceCommit": "d41f8e1a6827294af6a61adbe18544518e750166",
+    "WindowsRouteSha256": "19f13ff1fbecc0a9bd82728c4a877aece783c836245afddcc494c6119e34f6b5",
+    "Notes": [
+      "Captured HyperOS uses DSP_A/TDM and shared amplifier input slots 4/5.",
+      "The I2S right-channel hardware reversal is conditional; the captured right-channel property is absent.",
+      "Windows uses its own slot pair 0/1. Android TDM slots cannot be copied into a different serial frame without a verified Qualcomm route.",
+      "Matching software controls does not prove physical L/R, four-speaker isolation, acoustic quality or live DSP output."
+    ],
+    "KernelDriverChanged": false,
+    "PhysicalLrProven": false,
+    "AudioOpened": false,
+    "MaximumVolumeSafetyProven": false
+  },
+  "CapturedStereoSourceSha256": {
+    "driver-files/running-device-tree.dtb": "1c6f987b626b4620a6cce2bc11f2792050344ff9c1ce133e51d01ef7a846023d",
+    "driver-files/android/vendor/etc/mixer_paths_overlay_static.xml": "9e7a4025ccc35774d0826d4b8990fd94659a3728c0e93dc405a67f61bb986ec3",
+    "driver-files/kernel-audio-dmesg.txt": "368b9733444b1bdae7e8aad95e6e21212412bd44c95b17f462cf293bf4159e51"
+  },
+  "XiaomiPublishedAndroidRSource": [
+    {
+      "Path": "include/dsp/apr_audio-v2.h",
+      "Commit": "d41f8e1a6827294af6a61adbe18544518e750166",
+      "Url": "https://raw.githubusercontent.com/MiCode/vendor_qcom_opensource_audio-kernel/d41f8e1a6827294af6a61adbe18544518e750166/include/dsp/apr_audio-v2.h",
+      "GitBlobSha": "e404b782ef319aa679f0451071d5c869fd297f32",
+      "Bytes": 375649,
+      "Sha256": "37180f8621d7f88adcc67d1ebcc0c28dee92850fe502c59533d73db9dd09c93d"
+    },
+    {
+      "Path": "include/ipc/apr.h",
+      "Commit": "d41f8e1a6827294af6a61adbe18544518e750166",
+      "Url": "https://raw.githubusercontent.com/MiCode/vendor_qcom_opensource_audio-kernel/d41f8e1a6827294af6a61adbe18544518e750166/include/ipc/apr.h",
+      "GitBlobSha": "6b4817edeeb5623b603dc99c86f26758ac82551d",
+      "Bytes": 4944,
+      "Sha256": "7187df703c847899f50de4c2679ce206ad01d584698c43a230f16b04b1296916"
+    },
+    {
+      "Path": "dsp/q6adm.c",
+      "Commit": "d41f8e1a6827294af6a61adbe18544518e750166",
+      "Url": "https://raw.githubusercontent.com/MiCode/vendor_qcom_opensource_audio-kernel/d41f8e1a6827294af6a61adbe18544518e750166/dsp/q6adm.c",
+      "GitBlobSha": "af4af60520fb12f618b4867b57321ae7b1594ca2",
+      "Bytes": 162263,
+      "Sha256": "3add2ab917863d5d6578280985765609188f95d9699e5db144a7596bf2504867"
+    },
+    {
+      "Path": "asoc/codecs/cs35l41_v2/cs35l41.c",
+      "GitBlobSha": "be5de49d4af945042997bce5d1713e543ff97db3",
+      "Sha256": "407440d35e6909366e949ccdb9651c76825bdb1e2bdaca37bf85a00cb6c0f0f4",
+      "Bytes": 114172,
+      "Commit": "d41f8e1a6827294af6a61adbe18544518e750166",
+      "Url": "https://raw.githubusercontent.com/MiCode/vendor_qcom_opensource_audio-kernel/d41f8e1a6827294af6a61adbe18544518e750166/asoc/codecs/cs35l41_v2/cs35l41.c"
+    },
+    {
+      "Path": "asoc/codecs/cs35l41_v2/cs35l41.h",
+      "GitBlobSha": "7ce5ed53719d0df2d829e3a3d36c64447e7f7266",
+      "Sha256": "b656b0ca3c734c8b94933d406bd83fd7663443516b5e50f46143efe21671e14a",
+      "Bytes": 32646,
+      "Commit": "d41f8e1a6827294af6a61adbe18544518e750166",
+      "Url": "https://raw.githubusercontent.com/MiCode/vendor_qcom_opensource_audio-kernel/d41f8e1a6827294af6a61adbe18544518e750166/asoc/codecs/cs35l41_v2/cs35l41.h"
+    }
+  ],
+  "OriginalWindowsReview": {
+    "ImageSha256": "b82cabb860404edd71cb38ce28720c74628dd3ad12e20f8ecbd874853cac0edd",
+    "ReplyReceiverRva": "0x95bf0",
+    "OnlineEntryRegistrationRva": "0x93fe8",
+    "OnlineEntryRva": "0x93aa0",
+    "OriginalRegistrationSlot": 2,
+    "StockInBandGetterRva": "0x78e98",
+    "CallbackHeaderNormalization": "OEM copies the first 20 header bytes and normalizes payload to offset20; extended raw headers are not accepted by the new helper",
+    "CorrectedFirstGetDisassembly": "An initial branch-site export at79140 was incomplete; PE exception metadata identified the full78e98..7927c function, exported in ghidra02",
+    "ReviewSha256": {
+      "ghidra02/ReplyAndEntry.txt": "aa4a868efba07b2a0f44b1c774b862bed9c73239d38a009ff0bbbba594829c85",
+      "ghidra03/ReplyMatcher.txt": "7443216ecd504a8bd1db9e1039f845c37db4d1076f0f93ed0249efb0a34cf099"
+    },
+    "OriginalReceiverExecutionNotProven": true
+  },
+  "KernelAfter": {
+    "Boot": "2026-11-25T01:54:15.6128160+05:00",
+    "Sha256": "653b8ded9ebc89b0cafa8d455c0eef8bfe613943c455de8ff5f6887eda7e6cc4",
+    "Amplifiers": [
+      {
+        "InstanceId": "ACPI\\10133541\\0",
+        "Status": "OK",
+        "Version": "4.17.27.18",
+        "Inf": "oem50.inf",
+        "Problem": 0
+      },
+      {
+        "InstanceId": "ACPI\\10133541\\1",
+        "Status": "OK",
+        "Version": "4.17.27.18",
+        "Inf": "oem50.inf",
+        "Problem": 0
+      },
+      {
+        "InstanceId": "ACPI\\10133541\\2",
+        "Status": "OK",
+        "Version": "4.17.27.18",
+        "Inf": "oem50.inf",
+        "Problem": 0
+      },
+      {
+        "InstanceId": "ACPI\\10133541\\3",
+        "Status": "OK",
+        "Version": "4.17.27.18",
+        "Inf": "oem50.inf",
+        "Problem": 0
+      }
+    ],
+    "AlreadyElevated": false
+  },
+  "PreviousRealCacheAndQuietEvidence": "audio-adcm-host-selector-2026-11-25.json",
+  "PreviousCacheControlEvidence": "audio-adm-readback-2026-11-25.json",
+  "Remaining": [
+    "Legitimately elevated .10/.36 system APO trial with rollback and identity evidence",
+    "Live COPP, owned mapping, resource opening and captured matching DSP reply",
+    "Physical L/R, hardware PCM24, HyperOS acoustics and maximum-volume protection"
+  ],
+  "CapturedAndroidGhidra": {
+    "ModuleSha256": "6e0fd64d639d5e1424dbc193f7aeaeb2c43449c755a71e70af473ad6a9f194e4",
+    "ExportSha256": "2a42499c8f6e43c2d9bd214ec7ad6a87c470c5f55d021977fe74d2952693bb2e",
+    "Functions": [
+      "cs35l41_channel_swap_put@0x1040b8",
+      "cs35l41_set_dai_fmt@0x105ce0",
+      "cs35l41_pcm_hw_params@0x105fd8"
+    ],
+    "ChannelSwapBigEndianBytes": "00400000",
+    "DecodedChannelSwapValue": "0x400000",
+    "FormatLowNibbleDspA": 4,
+    "TypePropagationWarningRetained": true,
+    "ReadOnly": true,
+    "ModuleExecuted": false,
+    "PhysicalAudioTested": false
+  }
+}

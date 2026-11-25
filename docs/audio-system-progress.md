@@ -2,14 +2,20 @@
 
 [English](audio-system-progress.md) · [Русский](audio-system-progress.ru.md) · [简体中文](audio-system-progress.zh-CN.md)
 
+**New · matched DSP reply source:** the C/H readback helper now checks the standard APR envelope, both endpoints, transaction token, V6 opcode and DSP error status before reading parameter data. A basic GET receipt with zero status still returns “no parameter data”. Native checks passed on 112 original Windows mapped GET readbacks, 100 constructed in-band packets, 21 rejected replies and 73 real memory-boundary cases. Earlier 76 readback memory cases also pass on the new library.
+
+The pinned official Xiaomi audio-kernel source and captured HyperOS DTS/mixer confirm DSP_A/TDM, amplifier slots 4/5, and Channel Swap On for BR/TR, Off for BL/TL. The conditional I2S hardware reversal does not apply to that capture. Windows has its own 0/1 slot pair; copying Android slot numbers into another serial frame would not prove L/R. The four-amp Channel Swap table agrees, but physical separation still needs measurement. No driver, gain, protection or sound changed; system Dolby/MiSound, physical L/R and maximum-volume safety remain open. Installed .18 / APO .4 remains; .10/.36 is prepared.
+
+[Reply and stereo source evidence](results/audio-apr-stereo-source-2026-11-25.json) · [C/H source](../driver/dsp/)
+
+<details>
+<summary>Earlier source checks · 25 November</summary>
+
 **New · bounded DSP readback source:** `QualcommPpReadback.c/.h` pack the original Windows ADM GET body and validate returned module/instance/parameter, reserved bits and exact buffer length. All **112 original comparisons**, including 91 factory blocks, **76 native memory cases** and 13 malformed-response cases pass. The nine-component ARM64 EWDK library builds; prior route, command-plan and factory-filter tests still pass.
 
 Ghidra confirms that the Windows host-stream getter uses ACDB `0x1326b`, while live ADM GET uses `0x1035e`. No live GET was sent: the active COPP, owned DSP mapping and matched reply must be established first. A stock Windows host-cache read using the newly linked library passed and matched the installed file; it remains separate from DSP state. The last quiet digital L/R result is the earlier evidence below. Installed kernel .18 / APO .4 is unchanged; .10/.36 is prepared. System Dolby/MiSound, physical L/R and maximum-volume safety remain open.
 
 [New source checks](results/audio-adm-readback-2026-11-25.json) · [Earlier real cache/quiet results](results/audio-adcm-host-selector-2026-11-25.json) · [C/H source](../driver/dsp/)
-
-<details>
-<summary>Earlier source checks · 25 November</summary>
 
 **New · native ADCM calibration access:** two new C/H helpers preserve the original stream-mask selection and construct the Windows host-calibration GET buffer. The selector is separate from an Android ACDB Device ID; the strict ADM check rejects truncated flags. All 3,146 original selector comparisons, 95 original getter comparisons and 27/21 native memory cases passed.
 
