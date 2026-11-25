@@ -26,14 +26,20 @@ Download: **4.17.27.16**. Development source: **4.17.27.18**. The published ZIP 
 
 ## Update history
 
-### 2026-11-25 — Native Windows calibration access and stream selectors
+### 2026-11-25 — original DSP GET and bounded readback
+
+- ✅ Added the original ADM GET body and strict readback checks: **112 original comparisons + 76 memory cases** pass.
+- ✅ Native Windows cache access and earlier MiSound/factory tests still pass in the nine-component ARM64 library.
+- ❌ The last MiSound cache query returned error 31. System Dolby/MiSound, physical L/R and maximum-volume safety remain unverified; installed .18 is unchanged.
+
+<details>
+<summary>Previous updates</summary>
+
+#### 2026-11-25 — Native Windows calibration access and stream selectors
 
 - ✅ Added the native ADCM calibration GET buffer and original stream-mask decoder; ARM64 and memory tests pass.
 - ✅ A real Windows host-cache read matches the installed file. Four quiet digital L/R cases passed at unchanged volume.
 - ❌ MiSound cache query returned error 31. System Dolby/MiSound, physical L/R and maximum-volume safety remain unverified; installed .18 is unchanged.
-
-<details>
-<summary>Previous updates</summary>
 
 #### 2026-11-25 — Qualcomm routes and original Windows parameter packing
 

@@ -1,0 +1,244 @@
+{
+  "Date": "2026-11-25",
+  "InstalledKernel": "4.17.27.18",
+  "InstalledApo": "2.0.0.4",
+  "PublicZip": "4.17.27.16",
+  "Scope": {
+    "DriverInstalled": false,
+    "AudioOpened": false,
+    "Rebooted": false,
+    "SystemDolbyProven": false,
+    "SystemMiSoundProven": false,
+    "PhysicalLrProven": false,
+    "MaximumVolumeSafetyProven": false,
+    "HardwarePcm24Proven": false,
+    "HyperOsParityProven": false,
+    "NewDspCodeTestedOffline": true
+  },
+  "Change": {
+    "Source": "driver/dsp/QualcommPpReadback.c/.h",
+    "GetBody": "Original Windows ADM_GET_PP_PARAMS_V6 28-byte out-of-band body; caller-owned mapping required",
+    "Readback": "Matching module, low16 instance, parameter, zero reserved bits and exact bounded payload span",
+    "NoAckInference": "Readback framing never proves transport token/opcode/status, active processing or payload safety",
+    "HeaderCapacityIncludes16Bytes": true
+  },
+  "Build": {
+    "Architecture": "ARM64",
+    "SourceSha256": {
+      "Build-MiSoundSupport.ps1": "e60aa8710ccbcdcda969fc579ee312feafb9244263867ca5f3f85d302b7c76d3",
+      "MiSoundProtocol.c": "1f7b8c10f7a9e92a701e742319503e78a0768d975044afcf23356024a68cb85d",
+      "MiSoundProtocol.h": "2ce4074fe4500d504fb8703b91d1f640a34cf7bb3278a4072b9e65d91c9c604f",
+      "MiSoundResource.c": "c1be894a1749578e2eacc5a1989c152640474dd47592b998c0709232398535c5",
+      "MiSoundResource.h": "42cb0e875ec0a96384ef0571cc2398fdcaba8791065401140d53b89ef09aee62",
+      "MiSoundSpeakerFilters.c": "5a1b19044fdc7c4de364c47377038503915c26f88dfc5d82d0bf2c8c1d83ec57",
+      "MiSoundSpeakerFilters.h": "8e7062e9c64ceb4d65b6c95586bc95061174c8257a596c140e3cd28a963d0996",
+      "MiSoundSpeakerPlan.c": "1b6ae3f257876107a03955653cebf724fd258d812a7b4debf9cfeb19a56cd1b9",
+      "MiSoundSpeakerPlan.h": "e84721aae9ffdd5db43024f90bd7e8f21187a6920a0006eebe77b8c33c707e3f",
+      "QualcommAcdbRoute.c": "0a30634a031a42fb650dd55f5bc7ff33dbf3ffce2c32dad70f7d2d6dbabed742",
+      "QualcommAcdbRoute.h": "251142772869aceab91ec9edb733c19b3e55b1b6d37a110a595cf406d4ed735d",
+      "QualcommCoppSelector.c": "53aa4e43be29cad3c3fdc6bfd1fb6dd1405606df262c5d3b00e3495a030a174b",
+      "QualcommCoppSelector.h": "5a80a5f7cdc50b5fa52e92daaffe1245c86c239eaf93d3598c213b170672523f",
+      "QualcommHostCalibration.c": "685808938f90b2df0b3c113b0566c69c8b19b2c6245abae9604ce4229fd249e3",
+      "QualcommHostCalibration.h": "79a651b34e954de38cee8a3be7020c9880f303a24db2cb4c4c153c8f0b3de0c8",
+      "QualcommPpParameter.c": "e10f976511e9065f03286be74dc80deedecc40992f46ff3e22cf89fa5826221c",
+      "QualcommPpParameter.h": "4b4b349a10de58371ce16f808b28db6d141cca6c014fea7a5bcb315a16c3a542",
+      "QualcommPpReadback.c": "f58d284ce116b907aec1ffe8475373d80f4d2eb51e987a7cdc278b815051cb2b",
+      "QualcommPpReadback.h": "ffc8a30440bec1b3e2cb5a7c9e471605ee827f7428dec00e3ad12e6ae8c34205"
+    },
+    "LibrarySha256": "f301fde0c6b9a3333750f0d8d41db064af4cb420bb87ba4c6e675c9102c5e63c",
+    "Installed": false,
+    "DspProcessingImplemented": false
+  },
+  "DllSha256": "e9d051ee1ee4902862edffba19b263eefb7aa97f086fdd0b00eda3bb16708629",
+  "OriginalGet": {
+    "Passed": true,
+    "OriginalComparisons": 112,
+    "ExactFactoryCases": 91,
+    "OriginalQcadcmSha256": "b82cabb860404edd71cb38ce28720c74628dd3ad12e20f8ecbd874853cac0edd",
+    "DllSha256": "e9d051ee1ee4902862edffba19b263eefb7aa97f086fdd0b00eda3bb16708629",
+    "OriginalHandlerRva": "0x90ae8",
+    "OriginalCoppLookupRva": "0x8bec8",
+    "OriginalGetOpcode": "0x1035e",
+    "MockFailurePropagation": [
+      {
+        "OutputCapacity": 19,
+        "MockTransportError": 0,
+        "OriginalStatus": 15
+      },
+      {
+        "OutputCapacity": 8192,
+        "MockTransportError": -5,
+        "OriginalStatus": 13
+      }
+    ],
+    "Scope": {
+      "OriginalMachineCodeExecuted": true,
+      "OriginalCoppLookupExecuted": true,
+      "AllocationMemsetMemcpyMocked": true,
+      "ActiveContextAndMappingMocked": true,
+      "AprTransportAndReplyMocked": true,
+      "DspCommandsSent": false,
+      "LiveDspAckProven": false,
+      "AudioOpened": false,
+      "FactoryParametersApplied": false
+    }
+  },
+  "MemoryGuard": {
+    "passed": true,
+    "cases": 76,
+    "real_noaccess_pages": true,
+    "dsp_commands_sent": false,
+    "DllSha256": "e9d051ee1ee4902862edffba19b263eefb7aa97f086fdd0b00eda3bb16708629"
+  },
+  "NegativeContract": {
+    "Passed": true,
+    "RejectedCases": 13,
+    "UnalignedReadChecked": true,
+    "CorrectFrameChecked": true,
+    "ChangedPayloadStructurallyAccepted": true,
+    "PayloadSafetyApproved": false,
+    "RealDspAckProven": false,
+    "DriverInstalled": false,
+    "DllSha256": "e9d051ee1ee4902862edffba19b263eefb7aa97f086fdd0b00eda3bb16708629"
+  },
+  "Regression": {
+    "Selectors": {
+      "Passed": true,
+      "Cases": 3146,
+      "DllSha256": "e9d051ee1ee4902862edffba19b263eefb7aa97f086fdd0b00eda3bb16708629"
+    },
+    "HostGet": {
+      "Passed": true,
+      "Cases": 95,
+      "DllSha256": "e9d051ee1ee4902862edffba19b263eefb7aa97f086fdd0b00eda3bb16708629"
+    },
+    "PpPacking": {
+      "Passed": true,
+      "NativeCases": 112,
+      "ExactFactoryCases": 91,
+      "DllSha256": "e9d051ee1ee4902862edffba19b263eefb7aa97f086fdd0b00eda3bb16708629"
+    },
+    "AcdbRoutes": {
+      "Passed": true,
+      "NativeCases": 901,
+      "DllSha256": "e9d051ee1ee4902862edffba19b263eefb7aa97f086fdd0b00eda3bb16708629"
+    },
+    "RouteMemory": {
+      "passed": true,
+      "DllSha256": "e9d051ee1ee4902862edffba19b263eefb7aa97f086fdd0b00eda3bb16708629"
+    },
+    "MiSoundPlan": {
+      "Passed": true,
+      "Cases": 864,
+      "DllSha256": "e9d051ee1ee4902862edffba19b263eefb7aa97f086fdd0b00eda3bb16708629"
+    }
+  },
+  "FactoryFilters": {
+    "ExactCases": 10,
+    "Passed": true,
+    "InstalledResourcesUnchanged": true
+  },
+  "OriginalReview": {
+    "QcadcmSha256": "b82cabb860404edd71cb38ce28720c74628dd3ad12e20f8ecbd874853cac0edd",
+    "GhidraRvas": [
+      "0x818f8",
+      "0x89c70",
+      "0x79b78",
+      "0x6ca0"
+    ],
+    "ReviewSha256": "dfecb78c54e3045be39396bde7be262aad7ad2c235e1aa4736fb1763299b8ff5",
+    "HostStreamGetterAcdbOpcode": "0x1326b",
+    "LiveAdmGetOpcode": "0x1035e",
+    "HostCacheIsNotLiveDsp": true,
+    "QualcommSources": [
+      {
+        "Name": "q6adm.c",
+        "Url": "https://android.googlesource.com/kernel/msm-extra/+/7d02ebed32f03421d272eae1831dda37f24f2147/dsp/q6adm.c?format=TEXT",
+        "Commit": "7d02ebed32f03421d272eae1831dda37f24f2147",
+        "Bytes": 157711,
+        "Sha256": "707964c0d3554ce2551bdbe7630b811d331289a33ea6d65668c0a88cadeb18e0"
+      },
+      {
+        "Name": "apr_audio-v2.h",
+        "Url": "https://android.googlesource.com/kernel/msm-extra/+/7d02ebed32f03421d272eae1831dda37f24f2147/include/dsp/apr_audio-v2.h?format=TEXT",
+        "Commit": "7d02ebed32f03421d272eae1831dda37f24f2147",
+        "Bytes": 375607,
+        "Sha256": "28b938b9b144b58e60644aa2084723c9950d088a6a2c48ecc655a1b95f5ee54e"
+      }
+    ]
+  },
+  "KernelAfter": {
+    "Boot": "2026-11-25T01:54:15.6128160+05:00",
+    "Amplifiers": [
+      {
+        "InstanceId": "ACPI\\10133541\\0",
+        "Status": "OK",
+        "Version": "4.17.27.18",
+        "Inf": "oem50.inf",
+        "Problem": 0
+      },
+      {
+        "InstanceId": "ACPI\\10133541\\1",
+        "Status": "OK",
+        "Version": "4.17.27.18",
+        "Inf": "oem50.inf",
+        "Problem": 0
+      },
+      {
+        "InstanceId": "ACPI\\10133541\\2",
+        "Status": "OK",
+        "Version": "4.17.27.18",
+        "Inf": "oem50.inf",
+        "Problem": 0
+      },
+      {
+        "InstanceId": "ACPI\\10133541\\3",
+        "Status": "OK",
+        "Version": "4.17.27.18",
+        "Inf": "oem50.inf",
+        "Problem": 0
+      }
+    ],
+    "Sha256": "653b8ded9ebc89b0cafa8d455c0eef8bfe613943c455de8ff5f6887eda7e6cc4",
+    "AlreadyElevated": false
+  },
+  "PreviousRealHostAndQuietEvidence": "audio-adcm-host-selector-2026-11-25.json",
+  "Remaining": [
+    "Legitimately elevated .10/.36 APO system trial",
+    "Verified active COPP, owned mapping, resource open and matched DSP reply",
+    "Physical L/R, hardware PCM24 and HyperOS acoustic comparison",
+    "Maximum-volume protection and earlier shutdown cause"
+  ],
+  "RealWindowsHostCacheControl": {
+    "Completed": true,
+    "Win32Error": 0,
+    "TimedOut": false,
+    "ElapsedMs": 0.08999999772640876,
+    "Ioctl": "0xadae2105",
+    "Device": 73,
+    "Rate": 48000,
+    "AppType": "0x11134",
+    "Module": "0x10c2a",
+    "Instance": 0,
+    "Parameter": "0x10c2b",
+    "ReturnedApiBytes": 0,
+    "ReturnedPayloadBytes": 4,
+    "HeaderUnchanged": true,
+    "BufferChanged": true,
+    "NativeHeaderBuilderSha256": "e9d051ee1ee4902862edffba19b263eefb7aa97f086fdd0b00eda3bb16708629",
+    "OriginalFileSha256": "ebc7c599d4fdb9600d57033ecf6c9d3d73bd5fe838caef0290fb61dc23029901",
+    "ExpectedPayloadHex": "00000000",
+    "OutputPayloadHex": "00000000",
+    "MatchesConfiguredFile": true,
+    "Scope": {
+      "OriginalKernelHostGetCalled": true,
+      "AccessControlChanged": false,
+      "SetCommandSent": false,
+      "DspParameterAckObserved": false,
+      "DriverInstalled": false,
+      "AudioStarted": false,
+      "GainOrProtectionChanged": false
+    }
+  },
+  "HostCacheLimit": "OEM wrote four payload bytes while returning zero API bytes; this reads host ACDB, not live DSP."
+}

@@ -2,14 +2,20 @@
 
 [English](audio-system-progress.md) · [Русский](audio-system-progress.ru.md) · [简体中文](audio-system-progress.zh-CN.md)
 
+**新增 · DSP 响应验证源码：** `QualcommPpReadback.c/.h` 构造原版 Windows ADM GET 请求体，并检查返回的模块／实例／参数、保留位和精确缓冲区长度。**112 项原版比较**（含 91 个原厂数据块）、**76 项原生内存测试**及 13 项无效响应测试通过。九组件 ARM64 EWDK 库构建成功，已有路由、命令计划及原厂滤波测试仍通过。
+
+Ghidra 确认 Windows 流主机缓存读取使用 ACDB `0x1326b`，而实时 ADM GET 使用 `0x1035e`。未发送实时 GET：必须先确认活动 COPP、所属 DSP 内存映射及匹配响应。通过新库执行的原厂 Windows 主机缓存读取通过并匹配已安装文件；它不验证 DSP 状态。最近的安静数字 L/R 结果仍是下面的既有证据。已安装 kernel .18 / APO .4 未改变；.10/.36 已准备。系统 Dolby/MiSound、物理 L/R 与最大音量安全仍未验证。
+
+[新增源码验证](results/audio-adm-readback-2026-11-25.json) · [此前实际缓存／安静测试](results/audio-adcm-host-selector-2026-11-25.json) · [C/H 源码](../driver/dsp/)
+
+<details>
+<summary>此前源码验证 · 11 月 25 日</summary>
+
 **新增 · 原生 ADCM 校准读取：** 两个新 C/H 模块保留原版流位掩码选择，并构造 Windows 主机校准 GET 缓冲区。流选择器不同于 Android ACDB Device ID；严格 ADM 检查拒绝被截断的标志。3,146 项原版选择器比较、95 项原版读取比较及 27/21 项原生内存测试通过。
 
 新 C 缓冲区已用于正在运行的 OEM ADCM 驱动：原厂 PBE-enable 读取匹配已安装 Windows 文件，而原版 MiSound-enable 查询返回 Win32 错误 31，缓冲区未改变。这读取 Windows 主机 ACDB 缓存，不验证 DSP 状态。OEM 即使写入原厂缓冲区也返回零个 API 字节，证据保留了这一行为。此前路由、滤波及命令测试仍通过；91 个原厂 PP 数据块在执行原版 COPP 查找、使用模拟上下文时仍精确匹配。四项新的安静 Normal/RAW L/R 测试在原有 6% 音量下通过。系统音效、物理扬声器与最大音量安全仍未确认；APO .10/.36 已准备但未安装。
 
 [验证数据](results/audio-adcm-host-selector-2026-11-25.json) · [C/H 源码](../driver/dsp/)
-
-<details>
-<summary>此前源码验证 · 11 月 25 日</summary>
 
 **新增 · 已验证 Qualcomm 路由与参数封装：** 当前 Windows 校准文件为 Device 73 / AppType `0x11134`、`0x11138` 选择拓扑 `0x10000009`，七个模块中没有 MiSound 或 Dolby。新 C/H 检查器拒绝不匹配或歧义的文件路由，不自动替换 Android 标识。Windows 封装器与原版 QCADCM 机器码执行比较，**91 个原厂参数块**逐字节一致，并拒绝缓冲区越界与实例编号截断。
 
@@ -71,7 +77,7 @@ Ghidra 进一步分析八个 HyperOS 资源、解析及多声道阶段函数，�
 | 数字 L/R | 未测量分离。 | ✅ 四项安静测试通过；另一声道的 800 Hz 音调低于 0.1%。UID/I²C 映射与 Android 一致。声学隔离尚未验证。 |
 | Dolby APO | 显式连接不可用时可能使用公共后备，设置位于旧平面存储。 | ✅ .10 保留显式选择，.36 声明正确上下文；28 项软件测试通过。❌ 系统处理未验证。 |
 | PCM24 | 格式与供数时序错误。 | ✅ 此前 13 项时序／重开测试通过。硬件 PCM24 尚未验证。 |
-| MiSound／DSP 路由 | 缺少完整计划、原生缓存 GET 和正确的流选择器检查。 | ✅ 精确原厂命令、原版选择器和实际 Windows 缓存读取。❌ MiSound 查询失败，实际 DSP 处理未验证。 |
+| MiSound／DSP 路由 | 缺少完整计划、缓存 GET 和 DSP 响应验证。 | ✅ 精确原厂数据、流选择器、实际缓存读取及有界 ADM GET／响应验证源码。❌ MiSound 查询失败，实际 DSP 处理未验证。 |
 
 GPIO 中断及保护掩码配置现会传递错误，并在开启 DSP/功放前验证回读。成功路径写入、固件、系数和出厂校准不变。EWDK 构建、目录生成及签名通过。
 

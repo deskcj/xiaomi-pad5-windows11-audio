@@ -24,10 +24,12 @@ The new C header also passed a real read through the running OEM ADCM device: th
 
 Later PP comparisons execute the original COPP lookup against emulated context contents instead of replacing that lookup. All 91 factory payloads still match. Live COPP identity, resource opening, DSP processing and physical L/R remain unverified.
 
+`QualcommPpReadback.c/.h` add the original 28-byte Windows ADM GET body and a bounded out-of-band v3 response view. Mapping address, handle and capacity must belong to a verified live transport; the OEM capacity includes the 16-byte response header. The validator requires exact module/instance/parameter and returned length, rejects reserved bits and never approves coefficient values. All 112 original GET comparisons (91 factory blocks), 76 native NOACCESS cases and 13 invalid-response cases pass. The original transport/reply and active mapping were emulated; no live GET or DSP ACK was observed. [Readback evidence](../../docs/results/audio-adm-readback-2026-11-25.json) · [Qualcomm reference structures](https://android.googlesource.com/kernel/msm-extra/+/7d02ebed32f03421d272eae1831dda37f24f2147/include/dsp/apr_audio-v2.h)
+
 This is a user-mode support library. Structural acceptance is not approval of calibration values. It preserves raw OAL/dynamics records without implementing their algorithms, units or DSP dispatch. It does not process audio or enable system MiSound. The CS35L41 driver and current public ZIP do not apply these tables.
 
 The input must remain unchanged throughout a scan. Complete structural validation precedes callbacks; cancellation can still occur after earlier callbacks, leaving the optional summary untouched. Collect records before attempting a DSP transaction. Profile/module order and both selectors are preserved; DSP indices do not establish physical left/right speaker positions.
 
-From an ARM64 EWDK environment, run `powershell.exe -File .\Build-MiSoundSupport.ps1 -OutputDirectory <new-folder>`. It builds all eight components into `NabuMiSoundSupport.lib` and records the source hashes. No installation or device access occurs.
+From an ARM64 EWDK environment, run `powershell.exe -File .\Build-MiSoundSupport.ps1 -OutputDirectory <new-folder>`. It builds all nine components into `NabuMiSoundSupport.lib` and records the source hashes. No installation or device access occurs.
 
 [Measured project status](../../docs/audio-system-progress.md)

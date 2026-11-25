@@ -26,14 +26,20 @@ ZIP 包含 PowerShell 安装与回滚脚本。请准备当前平板原版 HyperO
 
 ## 更新记录
 
-### 2026-11-25 — 原生 Windows 校准读取与流选择器
+### 2026-11-25 — 原版 DSP GET 与严格响应检查
+
+- ✅ 添加原版 ADM GET 请求体及严格响应检查：**112 项原版比较 + 76 项内存测试**通过。
+- ✅ 九组件 ARM64 库保留原生 Windows 缓存读取与已有 MiSound／原厂数据验证。
+- ❌ 最近一次 MiSound 缓存查询返回错误 31。系统 Dolby/MiSound、物理 L/R 与最大音量安全尚未验证；已安装 .18 未改变。
+
+<details>
+<summary>以前的更新</summary>
+
+#### 2026-11-25 — 原生 Windows 校准读取与流选择器
 
 - ✅ 添加原生 ADCM 校准 GET 缓冲区和原版流位掩码解码器，ARM64 构建与内存测试通过。
 - ✅ 实际 Windows 主机缓存读取匹配已安装文件。四项安静数字 L/R 测试通过，音量未改变。
 - ❌ MiSound 缓存查询返回错误 31。系统 Dolby/MiSound、物理 L/R 与最大音量安全尚未验证；已安装 .18 未改变。
-
-<details>
-<summary>以前的更新</summary>
 
 #### 2026-11-25 — Qualcomm 路由与原版 Windows 参数封装
 
