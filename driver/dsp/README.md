@@ -10,10 +10,16 @@ The two captured resources contain seven profiles and nineteen modules each: 247
 
 Original HyperOS instructions also select the existing 192000-Hz table for a 176400-Hz request. The reader now preserves that selection, reporting the factory table rate without resampling. Both alias cases match every original table bit; fourteen nearby/invalid-rate cases still reject without changing the output. This does not establish hardware playback at those rates.
 
+`QualcommAcdbRoute.c/.h` now resolve the captured device/application/rate through the uncompressed ACDB DPROPLUT, AGIILUT0 and version-2 GPROPLUT `0x132ac` records. Bounds, ambiguous selections and exact module qualifier words are checked before returning a file-route match. The qualifier is preserved as an opaque topology field; it is not a parameter instance or a physical speaker index. Unrecognized graph versions are rejected. This scans referenced routing/calibration structures, not every opaque ACDB chunk or calibration value.
+
+`QualcommPpParameter.c/.h` pack a 16-byte Windows `param_hdr_v3` followed by the exact payload. The instance must be supplied from the captured calibration/control state. Oversized payloads, insufficient buffers and instances outside 16 bits reject without changing the output. Payload/output overlap is supported. All 91 captured factory MiSound/Dolby payloads match execution of the original Windows QCADCM handler; allocation, COPP lookup, CRT memory operations and APR replies were mocked. Passing these checks does not establish a live COPP, module resource loading or DSP acknowledgement. [Route and parameter evidence](../../docs/results/audio-acdb-pp-2026-11-25.json)
+
+The current configured Windows Device 73 music graphs select `0x10000009` with seven stock modules, neither MiSound nor Dolby. The Android music graph selects `0x1000a100` with those two effects. No device IDs, topologies or parameters are automatically substituted. Topology registration (`0x12923`) and online ADM parameter setting (`0x1035d`) are distinct operations. The next integration step must confirm a compatible live graph and COPP before any dispatch. Software Dolby APO binding is a separate Windows graph check; missing DSP modules do not diagnose that binding.
+
 This is a user-mode support library. Structural acceptance is not approval of calibration values. It preserves raw OAL/dynamics records without implementing their algorithms, units or DSP dispatch. It does not process audio or enable system MiSound. The CS35L41 driver and current public ZIP do not apply these tables.
 
 The input must remain unchanged throughout a scan. Complete structural validation precedes callbacks; cancellation can still occur after earlier callbacks, leaving the optional summary untouched. Collect records before attempting a DSP transaction. Profile/module order and both selectors are preserved; DSP indices do not establish physical left/right speaker positions.
 
-From an ARM64 EWDK environment, run `powershell.exe -File .\Build-MiSoundSupport.ps1 -OutputDirectory <new-folder>`. It builds all four components into `NabuMiSoundSupport.lib` and records the source hashes. No installation or device access occurs.
+From an ARM64 EWDK environment, run `powershell.exe -File .\Build-MiSoundSupport.ps1 -OutputDirectory <new-folder>`. It builds all six components into `NabuMiSoundSupport.lib` and records the source hashes. No installation or device access occurs.
 
 [Measured project status](../../docs/audio-system-progress.md)

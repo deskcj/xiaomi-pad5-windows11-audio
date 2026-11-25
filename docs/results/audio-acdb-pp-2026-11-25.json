@@ -1,0 +1,390 @@
+{
+  "Date": "2026-11-25",
+  "InstalledKernelVersion": "4.17.27.18",
+  "InstalledApoVersion": "2.0.0.4",
+  "PreparedApoVersion": "2.0.0.10-lab",
+  "PreparedSettingsVersion": "1.0.2140.36",
+  "PublicZipVersion": "4.17.27.16",
+  "Scope": {
+    "DriverInstalled": false,
+    "RebootPerformed": false,
+    "DspCommandsSent": false,
+    "GainOrProtectionChanged": false,
+    "SystemDolbyProven": false,
+    "SystemMiSoundProven": false,
+    "AcousticLrProven": false,
+    "HardwarePcm24Proven": false,
+    "HyperOsParityProven": false,
+    "MaximumVolumeSafetyProven": false,
+    "HistoricShutdownCauseProven": false
+  },
+  "Build": {
+    "Architecture": "ARM64",
+    "SourceSha256": {
+      "Build-MiSoundSupport.ps1": "00fc30e5b8ac004a97d1b262bd594b99b0fb2a38c9f4d925302b0e402a0d2d6a",
+      "MiSoundProtocol.c": "1f7b8c10f7a9e92a701e742319503e78a0768d975044afcf23356024a68cb85d",
+      "MiSoundProtocol.h": "2ce4074fe4500d504fb8703b91d1f640a34cf7bb3278a4072b9e65d91c9c604f",
+      "MiSoundResource.c": "c1be894a1749578e2eacc5a1989c152640474dd47592b998c0709232398535c5",
+      "MiSoundResource.h": "42cb0e875ec0a96384ef0571cc2398fdcaba8791065401140d53b89ef09aee62",
+      "MiSoundSpeakerFilters.c": "5a1b19044fdc7c4de364c47377038503915c26f88dfc5d82d0bf2c8c1d83ec57",
+      "MiSoundSpeakerFilters.h": "8e7062e9c64ceb4d65b6c95586bc95061174c8257a596c140e3cd28a963d0996",
+      "MiSoundSpeakerPlan.c": "1b6ae3f257876107a03955653cebf724fd258d812a7b4debf9cfeb19a56cd1b9",
+      "MiSoundSpeakerPlan.h": "e84721aae9ffdd5db43024f90bd7e8f21187a6920a0006eebe77b8c33c707e3f",
+      "QualcommAcdbRoute.c": "0a30634a031a42fb650dd55f5bc7ff33dbf3ffce2c32dad70f7d2d6dbabed742",
+      "QualcommAcdbRoute.h": "251142772869aceab91ec9edb733c19b3e55b1b6d37a110a595cf406d4ed735d",
+      "QualcommPpParameter.c": "e10f976511e9065f03286be74dc80deedecc40992f46ff3e22cf89fa5826221c",
+      "QualcommPpParameter.h": "4b4b349a10de58371ce16f808b28db6d141cca6c014fea7a5bcb315a16c3a542"
+    },
+    "LibrarySha256": "812595aadbf915af9ece22eadf2cc2cabf4f6f000b7537ed75f1958b67d906d7",
+    "Installed": false,
+    "DspProcessingImplemented": false
+  },
+  "TestDll": {
+    "Architecture": "ARM64",
+    "DllSha256": "8008c15d1ab53bc0c9f7f69c45f605fa1b2fb356ce2c89db3bae1162fb13450a",
+    "Registered": false,
+    "AudioOpened": false
+  },
+  "FileRouteTests": {
+    "Passed": true,
+    "NativeCases": 901,
+    "ExactCapturedModuleRoutes": 518,
+    "StatusHistogram": {
+      "0": 518,
+      "2": 108,
+      "4": 221,
+      "1": 3,
+      "3": 30,
+      "5": 1,
+      "7": 15,
+      "9": 2,
+      "8": 1,
+      "6": 2
+    },
+    "DllSha256": "8008c15d1ab53bc0c9f7f69c45f605fa1b2fb356ce2c89db3bae1162fb13450a",
+    "Scope": {
+      "DspCommandsSent": false,
+      "LiveDspQueried": false,
+      "AudioOpened": false,
+      "CalibrationValuesChanged": false
+    }
+  },
+  "FileRouteGuardTests": {
+    "passed": true,
+    "cases": 1770,
+    "mutation_cases": 512,
+    "structurally_accepted_mutations": 503,
+    "real_noaccess_pages": true,
+    "dsp_commands_sent": false,
+    "DllSha256": "8008c15d1ab53bc0c9f7f69c45f605fa1b2fb356ce2c89db3bae1162fb13450a"
+  },
+  "ParameterPackingTests": {
+    "Passed": true,
+    "NativeCases": 112,
+    "ExactFactoryCases": 91,
+    "RejectedCases": [
+      {
+        "Instance": 65536,
+        "Bytes": 4,
+        "Capacity": null,
+        "Status": 1
+      },
+      {
+        "Instance": 4294967295,
+        "Bytes": 4,
+        "Capacity": null,
+        "Status": 1
+      },
+      {
+        "Instance": 0,
+        "Bytes": 4,
+        "Capacity": 19,
+        "Status": 2
+      },
+      {
+        "Instance": 0,
+        "Bytes": 8,
+        "Capacity": 23,
+        "Status": 2
+      },
+      {
+        "Instance": 0,
+        "Bytes": 0,
+        "Capacity": 15,
+        "Status": 2
+      }
+    ],
+    "OriginalQcadcmSha256": "b82cabb860404edd71cb38ce28720c74628dd3ad12e20f8ecbd874853cac0edd",
+    "OriginalHandlerRva": "0x90ae8",
+    "OriginalAprWrapperRva": "0x79cf0",
+    "Opcode": "0x1035d",
+    "MockFailurePropagation": [
+      {
+        "MockDspStatus": 2,
+        "MockTransportError": 0,
+        "HandlerStatus": 13
+      },
+      {
+        "MockDspStatus": 0,
+        "MockTransportError": -5,
+        "HandlerStatus": 13
+      }
+    ],
+    "DllSha256": "8008c15d1ab53bc0c9f7f69c45f605fa1b2fb356ce2c89db3bae1162fb13450a",
+    "Scope": {
+      "OriginalMachineCodeExecuted": true,
+      "OsAllocationMemsetMemcpyAndCoppLookupMocked": true,
+      "AprTransportAndReplyMocked": true,
+      "DspCommandsSent": false,
+      "LiveCoppLookupProven": false,
+      "LiveDspAckProven": false,
+      "FactoryParametersApplied": false
+    }
+  },
+  "ParameterPackingGuardTests": {
+    "passed": true,
+    "cases": 49,
+    "real_noaccess_pages": true,
+    "source_output_alias_cases": 6,
+    "dsp_commands_sent": false,
+    "DllSha256": "8008c15d1ab53bc0c9f7f69c45f605fa1b2fb356ce2c89db3bae1162fb13450a"
+  },
+  "SpeakerPlanRegression": {
+    "Cases": 864,
+    "Supported": 480,
+    "Unsupported": 384,
+    "OriginalLibrarySha256": "6340604109aefb8f6e24e3e877dc19f8e118dc9eeebacf1e8301a81433061b2c",
+    "OriginalMachineCodeExecuted": true,
+    "DispatchIntercepted": true,
+    "Passed": true
+  },
+  "FactoryFilterRegression": {
+    "ExactTableCases": 10,
+    "RejectedCases": 14,
+    "Passed": true
+  },
+  "CurrentConfiguredFileRoute": {
+    "Source": {
+      "AcbdFilePath3": {
+        "Path": "C:\\Windows\\System32\\DriverStore\\FileRepository\\mipad5_acsp.inf_arm64_b1ab7c9be8f824ad\\General_cal.acdb",
+        "Bytes": 153393,
+        "Sha256": "ebc7c599d4fdb9600d57033ecf6c9d3d73bd5fe838caef0290fb61dc23029901"
+      },
+      "AcbdFilePath4": {
+        "Path": "C:\\Windows\\System32\\DriverStore\\FileRepository\\mipad5_acsp.inf_arm64_b1ab7c9be8f824ad\\Global_cal.acdb",
+        "Bytes": 19781,
+        "Sha256": "aca051dc43774987124a7fab01019e06841a4cfeaf70a1f6aa449b19927fe342"
+      }
+    },
+    "Device": 73,
+    "ApplicationTopologies": {
+      "0x11134": "0x10000009",
+      "0x11138": "0x10000009"
+    },
+    "ModernGraph": {
+      "id": "0x10000009",
+      "header": [
+        "0x2",
+        "0x10000009",
+        "0x1",
+        "0x7"
+      ],
+      "modules": [
+        {
+          "id": "0x10719",
+          "fields": [
+            "0x10000"
+          ]
+        },
+        {
+          "id": "0x10c2a",
+          "fields": [
+            "0x10000"
+          ]
+        },
+        {
+          "id": "0x1031f",
+          "fields": [
+            "0x10000"
+          ]
+        },
+        {
+          "id": "0x10943",
+          "fields": [
+            "0x10000"
+          ]
+        },
+        {
+          "id": "0x10c35",
+          "fields": [
+            "0x10000"
+          ]
+        },
+        {
+          "id": "0x10712",
+          "fields": [
+            "0x10000"
+          ]
+        },
+        {
+          "id": "0x10bfe",
+          "fields": [
+            "0x10000"
+          ]
+        }
+      ],
+      "record_sha256": "b6cdd01ae27960915dfe125935f6810911b9dfb19c7090cdeabf799608bdfcdc",
+      "record_hex": "0200000009000010010000000700000019070100000001002a0c0100000001001f030100000001004309010000000100350c0100000001001207010000000100fe0b010000000100"
+    },
+    "LiveDspStateQueried": false,
+    "ModuleQualifierWordIsNotParameterInstance": true
+  },
+  "QuietRetest": {
+    "endpoint": "{0.0.0.00000000}.{9d311770-9130-4295-bfc6-e64627ad96d3}",
+    "input_peak_limit": 0.001,
+    "input_dbfs": -60,
+    "registry_modified": false,
+    "acoustic_lr_proven": false,
+    "maximum_volume_safety_proven": false,
+    "cases": [
+      {
+        "channel": "L",
+        "raw": false,
+        "hr": "0x00000000",
+        "submitted_frames": 82080,
+        "captured_frames": 77280,
+        "active_frames": 20074,
+        "rms": [
+          1.55536910545e-05,
+          0
+        ],
+        "peak": [
+          3.0517578125e-05,
+          0
+        ],
+        "opposite_rms_ratio": 0,
+        "tone_800hz_amplitudes": [
+          1.46689076254e-05,
+          0
+        ],
+        "opposite_tone_ratio": 0,
+        "digital_separation_passed": true,
+        "capture_discontinuities": 1,
+        "nonfinite_frames": 0,
+        "maximum_meter_peak": 0.00103759789,
+        "passed": true
+      },
+      {
+        "channel": "R",
+        "raw": false,
+        "hr": "0x00000000",
+        "submitted_frames": 82560,
+        "captured_frames": 77280,
+        "active_frames": 20106,
+        "rms": [
+          3.29334905473e-07,
+          1.55660832015e-05
+        ],
+        "peak": [
+          3.0517578125e-05,
+          3.0517578125e-05
+        ],
+        "opposite_rms_ratio": 0.0211572109187,
+        "tone_800hz_amplitudes": [
+          3.98723680652e-09,
+          1.46854341297e-05
+        ],
+        "opposite_tone_ratio": 0.000271509631334,
+        "digital_separation_passed": true,
+        "capture_discontinuities": 1,
+        "nonfinite_frames": 0,
+        "maximum_meter_peak": 0.00103759789,
+        "passed": true
+      },
+      {
+        "channel": "L",
+        "raw": true,
+        "hr": "0x00000000",
+        "submitted_frames": 82080,
+        "captured_frames": 76800,
+        "active_frames": 20158,
+        "rms": [
+          1.56348304322e-05,
+          1.095688371e-06
+        ],
+        "peak": [
+          3.0517578125e-05,
+          3.0517578125e-05
+        ],
+        "opposite_rms_ratio": 0.0700799650976,
+        "tone_800hz_amplitudes": [
+          1.47654923965e-05,
+          1.16202087644e-08
+        ],
+        "opposite_tone_ratio": 0.000786984169056,
+        "digital_separation_passed": true,
+        "capture_discontinuities": 1,
+        "nonfinite_frames": 0,
+        "maximum_meter_peak": 0.00103759789,
+        "passed": true
+      },
+      {
+        "channel": "R",
+        "raw": true,
+        "hr": "0x00000000",
+        "submitted_frames": 82560,
+        "captured_frames": 77280,
+        "active_frames": 20223,
+        "rms": [
+          1.12489285396e-06,
+          1.56113082564e-05
+        ],
+        "peak": [
+          3.0517578125e-05,
+          3.0517578125e-05
+        ],
+        "opposite_rms_ratio": 0.0720562835279,
+        "tone_800hz_amplitudes": [
+          2.85440412431e-09,
+          1.46737184208e-05
+        ],
+        "opposite_tone_ratio": 0.000194524935156,
+        "digital_separation_passed": true,
+        "capture_discontinuities": 1,
+        "nonfinite_frames": 0,
+        "maximum_meter_peak": 0.00103759789,
+        "passed": true
+      }
+    ],
+    "volume_before": 0.0599999912,
+    "volume_after": 0.0599999912,
+    "volume_unchanged": true,
+    "passed": true
+  },
+  "Ghidra": {
+    "OriginalWindowsImageSha256": "b82cabb860404edd71cb38ce28720c74628dd3ad12e20f8ecbd874853cac0edd",
+    "Functions": [
+      "0x72528",
+      "0x79cf0",
+      "0x90ae8"
+    ],
+    "UnresolvedSite": "0x92488",
+    "ReviewSha256": "2f266f5c7e1c503090be87393db4aa8573d880e9faec54e4fb99271cd9859c88",
+    "ProjectReadOnly": true,
+    "TopologyRegistrationOpcode": "0x12923",
+    "OnlineParameterOpcode": "0x1035d",
+    "LiveCoppAndAckUnverified": true
+  },
+  "Remaining": [
+    "Legitimate elevated APO .10/.36 graph trial",
+    "Live COPP identity and original DSP resource-open/ADM ACK",
+    "Physical four-speaker L/R",
+    "Hardware PCM24",
+    "HyperOS acoustic parity",
+    "Maximum-volume protection and earlier shutdown cause"
+  ],
+  "References": [
+    "https://android.googlesource.com/kernel/msm-extra/+/48696dd1a1e9bf42b32045253819137717020aa2/include/dsp/apr_audio-v2.h",
+    "https://android.googlesource.com/kernel/msm-extra/+/48696dd1a1e9bf42b32045253819137717020aa2/include/dsp/q6core.h"
+  ]
+}

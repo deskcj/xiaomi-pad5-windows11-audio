@@ -2,6 +2,15 @@
 
 [English](audio-system-progress.md) · [Русский](audio-system-progress.ru.md) · [简体中文](audio-system-progress.zh-CN.md)
 
+**新增 · 已验证 Qualcomm 路由与参数封装：** 当前 Windows 校准文件为 Device 73 / AppType `0x11134`、`0x11138` 选择拓扑 `0x10000009`，七个模块中没有 MiSound 或 Dolby。新 C/H 检查器拒绝不匹配或歧义的文件路由，不自动替换 Android 标识。Windows 封装器与原版 QCADCM 机器码执行比较，**91 个原厂参数块**逐字节一致，并拒绝缓冲区越界与实例编号截断。
+
+六组件 ARM64 EWDK 库通过 901 项路由案例、1,770 项路由内存案例和 49 项封装内存案例。此前 864 项 MiSound 比较与十个原厂滤波表仍通过。四项安静 Normal/RAW L/R 测试在原有 6% 音量下通过（另一声道相干音调 ≤0.0787%）。这是数字分离；系统音效、物理扬声器与最大音量安全仍未确认。软件 Dolby APO 的绑定需要单独检查 Windows 音频图。已安装 kernel .18 / APO .4；签名 .10/.36 已准备但未安装。
+
+[验证数据](results/audio-acdb-pp-2026-11-25.json) · [C/H 源码](../driver/dsp/)
+
+<details>
+<summary>此前源码验证 · 11 月 25 日</summary>
+
 **新增 · 原版 MiSound 扬声器命令计划：** C/H 模块复现 MiSoundDSP_SetSPKParam，不再只编码单个值。**864 项比较**全部匹配原版 ARM64 机器码执行：480 项支持案例命令／最终路由精确一致，384 项不支持案例保持输出不变。原版对 AppType 0x11130/0x11134 发出 2/4/10/12 条命令，持久采样率表为 44100/48000/88200/96000/192000。八字节数据及模式例外保留原始位和顺序。这是控制／校准路由，不证明硬件采样率或扬声器隔离。
 
 四组件 ARM64 EWDK 库通过 53 项真实 NOACCESS 页边界案例及 13 项无效输入案例。十个原厂表与十四项拒绝测试仍通过，普通系统文件读取仍与 HyperOS 一致。Ghidra 导出了四个原版函数及原始指令。参考执行拦截了 Android 服务发送与日志，未发送 DSP 命令、播放声音或安装驱动。补齐了命令计划源码；真实系统 MiSound/Dolby、物理 L/R 与最大音量安全仍未完成。
@@ -48,13 +57,15 @@ Ghidra 进一步分析八个 HyperOS 资源、解析及多声道阶段函数，�
 
 [最新构建及证据](results/audio-apo-observability-2026-11-25.json) · [Microsoft 日志框架](https://learn.microsoft.com/en-us/windows-hardware/drivers/audio/windows-11-apis-for-audio-processing-objects) · [Reset 限制](https://learn.microsoft.com/en-us/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobject-reset)
 
+</details>
+
 | 项目 | 改动前 | 当前已验证结果 |
 | --- | --- | --- |
 | IRQ/GPIO 与路由 | IRQ 配置忽略 I²C 错误，仅检查 CH_BAL。 | ✅ .18 拒绝 IRQ 故障，四颗功放的实际回读通过。 |
 | 数字 L/R | 未测量分离。 | ✅ 四项安静测试通过；另一声道的 800 Hz 音调低于 0.1%。UID/I²C 映射与 Android 一致。声学隔离尚未验证。 |
 | Dolby APO | 显式连接不可用时可能使用公共后备，设置位于旧平面存储。 | ✅ .10 保留显式选择，.36 声明正确上下文；28 项软件测试通过。❌ 系统处理未验证。 |
 | PCM24 | 格式与供数时序错误。 | ✅ 此前 13 项时序／重开测试通过。硬件 PCM24 尚未验证。 |
-| MiSound | 只编码单个值，缺少完整扬声器命令序列。 | ✅ 502 条精确原厂记录与原版命令计划，864 项代码比较通过。❌ 系统 DSP 处理未验证。 |
+| MiSound／DSP 路由 | 缺少完整计划与 Windows 参数封装，未检查目标文件路由。 | ✅ 原版命令计划、ACDB 检查与 91 个精确原厂参数块。❌ 当前 Windows 文件链没有 MiSound/Dolby，实际处理未验证。 |
 
 GPIO 中断及保护掩码配置现会传递错误，并在开启 DSP/功放前验证回读。成功路径写入、固件、系数和出厂校准不变。EWDK 构建、目录生成及签名通过。
 

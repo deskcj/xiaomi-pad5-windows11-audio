@@ -26,16 +26,22 @@ Download: **4.17.27.16**. Development source: **4.17.27.18**. The published ZIP 
 
 ## Update history
 
-### 2026-11-25 — original MiSound speaker command plan
+### 2026-11-25 — Qualcomm routes and original Windows parameter packing
+
+- ✅ Added ACDB route checks and Windows parameter packing: **91 factory payloads** match original QCADCM execution; buffer tests pass.
+- ✅ Quiet digital L/R passed again at unchanged volume. The six-component ARM64 library builds; earlier MiSound checks still pass.
+- ❌ Current Windows file topology lacks the two DSP effects. System Dolby/MiSound, physical L/R and maximum-volume safety remain unverified; installed .18 is unchanged.
+
+<details>
+<summary>Previous updates</summary>
+
+#### 2026-11-25 — original MiSound speaker command plan
 
 - ✅ Added the original 2/4/10/12-command speaker sequence, including active/persistent routes and mode exceptions.
 - ✅ ARM64 build passed **864 original-machine-code comparisons + 53 memory-bound cases**; existing factory filter checks still pass.
 - ❌ Actual system Dolby/MiSound and physical L/R remain unconfirmed. Installed kernel .18 is unchanged.
 
 [Measured evidence](docs/audio-system-progress.md)
-
-<details>
-<summary>Previous updates</summary>
 
 #### 2026-11-25 — Dolby APO 2.0.0.10-lab / settings .36
 

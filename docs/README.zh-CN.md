@@ -26,16 +26,22 @@ ZIP 包含 PowerShell 安装与回滚脚本。请准备当前平板原版 HyperO
 
 ## 更新记录
 
-### 2026-11-25 — 原版 MiSound 扬声器命令计划
+### 2026-11-25 — Qualcomm 路由与原版 Windows 参数封装
+
+- ✅ 添加 ACDB 路由检查与 Windows 参数封装：**91 个原厂参数块**匹配原版 QCADCM 执行，缓冲区测试通过。
+- ✅ 安静数字 L/R 再次通过，音量未改变。六组件 ARM64 库已构建，原有 MiSound 测试仍通过。
+- ❌ 当前 Windows 文件拓扑不含两个 DSP 音效。系统 Dolby/MiSound、物理 L/R 与最大音量安全尚未验证；已安装 .18 未改变。
+
+<details>
+<summary>以前的更新</summary>
+
+#### 2026-11-25 — 原版 MiSound 扬声器命令计划
 
 - ✅ 移植原版 2/4/10/12 条命令序列，包含实时／持久路由及模式例外。
 - ✅ ARM64 构建通过 **864 项原版机器码比较 + 53 项内存边界测试**；原厂滤波测试仍通过。
 - ❌ 系统 Dolby/MiSound 与物理 L/R 尚未确认。已安装 kernel .18 未改变。
 
 [验证数据](audio-system-progress.zh-CN.md)
-
-<details>
-<summary>以前的更新</summary>
 
 #### 2026-11-25 — Dolby APO 2.0.0.10-lab／设置 .36
 
