@@ -1,5 +1,15 @@
 # Dolby APO development source · 2.0.0.11-lab
 
+**2.0.0.13-lab:** real audiodg SFX activation and quiet nonzero processing now pass after fixing COM aggregation. A private IUnknown manages the inner lifetime; public interfaces delegate to the controlling object. The .12 control returned CLASS_E_NOAGGREGATION in 11 live calls. ARM64 EWDK: 24 factory, 108 settings and seven original-worker scenarios pass. Embedded DLL signing with page hashes and catalog/member verification are available through `Build-ApoPackage.ps1`.
+
+This is a tested lab configuration with a temporary original Android worker and 128 ms buffering, not a standalone permanent Dolby package. .18 / APO .4 were restored; .13/.36 and rollback are retained locally. [Live results and limits](../../docs/results/audio-apo-aggregation-2026-11-25.json)
+
+The identity/lifetime implementation follows [Microsoft COM aggregation rules](https://learn.microsoft.com/en-us/windows/win32/com/aggregation). The observed factory failure and its resolution are retained separately from [Windows APO graph-load diagnostics](https://learn.microsoft.com/en-us/windows-hardware/drivers/audio/implementing-audio-processing-objects).
+
+<details>
+<summary>Previous research and builds</summary>
+
+
 Native ARM64 COM transport, stereo queues, delayed dry fallback and diagnostics. The separate worker runs original Android Dolby code; that library and worker runtime are not included here. This source does not implement MiSound processing.
 
 Audited native [classifier and level-scale adapters](worker-native/) preserve original output/state in the lab worker. After the manual reboot, .11/.36 installed without another reboot and the actual Windows CAPX Default bank read passed. Zero-input streams opened, but Nabu processing counters/events stayed zero. The final rollback preserved prior settings and restored kernel .18 / APO .4 with a passing zero-input stream and no pending adapter restart. System Dolby/MiSound, physical L/R, hardware PCM24 and maximum-volume safety remain unverified. [Current evidence](../../docs/results/audio-config-capx-stereo-2026-11-25.json) · [Native adapter evidence](../../docs/results/audio-native-level-and-live-apo-2026-11-25.json)
@@ -25,3 +35,6 @@ From an ARM64 EWDK 10.0.26100 environment, run `powershell.exe -File .\Build-Apo
 `NabuDolbyApo.inf` is the separate driver-bound candidate component. A local package passed Inf2Cat and catalog signature verification, including its INF/DLL members. It excludes the rejected public global-pack registration and still needs a controlled integration trial. No certificate or installer is distributed here.
 
 The current public driver ZIP excludes this prototype. [Measured project status](../../docs/audio-system-progress.md)
+
+
+</details>

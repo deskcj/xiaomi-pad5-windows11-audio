@@ -2,6 +2,26 @@
 
 [English](dolby-apo-progress.md) · [Русский](dolby-apo-progress.ru.md) · [简体中文](dolby-apo-progress.zh-CN.md)
 
+**2026-11-25 — 修复 APO 聚合；实际 Dolby 处理已运行**
+
+.12 对照在两个 audiodg 进程的 11 次聚合创建中返回 `0x80040110`。.13 使用私有 IUnknown 管理内部对象，公开接口将身份和引用计数委托给控制对象。这修复了实际系统激活故障；非聚合创建仍正常。
+
+| 项目 | 已确认 | 待完成 |
+| --- | --- | --- |
+| Dolby SFX | ✅ .13 在实际 audiodg 中创建、初始化及处理，安静非零输入已测试。 | ❌ 常驻处理包、持续时序和延迟。 |
+| 数字 L/R | ✅ 四项 Normal/RAW 测试，设备音量未改变。 | ❌ 四颗物理扬声器的隔离。 |
+| MiSound | ✅ 原厂数据、配置及命令源码精确验证；Ghidra 已分析启用路径。 | ❌ Qualcomm DSP 图及资源集成。 |
+| PCM24／保护 | 保留此前软件验证。 | ❌ 硬件 PCM24、HyperOS 声学及最大音量安全。 |
+
+测试使用临时运行的 Android 原版 Dolby 处理程序和 128 ms 缓冲。四项极安静的 800 Hz Normal/RAW L/R 验证通过；另一通道的相干音调 ≤0.955%，PCM16 抖动保留在结果中。这证明数字分离及有界实机 SFX 处理；物理扬声器隔离、音质改善与最大音量安全尚未证明。
+
+平板当前已恢复四颗功放 .18 / APO .4；未重启，也未改变校准、增益或保护。.13/.36 签名包、源码及回滚保存在 SSD，供后续测试。公开 .16 ZIP 未改变，不含系统 Dolby/MiSound。
+
+[Evidence / Данные / 数据](results/audio-apo-aggregation-2026-11-25.json)
+
+<details>
+<summary>此前研究及验证</summary>
+
 > [最新系统集成结果与改动前后对比](audio-system-progress.zh-CN.md).
 
 **已验证：**尚未注册的原生 ARM64 COM APO 通过独立进程接收 Android 原版 Dolby 的 Float32 输出。固定大小和不规则大小回调测试中，各有 196,608 个双声道帧与参考结果逐字节一致。**系统级 Dolby 和 MiSound 仍未完成。**
@@ -29,3 +49,5 @@
 Windows 支持[复合音效注册](https://learn.microsoft.com/en-us/windows-hardware/drivers/audio/pkey-compositefx-endpointeffectclsid)，但在现有 Qualcomm 代理旁插入音效前，需要检查[流处理支持及驱动中的混音位置](https://learn.microsoft.com/en-us/windows-hardware/drivers/audio/implementing-audio-processing-objects)。
 
 [测量摘要](results/dolby-apo-2026-11-24.json) · [PCM24 进展](pcm24-progress.zh-CN.md) · [主页](README.zh-CN.md)
+
+</details>

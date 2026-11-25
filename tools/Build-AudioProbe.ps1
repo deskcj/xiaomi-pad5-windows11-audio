@@ -1,4 +1,4 @@
-param([ValidateSet('QuietStereoProbe','ApoSettingsProbe')][string]$Probe='QuietStereoProbe',
+param([ValidateSet('QuietStereoProbe','ApoSettingsProbe','ApoClassActivationProbe','ApoSecurityProbe','ApoFactoryContractProbe')][string]$Probe='QuietStereoProbe',
     [Parameter(Mandatory=$true)][string]$OutputDirectory)
 $ErrorActionPreference='Stop'
 $compiler=(Get-Command cl.exe -ErrorAction Stop).Source
@@ -12,7 +12,7 @@ $object=Join-Path $out ($Probe+'.obj')
 $exe=Join-Path $out ($Probe+'.exe')
 & $compiler /nologo /c /std:c++17 /O2 /MT /W4 /WX /GS /guard:cf ('/Fo'+$object) $source *> (Join-Path $out 'Compile.log')
 if($LASTEXITCODE -ne 0){throw 'See Compile.log'}
-& $linker /nologo /machine:arm64 /guard:cf /dynamicbase /nxcompat /manifest:no ('/out:'+$exe) $object kernel32.lib ole32.lib uuid.lib *> (Join-Path $out 'Link.log')
+& $linker /nologo /machine:arm64 /guard:cf /dynamicbase /nxcompat /manifest:no ('/out:'+$exe) $object kernel32.lib ole32.lib uuid.lib advapi32.lib *> (Join-Path $out 'Link.log')
 if($LASTEXITCODE -ne 0){throw 'See Link.log'}
 [ordered]@{
     Architecture='ARM64';Probe=$Probe;SourceSha256=(Get-FileHash -LiteralPath $source).Hash.ToLowerInvariant()

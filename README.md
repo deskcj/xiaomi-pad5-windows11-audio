@@ -26,7 +26,18 @@ Download: **4.17.27.16**. Development source: **4.17.27.18**. The published ZIP 
 
 ## Update history
 
-### 2026-11-25 — MiSound configuration, CAPX and quiet L/R checks
+### 2026-11-25 — Fixed APO aggregation; live Dolby processing
+
+- ✅ Found audiodg’s `CLASS_E_NOAGGREGATION` failure and fixed COM aggregation in .13. ARM64 EWDK: 24 factory, 108 settings and seven processing checks pass. DLL and catalog signatures verified.
+- ✅ Real .13/.36 installation: audiodg initializes/processes the effect; quiet nonzero Normal/RAW L/R tests pass at unchanged volume. Original worker processed 251,904 frames.
+- ❌ Permanent worker deployment, MiSound, physical speaker L/R, PCM24 and maximum-volume safety remain open. .18 / APO .4 restored without reboot.
+
+[Evidence / Данные / 数据](docs/results/audio-apo-aggregation-2026-11-25.json)
+
+<details>
+<summary>Previous updates</summary>
+
+#### 2026-11-25 — MiSound configuration, CAPX and quiet L/R checks
 
 - ✅ Added original MiSound configuration checks: 246 Android-code comparisons and 16 native memory cases passed; ARM64 EWDK library built.
 - ✅ .11/.36 installed without another reboot; Windows CAPX Default bank read passed. Four quiet normal/RAW digital L/R cases passed at unchanged 71% device volume.
@@ -34,8 +45,7 @@ Download: **4.17.27.16**. Development source: **4.17.27.18**. The published ZIP 
 
 [Source and measured results](docs/results/audio-config-capx-stereo-2026-11-25.json)
 
-<details>
-<summary>Previous updates</summary>
+
 
 #### 2026-11-25 — Native Dolby level stage and live APO installation checks
 
@@ -153,16 +163,16 @@ PCM24 research set: all 13 timing/reopen tests passed; average 10 ms notificatio
 | Area | Before | Proven now |
 | --- | --- | --- |
 | IRQ/GPIO and routing | IRQ setup ignored I²C errors; only CH_BAL was checked. | ✅ .18 rejects failed IRQ setup; real readbacks passed on all four amplifiers. |
-| Digital L/R | Separation unmeasured. | ✅ Four quiet cases passed; opposite 800 Hz tone <0.1%. UID/I²C board mapping matches Android. Acoustic isolation remains unverified. |
-| Dolby APO | Settings-read failures; original processing ran in an emulator. | ✅ .11 read handling and exact native level/classifier prototypes. Real installation/rollback tested. ❌ System effect activation and timing reliability remain open. |
+| Digital L/R | Separation unmeasured. | ✅ Four quiet Normal/RAW cases pass at unchanged volume; opposite coherent tone ≤0.955%. Physical speaker isolation remains open. |
+| Dolby APO | System creation rejected aggregation. | ✅ .13 activates and processes in audiodg during bounded quiet tests. ❌ Permanent deployment and sustained timing still pending. |
 | PCM24 | Format/pacing failures. | ✅ Earlier 13 timing/reopen cases passed. Hardware PCM24 remains unverified. |
 | MiSound | Only single controls were encoded; complete speaker dispatch was absent. | ✅ 502 exact factory records and the original command plan; 864 code comparisons pass. ❌ System DSP processing unverified. |
 
-System Dolby, MiSound, acoustic L/R separation and HyperOS-quality sound remain unconfirmed. No new loudness increase is claimed.
+Live Dolby SFX processing is confirmed in a bounded lab setup. Permanent deployment, MiSound, acoustic L/R and HyperOS-quality sound remain unfinished.
 
 ## In progress
 
-- ❌ **System Dolby:** validate the driver-bound SFX candidate; public global packs are inapplicable to this OEM endpoint.
+- ⏳ **Dolby deployment:** live .13 SFX activation is verified; package the worker and validate sustained playback, latency and reopen/recovery.
 - ❌ **MiSound:** resolve original DSP resource loading and parameter acknowledgement.
 - ⏳ Physical per-speaker L/R, PCM24 output, HyperOS quality and maximum-volume safety remain unverified.
 

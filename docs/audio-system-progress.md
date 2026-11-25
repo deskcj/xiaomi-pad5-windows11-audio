@@ -2,6 +2,26 @@
 
 [English](audio-system-progress.md) · [Русский](audio-system-progress.ru.md) · [简体中文](audio-system-progress.zh-CN.md)
 
+**2026-11-25 — Fixed APO aggregation; live Dolby processing**
+
+The .12 control returned `0x80040110` for 11 aggregated creations in two audiodg processes. .13 now supplies a private IUnknown and delegates public identity/reference counts to the controlling object. This fixes a demonstrated system-activation failure; ordinary non-aggregated creation still works.
+
+| Area | Confirmed now | Remaining |
+| --- | --- | --- |
+| Dolby SFX | ✅ .13 creates, initializes and processes in real audiodg; quiet nonzero stream tested. | ❌ Permanent worker package, sustained timing and latency. |
+| Digital L/R | ✅ Four Normal/RAW cases at unchanged device volume. | ❌ Isolation of the four physical speakers. |
+| MiSound | ✅ Exact factory/config/command source checks; enable fan-out reviewed in Ghidra. | ❌ Live Qualcomm DSP graph/resource integration. |
+| PCM24 / protection | Earlier software checks retained. | ❌ Hardware PCM24, HyperOS acoustics and maximum-volume safety. |
+
+The tested setup uses a temporary original Android Dolby worker and a 128 ms buffer. Four very quiet 800 Hz Normal/RAW L/R cases passed; opposite coherent tone ≤0.955%, with PCM16 dither retained in the measurements. These results establish digital separation and bounded live SFX processing, not physical speaker isolation, better sound or maximum-volume safety.
+
+Current tablet: four .18 amplifiers / APO .4 restored; no reboot, calibration, gain or protection changes. Signed .13/.36, sources and rollback are retained on SSD for subsequent tests. The public .16 ZIP remains unchanged and contains neither system Dolby nor MiSound.
+
+[Evidence / Данные / 数据](results/audio-apo-aggregation-2026-11-25.json)
+
+<details>
+<summary>Previous research and tests</summary>
+
 **New · MiSound config and live CAPX checks:** `MiSoundAudioConfig.c/.h` preserve the original 112-byte configuration and validate matching rates, channel masks, format bytes and access modes. **246 original Android executions + 16 native memory cases passed**. The ten-component ARM64 EWDK library is prepared; these checks neither enable MiSound nor prove hardware PCM24.
 
 After the manual reboot, two .11/.36 trials installed without another reboot. A native Windows API opened the actual CAPX Default context and read the exact bank name; Dolby events/counters still stayed zero. The corrected second rollback removed only captured-new contexts and restored .18 / APO .4, with a passing zero-input stream and no pending adapter restart. Four quiet normal/RAW L/R tests passed using only 0.01 stream gain at unchanged 71% device volume. Worst opposite 800 Hz tone: **1.03%**, near the PCM16 dither floor; this is a different stimulus from the earlier <0.1% result, not a measured quality improvement. Physical speaker isolation and maximum-volume safety remain unverified.
@@ -161,5 +181,7 @@ A later silent selection diagnostic returned `0x800700FF` on the first default s
 A further prototype fix separates **effect discovery** from claiming a processing worker. Previously a discovery-only instance returned an empty effect list; it now reports the configured Dolby effect without consuming a slot, including when the worker is occupied. Seven initialization cases passed, and all 196,608 reference frames remained exact. This corrects the prototype contract; it did not activate system Dolby.
 
 The latest SFX and valid legacy-only GFX trials used a signed Driver Store DLL and property-change notification, with no audio-service restart. Both zero-input streams passed, but still produced zero APO processing. The meter stayed at approximately one PCM16 least-significant bit (converter dither), not a music/tone signal. Both temporary packages were removed and the baseline restored without errors.
+
+</details>
 
 </details>

@@ -7,3 +7,9 @@ From an ARM64 EWDK environment, build with `powershell.exe -File .\Build-AudioPr
 `ApoSettingsProbe.cpp` uses the real Windows CAPX property-store API to read the Nabu context's Default bank on the current default render endpoint. It writes no properties and activates neither an APO nor an audio stream. A matching bank establishes settings availability to this caller, not audiodg activation or processing.
 
 [Recorded software and device results](../docs/results/audio-config-capx-stereo-2026-11-25.json)
+
+`ApoClassActivationProbe` verifies ordinary in-process COM activation and identifies the loaded DLL, without calling Initialize or opening audio. `ApoFactoryContractProbe` loads an explicitly named DLL and checks creation failures, aggregation, public/private COM identity, reference balance and unloadability (24 cases, including 64 interface cycles); it does not register or initialize an APO.
+
+`ApoSecurityProbe <audiodg-pid> <HKLM-relative-key> [section:<name> ...]` reads process/token and object security data. It never impersonates or changes privileges/ACLs. `accesscheck_performed=false` means the check was unavailable, not a demonstrated DACL denial. Source/executable hashes are recorded by `Build-AudioProbe.ps1`. Select these probe names with `-Probe` in an ARM64 EWDK environment.
+
+[Live aggregation failure, fix and quiet evidence](../docs/results/audio-apo-aggregation-2026-11-25.json)

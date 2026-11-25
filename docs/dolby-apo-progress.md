@@ -2,6 +2,26 @@
 
 [English](dolby-apo-progress.md) · [Русский](dolby-apo-progress.ru.md) · [简体中文](dolby-apo-progress.zh-CN.md)
 
+**2026-11-25 — Fixed APO aggregation; live Dolby processing**
+
+The .12 control returned `0x80040110` for 11 aggregated creations in two audiodg processes. .13 now supplies a private IUnknown and delegates public identity/reference counts to the controlling object. This fixes a demonstrated system-activation failure; ordinary non-aggregated creation still works.
+
+| Area | Confirmed now | Remaining |
+| --- | --- | --- |
+| Dolby SFX | ✅ .13 creates, initializes and processes in real audiodg; quiet nonzero stream tested. | ❌ Permanent worker package, sustained timing and latency. |
+| Digital L/R | ✅ Four Normal/RAW cases at unchanged device volume. | ❌ Isolation of the four physical speakers. |
+| MiSound | ✅ Exact factory/config/command source checks; enable fan-out reviewed in Ghidra. | ❌ Live Qualcomm DSP graph/resource integration. |
+| PCM24 / protection | Earlier software checks retained. | ❌ Hardware PCM24, HyperOS acoustics and maximum-volume safety. |
+
+The tested setup uses a temporary original Android Dolby worker and a 128 ms buffer. Four very quiet 800 Hz Normal/RAW L/R cases passed; opposite coherent tone ≤0.955%, with PCM16 dither retained in the measurements. These results establish digital separation and bounded live SFX processing, not physical speaker isolation, better sound or maximum-volume safety.
+
+Current tablet: four .18 amplifiers / APO .4 restored; no reboot, calibration, gain or protection changes. Signed .13/.36, sources and rollback are retained on SSD for subsequent tests. The public .16 ZIP remains unchanged and contains neither system Dolby nor MiSound.
+
+[Evidence / Данные / 数据](results/audio-apo-aggregation-2026-11-25.json)
+
+<details>
+<summary>Previous research and tests</summary>
+
 > [Newer system-integration results and before/after comparison](audio-system-progress.md).
 
 **Proven:** an unregistered native ARM64 COM APO receives the original Android Dolby renderer's Float32 output through a separate process. Regular and irregular callback tests each matched all 196,608 stereo frames byte for byte. **System-wide Dolby and MiSound remain unfinished.**
@@ -29,3 +49,5 @@ Seven digital scenarios passed: regular callbacks, irregular callbacks, worker e
 Windows supports [composite effect registration](https://learn.microsoft.com/en-us/windows-hardware/drivers/audio/pkey-compositefx-endpointeffectclsid), but [streaming support and the driver mixing location](https://learn.microsoft.com/en-us/windows-hardware/drivers/audio/implementing-audio-processing-objects) must be checked before inserting an effect alongside the existing Qualcomm proxy.
 
 [Measurement summary](results/dolby-apo-2026-11-24.json) · [PCM24 progress](pcm24-progress.md) · [Main page](../README.md)
+
+</details>

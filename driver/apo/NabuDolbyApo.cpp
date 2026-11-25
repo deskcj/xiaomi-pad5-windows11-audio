@@ -19,6 +19,21 @@ constexpr GUID LoggingServiceId={0x8b8008af,0x09f9,0x456e,{0xa1,0x73,0xbd,0xb5,0
 volatile LONG Objects;
 volatile LONG ServerLocks;
 
+// Factory calls are outside the real-time path. Record their exact contracts
+// before Initialize so a mapped DLL is not mistaken for an activated APO.
+void factory_event(const WCHAR *stage, REFCLSID clsid, REFIID iid, HRESULT status)
+{
+    const DWORD error = GetLastError();
+    WCHAR class_text[40] = {}, interface_text[40] = {}, message[256] = {};
+    if (StringFromGUID2(clsid, class_text, ARRAYSIZE(class_text)) &&
+        StringFromGUID2(iid, interface_text, ARRAYSIZE(interface_text)) &&
+        SUCCEEDED(StringCchPrintfW(message, ARRAYSIZE(message),
+            L"NabuApoFactory stage=%s clsid=%s iid=%s hr=0x%08x pid=%lu",
+            stage, class_text, interface_text, UINT32(status), GetCurrentProcessId())))
+        nabu_diag_message(message);
+    SetLastError(error);
+}
+
 bool stereo_float(IAudioMediaType *type)
 {
     UNCOMPRESSEDAUDIOFORMAT format = {};
@@ -48,20 +63,39 @@ bool connection_signature(UINT32 signature)
 
 class NabuDolbyApo final : public IAudioProcessingObject, public IAudioProcessingObjectConfiguration,
                           public IAudioProcessingObjectRT, public IAudioSystemEffects3 {
+    class InnerUnknown final : public IUnknown {
+    public:
+        explicit InnerUnknown(NabuDolbyApo *owner) noexcept : owner_(owner) {}
+        HRESULT STDMETHODCALLTYPE QueryInterface(REFIID iid, void **result) override
+            { return owner_->NonDelegatingQueryInterface(iid, result); }
+        ULONG STDMETHODCALLTYPE AddRef() override { return owner_->NonDelegatingAddRef(); }
+        ULONG STDMETHODCALLTYPE Release() override { return owner_->NonDelegatingRelease(); }
+    private:
+        NabuDolbyApo *owner_;
+    };
 public:
-    NabuDolbyApo(DolbyBlockQueue *requests, DolbyBlockQueue *replies, UINT32 delay) noexcept
-        : requests_(requests), replies_(replies), delay_(delay)
+    NabuDolbyApo(DolbyBlockQueue *requests, DolbyBlockQueue *replies, UINT32 delay,
+        IUnknown *outer) noexcept
+        : inner_(this), controlling_(outer ? outer : &inner_),
+          requests_(requests), replies_(replies), delay_(delay)
     {
         InterlockedIncrement(&Objects);
         nabu_diag(0,0,true); nabu_diag(1,LONG(GetCurrentProcessId()));
     }
 
     HRESULT STDMETHODCALLTYPE QueryInterface(REFIID iid, void **result) override
+        { return controlling_->QueryInterface(iid, result); }
+    ULONG STDMETHODCALLTYPE AddRef() override { return controlling_->AddRef(); }
+    ULONG STDMETHODCALLTYPE Release() override { return controlling_->Release(); }
+
+    HRESULT NonDelegatingQueryInterface(REFIID iid, void **result)
     {
         if (!result)
             return E_POINTER;
         *result = nullptr;
-        if (iid == __uuidof(IUnknown) || iid == __uuidof(IAudioProcessingObject))
+        if (iid == __uuidof(IUnknown))
+            *result = static_cast<IUnknown *>(&inner_);
+        else if (iid == __uuidof(IAudioProcessingObject))
             *result = static_cast<IAudioProcessingObject *>(this);
         else if (iid == __uuidof(IAudioProcessingObjectRT))
             *result = static_cast<IAudioProcessingObjectRT *>(this);
@@ -75,13 +109,13 @@ public:
             *result = static_cast<IAudioSystemEffects3 *>(this);
         else
             return E_NOINTERFACE;
-        AddRef();
+        static_cast<IUnknown *>(*result)->AddRef();
         return S_OK;
     }
 
-    ULONG STDMETHODCALLTYPE AddRef() override { return InterlockedIncrement(&references_); }
+    ULONG NonDelegatingAddRef() { return InterlockedIncrement(&references_); }
 
-    ULONG STDMETHODCALLTYPE Release() override
+    ULONG NonDelegatingRelease()
     {
         ULONG remaining = InterlockedDecrement(&references_);
         if (!remaining) {
@@ -476,6 +510,10 @@ private:
         }
     }
 
+    InnerUnknown inner_;
+    // The outer owns the inner IUnknown; taking a strong outer reference here
+    // would create a cycle. Public interfaces delegate identity and references.
+    IUnknown *controlling_;
     volatile LONG references_ = 1;
     bool initialized_ = false;
     UINT32 max_frames_ = 0;
@@ -497,7 +535,7 @@ private:
 };
 
 HRESULT create_apo(REFIID iid, void **result, DolbyBlockQueue *requests = nullptr,
-    DolbyBlockQueue *replies = nullptr, UINT32 delay = 0)
+    DolbyBlockQueue *replies = nullptr, UINT32 delay = 0, IUnknown *outer = nullptr)
 {
     if (!result)
         return E_POINTER;
@@ -509,9 +547,9 @@ HRESULT create_apo(REFIID iid, void **result, DolbyBlockQueue *requests = nullpt
         MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
     if (!storage)
         return E_OUTOFMEMORY;
-    auto *apo = new (storage) NabuDolbyApo(requests, replies, delay);
-    HRESULT status = apo->QueryInterface(iid, result);
-    apo->Release();
+    auto *apo = new (storage) NabuDolbyApo(requests, replies, delay, outer);
+    HRESULT status = apo->NonDelegatingQueryInterface(iid, result);
+    apo->NonDelegatingRelease();
     return status;
 }
 
@@ -545,9 +583,21 @@ public:
 
     HRESULT STDMETHODCALLTYPE CreateInstance(IUnknown *outer, REFIID iid, void **result) override
     {
-        if (outer)
-            return CLASS_E_NOAGGREGATION;
-        return create_apo(iid, result);
+        nabu_diag(21, 0, true);
+        nabu_diag(22, LONG(GetCurrentProcessId()));
+        nabu_diag(24, outer ? 1 : 0);
+        factory_event(L"CreateInstanceEnter", NabuDolbyApoId, iid, S_OK);
+        HRESULT status;
+        if (!result)
+            status = E_POINTER;
+        else {
+            *result = nullptr;
+            status = outer && iid != __uuidof(IUnknown) ? CLASS_E_NOAGGREGATION :
+                create_apo(iid, result, nullptr, nullptr, 0, outer);
+        }
+        nabu_diag(23, LONG(status));
+        factory_event(L"CreateInstanceReturn", NabuDolbyApoId, iid, status);
+        return status;
     }
 
     HRESULT STDMETHODCALLTYPE LockServer(BOOL lock) override
@@ -564,17 +614,29 @@ private:
 
 STDAPI DllGetClassObject(REFCLSID clsid, REFIID iid, void **result)
 {
+    nabu_diag(18, 0, true);
+    nabu_diag(19, LONG(GetCurrentProcessId()));
+    factory_event(L"DllGetClassObjectEnter", clsid, iid, S_OK);
+    HRESULT status;
     if (!result)
-        return E_POINTER;
-    *result = nullptr;
-    if (clsid != NabuDolbyApoId)
-        return CLASS_E_CLASSNOTAVAILABLE;
-    void *storage = HeapAlloc(GetProcessHeap(), 0, sizeof(Factory));
-    if (!storage)
-        return E_OUTOFMEMORY;
-    auto *factory = new (storage) Factory();
-    HRESULT status = factory->QueryInterface(iid, result);
-    factory->Release();
+        status = E_POINTER;
+    else {
+        *result = nullptr;
+        if (clsid != NabuDolbyApoId)
+            status = CLASS_E_CLASSNOTAVAILABLE;
+        else {
+            void *storage = HeapAlloc(GetProcessHeap(), 0, sizeof(Factory));
+            if (!storage)
+                status = E_OUTOFMEMORY;
+            else {
+                auto *factory = new (storage) Factory();
+                status = factory->QueryInterface(iid, result);
+                factory->Release();
+            }
+        }
+    }
+    nabu_diag(20, LONG(status));
+    factory_event(L"DllGetClassObjectReturn", clsid, iid, status);
     return status;
 }
 

@@ -18,7 +18,7 @@ View *map(HANDLE handle) {
 }
 }
 void nabu_diag_message(const WCHAR *message) {
-    // Called only by Initialize/LockForProcess. Reset and APOProcess must not log.
+    // Factory/Initialize/LockForProcess only. Reset and APOProcess must not log.
     DWORD error=GetLastError();
     REGHANDLE event=0;
     if (message && EventRegister(&Provider,nullptr,nullptr,&event)==ERROR_SUCCESS) {
