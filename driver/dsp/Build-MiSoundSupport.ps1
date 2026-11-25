@@ -7,7 +7,7 @@ $out=[IO.Path]::GetFullPath($OutputDirectory)
 if(Test-Path -LiteralPath $out){throw 'Choose a new output folder to retain previous builds.'}
 New-Item -ItemType Directory -Path $out | Out-Null
 $objects=@()
-foreach($stem in @('MiSoundProtocol','MiSoundResource','MiSoundSpeakerFilters','MiSoundSpeakerPlan','QualcommAcdbRoute','QualcommPpParameter')){
+foreach($stem in @('MiSoundProtocol','MiSoundResource','MiSoundSpeakerFilters','MiSoundSpeakerPlan','QualcommAcdbRoute','QualcommPpParameter','QualcommCoppSelector','QualcommHostCalibration')){
     $object=Join-Path $out ($stem+'.obj')
     $log=Join-Path $out ($stem+'.log')
     & $compiler /nologo /c /std:c11 /MT /W4 /WX /O2 /GS /guard:cf ('/Fo'+$object) (Join-Path $PSScriptRoot ($stem+'.c')) *> $log

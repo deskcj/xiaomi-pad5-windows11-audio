@@ -16,10 +16,18 @@ Original HyperOS instructions also select the existing 192000-Hz table for a 176
 
 The current configured Windows Device 73 music graphs select `0x10000009` with seven stock modules, neither MiSound nor Dolby. The Android music graph selects `0x1000a100` with those two effects. No device IDs, topologies or parameters are automatically substituted. Topology registration (`0x12923`) and online ADM parameter setting (`0x1035d`) are distinct operations. The next integration step must confirm a compatible live graph and COPP before any dispatch. Software Dolby APO binding is a separate Windows graph check; missing DSP modules do not diagnose that binding.
 
+`QualcommCoppSelector.c/.h` reproduce original QCADCM stream-mask selection without reading its context tables. A one-hot low byte is required; paired contexts need a one-hot second byte, and bit 18 retains its original precedence. The stricter ADM entry check rejects the upper bits that the original online wrapper would discard. These indices are driver context slots, not Android ACDB IDs or speaker positions. All 3,146 original ARM64 comparisons pass, including invalid selectors, plus 27 real NOACCESS cases.
+
+`QualcommHostCalibration.c/.h` construct the original common-calibration GET header, payload capacity and three padding bytes. IDs must be explicitly supplied; the helper rejects zero IDs, instance truncation and length overflow before writing. All 95 original getter comparisons (91 HyperOS and four Windows records) and 21 native NOACCESS cases pass. The original ACDB lookup/allocation/copies were mocked in those comparisons.
+
+The new C header also passed a real read through the running OEM ADCM device: the stock PBE-enable buffer matched the installed Windows ACDB. The original MiSound-enable query returned Win32 31 with an unchanged buffer. This is host-cache access through `0xadae2105` / ACDB `0x13263`, not a live DSP parameter GET or ACK. The OEM completes with zero API byte count even after writing the buffer; the bounded header/capacity, marker change and exact file value are retained in the evidence. No SET was sent. [Native selector and host-cache evidence](../../docs/results/audio-adcm-host-selector-2026-11-25.json)
+
+Later PP comparisons execute the original COPP lookup against emulated context contents instead of replacing that lookup. All 91 factory payloads still match. Live COPP identity, resource opening, DSP processing and physical L/R remain unverified.
+
 This is a user-mode support library. Structural acceptance is not approval of calibration values. It preserves raw OAL/dynamics records without implementing their algorithms, units or DSP dispatch. It does not process audio or enable system MiSound. The CS35L41 driver and current public ZIP do not apply these tables.
 
 The input must remain unchanged throughout a scan. Complete structural validation precedes callbacks; cancellation can still occur after earlier callbacks, leaving the optional summary untouched. Collect records before attempting a DSP transaction. Profile/module order and both selectors are preserved; DSP indices do not establish physical left/right speaker positions.
 
-From an ARM64 EWDK environment, run `powershell.exe -File .\Build-MiSoundSupport.ps1 -OutputDirectory <new-folder>`. It builds all six components into `NabuMiSoundSupport.lib` and records the source hashes. No installation or device access occurs.
+From an ARM64 EWDK environment, run `powershell.exe -File .\Build-MiSoundSupport.ps1 -OutputDirectory <new-folder>`. It builds all eight components into `NabuMiSoundSupport.lib` and records the source hashes. No installation or device access occurs.
 
 [Measured project status](../../docs/audio-system-progress.md)

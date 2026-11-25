@@ -1,0 +1,481 @@
+{
+  "Date": "2026-11-25",
+  "InstalledKernelVersion": "4.17.27.18",
+  "InstalledApoVersion": "2.0.0.4",
+  "PreparedApoVersion": "2.0.0.10-lab",
+  "PreparedSettingsVersion": "1.0.2140.36",
+  "PublicZipVersion": "4.17.27.16",
+  "Scope": {
+    "DriverInstalled": false,
+    "RebootPerformed": false,
+    "HostCalibrationCacheQueried": true,
+    "QuietAudioRendered": true,
+    "SetCommandSent": false,
+    "GainOrProtectionChanged": false,
+    "SystemDolbyProven": false,
+    "SystemMiSoundProven": false,
+    "DspParameterAckProven": false,
+    "AcousticLrProven": false,
+    "HardwarePcm24Proven": false,
+    "HyperOsParityProven": false,
+    "MaximumVolumeSafetyProven": false,
+    "HistoricShutdownCauseProven": false
+  },
+  "Build": {
+    "Architecture": "ARM64",
+    "SourceSha256": {
+      "Build-MiSoundSupport.ps1": "63727347ff81d14ba6ff4299b9ee80b1e5651b0b8e4c5a1cf214220ba19a7986",
+      "MiSoundProtocol.c": "1f7b8c10f7a9e92a701e742319503e78a0768d975044afcf23356024a68cb85d",
+      "MiSoundProtocol.h": "2ce4074fe4500d504fb8703b91d1f640a34cf7bb3278a4072b9e65d91c9c604f",
+      "MiSoundResource.c": "c1be894a1749578e2eacc5a1989c152640474dd47592b998c0709232398535c5",
+      "MiSoundResource.h": "42cb0e875ec0a96384ef0571cc2398fdcaba8791065401140d53b89ef09aee62",
+      "MiSoundSpeakerFilters.c": "5a1b19044fdc7c4de364c47377038503915c26f88dfc5d82d0bf2c8c1d83ec57",
+      "MiSoundSpeakerFilters.h": "8e7062e9c64ceb4d65b6c95586bc95061174c8257a596c140e3cd28a963d0996",
+      "MiSoundSpeakerPlan.c": "1b6ae3f257876107a03955653cebf724fd258d812a7b4debf9cfeb19a56cd1b9",
+      "MiSoundSpeakerPlan.h": "e84721aae9ffdd5db43024f90bd7e8f21187a6920a0006eebe77b8c33c707e3f",
+      "QualcommAcdbRoute.c": "0a30634a031a42fb650dd55f5bc7ff33dbf3ffce2c32dad70f7d2d6dbabed742",
+      "QualcommAcdbRoute.h": "251142772869aceab91ec9edb733c19b3e55b1b6d37a110a595cf406d4ed735d",
+      "QualcommCoppSelector.c": "53aa4e43be29cad3c3fdc6bfd1fb6dd1405606df262c5d3b00e3495a030a174b",
+      "QualcommCoppSelector.h": "5a80a5f7cdc50b5fa52e92daaffe1245c86c239eaf93d3598c213b170672523f",
+      "QualcommHostCalibration.c": "685808938f90b2df0b3c113b0566c69c8b19b2c6245abae9604ce4229fd249e3",
+      "QualcommHostCalibration.h": "79a651b34e954de38cee8a3be7020c9880f303a24db2cb4c4c153c8f0b3de0c8",
+      "QualcommPpParameter.c": "e10f976511e9065f03286be74dc80deedecc40992f46ff3e22cf89fa5826221c",
+      "QualcommPpParameter.h": "4b4b349a10de58371ce16f808b28db6d141cca6c014fea7a5bcb315a16c3a542"
+    },
+    "LibrarySha256": "d3e06bf0a7e4126d15967b48988db19ab512c1e57177caff7c9135c7940dcadb",
+    "Installed": false,
+    "DspProcessingImplemented": false
+  },
+  "TestDll": {
+    "Architecture": "ARM64",
+    "DllSha256": "16fb598a1fe929fa33e07318961c650be24788f05658362d4cd71ed0478757ed",
+    "Registered": false,
+    "AudioOpened": false
+  },
+  "SelectorOriginalCodeTests": {
+    "Passed": true,
+    "Cases": 3146,
+    "ExactOriginalAccepted": 168,
+    "OriginalRejected": 2978,
+    "StrictAdmAccepted": 16,
+    "NullOutputCases": 2,
+    "OriginalQcadcmSha256": "b82cabb860404edd71cb38ce28720c74628dd3ad12e20f8ecbd874853cac0edd",
+    "DllSha256": "16fb598a1fe929fa33e07318961c650be24788f05658362d4cd71ed0478757ed",
+    "ReferenceRva": "0x8bec8",
+    "AndroidDeviceIdsAreNotSelectors": true,
+    "OriginalSelector17Rejected": true,
+    "Scope": {
+      "OriginalMachineCodeExecuted": true,
+      "OnlyOfflineDriverContextTablesModified": true,
+      "KernelDriverExecuted": false,
+      "LiveCoppStateQueried": false,
+      "DspCommandsSent": false,
+      "AudioStarted": false
+    }
+  },
+  "SelectorGuardTests": {
+    "passed": true,
+    "cases": 27,
+    "real_noaccess_pages": true,
+    "dsp_commands_sent": false
+  },
+  "HostGetOriginalCodeTests": {
+    "Passed": true,
+    "Cases": 95,
+    "HyperOsFactoryCases": 91,
+    "WindowsFactoryCases": 4,
+    "InvalidCases": [
+      "Zero-0",
+      "Zero-1",
+      "Zero-2",
+      "Zero-3",
+      "Zero-5",
+      "Instance-65536",
+      "Instance-4294967295",
+      "Capacity-0",
+      "Capacity-38",
+      "Capacity-42"
+    ],
+    "DllSha256": "16fb598a1fe929fa33e07318961c650be24788f05658362d4cd71ed0478757ed",
+    "OriginalQcadcmSha256": "b82cabb860404edd71cb38ce28720c74628dd3ad12e20f8ecbd874853cac0edd",
+    "OriginalGetterRva": "0x721f0",
+    "AcdbCommand": "0x13263",
+    "Scope": {
+      "OriginalMachineCodeExecuted": true,
+      "AcdbLookupAllocationCopiesAndReleaseMocked": true,
+      "LiveDeviceIoctlSent": false,
+      "DspParameterAckObserved": false
+    }
+  },
+  "HostGetGuardTests": {
+    "passed": true,
+    "cases": 21,
+    "real_noaccess_pages": true,
+    "dsp_commands_sent": false,
+    "DllSha256": "16fb598a1fe929fa33e07318961c650be24788f05658362d4cd71ed0478757ed"
+  },
+  "OriginalCoppLookupPpTests": {
+    "Passed": true,
+    "NativeCases": 112,
+    "ExactFactoryCases": 91,
+    "RejectedCases": [
+      {
+        "Instance": 65536,
+        "Bytes": 4,
+        "Capacity": null,
+        "Status": 1
+      },
+      {
+        "Instance": 4294967295,
+        "Bytes": 4,
+        "Capacity": null,
+        "Status": 1
+      },
+      {
+        "Instance": 0,
+        "Bytes": 4,
+        "Capacity": 19,
+        "Status": 2
+      },
+      {
+        "Instance": 0,
+        "Bytes": 8,
+        "Capacity": 23,
+        "Status": 2
+      },
+      {
+        "Instance": 0,
+        "Bytes": 0,
+        "Capacity": 15,
+        "Status": 2
+      }
+    ],
+    "OriginalQcadcmSha256": "b82cabb860404edd71cb38ce28720c74628dd3ad12e20f8ecbd874853cac0edd",
+    "OriginalHandlerRva": "0x90ae8",
+    "OriginalAprWrapperRva": "0x79cf0",
+    "Opcode": "0x1035d",
+    "MockFailurePropagation": [
+      {
+        "MockDspStatus": 2,
+        "MockTransportError": 0,
+        "HandlerStatus": 13
+      },
+      {
+        "MockDspStatus": 0,
+        "MockTransportError": -5,
+        "HandlerStatus": 13
+      }
+    ],
+    "DllSha256": "16fb598a1fe929fa33e07318961c650be24788f05658362d4cd71ed0478757ed",
+    "Scope": {
+      "OriginalMachineCodeExecuted": true,
+      "OsAllocationMemsetMemcpyMocked": true,
+      "OriginalCoppLookupExecuted": true,
+      "EmulatedContextContentsMocked": true,
+      "AprTransportAndReplyMocked": true,
+      "DspCommandsSent": false,
+      "LiveCoppLookupProven": false,
+      "LiveDspAckProven": false,
+      "FactoryParametersApplied": false
+    }
+  },
+  "PpGuardTests": {
+    "passed": true,
+    "cases": 49,
+    "real_noaccess_pages": true,
+    "source_output_alias_cases": 6,
+    "dsp_commands_sent": false
+  },
+  "RealWindowsHostCacheRead": {
+    "Completed": true,
+    "Win32Error": 0,
+    "TimedOut": false,
+    "ElapsedMs": 0.08354199962923303,
+    "Ioctl": "0xadae2105",
+    "Device": 73,
+    "Rate": 48000,
+    "AppType": "0x11134",
+    "Module": "0x10c2a",
+    "Instance": 0,
+    "Parameter": "0x10c2b",
+    "ReturnedApiBytes": 0,
+    "ReturnedPayloadBytes": 4,
+    "HeaderUnchanged": true,
+    "BufferChanged": true,
+    "NativeHeaderBuilderSha256": "16fb598a1fe929fa33e07318961c650be24788f05658362d4cd71ed0478757ed",
+    "OriginalFileSha256": "ebc7c599d4fdb9600d57033ecf6c9d3d73bd5fe838caef0290fb61dc23029901",
+    "ExpectedPayloadHex": "00000000",
+    "OutputPayloadHex": "00000000",
+    "MatchesConfiguredFile": true,
+    "Scope": {
+      "OriginalKernelHostGetCalled": true,
+      "AccessControlChanged": false,
+      "SetCommandSent": false,
+      "DspParameterAckObserved": false,
+      "DriverInstalled": false,
+      "AudioStarted": false,
+      "GainOrProtectionChanged": false
+    }
+  },
+  "RealWindowsMiSoundHostCacheQuery": {
+    "Completed": false,
+    "Win32Error": 31,
+    "TimedOut": false,
+    "ElapsedMs": 0.07057299808366224,
+    "Ioctl": "0xadae2105",
+    "Device": 73,
+    "Rate": 48000,
+    "AppType": "0x11134",
+    "Module": "0x1000a100",
+    "Instance": 0,
+    "Parameter": "0x1000a101",
+    "ReturnedApiBytes": 0,
+    "ReturnedPayloadBytes": 4,
+    "HeaderUnchanged": true,
+    "BufferChanged": false,
+    "NativeHeaderBuilderSha256": "16fb598a1fe929fa33e07318961c650be24788f05658362d4cd71ed0478757ed",
+    "OriginalFileSha256": "ebc7c599d4fdb9600d57033ecf6c9d3d73bd5fe838caef0290fb61dc23029901",
+    "ExpectedPayloadHex": "01000000",
+    "OutputPayloadHex": "5a5a5a5a",
+    "MatchesAndroidPayload": false,
+    "Scope": {
+      "OriginalKernelHostGetCalled": true,
+      "AccessControlChanged": false,
+      "SetCommandSent": false,
+      "DspParameterAckObserved": false,
+      "DriverInstalled": false,
+      "AudioStarted": false,
+      "GainOrProtectionChanged": false
+    }
+  },
+  "HostCacheReadLimit": "The OEM GET completes with zero API bytes despite changing the buffer. The exact header, capacity, marker change and file payload are retained; this is not a generic variable-length response contract or a DSP ACK.",
+  "QuietRetest": {
+    "endpoint": "{0.0.0.00000000}.{9d311770-9130-4295-bfc6-e64627ad96d3}",
+    "input_peak_limit": 0.001,
+    "input_dbfs": -60,
+    "registry_modified": false,
+    "acoustic_lr_proven": false,
+    "maximum_volume_safety_proven": false,
+    "cases": [
+      {
+        "channel": "L",
+        "raw": false,
+        "hr": "0x00000000",
+        "submitted_frames": 82080,
+        "captured_frames": 77280,
+        "active_frames": 20074,
+        "rms": [
+          1.55536910545e-05,
+          0
+        ],
+        "peak": [
+          3.0517578125e-05,
+          0
+        ],
+        "opposite_rms_ratio": 0,
+        "tone_800hz_amplitudes": [
+          1.46689076254e-05,
+          0
+        ],
+        "opposite_tone_ratio": 0,
+        "digital_separation_passed": true,
+        "capture_discontinuities": 1,
+        "nonfinite_frames": 0,
+        "maximum_meter_peak": 0.00103759789,
+        "passed": true
+      },
+      {
+        "channel": "R",
+        "raw": false,
+        "hr": "0x00000000",
+        "submitted_frames": 82080,
+        "captured_frames": 77280,
+        "active_frames": 20101,
+        "rms": [
+          0,
+          1.5564147579e-05
+        ],
+        "peak": [
+          0,
+          3.0517578125e-05
+        ],
+        "opposite_rms_ratio": 0,
+        "tone_800hz_amplitudes": [
+          0,
+          1.46866398497e-05
+        ],
+        "opposite_tone_ratio": 0,
+        "digital_separation_passed": true,
+        "capture_discontinuities": 1,
+        "nonfinite_frames": 0,
+        "maximum_meter_peak": 0.00103759789,
+        "passed": true
+      },
+      {
+        "channel": "L",
+        "raw": true,
+        "hr": "0x00000000",
+        "submitted_frames": 82560,
+        "captured_frames": 77280,
+        "active_frames": 20082,
+        "rms": [
+          1.55567900167e-05,
+          3.95811296161e-07
+        ],
+        "peak": [
+          3.0517578125e-05,
+          3.0517578125e-05
+        ],
+        "opposite_rms_ratio": 0.0254429927855,
+        "tone_800hz_amplitudes": [
+          1.46688788175e-05,
+          2.7368986957e-09
+        ],
+        "opposite_tone_ratio": 0.00018657858789,
+        "digital_separation_passed": true,
+        "capture_discontinuities": 1,
+        "nonfinite_frames": 0,
+        "maximum_meter_peak": 0.00103759789,
+        "passed": true
+      },
+      {
+        "channel": "R",
+        "raw": true,
+        "hr": "0x00000000",
+        "submitted_frames": 82080,
+        "captured_frames": 77280,
+        "active_frames": 20101,
+        "rms": [
+          0,
+          1.5564147579e-05
+        ],
+        "peak": [
+          0,
+          3.0517578125e-05
+        ],
+        "opposite_rms_ratio": 0,
+        "tone_800hz_amplitudes": [
+          0,
+          1.46866398497e-05
+        ],
+        "opposite_tone_ratio": 0,
+        "digital_separation_passed": true,
+        "capture_discontinuities": 1,
+        "nonfinite_frames": 0,
+        "maximum_meter_peak": 0.00103759789,
+        "passed": true
+      }
+    ],
+    "volume_before": 0.0599999912,
+    "volume_after": 0.0599999912,
+    "volume_unchanged": true,
+    "passed": true
+  },
+  "KernelAfter": {
+    "Boot": "2026-11-25T01:54:15.612816+05:00",
+    "Amplifiers": [
+      {
+        "InstanceId": "ACPI\\10133541\\0",
+        "Status": "OK",
+        "Problem": 0
+      },
+      {
+        "InstanceId": "ACPI\\10133541\\1",
+        "Status": "OK",
+        "Problem": 0
+      },
+      {
+        "InstanceId": "ACPI\\10133541\\2",
+        "Status": "OK",
+        "Problem": 0
+      },
+      {
+        "InstanceId": "ACPI\\10133541\\3",
+        "Status": "OK",
+        "Problem": 0
+      }
+    ],
+    "AlreadyElevated": false
+  },
+  "Regression": {
+    "FileRoutes": {
+      "Passed": true,
+      "NativeCases": 901,
+      "ExactCapturedModuleRoutes": 518,
+      "StatusHistogram": {
+        "0": 518,
+        "2": 108,
+        "4": 221,
+        "1": 3,
+        "3": 30,
+        "5": 1,
+        "7": 15,
+        "9": 2,
+        "8": 1,
+        "6": 2
+      },
+      "DllSha256": "16fb598a1fe929fa33e07318961c650be24788f05658362d4cd71ed0478757ed",
+      "Scope": {
+        "DspCommandsSent": false,
+        "LiveDspQueried": false,
+        "AudioOpened": false,
+        "CalibrationValuesChanged": false
+      }
+    },
+    "FileRouteMemory": {
+      "passed": true,
+      "cases": 1770,
+      "mutation_cases": 512,
+      "structurally_accepted_mutations": 503,
+      "real_noaccess_pages": true,
+      "dsp_commands_sent": false,
+      "DllSha256": "16fb598a1fe929fa33e07318961c650be24788f05658362d4cd71ed0478757ed"
+    },
+    "SpeakerPlanCases": 864,
+    "SpeakerPlanPassed": true,
+    "ExactFactoryFilters": 10,
+    "RejectedFactoryFilters": 14,
+    "FactoryFiltersPassed": true
+  },
+  "WindowsInterface": {
+    "InfDeclaredClass": "{8FEAF834-4EDC-4634-80D1-2D1D77F09F2B}",
+    "InfInterfaceDisabled": true,
+    "LegacyNamedReadHandleOpened": true,
+    "AccessControlChanged": false,
+    "UserIoctlWhitelist": [
+      "0xadae20fd",
+      "0xadae2105",
+      "0xadae2111",
+      "0xadae2115"
+    ],
+    "OnlyIoctlActuallySent": "0xadae2105",
+    "WhitelistDoesNotMeanReadOnly": true,
+    "ActiveCoppInfoNotRead": true
+  },
+  "OriginalCode": {
+    "ImageSha256": "b82cabb860404edd71cb38ce28720c74628dd3ad12e20f8ecbd874853cac0edd",
+    "SelectorRva": "0x8bec8",
+    "OriginalAdmSelectorMask": "0xffff",
+    "UserQueueRva": "0x99f0",
+    "HostGetRva": "0x721f0",
+    "HostGetAcdbCommand": "0x13263",
+    "GhidraReviewSha256": {
+      "ghidra01": "675c01c5db06598bb3753ca419eadd90a788e8a945c6447c19f738b92941825c",
+      "ghidra03": "888e20828b5cff51a0688c675f06fccfc0b0c8b2b3e4019b3efeed059f7ff934",
+      "ghidra04": "5cc771eb05e9b89f4a799beb6c596cdf1e5e598d73e65fe6f49dd32a78adb00c",
+      "ghidra06": "9ade1550884a3cb13a6b768d372f669cc54da99fa45b4d287d613a9609fc72c5",
+      "ghidra07": "52e38d4b576bdbc7eb78b0f1f87d765ce0d65e18647b6de57243acc720f91168",
+      "ghidra08": "7c5b9086862eec2d08ce012e3f42b4660cf7f4d3e72c4eca9fd9590473305643"
+    },
+    "GhidraDispatchWarningRetained": true,
+    "NoLiveKernelTableAddressesUsed": true
+  },
+  "Remaining": [
+    "Elevated .10/.36 software APO graph trial",
+    "Compatible DSP topology, resource opening and real parameter ACK",
+    "Physical speaker L/R",
+    "Hardware PCM24",
+    "HyperOS acoustic parity",
+    "Maximum-volume protection and shutdown cause"
+  ]
+}

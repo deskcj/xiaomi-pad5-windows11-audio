@@ -2,14 +2,20 @@
 
 [English](audio-system-progress.md) · [Русский](audio-system-progress.ru.md) · [简体中文](audio-system-progress.zh-CN.md)
 
+**New · native ADCM calibration access:** two new C/H helpers preserve the original stream-mask selection and construct the Windows host-calibration GET buffer. The selector is separate from an Android ACDB Device ID; the strict ADM check rejects truncated flags. All 3,146 original selector comparisons, 95 original getter comparisons and 27/21 native memory cases passed.
+
+The new C buffer was used with the running OEM ADCM driver: a stock PBE-enable read matched the installed Windows value, while the original MiSound-enable query returned Win32 error 31 without changing its buffer. This reads the host ACDB cache, not DSP state; the OEM reports zero API bytes despite writing the stock buffer, which is retained in the evidence. Earlier route/filter/command tests still pass, and 91 factory PP payloads now match with the original COPP lookup executed against emulated context contents. Four new quiet Normal/RAW L/R cases passed at unchanged 6% volume. System effects, physical speakers and maximum-volume safety remain open; APO .10/.36 is prepared and uninstalled.
+
+[Measured evidence](results/audio-adcm-host-selector-2026-11-25.json) · [C/H source](../driver/dsp/)
+
+<details>
+<summary>Earlier source checks · 25 November</summary>
+
 **New · verified Qualcomm route and payload source:** current configured Windows calibration selects topology `0x10000009` for Device 73 / AppType `0x11134` and `0x11138`; its seven modules contain neither MiSound nor Dolby. The new C/H validator rejects mismatched/ambiguous file routes without remapping Android IDs. The Windows parameter packer preserves all **91 factory payloads** exactly against original QCADCM execution and rejects oversized buffers or truncated instance IDs.
 
 The six-component ARM64 EWDK library passed 901 route cases, 1,770 route memory cases and 49 packing memory cases. Earlier 864 MiSound comparisons and ten factory filters still pass. Four quiet Normal/RAW L/R tests passed at unchanged 6% volume (opposite coherent tone ≤0.0787%). This is digital separation; actual system effects, physical speakers and maximum-volume safety remain open. Software Dolby APO binding is a separate Windows graph check. The installed kernel is .18 / APO .4; signed .10/.36 remains prepared and uninstalled.
 
 [Measured evidence](results/audio-acdb-pp-2026-11-25.json) · [C/H source](../driver/dsp/)
-
-<details>
-<summary>Earlier source checks · 25 November</summary>
 
 **New · original MiSound speaker plan:** the C/H helper reproduces MiSoundDSP_SetSPKParam instead of emitting only a scalar control. All **864 comparisons** against actual original ARM64 execution passed: 480 supported cases with exact commands/final routes and 384 unsupported cases with untouched output. The original emits 2/4/10/12 commands across AppType 0x11130/0x11134; its persistent-rate table is 44100/48000/88200/96000/192000. Eight-byte payloads and the special mode rules retain their original bits and order. This is calibration/control routing, not a hardware-rate or speaker-isolation claim.
 
@@ -65,7 +71,7 @@ No loudness or HyperOS-quality improvement is claimed. Quiet digital loopback is
 | Digital L/R | Separation unmeasured. | ✅ Four quiet cases passed; opposite 800 Hz tone <0.1%. UID/I²C board mapping matches Android. Acoustic isolation remains unverified. |
 | Dolby APO | An unavailable explicit bank could select the common fallback; settings used the flat store. | ✅ .10 honors explicit selection; .36 declares the correct context. 28 software cases pass. ❌ System processing unverified. |
 | PCM24 | Format/pacing failures. | ✅ Earlier 13 timing/reopen cases passed. Hardware PCM24 remains unverified. |
-| MiSound / DSP routes | No full plan or Windows parameter packing; target file routes unchecked. | ✅ Original command plan, ACDB route checks and 91 exact factory payloads. ❌ Current Windows file chain lacks MiSound/Dolby; live processing unverified. |
+| MiSound / DSP routes | No complete plan, native cache GET or correct stream-selector checks. | ✅ Exact factory plan/payloads, original selector and a real Windows cache read. ❌ MiSound query fails; live DSP processing unverified. |
 
 GPIO interrupt configuration and the protection mask now propagate errors and verify readbacks before DSP/amp enablement. The healthy writes, firmware, coefficients and factory calibration remain unchanged. EWDK, catalog generation and signing passed.
 
