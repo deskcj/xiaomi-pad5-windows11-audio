@@ -1,0 +1,1015 @@
+{
+  "Date": "2026-11-25",
+  "Scope": {
+    "WholeAndroidLibraryNative": false,
+    "SystemDolbyProven": false,
+    "SystemMiSoundProven": false,
+    "PhysicalStereoProven": false,
+    "HardwarePcm24Proven": false,
+    "HyperOsQualityProven": false,
+    "MaximumVolumeSafetyProven": false,
+    "SustainedPerformanceGainProven": false
+  },
+  "NativeFunctionAudit": {
+    "Passed": true,
+    "OriginalSha256": "207d04317997bbca253157d6038505605335a5982af39d465b249fb52a590539",
+    "FunctionRva": "0x156370",
+    "Bytes": 792,
+    "CodeSha256": "02d58d0a7b61c518d1efa9993579b41b25b5b1e811921560349645604dcd5936",
+    "GhidraInstructions": 198,
+    "CompleteCallGraph": {
+      "Address": "0x156370",
+      "Bytes": 792,
+      "Name": "DAP_CPDP_PVT_lvl_calc_drc_scale",
+      "EstimatedInstructions": 8996,
+      "Eligible": true,
+      "Errors": [],
+      "Imports": [],
+      "Functions": [
+        {
+          "Address": "0x156370",
+          "Name": "DAP_CPDP_PVT_lvl_calc_drc_scale",
+          "Bytes": 792
+        }
+      ]
+    },
+    "Abi": "void(float s0, float s1, ptr x0, ptr x1, ptr x2, unused uint64 x3, uint32 index x4, output ptr x5)",
+    "Writes": "Output record(s) through x5; captured calls place these in the guest stack. The function itself has no sp access.",
+    "IndexMeaning": "Original DRC record index; not a physical speaker index.",
+    "SourceSha256": "09f682752129f865af95d02c00de11eca856663d0a98611c67d87adeedac7950",
+    "WholeLibraryNative": false,
+    "AudioOpened": false,
+    "DriverInstalled": false
+  },
+  "Build": {
+    "Architecture": "ARM64",
+    "Prototype": "native-level-scale-v1",
+    "SourceSha256": {
+      "NativeLevelScale.cpp": "931867164d4df3dddc418ad35e0953074fe5a6ac15705a1482e9081582b9cc18",
+      "NativeLevelScale.h": "c906aeac97ff45f72214ccbbf95a3465a5c113605475b51446e683e6cf549622",
+      "Build-NativeLevelScale.ps1": "9543e3d2c6d411b41491a98575cffb0fb6ba62724c526a3e7ba2058ea4b47a2a"
+    },
+    "DllSha256": "293f8e015742839e0f8b2f407c51baa390d551da3c22cba2e619a869386b03b3",
+    "Registered": false,
+    "DriverInstalled": false,
+    "AudioOpened": false,
+    "SystemDolbyProven": false
+  },
+  "ActiveState": {
+    "Passed": true,
+    "Cases": [
+      {
+        "CallIndex": 0,
+        "ChannelIndex": 2,
+        "Arguments": [
+          "0x3007ee00",
+          "0x40038c30",
+          "0x3007ee98",
+          "0x14",
+          "0x2",
+          "0x3007eae0"
+        ],
+        "FloatingArguments": [
+          2.569120860062418e-13,
+          0.8019793033599854
+        ],
+        "Regions": [
+          {
+            "Address": "0x101ed000",
+            "Bytes": 28672,
+            "Exact": true,
+            "ChangedBytes": 0,
+            "Sha256": "c0357491ca90dde57eccf8a9ddb41bbdde17dda1e356d88e812fad9835c39178"
+          },
+          {
+            "Address": "0x101f4000",
+            "Bytes": 4096,
+            "Exact": true,
+            "ChangedBytes": 0,
+            "Sha256": "50baef5c23ed4cac6c3ac77082dc363ce363b1d5c99c52fa07b7b6b6be25eaa2"
+          },
+          {
+            "Address": "0x30000000",
+            "Bytes": 528384,
+            "Exact": true,
+            "ChangedBytes": 252,
+            "Sha256": "625db00a706cc919cb4f7d3447e6d128219bcfeaeb2a1ed3f9c3f3e23e83cee2"
+          },
+          {
+            "Address": "0x40000000",
+            "Bytes": 16777216,
+            "Exact": true,
+            "ChangedBytes": 0,
+            "Sha256": "6d1e409024d0ab1a76b03a841cbefc6af929da67f3b856e0d5cd73f6d094efe1"
+          }
+        ]
+      },
+      {
+        "CallIndex": 1,
+        "ChannelIndex": 2,
+        "Arguments": [
+          "0x3007ee00",
+          "0x40038c30",
+          "0x3007ee98",
+          "0x14",
+          "0x2",
+          "0x3007eae0"
+        ],
+        "FloatingArguments": [
+          1.9428977537927494e-08,
+          0.8019793033599854
+        ],
+        "Regions": [
+          {
+            "Address": "0x101ed000",
+            "Bytes": 28672,
+            "Exact": true,
+            "ChangedBytes": 0,
+            "Sha256": "c0357491ca90dde57eccf8a9ddb41bbdde17dda1e356d88e812fad9835c39178"
+          },
+          {
+            "Address": "0x101f4000",
+            "Bytes": 4096,
+            "Exact": true,
+            "ChangedBytes": 0,
+            "Sha256": "50baef5c23ed4cac6c3ac77082dc363ce363b1d5c99c52fa07b7b6b6be25eaa2"
+          },
+          {
+            "Address": "0x30000000",
+            "Bytes": 528384,
+            "Exact": true,
+            "ChangedBytes": 250,
+            "Sha256": "53075057a53ef3888c8c8ce1678d83397f2cc2ab7df183f359ae363e0b869316"
+          },
+          {
+            "Address": "0x40000000",
+            "Bytes": 16777216,
+            "Exact": true,
+            "ChangedBytes": 0,
+            "Sha256": "0714352703961f724c6df63aab0fc8be0e39ede6824d9b9d4a05beeeef0c966a"
+          }
+        ]
+      },
+      {
+        "CallIndex": 16,
+        "ChannelIndex": 2,
+        "Arguments": [
+          "0x3007ee00",
+          "0x40038c30",
+          "0x3007ee98",
+          "0x14",
+          "0x2",
+          "0x3007eae0"
+        ],
+        "FloatingArguments": [
+          2.2600956981477793e-06,
+          0.8019793033599854
+        ],
+        "Regions": [
+          {
+            "Address": "0x101ed000",
+            "Bytes": 28672,
+            "Exact": true,
+            "ChangedBytes": 0,
+            "Sha256": "c0357491ca90dde57eccf8a9ddb41bbdde17dda1e356d88e812fad9835c39178"
+          },
+          {
+            "Address": "0x101f4000",
+            "Bytes": 4096,
+            "Exact": true,
+            "ChangedBytes": 0,
+            "Sha256": "50baef5c23ed4cac6c3ac77082dc363ce363b1d5c99c52fa07b7b6b6be25eaa2"
+          },
+          {
+            "Address": "0x30000000",
+            "Bytes": 528384,
+            "Exact": true,
+            "ChangedBytes": 252,
+            "Sha256": "d350379737e364502690cac14a090493a262f7d6187f4655421ac6d7b5f85eae"
+          },
+          {
+            "Address": "0x40000000",
+            "Bytes": 16777216,
+            "Exact": true,
+            "ChangedBytes": 0,
+            "Sha256": "177db9dd393a94ad6384a413be05ec999f96c9f7568e7fc91bbc5af455781bde"
+          }
+        ]
+      },
+      {
+        "CallIndex": 33,
+        "ChannelIndex": 2,
+        "Arguments": [
+          "0x3007ee00",
+          "0x40038c30",
+          "0x3007ee98",
+          "0x14",
+          "0x2",
+          "0x3007eae0"
+        ],
+        "FloatingArguments": [
+          5.974877240078058e-06,
+          0.8019793033599854
+        ],
+        "Regions": [
+          {
+            "Address": "0x101ed000",
+            "Bytes": 28672,
+            "Exact": true,
+            "ChangedBytes": 0,
+            "Sha256": "c0357491ca90dde57eccf8a9ddb41bbdde17dda1e356d88e812fad9835c39178"
+          },
+          {
+            "Address": "0x101f4000",
+            "Bytes": 4096,
+            "Exact": true,
+            "ChangedBytes": 0,
+            "Sha256": "50baef5c23ed4cac6c3ac77082dc363ce363b1d5c99c52fa07b7b6b6be25eaa2"
+          },
+          {
+            "Address": "0x30000000",
+            "Bytes": 528384,
+            "Exact": true,
+            "ChangedBytes": 249,
+            "Sha256": "79c50ff99fbc14b9c19552cc3c660d645ea6ed153cdbe2db8c82eca2fc43284f"
+          },
+          {
+            "Address": "0x40000000",
+            "Bytes": 16777216,
+            "Exact": true,
+            "ChangedBytes": 0,
+            "Sha256": "bde0619e1681d9ae768e58914385d2f599db6120f6174edeaaeecca7dd0974eb"
+          }
+        ]
+      }
+    ],
+    "GuardCases": [
+      {
+        "Label": "bad-entry",
+        "Status": 87,
+        "MemoryUnchanged": true
+      },
+      {
+        "Label": "channel8",
+        "Status": 87,
+        "MemoryUnchanged": true
+      },
+      {
+        "Label": "arg0-0",
+        "Status": 87,
+        "MemoryUnchanged": true
+      },
+      {
+        "Label": "arg0-3ffffffc",
+        "Status": 87,
+        "MemoryUnchanged": true
+      },
+      {
+        "Label": "arg0-40ffffff",
+        "Status": 87,
+        "MemoryUnchanged": true
+      },
+      {
+        "Label": "arg1-0",
+        "Status": 87,
+        "MemoryUnchanged": true
+      },
+      {
+        "Label": "arg1-3ffffffc",
+        "Status": 87,
+        "MemoryUnchanged": true
+      },
+      {
+        "Label": "arg1-40ffffff",
+        "Status": 87,
+        "MemoryUnchanged": true
+      },
+      {
+        "Label": "arg2-0",
+        "Status": 87,
+        "MemoryUnchanged": true
+      },
+      {
+        "Label": "arg2-3ffffffc",
+        "Status": 87,
+        "MemoryUnchanged": true
+      },
+      {
+        "Label": "arg2-40ffffff",
+        "Status": 87,
+        "MemoryUnchanged": true
+      },
+      {
+        "Label": "arg5-0",
+        "Status": 87,
+        "MemoryUnchanged": true
+      },
+      {
+        "Label": "arg5-3ffffffc",
+        "Status": 87,
+        "MemoryUnchanged": true
+      },
+      {
+        "Label": "arg5-40ffffff",
+        "Status": 87,
+        "MemoryUnchanged": true
+      }
+    ],
+    "OriginalSha256": "207d04317997bbca253157d6038505605335a5982af39d465b249fb52a590539",
+    "DllSha256": "293f8e015742839e0f8b2f407c51baa390d551da3c22cba2e619a869386b03b3",
+    "NativeFunction": "RVA 0x156370; 792 bytes; no imports",
+    "AudioOpened": false,
+    "DriverInstalled": false,
+    "SystemDolbyProven": false,
+    "PhysicalStereoProven": false,
+    "GainOrProtectionChanged": false
+  },
+  "NativeContracts": {
+    "Passed": true,
+    "Cases": [
+      {
+        "Label": "null-module",
+        "Status": 15
+      },
+      {
+        "Label": "null-guest",
+        "Status": 15
+      },
+      {
+        "Label": "null-context",
+        "Status": 15
+      },
+      {
+        "Label": "heap-NOACCESS-0x40000000",
+        "Status": 15
+      },
+      {
+        "Label": "heap-NOACCESS-0x40800000",
+        "Status": 15
+      },
+      {
+        "Label": "heap-NOACCESS-0x40fff000",
+        "Status": 15
+      },
+      {
+        "Label": "guest-stack-NOACCESS-0x30000000",
+        "Status": 15
+      },
+      {
+        "Label": "guest-stack-NOACCESS-0x30040800",
+        "Status": 15
+      },
+      {
+        "Label": "guest-stack-NOACCESS-0x30080000",
+        "Status": 15
+      },
+      {
+        "Label": "duplicate-attach",
+        "Status": 15
+      },
+      {
+        "Label": "foreign-thread-detach",
+        "Status": 15
+      },
+      {
+        "Label": "hook-invalid-arguments",
+        "Status": 87,
+        "StoppedBeforeOriginalCode": true,
+        "GuestMemoryUnchanged": true
+      },
+      {
+        "Label": "double-detach",
+        "Status": 15
+      }
+    ],
+    "Completed": 13,
+    "OriginalSha256": "207d04317997bbca253157d6038505605335a5982af39d465b249fb52a590539",
+    "DllSha256": "293f8e015742839e0f8b2f407c51baa390d551da3c22cba2e619a869386b03b3",
+    "PageProtectionsWerePrivateToIsolatedProcess": true,
+    "AudioOpened": false,
+    "DriverInstalled": false,
+    "SystemDolbyProven": false
+  },
+  "FullStreamComparisonBeforeOwnershipCache": {
+    "Passed": true,
+    "Cases": [
+      {
+        "Label": "emulated-control",
+        "Passed": true,
+        "Frames": 196608,
+        "OutputSha256": "62b5e0cd8af295a0071f1ec078b281c1b0b29592c1b9d3570b7c8b46a74fe4ff",
+        "Seconds": 3.0853232810040936,
+        "MedianBatchMs": 16.051952996349428,
+        "P95BatchMs": 17.710325601365184,
+        "MaxBatchMs": 33.137188002001494,
+        "BatchFrames": 1024,
+        "BatchesOverDeadline": 1,
+        "NativeLevel": {
+          "Calls": 0
+        },
+        "NativeClassifierCalls": 0,
+        "ExactPersistentState": true,
+        "FirstDifferenceFrame": null,
+        "PersistentRegions": [
+          {
+            "Address": "0x101ed000",
+            "Bytes": 28672,
+            "Sha256": "c0357491ca90dde57eccf8a9ddb41bbdde17dda1e356d88e812fad9835c39178"
+          },
+          {
+            "Address": "0x101f4000",
+            "Bytes": 4096,
+            "Sha256": "50baef5c23ed4cac6c3ac77082dc363ce363b1d5c99c52fa07b7b6b6be25eaa2"
+          },
+          {
+            "Address": "0x40000000",
+            "Bytes": 16777216,
+            "Sha256": "99841296aeca0fb24e083729489c0e60a7d8673e74a7a925ac81c18f14d1d9aa"
+          }
+        ]
+      },
+      {
+        "Label": "native-level",
+        "Passed": true,
+        "Frames": 196608,
+        "OutputSha256": "62b5e0cd8af295a0071f1ec078b281c1b0b29592c1b9d3570b7c8b46a74fe4ff",
+        "Seconds": 4.643754219003313,
+        "MedianBatchMs": 23.199583498353604,
+        "P95BatchMs": 31.277914402380702,
+        "MaxBatchMs": 36.78104199934751,
+        "BatchFrames": 1024,
+        "BatchesOverDeadline": 157,
+        "NativeLevel": {
+          "Calls": 768,
+          "MeanCallMs": 1.656487291124132
+        },
+        "NativeClassifierCalls": 0,
+        "ExactPersistentState": true,
+        "FirstDifferenceFrame": null,
+        "PersistentRegions": [
+          {
+            "Address": "0x101ed000",
+            "Bytes": 28672,
+            "Sha256": "c0357491ca90dde57eccf8a9ddb41bbdde17dda1e356d88e812fad9835c39178"
+          },
+          {
+            "Address": "0x101f4000",
+            "Bytes": 4096,
+            "Sha256": "50baef5c23ed4cac6c3ac77082dc363ce363b1d5c99c52fa07b7b6b6be25eaa2"
+          },
+          {
+            "Address": "0x40000000",
+            "Bytes": 16777216,
+            "Sha256": "99841296aeca0fb24e083729489c0e60a7d8673e74a7a925ac81c18f14d1d9aa"
+          }
+        ]
+      },
+      {
+        "Label": "native-level-and-classifier",
+        "Passed": true,
+        "Frames": 196608,
+        "OutputSha256": "62b5e0cd8af295a0071f1ec078b281c1b0b29592c1b9d3570b7c8b46a74fe4ff",
+        "Seconds": 4.275159530996461,
+        "MedianBatchMs": 21.965208499750588,
+        "P95BatchMs": 25.039825698695495,
+        "MaxBatchMs": 30.149375001201406,
+        "BatchFrames": 1024,
+        "BatchesOverDeadline": 128,
+        "NativeLevel": {
+          "Calls": 768,
+          "MeanCallMs": 1.4331798638237847
+        },
+        "NativeClassifierCalls": 96,
+        "ExactPersistentState": true,
+        "FirstDifferenceFrame": null,
+        "PersistentRegions": [
+          {
+            "Address": "0x101ed000",
+            "Bytes": 28672,
+            "Sha256": "c0357491ca90dde57eccf8a9ddb41bbdde17dda1e356d88e812fad9835c39178"
+          },
+          {
+            "Address": "0x101f4000",
+            "Bytes": 4096,
+            "Sha256": "50baef5c23ed4cac6c3ac77082dc363ce363b1d5c99c52fa07b7b6b6be25eaa2"
+          },
+          {
+            "Address": "0x40000000",
+            "Bytes": 16777216,
+            "Sha256": "99841296aeca0fb24e083729489c0e60a7d8673e74a7a925ac81c18f14d1d9aa"
+          }
+        ]
+      }
+    ],
+    "OriginalSha256": "207d04317997bbca253157d6038505605335a5982af39d465b249fb52a590539",
+    "AudioOpened": false,
+    "DriverInstalled": false,
+    "PhysicalStereoProven": false,
+    "SystemDolbyProven": false,
+    "GainOrProtectionChanged": false
+  },
+  "FullStreamComparisonWithOwnershipCache": {
+    "Passed": true,
+    "Cases": [
+      {
+        "Label": "emulated-control",
+        "Passed": true,
+        "Frames": 196608,
+        "OutputSha256": "62b5e0cd8af295a0071f1ec078b281c1b0b29592c1b9d3570b7c8b46a74fe4ff",
+        "Seconds": 3.0715453649972915,
+        "MedianBatchMs": 16.060651003499515,
+        "P95BatchMs": 17.78074414905859,
+        "MaxBatchMs": 24.50546900217887,
+        "BatchFrames": 1024,
+        "BatchesOverDeadline": 1,
+        "NativeLevel": {
+          "Calls": 0
+        },
+        "NativeClassifierCalls": 0,
+        "ExactPersistentState": true,
+        "FirstDifferenceFrame": null,
+        "PersistentRegions": [
+          {
+            "Address": "0x101ed000",
+            "Bytes": 28672,
+            "Sha256": "c0357491ca90dde57eccf8a9ddb41bbdde17dda1e356d88e812fad9835c39178"
+          },
+          {
+            "Address": "0x101f4000",
+            "Bytes": 4096,
+            "Sha256": "50baef5c23ed4cac6c3ac77082dc363ce363b1d5c99c52fa07b7b6b6be25eaa2"
+          },
+          {
+            "Address": "0x40000000",
+            "Bytes": 16777216,
+            "Sha256": "99841296aeca0fb24e083729489c0e60a7d8673e74a7a925ac81c18f14d1d9aa"
+          }
+        ]
+      },
+      {
+        "Label": "native-level",
+        "Passed": true,
+        "Frames": 196608,
+        "OutputSha256": "62b5e0cd8af295a0071f1ec078b281c1b0b29592c1b9d3570b7c8b46a74fe4ff",
+        "Seconds": 3.031625677002012,
+        "MedianBatchMs": 15.849531002459116,
+        "P95BatchMs": 17.30948149925098,
+        "MaxBatchMs": 24.30776000255719,
+        "BatchFrames": 1024,
+        "BatchesOverDeadline": 1,
+        "NativeLevel": {
+          "Calls": 768,
+          "MeanCallMs": 0.0010728624131944445
+        },
+        "NativeClassifierCalls": 0,
+        "ExactPersistentState": true,
+        "FirstDifferenceFrame": null,
+        "PersistentRegions": [
+          {
+            "Address": "0x101ed000",
+            "Bytes": 28672,
+            "Sha256": "c0357491ca90dde57eccf8a9ddb41bbdde17dda1e356d88e812fad9835c39178"
+          },
+          {
+            "Address": "0x101f4000",
+            "Bytes": 4096,
+            "Sha256": "50baef5c23ed4cac6c3ac77082dc363ce363b1d5c99c52fa07b7b6b6be25eaa2"
+          },
+          {
+            "Address": "0x40000000",
+            "Bytes": 16777216,
+            "Sha256": "99841296aeca0fb24e083729489c0e60a7d8673e74a7a925ac81c18f14d1d9aa"
+          }
+        ]
+      },
+      {
+        "Label": "native-level-and-classifier",
+        "Passed": true,
+        "Frames": 196608,
+        "OutputSha256": "62b5e0cd8af295a0071f1ec078b281c1b0b29592c1b9d3570b7c8b46a74fe4ff",
+        "Seconds": 3.0527972399941063,
+        "MedianBatchMs": 15.782057496835478,
+        "P95BatchMs": 18.29775780097407,
+        "MaxBatchMs": 22.785104003560264,
+        "BatchFrames": 1024,
+        "BatchesOverDeadline": 1,
+        "NativeLevel": {
+          "Calls": 768,
+          "MeanCallMs": 0.0011340332031250001
+        },
+        "NativeClassifierCalls": 96,
+        "ExactPersistentState": true,
+        "FirstDifferenceFrame": null,
+        "PersistentRegions": [
+          {
+            "Address": "0x101ed000",
+            "Bytes": 28672,
+            "Sha256": "c0357491ca90dde57eccf8a9ddb41bbdde17dda1e356d88e812fad9835c39178"
+          },
+          {
+            "Address": "0x101f4000",
+            "Bytes": 4096,
+            "Sha256": "50baef5c23ed4cac6c3ac77082dc363ce363b1d5c99c52fa07b7b6b6be25eaa2"
+          },
+          {
+            "Address": "0x40000000",
+            "Bytes": 16777216,
+            "Sha256": "99841296aeca0fb24e083729489c0e60a7d8673e74a7a925ac81c18f14d1d9aa"
+          }
+        ]
+      }
+    ],
+    "OriginalSha256": "207d04317997bbca253157d6038505605335a5982af39d465b249fb52a590539",
+    "AudioOpened": false,
+    "DriverInstalled": false,
+    "PhysicalStereoProven": false,
+    "SystemDolbyProven": false,
+    "GainOrProtectionChanged": false
+  },
+  "HybridWorker": {
+    "Passed": true,
+    "Completed": 7,
+    "Cases": [
+      {
+        "Label": "normal",
+        "Passed": true,
+        "Comparison": {
+          "ReferenceFrames": 196608,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        }
+      },
+      {
+        "Label": "irregular",
+        "Passed": true,
+        "Comparison": {
+          "ReferenceFrames": 196608,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        }
+      },
+      {
+        "Label": "exit",
+        "Passed": true,
+        "Comparison": {
+          "ReferenceFrames": 98304,
+          "ExactDryFallbackFrames": 98304,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": false
+        }
+      },
+      {
+        "Label": "pause",
+        "Passed": true,
+        "Comparison": {
+          "ReferenceFrames": 182080,
+          "ExactDryFallbackFrames": 14528,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        }
+      },
+      {
+        "Label": "reset",
+        "Passed": true,
+        "Comparison": {
+          "ReferenceFrames": 190464,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        }
+      },
+      {
+        "Label": "bypass",
+        "Passed": true,
+        "Comparison": {
+          "ExactZeroLatencyBypass": true
+        }
+      },
+      {
+        "Label": "absent",
+        "Passed": true,
+        "Comparison": {
+          "ReferenceFrames": 1,
+          "ExactDryFallbackFrames": 196607,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": false
+        }
+      }
+    ],
+    "NativeLevelDllSha256": "293f8e015742839e0f8b2f407c51baa390d551da3c22cba2e619a869386b03b3"
+  },
+  "LiveMiSoundRoute": {
+    "OriginalQcadcmSha256": "b82cabb860404edd71cb38ce28720c74628dd3ad12e20f8ecbd874853cac0edd",
+    "OriginalImage": "C:\\Windows\\System32\\DriverStore\\FileRepository\\qcadcm8150.inf_arm64_5a32818f3af896b5\\qcadcm8150.sys",
+    "UserDispatcherRva": "0x99f0",
+    "RequestorModeWdfTableIndex": 280,
+    "RequestorModeTableOffset": "0x8c0",
+    "UserAllowedIoctls": [
+      "0xadae20fd",
+      "0xadae2105",
+      "0xadae2111",
+      "0xadae2115"
+    ],
+    "UserRejectedStatus": "0xc0000010",
+    "DriverNotReadyStatus": "0xc00000a3",
+    "Classes": {
+      "0x111/selector8": "ADM GET V6 / 0x1035e",
+      "0x113": "AFE GET V3 / 0x100fb",
+      "0x114": "AFE SET V3 / 0x100fa"
+    },
+    "AdditionalFindings": [
+      "Callback IDs 1..5 are registered internally; the list is not a public QueryInterface table.",
+      "0x3488 starts an OEM system thread; 0x68e60 dispatches internal operations 1..13.",
+      "0xb958 forwards the reviewed 0xadae24xx controls to ASM session control; this is not an established ADM GET interface.",
+      "Even an elevated user application remains UserMode; elevation does not change this OEM requestor-mode policy.",
+      "Live ADM graph/COPP and owned DSP mapping have not been established. No guessed command was sent."
+    ],
+    "SourceSha256": {
+      "local\\Codex-2026-11-25\\dolby-misound-next\\qcadcm-request-v1\\ghidra04\\QcadcmIoctl.txt": "5cc771eb05e9b89f4a799beb6c596cdf1e5e598d73e65fe6f49dd32a78adb00c",
+      "local\\Codex-2026-11-25\\dolby-misound-next\\live-pp-route-v1\\ghidra01\\RouteInterface.txt": "07fa70481c54653cd9f70eafd6c20042e3736bce46c5ba2d0076de27aea1a494",
+      "local\\Codex-2026-11-25\\dolby-misound-next\\live-pp-route-v1\\ghidra02\\RouteClient.txt": "017b102b2efb3023646d26bed421a3b3a840563bdefa951eb6f956df2d147a76",
+      "local\\Codex-2026-11-25\\dolby-misound-next\\live-pp-route-v1\\ghidra03\\LiveDispatch.txt": "be8e9e1e9acba120404cff2dbf2d15141d3c99c15fd47fd69dda639287e85593",
+      "local\\Codex-2026-11-24\\audio-dsp-probe\\night-work\\tools\\session-build\\kit\\c\\Include\\wdf\\kmdf\\1.33\\wdffuncenum.h": "a6033fad264f73e5ce1f8b21562a1791d28c2ceacf094a6b0d1000322712b811",
+      "local\\Codex-2026-11-24\\audio-dsp-probe\\night-work\\android\\kernel-reference\\apr_audio-v2.h": "6bc0d136193c8ae7a96dcf7b6ed8ae2d899b6710d5f00bf0e779db98e03487f4"
+    },
+    "ExternalReferences": [
+      "https://github.com/microsoft/Windows-Driver-Frameworks/blob/main/src/publicinc/wdf/kmdf/1.27/wdffuncenum.h",
+      "https://github.com/MiCode/vendor_qcom_opensource_audio-kernel/blob/d41f8e1a6827294af6a61adbe18544518e750166/include/dsp/apr_audio-v2.h"
+    ],
+    "DeviceIoPerformed": false,
+    "DspCommandSent": false,
+    "RegistryModified": false,
+    "PhysicalStereoProven": false,
+    "SystemMiSoundProven": false
+  },
+  "HardwareInstallationTrials": [
+    {
+      "Phase": "RestoreAttention",
+      "Error": "RuntimeError: OEM MFX/EFX registration changed; roll back before streaming",
+      "CleanupErrors": [
+        "Metadata restoration failed: Microsoft PnP Utility\n\nDriver package uninstalled.\nDriver package deleted successfully.\nMicrosoft PnP Utility\n\nAdding driver package:  NabuDolbyGlobalExtension.inf\nDriver package added successfully. (Already exists in the system)\nPublished Name:         oem47.inf\nDriver package is up-to-date on device: AUDD\\VEN_QCOM&DEV_052C&SUBSYS_MTPA8150\\6&249463a5&b&1\n\nTotal driver packages:  1\nAdded driver packages:  0\n.33 extension reapplication failed\nAt H:\\Vlad\\xiaomi-pad5-windows11-audio\\local\\Codex-2026-11-25\\dolby-misound-next\\RestoreEnumeration33From36.ps1:18 \nchar:36\n+ ... XITCODE -notin @(0,3010)){throw '.33 extension reapplication failed'}\n+                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n    + CategoryInfo          : OperationStopped: (.33 extension reapplication failed:String) [], RuntimeException\n    + FullyQualifiedErrorId : .33 extension reapplication failed\n \n",
+        "Exact .4 component restoration failed"
+      ],
+      "DriverInstalled": true,
+      "AudioStarted": false,
+      "SystemDolbyZeroInputPathProven": false,
+      "CandidateCodeVersionExecutionProven": false,
+      "ClassicRegistrationApplied": null,
+      "ClassicRegistrationRollback": null,
+      "ContextRollbackReadback": null,
+      "BaselineZeroStream": null,
+      "FactoryCalibrationUnchanged": true,
+      "Name": "bound-apo11-native-level-trial-20261125-192130",
+      "SourceSha256": "416eb14816717b2507a448c782a246309f4cfbcdeac4a9a9ef9723287339a6d3"
+    },
+    {
+      "Phase": "Restored",
+      "Error": null,
+      "CleanupErrors": [],
+      "DriverInstalled": true,
+      "AudioStarted": true,
+      "SystemDolbyZeroInputPathProven": false,
+      "CandidateCodeVersionExecutionProven": false,
+      "ClassicRegistrationApplied": null,
+      "ClassicRegistrationRollback": null,
+      "ContextRollbackReadback": {
+        "Verified": true,
+        "ExistingContextsPreserved": 1,
+        "NewContextsRemoved": 2
+      },
+      "BaselineZeroStream": {
+        "input_numeric_peak": 0,
+        "buffer_flags": 0,
+        "mixer_changed": false,
+        "initial_meter_peak": 2.32830644e-10,
+        "initialize_hr": "0x00000000",
+        "effects_hr": "0x00000000",
+        "effects": [
+          {
+            "id": "{6F64ADCC-8211-11E2-8C70-2C27D7F001FA}",
+            "state": 1
+          }
+        ],
+        "frames_submitted": 100800,
+        "audio_started": true,
+        "maximum_meter_peak": 3.0517811e-05,
+        "meter_detection_threshold": 6.10351562e-05,
+        "final_hr": "0x00000000",
+        "passed": true
+      },
+      "FactoryCalibrationUnchanged": true,
+      "Name": "bound-apo11-live-endpoint-trial-20261125-193657",
+      "SourceSha256": "0d497374c81633504b517fea70ea941b3004686bda732952f804c3ffe295ec2c",
+      "CandidateMetrics": [
+        {
+          "ApoPid": 0,
+          "FramesProcessed": 0,
+          "FramesWet": 0,
+          "FramesDry": 0,
+          "LockError": 0
+        },
+        {
+          "ApoPid": 0,
+          "FramesProcessed": 0,
+          "FramesWet": 0,
+          "FramesDry": 0,
+          "LockError": 0
+        }
+      ]
+    },
+    {
+      "Phase": "Restored",
+      "Error": "AssertionError: ",
+      "CleanupErrors": [],
+      "DriverInstalled": false,
+      "AudioStarted": false,
+      "SystemDolbyZeroInputPathProven": false,
+      "CandidateCodeVersionExecutionProven": false,
+      "ClassicRegistrationApplied": null,
+      "ClassicRegistrationRollback": null,
+      "ContextRollbackReadback": null,
+      "BaselineZeroStream": {
+        "input_numeric_peak": 0,
+        "buffer_flags": 0,
+        "mixer_changed": false,
+        "initial_meter_peak": 2.32830644e-10,
+        "initialize_hr": "0x00000000",
+        "effects_hr": "0x00000000",
+        "effects": [
+          {
+            "id": "{6F64ADCC-8211-11E2-8C70-2C27D7F001FA}",
+            "state": 1
+          }
+        ],
+        "frames_submitted": 101760,
+        "audio_started": true,
+        "maximum_meter_peak": 3.0517811e-05,
+        "meter_detection_threshold": 6.10351562e-05,
+        "final_hr": "0x00000000",
+        "passed": true
+      },
+      "FactoryCalibrationUnchanged": true,
+      "Name": "bound-apo11-classic-binding-trial-20261125-194233",
+      "SourceSha256": "10b3f597f147d7ef9a7b499dc9bb6186c073dff4719f531dbeaaac7612b2121c"
+    },
+    {
+      "Phase": "RestoreAttention",
+      "Error": "RuntimeError: Install failed or requested Windows reboot; no reboot performed",
+      "CleanupErrors": [
+        "NativeZeroStream.exe: {\"input_numeric_peak\":0,\"buffer_flags\":0,\"mixer_changed\":false,\"initial_meter_peak\":2.32830644e-10,\"initialize_hr\":\"0x00000000\",\"effects_hr\":\"0x00000000\",\"effects\":[{\"id\":\"{6F64ADCC-8211-11E2-8C70-2C27D7F001FA}\",\"state\":1}],\"frames_submitted\":47520,\"audio_started\":true,\"maximum_meter_peak\":0.041015625,\"meter_detection_threshold\":6.10351562e-05,\"final_hr\":\"0x80004005\",\"passed\":false}\n"
+      ],
+      "DriverInstalled": true,
+      "AudioStarted": false,
+      "SystemDolbyZeroInputPathProven": false,
+      "CandidateCodeVersionExecutionProven": false,
+      "ClassicRegistrationApplied": true,
+      "ClassicRegistrationRollback": {
+        "Verified": true,
+        "PreExistingRegistrationTouched": false,
+        "ProtectedAudioSettingsChanged": false
+      },
+      "ContextRollbackReadback": {
+        "Verified": true,
+        "ExistingContextsPreserved": 0,
+        "NewContextsRemoved": 3
+      },
+      "BaselineZeroStream": null,
+      "FactoryCalibrationUnchanged": true,
+      "Name": "bound-apo11-classic-binding-trial-20261125-194539",
+      "SourceSha256": "ed53b0779640a97013fc5bcdb0531bc83083c71ab7cc231d67904162e78dd36c"
+    }
+  ],
+  "CurrentState": {
+    "Amplifiers": [
+      {
+        "InstanceId": "ACPI\\10133541\\0",
+        "ConfigResult": 0,
+        "Started": true,
+        "NeedsRestart": false,
+        "Problem": 0,
+        "Version": "4.17.27.18",
+        "Inf": "oem50.inf"
+      },
+      {
+        "InstanceId": "ACPI\\10133541\\1",
+        "ConfigResult": 0,
+        "Started": true,
+        "NeedsRestart": false,
+        "Problem": 0,
+        "Version": "4.17.27.18",
+        "Inf": "oem50.inf"
+      },
+      {
+        "InstanceId": "ACPI\\10133541\\2",
+        "ConfigResult": 0,
+        "Started": true,
+        "NeedsRestart": false,
+        "Problem": 0,
+        "Version": "4.17.27.18",
+        "Inf": "oem50.inf"
+      },
+      {
+        "InstanceId": "ACPI\\10133541\\3",
+        "ConfigResult": 0,
+        "Started": true,
+        "NeedsRestart": false,
+        "Problem": 0,
+        "Version": "4.17.27.18",
+        "Inf": "oem50.inf"
+      }
+    ],
+    "Adapter": {
+      "InstanceId": "AUDD\\VEN_QCOM&DEV_052C&SUBSYS_MTPA8150\\6&249463A5&B&1",
+      "ConfigResult": 0,
+      "Started": true,
+      "NeedsRestart": true,
+      "Problem": 0,
+      "Version": "1.0.2100.0",
+      "Inf": "oem10.inf"
+    },
+    "Component": {
+      "InstanceId": "SWD\\DRIVERENUM\\{fd13c2df-5315-4f4f-9556-f78fb784a12a}#NabuDolbyGlobal&7&291fb903&0",
+      "ConfigResult": 0,
+      "Started": true,
+      "NeedsRestart": false,
+      "Problem": 0,
+      "Version": "2.0.0.4",
+      "Inf": "oem36.inf"
+    },
+    "DllSha256": "dc0c29a144090f83b4532c215332f1a0c96aa4c99ca9db1ccdbc1bb5c117889c",
+    "ClassicRegistrationAbsent": true,
+    "FinalZeroInput": {
+      "input_numeric_peak": 0,
+      "buffer_flags": 0,
+      "mixer_changed": false,
+      "initial_meter_peak": 2.32830644e-10,
+      "initialize_hr": "0x00000000",
+      "effects_hr": "0x00000000",
+      "effects": [
+        {
+          "id": "{6F64ADCC-8211-11E2-8C70-2C27D7F001FA}",
+          "state": 1
+        }
+      ],
+      "frames_submitted": 101280,
+      "audio_started": true,
+      "maximum_meter_peak": 3.0517811e-05,
+      "meter_detection_threshold": 6.10351562e-05,
+      "final_hr": "0x00000000",
+      "passed": true
+    },
+    "ZeroInputProbeExitCode": 0,
+    "DeviceRestartAttempt": {
+      "RestartDeviceExitCode": 50,
+      "Error": null,
+      "RebootPerformed": false,
+      "InstanceId": "AUDD\\VEN_QCOM&DEV_052C&SUBSYS_MTPA8150\\6&249463A5&B&1"
+    },
+    "RebootPerformed": false
+  },
+  "PreparedHelper": {
+    "Files": {
+      "NativeLevelScale.cpp": "931867164d4df3dddc418ad35e0953074fe5a6ac15705a1482e9081582b9cc18",
+      "NativeLevelScale.h": "c906aeac97ff45f72214ccbbf95a3465a5c113605475b51446e683e6cf549622",
+      "Build-NativeLevelScale.ps1": "9543e3d2c6d411b41491a98575cffb0fb6ba62724c526a3e7ba2058ea4b47a2a",
+      "NativeLevelScale.dll": "293f8e015742839e0f8b2f407c51baa390d551da3c22cba2e619a869386b03b3"
+    },
+    "Registered": false,
+    "DriverInstaller": false,
+    "SystemDolbyProven": false,
+    "ExternalAndroidLibraryIncluded": false
+  },
+  "PublicDriverZipChanged": false,
+  "PublishedSourceCanonicalLfSha256": {
+    "NativeLevelScale.cpp": "931867164d4df3dddc418ad35e0953074fe5a6ac15705a1482e9081582b9cc18",
+    "NativeLevelScale.h": "c906aeac97ff45f72214ccbbf95a3465a5c113605475b51446e683e6cf549622",
+    "Build-NativeLevelScale.ps1": "9543e3d2c6d411b41491a98575cffb0fb6ba62724c526a3e7ba2058ea4b47a2a"
+  },
+  "SourceLineEndingsOnlyNormalizedForGit": true
+}

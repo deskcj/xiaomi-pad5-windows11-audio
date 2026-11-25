@@ -26,14 +26,22 @@ Download: **4.17.27.16**. Development source: **4.17.27.18**. The published ZIP 
 
 ## Update history
 
-### 2026-11-25 — Original Dolby classifier: native C++/H prototype
+### 2026-11-25 — Native Dolby level stage and live APO installation checks
+
+- ✅ New ARM64 C++/H adapter preserves original Dolby level-stage state and 196,608 output frames. Four active cases, 27 guards and seven worker scenarios pass.
+- ✅ Real .11/.36 installation, endpoint re-enumeration and rollback were tested; current .18 / APO .4 still opens a silent stream.
+- ❌ System Dolby did not activate. The registration diagnostic requested a reboot; none was performed. MiSound, physical L/R, PCM24 and maximum-volume safety remain open.
+
+<details>
+<summary>Previous updates</summary>
+
+#### 2026-11-25 — Original Dolby classifier: native C++/H prototype
 
 - ✅ An audited slice of the original Android Dolby code runs natively in the lab worker; ARM64 C++/H source builds with EWDK.
 - ✅ Active state, 196,608 original output frames and persistent guest heap/data match exactly. Eleven invalid contracts and seven hybrid-worker scenarios pass.
 - ❌ Sustained timing/loudness improvement, system Dolby/MiSound and physical L/R remain unproven. Installed .18 / APO .4 is unchanged; .11/.36 remains prepared.
 
-<details>
-<summary>Previous updates</summary>
+
 
 #### 2026-11-25 — Dolby APO .11: settings-read failure fix
 
@@ -138,7 +146,7 @@ PCM24 research set: all 13 timing/reopen tests passed; average 10 ms notificatio
 | --- | --- | --- |
 | IRQ/GPIO and routing | IRQ setup ignored I²C errors; only CH_BAL was checked. | ✅ .18 rejects failed IRQ setup; real readbacks passed on all four amplifiers. |
 | Digital L/R | Separation unmeasured. | ✅ Four quiet cases passed; opposite 800 Hz tone <0.1%. UID/I²C board mapping matches Android. Acoustic isolation remains unverified. |
-| Dolby APO | Failed reads could select a common profile; the original worker was emulated. | ✅ .11 fixes settings reads; native classifier source preserves original output/state. ❌ System processing and timing reliability remain unverified. |
+| Dolby APO | Settings-read failures; original processing ran in an emulator. | ✅ .11 read handling and exact native level/classifier prototypes. Real installation/rollback tested. ❌ System effect activation and timing reliability remain open. |
 | PCM24 | Format/pacing failures. | ✅ Earlier 13 timing/reopen cases passed. Hardware PCM24 remains unverified. |
 | MiSound | Only single controls were encoded; complete speaker dispatch was absent. | ✅ 502 exact factory records and the original command plan; 864 code comparisons pass. ❌ System DSP processing unverified. |
 

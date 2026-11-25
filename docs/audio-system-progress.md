@@ -2,14 +2,22 @@
 
 [English](audio-system-progress.md) · [Русский](audio-system-progress.ru.md) · [简体中文](audio-system-progress.zh-CN.md)
 
+**New · original native level stage and hardware installation:** the audited Android DRC level calculation now has an ARM64 C++/H adapter. Four calls match every mutable region, including the guest-stack output; 196,608 output frames and persistent state match exactly. Fourteen argument guards, thirteen hook/page contracts and seven worker scenarios pass. Moving mapping ownership checks to attachment removes the measured per-call query overhead; a sustained whole-worker speed gain is still unproven.
+
+The signed .11/.36 pair was actually installed and tested with zero input. Windows recreated the speaker endpoint: rollback now follows the same physical adapter and preserves existing contexts. The stream opened, but Dolby counters/events stayed zero. A classic-registration diagnostic required a reboot and was rolled back. Current .18 / APO .4 passes a silent stream; the adapter retains a restart flag, so further installs are stopped. System Dolby/MiSound, physical L/R, hardware PCM24, HyperOS parity and maximum-volume safety remain unverified.
+
+[Native code and live-trial evidence](results/audio-native-level-and-live-apo-2026-11-25.json) · [C++/H source](../driver/apo/worker-native/)
+
+<details>
+<summary>Earlier source checks · 25 November</summary>
+
 **New · original native classifier prototype:** an ARM64 C++/H adapter executes the audited Android classifier slice without changing the profile, gain or algorithm. An active call preserved all 658 changed bytes. The public EWDK build preserves 196,608 original output frames and persistent guest heap/data; 11 invalid contracts reject. The hybrid worker with the preceding equivalent bridge passed seven offline scenarios.
 
 Whole-stream speed improvement is not proven: results vary, and the public comparison was slower overall. The earlier pause failure remains in the evidence. Ghidra/PE inspection also confirms that three apparent live-GET function references are exception metadata, not a callable MiSound interface. System Dolby/MiSound, physical L/R, hardware PCM24 and maximum-volume safety remain open. Installed .18 / APO .4 is unchanged; .11/.36 is prepared.
 
 [Native/state evidence](results/audio-native-classifier-2026-11-25.json) · [C++/H source](../driver/apo/worker-native/)
 
-<details>
-<summary>Earlier source checks · 25 November</summary>
+
 
 **New · Dolby APO .11:** failed context/settings reads now use zero-latency bypass and retain the error, instead of selecting the common profile. **108 native cases pass**; .10 failed 74. The earlier 28 bank-selection cases, five memory cases, seven logging cases and two epoch cases pass. ARM64 .11 is built, signed and uninstalled.
 

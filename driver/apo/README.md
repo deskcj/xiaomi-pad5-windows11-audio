@@ -2,7 +2,7 @@
 
 Native ARM64 COM transport, stereo queues, delayed dry fallback and diagnostics. The separate worker runs original Android Dolby code; that library and worker runtime are not included here. This source does not implement MiSound processing.
 
-An experimental [native classifier bridge](worker-native/) now runs an audited slice of the original Android code in the lab worker. Original active/output/state comparisons pass; sustained timing gains and actual system processing remain unproven. The public driver ZIP does not include it.
+Audited native [classifier and level-scale adapters](worker-native/) preserve original output/state in the lab worker. The signed .11/.36 pair was also installed on the tablet: zero-input Windows streams opened, but no Nabu processing event/counter was observed. Rollback follows the re-enumerated speaker endpoint and preserves prior contexts. Current kernel .18 / APO .4 is restored and passes a zero-input stream. The adapter retains a restart flag; no tablet reboot was performed. These checks do not prove system Dolby/MiSound, physical L/R, PCM24 or maximum-volume safety. [Evidence](../../docs/results/audio-native-level-and-live-apo-2026-11-25.json)
 
 The .11 prototype distinguishes an absent property (successful `VT_EMPTY`) from a failed context or settings read. Failed reads use zero-latency bypass and advertise no effect; diagnostic field 4 retains the original error. All 108 native fault/control cases pass, while .10 failed 74. The previous 28 bank-selection, five memory, seven logging and two epoch checks pass. Test fixtures substitute the fixed Global resolver with real Local mappings; no system endpoint is involved.
 
