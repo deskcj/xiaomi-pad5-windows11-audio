@@ -133,6 +133,7 @@ public:
             bool raw = false, discovering = false;
             IPropertyStore *properties = nullptr;
             bool owns_properties = false;
+            HRESULT properties_status = E_NOINTERFACE;
             constexpr GUID Raw = {0x9e90ea20, 0xb493, 0x4fd1, {0xa1, 0xa8, 0x7e, 0x13, 0x61, 0xa9, 0x56, 0xcf}};
             if (bytes == sizeof(APOInitSystemEffects3)) {
                 auto *fx3 = reinterpret_cast<APOInitSystemEffects3 *>(data);
@@ -152,7 +153,8 @@ public:
                     IMMDevice *endpoint = nullptr;
                     IAudioSystemEffectsPropertyStore *store = nullptr;
                     HRESULT hr = fx3->pDeviceCollection->GetCount(&count);
-                    if (SUCCEEDED(hr) && count) hr = fx3->pDeviceCollection->Item(count - 1, &endpoint);
+                    if (SUCCEEDED(hr)) hr = count ? fx3->pDeviceCollection->Item(count - 1, &endpoint) : HRESULT_FROM_WIN32(ERROR_NOT_FOUND);
+                    if (SUCCEEDED(hr) && !endpoint) hr = E_NOINTERFACE;
                     if (SUCCEEDED(hr) && endpoint) {
                         PROPVARIANT context = {};
                         context.vt = VT_CLSID;
@@ -160,12 +162,16 @@ public:
                         hr = endpoint->Activate(__uuidof(IAudioSystemEffectsPropertyStore), CLSCTX_ALL, &context, reinterpret_cast<void **>(&store));
                         if (SUCCEEDED(hr)) hr = store ? store->OpenDefaultPropertyStore(STGM_READ, &properties) : E_NOINTERFACE;
                         owns_properties = properties != nullptr;
+                        if (SUCCEEDED(hr) && !properties) hr = E_NOINTERFACE;
                     }
-                    nabu_diag(4,hr);
+                    properties_status = hr;
                     if (store) store->Release();
                     if (endpoint) endpoint->Release();
                 }
-            } else properties = reinterpret_cast<APOInitSystemEffects *>(data)->pAPOSystemEffectsProperties;
+            } else {
+                properties = reinterpret_cast<APOInitSystemEffects *>(data)->pAPOSystemEffectsProperties;
+                properties_status = properties ? S_OK : E_NOINTERFACE;
+            }
             if (bytes == sizeof(APOInitSystemEffects2)) {
                 auto *fx2 = reinterpret_cast<APOInitSystemEffects2 *>(data);
                 discovering = fx2->InitializeForDiscoveryOnly != FALSE;
@@ -173,22 +179,23 @@ public:
                 mode_flags_=(raw?1U:0U)|(discovering?2U:0U);
                 nabu_diag(6,fx2->InitializeForDiscoveryOnly);nabu_diag(7,fx2->AudioProcessingMode==Raw);
             }
-            if (!raw && (properties || bytes == sizeof(APOInitSystemEffects3))) {
+            if (!raw) {
                 PROPVARIANT value = {};
-                HRESULT hr = properties ? properties->GetValue(PKEY_NabuDolbyBank, &value) : E_NOINTERFACE;
+                HRESULT hr = SUCCEEDED(properties_status) && properties ? properties->GetValue(PKEY_NabuDolbyBank, &value) : properties_status;
                 nabu_diag(4,hr);nabu_diag(5,value.vt);
                 // An explicit property belongs to this endpoint/context. Do not
                 // substitute another bank when it is invalid, missing or busy.
-                // VT_EMPTY is the memory/property-store representation of absence.
-                const bool bank_configured = SUCCEEDED(hr) && value.vt != VT_EMPTY;
+                // Only a successful VT_EMPTY read means absence. An inaccessible
+                // context or failed read must not select another context's bank.
+                const bool bank_absent = SUCCEEDED(hr) && value.vt == VT_EMPTY;
                 if (SUCCEEDED(hr) && value.vt == VT_LPWSTR && value.pwszVal && wcsnlen(value.pwszVal, 128) < 128) {
                     if (discovering) discovery_effect_ = nabu_bank_ready(value.pwszVal);
                     else transport_ = nabu_bank_acquire(value.pwszVal);
                 }
                 PropVariantClear(&value);
-                if (discovering && !bank_configured) {
+                if (discovering && bank_absent) {
                     if (!discovery_effect_) discovery_effect_ = nabu_bank_ready(L"Global\\NabuDolbyBank-9df8834a-209e-4cc1-bc73-bb4353adfa9f");
-                } else if (!discovering && !bank_configured && !transport_) {
+                } else if (!discovering && bank_absent && !transport_) {
                     transport_=nabu_bank_acquire(L"Global\\NabuDolbyBank-9df8834a-209e-4cc1-bc73-bb4353adfa9f");
                 }
                 nabu_diag(17,transport_ ? 0 : LONG(GetLastError()));

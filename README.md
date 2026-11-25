@@ -26,14 +26,22 @@ Download: **4.17.27.16**. Development source: **4.17.27.18**. The published ZIP 
 
 ## Update history
 
-### 2026-11-25 — DSP reply validation and original stereo source
+### 2026-11-25 — Dolby APO .11: settings-read failure fix
+
+- ✅ Failed settings/context reads now bypass instead of selecting the common profile: **108 native cases passed**, versus 74 failures in .10. The previous 28 bank-selection cases still pass.
+- ✅ ARM64 .11 built and signed; normal/irregular Dolby output matches the original for 196,608 frames each.
+- ❌ Pause recovery failed once, then passed with both the .10 control and .11 repeat. Timing reliability, system Dolby/MiSound, physical L/R and maximum-volume safety remain open. Installed .18 / APO .4 is unchanged; .11/.36 is prepared locally.
+
+<details>
+<summary>Previous updates</summary>
+
+#### 2026-11-25 — DSP reply validation and original stereo source
 
 - ✅ Source now checks reply token, both endpoints, opcode and DSP status; a basic receipt cannot prove parameter data.
 - ✅ Offline ARM64 checks passed: 112 original-code GET readbacks, 100 in-band packets and 73 memory cases. Captured Xiaomi Channel Swap agrees with our four-amp table.
 - ❌ System Dolby/MiSound, physical L/R and maximum-volume safety remain unverified. Installed .18 / APO .4 is unchanged; .10/.36 is prepared.
 
-<details>
-<summary>Previous updates</summary>
+
 
 #### 2026-11-25 — original DSP GET and bounded readback
 
@@ -122,7 +130,7 @@ PCM24 research set: all 13 timing/reopen tests passed; average 10 ms notificatio
 | --- | --- | --- |
 | IRQ/GPIO and routing | IRQ setup ignored I²C errors; only CH_BAL was checked. | ✅ .18 rejects failed IRQ setup; real readbacks passed on all four amplifiers. |
 | Digital L/R | Separation unmeasured. | ✅ Four quiet cases passed; opposite 800 Hz tone <0.1%. UID/I²C board mapping matches Android. Acoustic isolation remains unverified. |
-| Dolby APO | An unavailable explicit bank could select the common fallback; settings used the flat store. | ✅ .10 honors explicit selection; .36 declares the correct context. 28 software cases pass. ❌ System processing unverified. |
+| Dolby APO | Failed settings reads or an unavailable explicit bank could select the common profile. | ✅ .11 bypasses failed reads; 108 native cases pass. .36 declares the correct context. ❌ System processing and timing reliability remain unverified. |
 | PCM24 | Format/pacing failures. | ✅ Earlier 13 timing/reopen cases passed. Hardware PCM24 remains unverified. |
 | MiSound | Only single controls were encoded; complete speaker dispatch was absent. | ✅ 502 exact factory records and the original command plan; 864 code comparisons pass. ❌ System DSP processing unverified. |
 

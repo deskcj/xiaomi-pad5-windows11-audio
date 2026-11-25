@@ -2,14 +2,22 @@
 
 [English](audio-system-progress.md) · [Русский](audio-system-progress.ru.md) · [简体中文](audio-system-progress.zh-CN.md)
 
+**新增 · Dolby APO .11：** 上下文／设置读取失败时使用零延迟旁路并保留错误，不再选用公共配置。**108 项原生测试通过**，.10 有 74 项失败。原有 28 项配置选择、5 项内存、7 项日志和 2 项计数器测试均通过。ARM64 .11 已构建、签名，尚未安装。
+
+正常与不规则流各 196,608 帧均与原版 Dolby 精确一致。第一次暂停测试未能在流结束前恢复效果；随后 .10 对照和 .11 重试通过。时序稳定性问题仍未解决。Ghidra 也分析了从 Android 提取的功放保护处理函数；未更改增益／保护参数。系统 Dolby/MiSound、物理 L/R、PCM24 和最大音量安全仍未验证。已安装 .18 / APO .4；.11/.36 已准备。
+
+[.11 源码测试与保留的失败记录](results/audio-apo-property-read-2026-11-25.json)
+
+<details>
+<summary>此前源码验证 · 11 月 25 日</summary>
+
 **新增 · DSP 响应匹配源码：** C/H 回读模块在读取参数前验证标准 APR 头、两端地址、事务令牌、V6 操作码及 DSP 错误状态。即使 GET 基本接收确认的状态为零，也返回“无参数数据”。112 项原版 Windows 映射 GET 回读、100 项构造的包内数据测试、21 项无效响应及 73 项真实内存边界测试通过；原有 76 项回读内存测试也在新库上通过。
 
 固定版本的小米官方音频源码及录制的 HyperOS DTS／混音配置确认 DSP_A/TDM、功放输入槽 4/5，以及 BR/TR 的 Channel Swap On、BL/TL 的 Off。条件性 I2S 硬件交换不适用于该录制配置。Windows 使用自己的 0/1 槽位；直接复制 Android 槽号到另一种总线帧不能证明 L/R。四功放 Channel Swap 表匹配，但物理分离仍需测量。未改变驱动、增益、保护或声音；系统 Dolby/MiSound、物理 L/R 与最大音量安全仍未验证。已安装 .18 / APO .4；.10/.36 已准备。
 
 [响应及立体声源码证据](results/audio-apr-stereo-source-2026-11-25.json) · [C/H 源码](../driver/dsp/)
 
-<details>
-<summary>此前源码验证 · 11 月 25 日</summary>
+
 
 **新增 · DSP 响应验证源码：** `QualcommPpReadback.c/.h` 构造原版 Windows ADM GET 请求体，并检查返回的模块／实例／参数、保留位和精确缓冲区长度。**112 项原版比较**（含 91 个原厂数据块）、**76 项原生内存测试**及 13 项无效响应测试通过。九组件 ARM64 EWDK 库构建成功，已有路由、命令计划及原厂滤波测试仍通过。
 

@@ -2,14 +2,22 @@
 
 [English](audio-system-progress.md) · [Русский](audio-system-progress.ru.md) · [简体中文](audio-system-progress.zh-CN.md)
 
+**New · Dolby APO .11:** failed context/settings reads now use zero-latency bypass and retain the error, instead of selecting the common profile. **108 native cases pass**; .10 failed 74. The earlier 28 bank-selection cases, five memory cases, seven logging cases and two epoch cases pass. ARM64 .11 is built, signed and uninstalled.
+
+Normal/irregular output exactly matches the original Dolby for 196,608 frames each. The first pause test did not recover the effect before the stream ended; the .10 control and .11 repeat recovered. This timing limitation remains open. Ghidra also reviewed the captured Android protection handlers; no gain/protection setting changed. System Dolby/MiSound, physical L/R, PCM24 and maximum-volume safety are unverified. Installed .18 / APO .4 remains; .11/.36 is prepared.
+
+[.11 source/tests and retained failure](results/audio-apo-property-read-2026-11-25.json)
+
+<details>
+<summary>Earlier source checks · 25 November</summary>
+
 **New · matched DSP reply source:** the C/H readback helper now checks the standard APR envelope, both endpoints, transaction token, V6 opcode and DSP error status before reading parameter data. A basic GET receipt with zero status still returns “no parameter data”. Native checks passed on 112 original Windows mapped GET readbacks, 100 constructed in-band packets, 21 rejected replies and 73 real memory-boundary cases. Earlier 76 readback memory cases also pass on the new library.
 
 The pinned official Xiaomi audio-kernel source and captured HyperOS DTS/mixer confirm DSP_A/TDM, amplifier slots 4/5, and Channel Swap On for BR/TR, Off for BL/TL. The conditional I2S hardware reversal does not apply to that capture. Windows has its own 0/1 slot pair; copying Android slot numbers into another serial frame would not prove L/R. The four-amp Channel Swap table agrees, but physical separation still needs measurement. No driver, gain, protection or sound changed; system Dolby/MiSound, physical L/R and maximum-volume safety remain open. Installed .18 / APO .4 remains; .10/.36 is prepared.
 
 [Reply and stereo source evidence](results/audio-apr-stereo-source-2026-11-25.json) · [C/H source](../driver/dsp/)
 
-<details>
-<summary>Earlier source checks · 25 November</summary>
+
 
 **New · bounded DSP readback source:** `QualcommPpReadback.c/.h` pack the original Windows ADM GET body and validate returned module/instance/parameter, reserved bits and exact buffer length. All **112 original comparisons**, including 91 factory blocks, **76 native memory cases** and 13 malformed-response cases pass. The nine-component ARM64 EWDK library builds; prior route, command-plan and factory-filter tests still pass.
 

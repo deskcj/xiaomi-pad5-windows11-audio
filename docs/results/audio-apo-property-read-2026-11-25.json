@@ -1,0 +1,480 @@
+{
+  "Date": "2026-11-25",
+  "KernelVersion": "4.17.27.18",
+  "InstalledApoVersion": "2.0.0.4",
+  "CandidateApoVersion": "2.0.0.11-lab",
+  "SettingsExtensionVersion": "1.0.2140.36",
+  "Scope": {
+    "DriverInstalled": false,
+    "AudioStarted": false,
+    "RebootPerformed": false,
+    "KernelChanged": false,
+    "GainOrProtectionChanged": false,
+    "SystemDolbyProven": false,
+    "SystemMiSoundProven": false,
+    "AcousticLrProven": false,
+    "HyperOsParityProven": false,
+    "MaximumVolumeSafetyProven": false
+  },
+  "Change": "Only a successful settings read with VT_EMPTY can select the common bank. Failed context access or GetValue uses zero-latency bypass with no advertised effect. The original HRESULT is retained in diagnostic field 4.",
+  "ApoBuild": {
+    "CandidateVersion": "2.0.0.11-lab",
+    "Architecture": "ARM64",
+    "Registered": false,
+    "SourceFingerprint": "b5aa99018202a6748a8fe87a536aa77a4b3f7a329a8d7b45d4dd777a18552e75",
+    "Signed": false,
+    "SystemEffectsProven": false,
+    "DllSha256": "5ec7121cf64cf173a7cd08aa07b57b5afae74e434610c25e4d01132ebb75752f",
+    "SourceSha256": {
+      "ApoDiagnostics.cpp": "227e10a9b5ef720ac2e18e932f1643f4ee34ab35d75988fa0d535b653da70a32",
+      "ApoDiagnostics.h": "f9e3cec1792f9c7af3010c7fdff13001b36b021107bb2373bf11aad7d01ff863",
+      "Build-Apo.ps1": "fdaa59b41b35b9ae07c71e20392d9dcecee33b1a6d35bf6d3f5d140eec3c1f81",
+      "DigitalHarness.cpp": "a234e82dbb347f5550c92f596335bfdeae2b17e14a150d806ea9070c42749589",
+      "DolbyBank.cpp": "b6ce1f90e8f0a4f7cf9c7ab43815a7923178aed7dc328f9a59eef4210b9d43aa",
+      "DolbyBank.h": "d2e8611e4d2abf71acd65352062923c13d16bd2242316989a38b9ddb971702ed",
+      "DolbyBlockQueue.h": "b7df0202bdc53498e952cc67e2ff806ad78506f169ff578d257fa0241d0b763e",
+      "DolbyFallback.h": "41a8aad572daa3298ea84bbfee0f2a13135caad0640a9d368f568963b42b2db4",
+      "DolbySharedTransport.cpp": "17781fdb4db28e9cdaf6a16000462d5c9f64b6ddbed79117844045c8cfd0f96b",
+      "DolbySharedTransport.h": "3d7b9970856806d27e2a1f35522f5a2c921f299623287a6d4466592ecaeda9a7",
+      "DolbyStream.h": "78e8dfc38f52b480ebc62975e83bbd271105969ffc3a33cbffc9ac37fb5d68b5",
+      "NabuDolbyApo.cpp": "58261f6901c2b76dbaa165abec760a1ceb7052e5e98443b97b237bee6a7bf325",
+      "NabuDolbyApo.h": "afa308a9eba57e84f7762c3e77ca1f469a5797a98b2956df39e07e74cc46a647"
+    }
+  },
+  "PreparedPackage": {
+    "Version": "2.0.0.11",
+    "Architecture": "ARM64",
+    "CatalogSignedAndVerified": true,
+    "Installed": false,
+    "Registered": false,
+    "RequiresDriverBoundSfxExtension": true,
+    "SettingsExtensionVersion": "1.0.2140.36",
+    "KernelChanged": false,
+    "GainOrProtectionChanged": false,
+    "RollbackActuallyExercised": false,
+    "Qualification": {
+      "ExactOutputChecksPassed": true,
+      "PropertyReadCases": 108,
+      "ExplicitBankCases": 28,
+      "FirstPipelinePassed": false,
+      "FirstPipelinePassedScenarios": 6,
+      "TotalScenarios": 7,
+      "PauseRepeatPassed": true,
+      "PauseControl10Passed": true,
+      "IntermittentPauseRecoveryStillOpen": true,
+      "SystemEffectsProven": false,
+      "MaximumVolumeSafetyProven": false,
+      "DriverInstalled": false
+    },
+    "PackageFiles": {
+      "NabuDolbyApo.inf": "12e090b25b1e99216f25791402c25362a1245d665925a2a6b4ebdb20958fbd3d",
+      "NabuDolbyBridge.dll": "5ec7121cf64cf173a7cd08aa07b57b5afae74e434610c25e4d01132ebb75752f",
+      "nabudolbyapo.cat": "f278b542e61e4f3f0597dba68f3375a75536f7cd7f1151f3314c1fe85e1c0d0c"
+    },
+    "RollbackFiles": {
+      "NabuDolbyGlobal.inf": "046f03b6c180d5f004af371914a326c2326c17933a8bd72e3ac3497b9b48f08d",
+      "NabuDolbyGlobal.cat": "9689cffaf11b2e983ffc926df551f82c258afbf29d2c321fe848c2a9d07f36da",
+      "NabuDolbyBridge.dll": "dc0c29a144090f83b4532c215332f1a0c96aa4c99ca9db1ccdbc1bb5c117889c"
+    }
+  },
+  "PropertyReadRegression": {
+    "Baseline10Passed": 34,
+    "Baseline10Total": 108,
+    "Baseline10Failures": 74,
+    "Candidate11Passed": 108,
+    "FailureStages": "GetCount, Item, Activate, OpenDefaultPropertyStore, GetValue; empty collection and missing/null interfaces; RAW and successful nonzero HRESULT controls.",
+    "NativeArm64": true,
+    "GlobalBankResolverSubstituted": true,
+    "ActualLocalMappings": true,
+    "SettingsRefBalancePassed": true,
+    "ExactAsymmetricStereoBypassPassed": true,
+    "DiagnosticStatusPreserved": true,
+    "BaselineDllSha256": "0bc671951c2b753ebb0903426a7756db815b15bfe751e957d4004009b989460e",
+    "CandidateFixtureDllSha256": "2b9ae27b8e9407f38b319f804b5e60aef7412f0ab164f8f992cdc6be161647c3"
+  },
+  "RetainedBankPolicy": {
+    "Passed": true,
+    "BaselineFailures": 0,
+    "CandidateCases": 28,
+    "NativeArm64": true,
+    "GlobalBankResolverSubstituted": true,
+    "ActualLocalTransportMappings": true,
+    "AudioOpened": false,
+    "DriverInstalled": false,
+    "SystemDolbyProven": false
+  },
+  "SoftwareRegression": {
+    "Memory": {
+      "audio_device_opened": false,
+      "pinning_calls_mocked": true,
+      "view_guard_uses_page_noaccess": true,
+      "cases": [
+        {
+          "scenario": 0,
+          "first_hr": "0x80070718",
+          "pins_after_first": 0,
+          "first_lock_error": 1816,
+          "retry_hr": "0x00000000",
+          "retry_lock_error": 0,
+          "process_exception": "0x00000000",
+          "reset_exception": "0x00000000",
+          "pins_after_unlock": 0,
+          "passed": true
+        },
+        {
+          "scenario": 1,
+          "first_hr": "0x80070718",
+          "pins_after_first": 0,
+          "first_lock_error": 1816,
+          "retry_hr": "0x00000000",
+          "retry_lock_error": 0,
+          "process_exception": "0x00000000",
+          "reset_exception": "0x00000000",
+          "pins_after_unlock": 0,
+          "passed": true
+        },
+        {
+          "scenario": 2,
+          "first_hr": "0x80070718",
+          "pins_after_first": 0,
+          "first_lock_error": 0,
+          "retry_hr": "0x00000000",
+          "retry_lock_error": 0,
+          "process_exception": "0x00000000",
+          "reset_exception": "0x00000000",
+          "pins_after_unlock": 0,
+          "passed": true
+        },
+        {
+          "scenario": 3,
+          "first_hr": "0x8007000e",
+          "pins_after_first": 0,
+          "first_lock_error": 0,
+          "retry_hr": "0x00000000",
+          "retry_lock_error": 0,
+          "process_exception": "0x00000000",
+          "reset_exception": "0x00000000",
+          "pins_after_unlock": 0,
+          "passed": true
+        },
+        {
+          "scenario": 4,
+          "first_hr": "0x00000000",
+          "pins_after_first": 3,
+          "first_lock_error": 0,
+          "retry_hr": "0x00000000",
+          "retry_lock_error": 0,
+          "process_exception": "0x00000000",
+          "reset_exception": "0x00000000",
+          "pins_after_unlock": 0,
+          "passed": true
+        }
+      ],
+      "passed_cases": 5,
+      "total_cases": 5,
+      "all_objects_released": true,
+      "passed": true,
+      "SourceSha256": {
+        "ApoDiagnostics.cpp": "227e10a9b5ef720ac2e18e932f1643f4ee34ab35d75988fa0d535b653da70a32",
+        "ApoDiagnostics.h": "f9e3cec1792f9c7af3010c7fdff13001b36b021107bb2373bf11aad7d01ff863",
+        "DigitalHarness.cpp": "a234e82dbb347f5550c92f596335bfdeae2b17e14a150d806ea9070c42749589",
+        "DolbyBank.cpp": "b6ce1f90e8f0a4f7cf9c7ab43815a7923178aed7dc328f9a59eef4210b9d43aa",
+        "DolbyBank.h": "d2e8611e4d2abf71acd65352062923c13d16bd2242316989a38b9ddb971702ed",
+        "DolbyBlockQueue.h": "b7df0202bdc53498e952cc67e2ff806ad78506f169ff578d257fa0241d0b763e",
+        "DolbyFallback.h": "41a8aad572daa3298ea84bbfee0f2a13135caad0640a9d368f568963b42b2db4",
+        "DolbySharedTransport.cpp": "17781fdb4db28e9cdaf6a16000462d5c9f64b6ddbed79117844045c8cfd0f96b",
+        "DolbySharedTransport.h": "3d7b9970856806d27e2a1f35522f5a2c921f299623287a6d4466592ecaeda9a7",
+        "DolbyStream.h": "78e8dfc38f52b480ebc62975e83bbd271105969ffc3a33cbffc9ac37fb5d68b5",
+        "NabuDolbyApo.cpp": "58261f6901c2b76dbaa165abec760a1ceb7052e5e98443b97b237bee6a7bf325",
+        "NabuDolbyApo.h": "afa308a9eba57e84f7762c3e77ca1f469a5797a98b2956df39e07e74cc46a647"
+      },
+      "ExeSha256": "7fe4d08e893c441b47214a528bc72327185fd84f3ebfac74b0510383cc6dfdb5"
+    },
+    "Logging": {
+      "audio_device_opened": false,
+      "driver_installed": false,
+      "cases": [
+        {
+          "name": "logger_success",
+          "passed": true,
+          "queries": 1,
+          "log_records": 2,
+          "logger_refs_final": 1,
+          "rt_logging": false,
+          "exact_bypass": true,
+          "format_error_logged": false
+        },
+        {
+          "name": "service_unavailable",
+          "passed": true,
+          "queries": 1,
+          "log_records": 0,
+          "logger_refs_final": 1,
+          "rt_logging": false,
+          "exact_bypass": true,
+          "format_error_logged": false
+        },
+        {
+          "name": "success_null_service",
+          "passed": true,
+          "queries": 1,
+          "log_records": 0,
+          "logger_refs_final": 1,
+          "rt_logging": false,
+          "exact_bypass": true,
+          "format_error_logged": false
+        },
+        {
+          "name": "missing_provider",
+          "passed": true,
+          "queries": 0,
+          "log_records": 0,
+          "logger_refs_final": 1,
+          "rt_logging": false,
+          "exact_bypass": true,
+          "format_error_logged": false
+        },
+        {
+          "name": "raw_bypass",
+          "passed": true,
+          "queries": 1,
+          "log_records": 2,
+          "logger_refs_final": 1,
+          "rt_logging": false,
+          "exact_bypass": true,
+          "format_error_logged": false
+        },
+        {
+          "name": "discovery_bypass",
+          "passed": true,
+          "queries": 1,
+          "log_records": 2,
+          "logger_refs_final": 1,
+          "rt_logging": false,
+          "exact_bypass": true,
+          "format_error_logged": false
+        },
+        {
+          "name": "invalid_format_logged",
+          "passed": true,
+          "queries": 1,
+          "log_records": 2,
+          "logger_refs_final": 1,
+          "rt_logging": false,
+          "exact_bypass": false,
+          "format_error_logged": true
+        }
+      ],
+      "passed": true,
+      "dll_unloadable": true
+    },
+    "Epochs": {
+      "audio_opened": false,
+      "synthetic_counter_seed": true,
+      "cases": [
+        {
+          "name": "first_owner",
+          "lock_cleared_old_counters": true,
+          "fresh_callback_counted": true,
+          "reset_cleared_old_counters": true,
+          "passed": true
+        },
+        {
+          "name": "reopened_owner",
+          "lock_cleared_old_counters": true,
+          "fresh_callback_counted": true,
+          "reset_cleared_old_counters": true,
+          "passed": true
+        }
+      ],
+      "dll_unloadable": true,
+      "passed": true
+    },
+    "OriginalWorker": {
+      "FirstRunPassed": false,
+      "PassedScenarios": 6,
+      "TotalScenarios": 7,
+      "NormalAndIrregularExactFramesEach": 196608,
+      "AllFirstRunUnexpectedFrames": 0,
+      "Cases": [
+        {
+          "Label": "normal",
+          "Passed": true,
+          "Comparison": {
+            "ReferenceFrames": 196608,
+            "ExactDryFallbackFrames": 0,
+            "UnexpectedFrames": 0,
+            "FramesMatchingBoth": 1,
+            "FirstUnexpectedFrame": null,
+            "MaxUnexpectedError": 0.0,
+            "InitialDelaySilent": true,
+            "DolbyAtEnd": true
+          }
+        },
+        {
+          "Label": "irregular",
+          "Passed": true,
+          "Comparison": {
+            "ReferenceFrames": 196608,
+            "ExactDryFallbackFrames": 0,
+            "UnexpectedFrames": 0,
+            "FramesMatchingBoth": 1,
+            "FirstUnexpectedFrame": null,
+            "MaxUnexpectedError": 0.0,
+            "InitialDelaySilent": true,
+            "DolbyAtEnd": true
+          }
+        },
+        {
+          "Label": "exit",
+          "Passed": true,
+          "Comparison": {
+            "ReferenceFrames": 98304,
+            "ExactDryFallbackFrames": 98304,
+            "UnexpectedFrames": 0,
+            "FramesMatchingBoth": 1,
+            "FirstUnexpectedFrame": null,
+            "MaxUnexpectedError": 0.0,
+            "InitialDelaySilent": true,
+            "DolbyAtEnd": false
+          }
+        },
+        {
+          "Label": "pause",
+          "Passed": false,
+          "Comparison": {
+            "ReferenceFrames": 98304,
+            "ExactDryFallbackFrames": 98304,
+            "UnexpectedFrames": 0,
+            "FramesMatchingBoth": 1,
+            "FirstUnexpectedFrame": null,
+            "MaxUnexpectedError": 0.0,
+            "InitialDelaySilent": true,
+            "DolbyAtEnd": false
+          }
+        },
+        {
+          "Label": "reset",
+          "Passed": true,
+          "Comparison": {
+            "ReferenceFrames": 190464,
+            "ExactDryFallbackFrames": 0,
+            "UnexpectedFrames": 0,
+            "FramesMatchingBoth": 1,
+            "FirstUnexpectedFrame": null,
+            "MaxUnexpectedError": 0.0,
+            "InitialDelaySilent": true,
+            "DolbyAtEnd": true
+          }
+        },
+        {
+          "Label": "bypass",
+          "Passed": true,
+          "Comparison": {
+            "ExactZeroLatencyBypass": true
+          }
+        },
+        {
+          "Label": "absent",
+          "Passed": true,
+          "Comparison": {
+            "ReferenceFrames": 1,
+            "ExactDryFallbackFrames": 196607,
+            "UnexpectedFrames": 0,
+            "FramesMatchingBoth": 1,
+            "FirstUnexpectedFrame": null,
+            "MaxUnexpectedError": 0.0,
+            "InitialDelaySilent": true,
+            "DolbyAtEnd": false
+          }
+        }
+      ],
+      "PauseControlAndRepeat": [
+        {
+          "Label": "control10",
+          "Passed": true,
+          "Comparison": {
+            "ReferenceFrames": 184800,
+            "ExactDryFallbackFrames": 11808,
+            "UnexpectedFrames": 0,
+            "FramesMatchingBoth": 1,
+            "FirstUnexpectedFrame": null,
+            "MaxUnexpectedError": 0.0,
+            "InitialDelaySilent": true,
+            "DolbyAtEnd": true
+          },
+          "MeanRenderMs": 18.21497909133476,
+          "P95RenderMs": 21.45954099833034
+        },
+        {
+          "Label": "candidate11",
+          "Passed": true,
+          "Comparison": {
+            "ReferenceFrames": 182912,
+            "ExactDryFallbackFrames": 13696,
+            "UnexpectedFrames": 0,
+            "FramesMatchingBoth": 1,
+            "FirstUnexpectedFrame": null,
+            "MaxUnexpectedError": 0.0,
+            "InitialDelaySilent": true,
+            "DolbyAtEnd": true
+          },
+          "MeanRenderMs": 18.360897757491035,
+          "P95RenderMs": 21.991015598541708
+        }
+      ],
+      "TimingLimitation": "The first 120 ms pause did not recover wet processing before the stream ended. A subsequent .10 control and .11 repeat both recovered exactly. Scheduling/worker throughput sensitivity remains unresolved; the successful repeat does not erase the failure."
+    }
+  },
+  "CapturedAndroidProtectionReview": {
+    "OriginalModuleSha256": "6e0fd64d639d5e1424dbc193f7aeaeb2c43449c755a71e70af473ad6a9f194e4",
+    "Functions": 2,
+    "ElfSymbolBounds": [
+      {
+        "Name": "cs35l41_irq_gpio_config",
+        "Section": 3,
+        "Value": "0x1768",
+        "Bytes": 336,
+        "SectionSha256": "2eeaf1550dd77754743e5237e104ec6d8db3c5170e01597286aff94b45d779f1"
+      },
+      {
+        "Name": "cs35l41_irq",
+        "Section": 3,
+        "Value": "0x19b8",
+        "Bytes": 1416,
+        "SectionSha256": "0dd6596371141468ebcde1493b2f90c0f266b551270c4ee67609e6583a0032e2"
+      }
+    ],
+    "RawInstructions": 438,
+    "ReviewSha256": "40ee85dcd2bce2e340fc991977314a877ae2f80e38301134204489cd0897acbc",
+    "ReadOnlyProject": true,
+    "ModuleExecuted": false,
+    "DecompilerTypeWarningsRetained": true,
+    "Findings": "Captured Android IRQ uses the six short/temperature/boost release bits and pulses PROTECT_REL_ERR_IGN at 0x2034. Boost faults use PWR_CTRL2 mask 0x30. Windows source already has these release pairs; its checked one-restart policy is retained. This source audit is not proof that either configuration prevents a whole-tablet power-off."
+  },
+  "PreparedTrial": {
+    "ReadOnlyPreflightPassed": true,
+    "NonElevatedTokenGate": {
+      "RefusedNonElevatedToken": true,
+      "UacPromptOpened": false,
+      "DriverInstalled": false,
+      "AudioStarted": false,
+      "WorkerStarted": false,
+      "RebootPerformed": false,
+      "AmplifiersHealthy": true,
+      "KernelAndCalibrationUnchanged": true,
+      "TrialDirectory": "bound-apo11-trial-20261125-111338"
+    },
+    "HandlesAbsentOemEffectValues": true,
+    "TrialSourceSha256": "a560db2e1288ae6875ea90b8f053cacac2f7ba23c13afb593e7fb214b5b723a2",
+    "AmplifierCount": 4,
+    "KernelSha256": "653b8ded9ebc89b0cafa8d455c0eef8bfe613943c455de8ff5f6887eda7e6cc4",
+    "ActualInstallationAndRollbackTested": false
+  },
+  "Remaining": "Real .11/.36 graph activation and original-worker timing reliability; verified live MiSound COPP/resources/matched DSP reply; physical four-speaker L/R; hardware PCM24; HyperOS sound quality and maximum-volume shutdown investigation.",
+  "References": [
+    "https://learn.microsoft.com/en-us/windows/win32/api/propsys/nf-propsys-ipropertystore-getvalue",
+    "https://learn.microsoft.com/en-us/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-iaudiosystemeffectspropertystore-opendefaultpropertystore",
+    "https://github.com/MiCode/vendor_qcom_opensource_audio-kernel/blob/d41f8e1a6827294af6a61adbe18544518e750166/asoc/codecs/cs35l41_v2/cs35l41.c"
+  ]
+}
