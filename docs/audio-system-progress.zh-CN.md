@@ -2,6 +2,17 @@
 
 [English](audio-system-progress.md) · [Русский](audio-system-progress.ru.md) · [简体中文](audio-system-progress.zh-CN.md)
 
+**2026-11-25 — 有界 Dolby 运行程序与实机安静验证**
+
+管理程序等待处理程序就绪，拒绝重复占用的 bank，并仅通过 Job Object 管理自己的进程。有界计数替代完整音频／包日志，文件共享错误与 DSP 处理隔离。10 项原生生命周期／故障验证通过；普通和不规则输出各 196,608 帧仍精确匹配原版，重置对比也通过。
+
+新管理程序和 Android 原版处理程序完成实际安静 .13/.36 验证。最后一个普通流记录 72,096 湿处理帧、零干信号回退帧；4 项 Normal/RAW L/R 测试通过，设备音量未改变。两个处理程序正常退出，自己的映射已释放，.18 / APO .4 健康恢复。该实验配置仍使用 128 ms 缓冲和外部后端依赖；服务、恢复、MiSound、声学 L/R、PCM24 与最大音量安全尚未完成。
+
+[Source / Исходники / 源码](../driver/apo/worker-native/runtime/) · [Evidence / Данные / 数据](results/audio-runtime-broker-2026-11-25.json)
+
+<details>
+<summary>此前研究及验证</summary>
+
 **2026-11-25 — 修复 APO 聚合；实际 Dolby 处理已运行**
 
 .12 对照在两个 audiodg 进程的 11 次聚合创建中返回 `0x80040110`。.13 使用私有 IUnknown 管理内部对象，公开接口将身份和引用计数委托给控制对象。这修复了实际系统激活故障；非聚合创建仍正常。
@@ -19,8 +30,7 @@
 
 [Evidence / Данные / 数据](results/audio-apo-aggregation-2026-11-25.json)
 
-<details>
-<summary>此前研究及验证</summary>
+
 
 **新增 · MiSound 配置及实际 CAPX 检查：** `MiSoundAudioConfig.c/.h` 保留原版 112 字节配置，并检查采样率、声道掩码、格式字节及访问模式的一致性。**246 次原版 Android 执行及 16 项原生内存检查通过**。已准备包含十个组件的 ARM64 EWDK 库；此检查并未启用 MiSound，也未证明硬件 PCM24。
 

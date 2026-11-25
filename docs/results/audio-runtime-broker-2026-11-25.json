@@ -1,0 +1,1529 @@
+{
+  "Date": "2026-11-25",
+  "Source": {
+    "driver/apo/worker-native/runtime/Build-Broker.ps1": {
+      "Sha256": "b0e0ca6c101609e2a26ec0a065af52d86b1b75f4a85e1c473608360fba7e40f9",
+      "CanonicalLfSha256": "b0e0ca6c101609e2a26ec0a065af52d86b1b75f4a85e1c473608360fba7e40f9"
+    },
+    "driver/apo/worker-native/runtime/BoundedOriginalWorker.py": {
+      "Sha256": "5ed16f68c2dd5cea0c99c641731f088f41a9c251b5fbd9a0434eaf266f89ee97",
+      "CanonicalLfSha256": "5ed16f68c2dd5cea0c99c641731f088f41a9c251b5fbd9a0434eaf266f89ee97"
+    },
+    "driver/apo/worker-native/runtime/NabuDolbyBroker.cpp": {
+      "Sha256": "3689f047b58c0e98494dd26c1656c80b9ef8dd34060acf3177a85804a4497f70",
+      "CanonicalLfSha256": "3689f047b58c0e98494dd26c1656c80b9ef8dd34060acf3177a85804a4497f70"
+    }
+  },
+  "Build": {
+    "Architecture": "ARM64",
+    "ExeSha256": "e86a6fabad0d8038f2ae2607e88e528abd286ddfcd0622de8c887bd8a317c7a2",
+    "SourceSha256": "3689f047b58c0e98494dd26c1656c80b9ef8dd34060acf3177a85804a4497f70",
+    "OpensAudio": false,
+    "InstallsDrivers": false,
+    "StartupRegistered": false
+  },
+  "FormattingEquivalence": {
+    "Passed": true,
+    "CodeDataRelocationsAndSymbolTablesIdentical": true,
+    "ExcludedMetadata": [
+      "COFF TimeDateStamp",
+      ".debug$S output object path",
+      ".chks64 compiler checksums"
+    ],
+    "ByteDifferences": 11,
+    "TestedObjectSha256": "3319ea8440a8741dc38d8c701bd3cc7bc33f0c1315e8e313e493d3414b788c22",
+    "FormattedObjectSha256": "cf83349f8680505971f7d83e60b7b4287a3c3031180ad5aecc281c34c419d1dd"
+  },
+  "PreparedPackage": {
+    "Architecture": "ARM64",
+    "EmbeddedSignatureVerified": true,
+    "AllLoadableSectionsPreserved": true,
+    "Sections": [
+      ".text",
+      ".rdata",
+      ".data",
+      ".pdata",
+      ".fptable",
+      ".reloc"
+    ],
+    "UnsignedExeSha256": "e86a6fabad0d8038f2ae2607e88e528abd286ddfcd0622de8c887bd8a317c7a2",
+    "SignedExeSha256": "fdda48111331d96f1765da2758a3fc431d48203f33c2bff923df8adb95c73fa8",
+    "Installed": false,
+    "ServiceRegistered": false,
+    "ExternalBackendRequired": true,
+    "Files": {
+      "NabuDolbyBroker.exe": "fdda48111331d96f1765da2758a3fc431d48203f33c2bff923df8adb95c73fa8",
+      "BoundedOriginalWorker.py": "5ed16f68c2dd5cea0c99c641731f088f41a9c251b5fbd9a0434eaf266f89ee97",
+      "Build-Broker.ps1": "b0e0ca6c101609e2a26ec0a065af52d86b1b75f4a85e1c473608360fba7e40f9",
+      "NabuDolbyBroker.cpp": "3689f047b58c0e98494dd26c1656c80b9ef8dd34060acf3177a85804a4497f70",
+      "README.md": "79671fa6204af92e0bdd0c1ef287593040f0f82a14ce3dcd27b5879ab374a782",
+      "BackendEnvironment.json": "b8201d4231479f2f71f699a7ec509c0062155b47299e245fa0a4672d43295e0f"
+    }
+  },
+  "ProcessLifecycleTests": {
+    "Passed": true,
+    "Cases": [
+      {
+        "Case": "normal",
+        "ExitCode": 0,
+        "State": {
+          "state": "Finished",
+          "error": 0,
+          "broker_pid": 4152,
+          "audio_opened": false,
+          "drivers_changed": false,
+          "bank_published": true,
+          "forced_owned_job_termination": false,
+          "duration_seconds": 1,
+          "bank": "Local\\NabuDolbyBank-broker-check-baa26418-54f2-4714-93e2-ebc9158a9a71",
+          "source_fingerprint": "9f110daadc95ce023c0a8c92f3d36c98ad7f14ee4ef57d137e714a196839eeaf",
+          "workers": [
+            {
+              "pid": 6584,
+              "exit_code": 0,
+              "transport": "Local\\NabuDolbyLab-{8466B742-041F-4106-A599-AED10E6B4889}-0",
+              "ready": false,
+              "apo_claim": 0,
+              "worker_claim": 0,
+              "stop": 1,
+              "init_kind": 0,
+              "lock_error": 0,
+              "apo_pid": 0,
+              "generation": 0,
+              "callbacks": 0,
+              "requests_dropped": 0,
+              "worker_gaps": 0,
+              "blocks_replied": 0,
+              "frames_processed": 0,
+              "frames_wet": 0,
+              "frames_dry": 0
+            },
+            {
+              "pid": 8084,
+              "exit_code": 0,
+              "transport": "Local\\NabuDolbyLab-{8466B742-041F-4106-A599-AED10E6B4889}-1",
+              "ready": false,
+              "apo_claim": 0,
+              "worker_claim": 0,
+              "stop": 1,
+              "init_kind": 0,
+              "lock_error": 0,
+              "apo_pid": 0,
+              "generation": 0,
+              "callbacks": 0,
+              "requests_dropped": 0,
+              "worker_gaps": 0,
+              "blocks_replied": 0,
+              "frames_processed": 0,
+              "frames_wet": 0,
+              "frames_dry": 0
+            }
+          ],
+          "telemetry_write_failures": 0,
+          "last_telemetry_error": 0
+        },
+        "Stdout": "",
+        "Stderr": "",
+        "NoOwnedWorkersRemain": true,
+        "OwnedMappingsReleased": true
+      },
+      {
+        "Case": "before_ready",
+        "ExitCode": 1,
+        "State": {
+          "state": "Failed",
+          "error": 109,
+          "broker_pid": 7060,
+          "audio_opened": false,
+          "drivers_changed": false,
+          "bank_published": false,
+          "forced_owned_job_termination": false,
+          "duration_seconds": 4,
+          "bank": "Local\\NabuDolbyBank-broker-check-c25000ce-3350-4d61-8c27-0ae583e008b3",
+          "source_fingerprint": "9f110daadc95ce023c0a8c92f3d36c98ad7f14ee4ef57d137e714a196839eeaf",
+          "workers": [
+            {
+              "pid": 4172,
+              "exit_code": 11,
+              "transport": "Local\\NabuDolbyLab-{CCE75FF5-55E7-4790-879A-726917B8C329}-0",
+              "ready": false,
+              "apo_claim": 0,
+              "worker_claim": 0,
+              "stop": 1,
+              "init_kind": 0,
+              "lock_error": 0,
+              "apo_pid": 0,
+              "generation": 0,
+              "callbacks": 0,
+              "requests_dropped": 0,
+              "worker_gaps": 0,
+              "blocks_replied": 0,
+              "frames_processed": 0,
+              "frames_wet": 0,
+              "frames_dry": 0
+            },
+            {
+              "pid": 7064,
+              "exit_code": 11,
+              "transport": "Local\\NabuDolbyLab-{CCE75FF5-55E7-4790-879A-726917B8C329}-1",
+              "ready": false,
+              "apo_claim": 0,
+              "worker_claim": 0,
+              "stop": 1,
+              "init_kind": 0,
+              "lock_error": 0,
+              "apo_pid": 0,
+              "generation": 0,
+              "callbacks": 0,
+              "requests_dropped": 0,
+              "worker_gaps": 0,
+              "blocks_replied": 0,
+              "frames_processed": 0,
+              "frames_wet": 0,
+              "frames_dry": 0
+            }
+          ],
+          "telemetry_write_failures": 0,
+          "last_telemetry_error": 0
+        },
+        "Stdout": "",
+        "Stderr": "",
+        "NoOwnedWorkersRemain": true,
+        "OwnedMappingsReleased": true
+      },
+      {
+        "Case": "after_ready",
+        "ExitCode": 1,
+        "State": {
+          "state": "Failed",
+          "error": 109,
+          "broker_pid": 9636,
+          "audio_opened": false,
+          "drivers_changed": false,
+          "bank_published": true,
+          "forced_owned_job_termination": false,
+          "duration_seconds": 4,
+          "bank": "Local\\NabuDolbyBank-broker-check-0cdf9567-ebd3-472a-a51d-38e40995820f",
+          "source_fingerprint": "9f110daadc95ce023c0a8c92f3d36c98ad7f14ee4ef57d137e714a196839eeaf",
+          "workers": [
+            {
+              "pid": 10988,
+              "exit_code": 12,
+              "transport": "Local\\NabuDolbyLab-{932414F9-1979-4E25-A592-D4805CB2A135}-0",
+              "ready": false,
+              "apo_claim": 0,
+              "worker_claim": 0,
+              "stop": 1,
+              "init_kind": 0,
+              "lock_error": 0,
+              "apo_pid": 0,
+              "generation": 0,
+              "callbacks": 0,
+              "requests_dropped": 0,
+              "worker_gaps": 0,
+              "blocks_replied": 0,
+              "frames_processed": 0,
+              "frames_wet": 0,
+              "frames_dry": 0
+            },
+            {
+              "pid": 12888,
+              "exit_code": 12,
+              "transport": "Local\\NabuDolbyLab-{932414F9-1979-4E25-A592-D4805CB2A135}-1",
+              "ready": false,
+              "apo_claim": 0,
+              "worker_claim": 0,
+              "stop": 1,
+              "init_kind": 0,
+              "lock_error": 0,
+              "apo_pid": 0,
+              "generation": 0,
+              "callbacks": 0,
+              "requests_dropped": 0,
+              "worker_gaps": 0,
+              "blocks_replied": 0,
+              "frames_processed": 0,
+              "frames_wet": 0,
+              "frames_dry": 0
+            }
+          ],
+          "telemetry_write_failures": 0,
+          "last_telemetry_error": 0
+        },
+        "Stdout": "",
+        "Stderr": "",
+        "NoOwnedWorkersRemain": true,
+        "OwnedMappingsReleased": true
+      },
+      {
+        "Case": "wrong_fingerprint",
+        "ExitCode": 1,
+        "State": {
+          "state": "Failed",
+          "error": 1306,
+          "broker_pid": 12628,
+          "audio_opened": false,
+          "drivers_changed": false,
+          "bank_published": false,
+          "forced_owned_job_termination": false,
+          "duration_seconds": 1,
+          "bank": "Local\\NabuDolbyBank-broker-check-75d0078f-28d8-40af-b3c3-76221c25102a",
+          "source_fingerprint": "0000000000000000000000000000000000000000000000000000000000000000",
+          "workers": [],
+          "telemetry_write_failures": 0,
+          "last_telemetry_error": 0
+        },
+        "Stdout": "",
+        "Stderr": "",
+        "NoOwnedWorkersRemain": true,
+        "OwnedMappingsReleased": true
+      },
+      {
+        "Case": "duplicate_rejected",
+        "ExitCode": 1,
+        "State": {
+          "state": "Failed",
+          "error": 183,
+          "broker_pid": 10176,
+          "audio_opened": false,
+          "drivers_changed": false,
+          "bank_published": false,
+          "forced_owned_job_termination": false,
+          "duration_seconds": 1,
+          "bank": "Local\\NabuDolbyBank-broker-check-05858979-1483-45f8-b5f4-dc22cb4a6936",
+          "source_fingerprint": "9f110daadc95ce023c0a8c92f3d36c98ad7f14ee4ef57d137e714a196839eeaf",
+          "workers": [
+            {
+              "pid": 10372,
+              "exit_code": 0,
+              "transport": "Local\\NabuDolbyLab-{52F508D4-4DC2-4C21-80D0-FB4DD311B262}-0",
+              "ready": false,
+              "apo_claim": 0,
+              "worker_claim": 0,
+              "stop": 1,
+              "init_kind": 0,
+              "lock_error": 0,
+              "apo_pid": 0,
+              "generation": 0,
+              "callbacks": 0,
+              "requests_dropped": 0,
+              "worker_gaps": 0,
+              "blocks_replied": 0,
+              "frames_processed": 0,
+              "frames_wet": 0,
+              "frames_dry": 0
+            },
+            {
+              "pid": 7360,
+              "exit_code": 0,
+              "transport": "Local\\NabuDolbyLab-{52F508D4-4DC2-4C21-80D0-FB4DD311B262}-1",
+              "ready": false,
+              "apo_claim": 0,
+              "worker_claim": 0,
+              "stop": 1,
+              "init_kind": 0,
+              "lock_error": 0,
+              "apo_pid": 0,
+              "generation": 0,
+              "callbacks": 0,
+              "requests_dropped": 0,
+              "worker_gaps": 0,
+              "blocks_replied": 0,
+              "frames_processed": 0,
+              "frames_wet": 0,
+              "frames_dry": 0
+            }
+          ],
+          "telemetry_write_failures": 0,
+          "last_telemetry_error": 0
+        },
+        "Stdout": "",
+        "Stderr": "",
+        "NoOwnedWorkersRemain": true,
+        "OwnedMappingsReleased": true
+      },
+      {
+        "Case": "duplicate_owner",
+        "ExitCode": 0,
+        "State": {
+          "state": "Finished",
+          "error": 0,
+          "broker_pid": 8944,
+          "audio_opened": false,
+          "drivers_changed": false,
+          "bank_published": true,
+          "forced_owned_job_termination": false,
+          "duration_seconds": 5,
+          "bank": "Local\\NabuDolbyBank-broker-check-05858979-1483-45f8-b5f4-dc22cb4a6936",
+          "source_fingerprint": "9f110daadc95ce023c0a8c92f3d36c98ad7f14ee4ef57d137e714a196839eeaf",
+          "workers": [
+            {
+              "pid": 8560,
+              "exit_code": 0,
+              "transport": "Local\\NabuDolbyLab-{193E9CEC-3296-4924-BEA0-9AB5F1933E17}-0",
+              "ready": false,
+              "apo_claim": 0,
+              "worker_claim": 0,
+              "stop": 1,
+              "init_kind": 0,
+              "lock_error": 0,
+              "apo_pid": 0,
+              "generation": 0,
+              "callbacks": 0,
+              "requests_dropped": 0,
+              "worker_gaps": 0,
+              "blocks_replied": 0,
+              "frames_processed": 0,
+              "frames_wet": 0,
+              "frames_dry": 0
+            },
+            {
+              "pid": 7460,
+              "exit_code": 0,
+              "transport": "Local\\NabuDolbyLab-{193E9CEC-3296-4924-BEA0-9AB5F1933E17}-1",
+              "ready": false,
+              "apo_claim": 0,
+              "worker_claim": 0,
+              "stop": 1,
+              "init_kind": 0,
+              "lock_error": 0,
+              "apo_pid": 0,
+              "generation": 0,
+              "callbacks": 0,
+              "requests_dropped": 0,
+              "worker_gaps": 0,
+              "blocks_replied": 0,
+              "frames_processed": 0,
+              "frames_wet": 0,
+              "frames_dry": 0
+            }
+          ],
+          "telemetry_write_failures": 0,
+          "last_telemetry_error": 0
+        },
+        "Stdout": "",
+        "Stderr": "",
+        "NoOwnedWorkersRemain": true,
+        "OwnedMappingsReleased": true
+      },
+      {
+        "Case": "broker_abrupt_exit",
+        "NoOwnedWorkersRemain": true,
+        "OwnedMappingsReleased": true,
+        "KernelJobKilledOnlyOwnedWorkers": true
+      },
+      {
+        "Case": "stop_request",
+        "ExitCode": 0,
+        "State": {
+          "state": "Finished",
+          "error": 0,
+          "broker_pid": 9128,
+          "audio_opened": false,
+          "drivers_changed": false,
+          "bank_published": true,
+          "forced_owned_job_termination": false,
+          "duration_seconds": 10,
+          "bank": "Local\\NabuDolbyBank-broker-check-bd71f60d-6492-484e-9fd6-9790a4bb1f7e",
+          "source_fingerprint": "9f110daadc95ce023c0a8c92f3d36c98ad7f14ee4ef57d137e714a196839eeaf",
+          "workers": [
+            {
+              "pid": 9544,
+              "exit_code": 0,
+              "transport": "Local\\NabuDolbyLab-{3AC959D7-D2B9-4BB6-A69E-C4FA23A3B09C}-0",
+              "ready": false,
+              "apo_claim": 0,
+              "worker_claim": 0,
+              "stop": 1,
+              "init_kind": 0,
+              "lock_error": 0,
+              "apo_pid": 0,
+              "generation": 0,
+              "callbacks": 0,
+              "requests_dropped": 0,
+              "worker_gaps": 0,
+              "blocks_replied": 0,
+              "frames_processed": 0,
+              "frames_wet": 0,
+              "frames_dry": 0
+            },
+            {
+              "pid": 13036,
+              "exit_code": 0,
+              "transport": "Local\\NabuDolbyLab-{3AC959D7-D2B9-4BB6-A69E-C4FA23A3B09C}-1",
+              "ready": false,
+              "apo_claim": 0,
+              "worker_claim": 0,
+              "stop": 1,
+              "init_kind": 0,
+              "lock_error": 0,
+              "apo_pid": 0,
+              "generation": 0,
+              "callbacks": 0,
+              "requests_dropped": 0,
+              "worker_gaps": 0,
+              "blocks_replied": 0,
+              "frames_processed": 0,
+              "frames_wet": 0,
+              "frames_dry": 0
+            }
+          ],
+          "telemetry_write_failures": 0,
+          "last_telemetry_error": 0
+        },
+        "Stdout": "",
+        "Stderr": "",
+        "NoOwnedWorkersRemain": true,
+        "OwnedMappingsReleased": true
+      },
+      {
+        "Case": "locked_telemetry",
+        "ExitCode": 0,
+        "State": {
+          "state": "Finished",
+          "error": 0,
+          "broker_pid": 9016,
+          "audio_opened": false,
+          "drivers_changed": false,
+          "bank_published": true,
+          "forced_owned_job_termination": false,
+          "duration_seconds": 6,
+          "bank": "Local\\NabuDolbyBank-broker-check-a448e28f-1d43-4d3c-8b4e-9f4e07a34d4b",
+          "source_fingerprint": "9f110daadc95ce023c0a8c92f3d36c98ad7f14ee4ef57d137e714a196839eeaf",
+          "workers": [
+            {
+              "pid": 7520,
+              "exit_code": 0,
+              "transport": "Local\\NabuDolbyLab-{62D1433F-DCF1-434C-8D45-C240781B4AFD}-0",
+              "ready": false,
+              "apo_claim": 0,
+              "worker_claim": 0,
+              "stop": 1,
+              "init_kind": 0,
+              "lock_error": 0,
+              "apo_pid": 0,
+              "generation": 0,
+              "callbacks": 0,
+              "requests_dropped": 0,
+              "worker_gaps": 0,
+              "blocks_replied": 0,
+              "frames_processed": 0,
+              "frames_wet": 0,
+              "frames_dry": 0
+            },
+            {
+              "pid": 8504,
+              "exit_code": 0,
+              "transport": "Local\\NabuDolbyLab-{62D1433F-DCF1-434C-8D45-C240781B4AFD}-1",
+              "ready": false,
+              "apo_claim": 0,
+              "worker_claim": 0,
+              "stop": 1,
+              "init_kind": 0,
+              "lock_error": 0,
+              "apo_pid": 0,
+              "generation": 0,
+              "callbacks": 0,
+              "requests_dropped": 0,
+              "worker_gaps": 0,
+              "blocks_replied": 0,
+              "frames_processed": 0,
+              "frames_wet": 0,
+              "frames_dry": 0
+            }
+          ],
+          "telemetry_write_failures": 1,
+          "last_telemetry_error": 5
+        },
+        "Stdout": "",
+        "Stderr": "",
+        "NoOwnedWorkersRemain": true,
+        "OwnedMappingsReleased": true
+      },
+      {
+        "Case": "invalid_numeric",
+        "RejectedBeforeResources": true,
+        "DriverInstalled": false
+      }
+    ],
+    "AudioDeviceOpened": false,
+    "DriverInstalled": false,
+    "LocalNamespaceOnly": true,
+    "SourceSha256": "b8a8bb44c5a5bbdb8e0a03d3c043d32f4f48c8eef24f76faf0700f2fa62faff8",
+    "BrokerExeSha256": "38bedb654a14368009c5b5fbbeccd0f9f893b8c029e562fe07c87197ea313c12"
+  },
+  "OriginalOutputTests": {
+    "Passed": true,
+    "Cases": [
+      {
+        "Label": "normal",
+        "Hresult": 0,
+        "Comparison": {
+          "ReferenceFrames": 196608,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        },
+        "Stats": {
+          "bytes": 56,
+          "callbacks": 423,
+          "frames_out": 202752,
+          "reset_frame": 0,
+          "latency": 1280000,
+          "maximum_callback_us": 202.65625,
+          "maximum_schedule_late_ms": 15.8621875,
+          "invalid_callbacks": 0,
+          "nonfinite_frames": 0,
+          "duplicate_attach_rejected": 1,
+          "dll_unloadable": 1
+        },
+        "OutputSha256": "0bd96a21ad5efbdf8457ec55491299b908d4a9c912b2c67737e2218f57fc2410"
+      },
+      {
+        "Label": "irregular",
+        "Hresult": 0,
+        "Comparison": {
+          "ReferenceFrames": 196608,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        },
+        "Stats": {
+          "bytes": 56,
+          "callbacks": 529,
+          "frames_out": 202752,
+          "reset_frame": 0,
+          "latency": 1280000,
+          "maximum_callback_us": 113.80208333333333,
+          "maximum_schedule_late_ms": 16.299427083333335,
+          "invalid_callbacks": 0,
+          "nonfinite_frames": 0,
+          "duplicate_attach_rejected": 1,
+          "dll_unloadable": 1
+        },
+        "OutputSha256": "0bd96a21ad5efbdf8457ec55491299b908d4a9c912b2c67737e2218f57fc2410"
+      },
+      {
+        "Label": "reset",
+        "Hresult": 0,
+        "Comparison": {
+          "ReferenceFrames": 190464,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        },
+        "Stats": {
+          "bytes": 56,
+          "callbacks": 423,
+          "frames_out": 202752,
+          "reset_frame": 98304,
+          "latency": 1280000,
+          "maximum_callback_us": 84.375,
+          "maximum_schedule_late_ms": 15.924635416666666,
+          "invalid_callbacks": 0,
+          "nonfinite_frames": 0,
+          "duplicate_attach_rejected": 1,
+          "dll_unloadable": 1
+        },
+        "OutputSha256": "8d71cd2f4fde47176931609544a78382d3bd550b74337094cda39fe6316e2a65"
+      }
+    ],
+    "Worker": {
+      "State": "Stopped",
+      "AudioDeviceOpened": false,
+      "AudioDumpWritten": false,
+      "PacketLogWritten": false,
+      "AndroidLibrarySha256": "207d04317997bbca253157d6038505605335a5982af39d465b249fb52a590539",
+      "BridgeDllSha256": "8d0bf1d9ac4000ee1339ebe35b0f157ad7dd125e8a36fea19dd73f309b86f88f",
+      "Profile": "Captured Dynamic / speaker_landscape",
+      "CapturedPregain": -432,
+      "VirtualBass": 1,
+      "Blocks": 594,
+      "Frames": 608256,
+      "BatchFrames": 1024,
+      "InputSha256": "a34ab2b840a228a57ddcaeeef986a51db2d0c90a1f92727b0e60934b03152bdb",
+      "OutputSha256": "132e1884fae92db8cf7b4ed99fcb6c7ba404064ad72ddd1e81eeafd3b18f871a",
+      "InputPeak": 0.27972412109375,
+      "OutputPeak": 0.22244642674922943,
+      "ContextResetCount": 3,
+      "RecentContextResets": [
+        {
+          "Generation": 2,
+          "FirstFrame": 0,
+          "RestoreMs": 2.4326559996552533
+        },
+        {
+          "Generation": 3,
+          "FirstFrame": 0,
+          "RestoreMs": 2.367499999309075
+        },
+        {
+          "Generation": 4,
+          "FirstFrame": 0,
+          "RestoreMs": 2.2938020001674886
+        }
+      ],
+      "RecentEpochs": [
+        {
+          "Generation": 1,
+          "FirstFrame": 0,
+          "Blocks": 198,
+          "InputPeak": 0.27972412109375,
+          "OutputPeak": 0.2224377989768982
+        },
+        {
+          "Generation": 2,
+          "FirstFrame": 0,
+          "Blocks": 198,
+          "InputPeak": 0.27972412109375,
+          "OutputPeak": 0.2224377989768982
+        },
+        {
+          "Generation": 3,
+          "FirstFrame": 0,
+          "Blocks": 96,
+          "InputPeak": 0.27972412109375,
+          "OutputPeak": 0.2224377989768982
+        },
+        {
+          "Generation": 4,
+          "FirstFrame": 0,
+          "Blocks": 102,
+          "InputPeak": 0.27972412109375,
+          "OutputPeak": 0.22244642674922943
+        }
+      ],
+      "DiscardedStaleRequests": 0,
+      "MeanRenderMs": 15.614302239025626,
+      "RecentP95RenderMs": 17.780064749786106,
+      "RecentMaxRenderMs": 21.22557299935579,
+      "DurationWindowCapacity": 2048,
+      "WholeLibraryNative": false,
+      "SnapshotBytes": 17338368,
+      "WallSeconds": 13.730717604000347,
+      "Errors": [],
+      "Transport": {
+        "ApoClaim": 0,
+        "WorkerClaim": 1,
+        "Generation": 4,
+        "Stop": 1,
+        "RequestsDropped": 0,
+        "WorkerGaps": 3,
+        "BlocksReplied": 594,
+        "WorkerReady": 0,
+        "ApoPid": 3672,
+        "InitKind": 1,
+        "LockError": 0,
+        "Callbacks": 218,
+        "FramesProcessed": 104448,
+        "FramesWet": 98304,
+        "FramesDry": 0
+      },
+      "TelemetryWriteFailures": 0,
+      "LastTelemetryError": null,
+      "NativeLevelScale": {
+        "Calls": 2392,
+        "MeanCallMs": 0.001073805044593088
+      },
+      "NativeClassifierCalls": 299
+    },
+    "Broker": {
+      "state": "Finished",
+      "error": 0,
+      "broker_pid": 9520,
+      "audio_opened": false,
+      "drivers_changed": false,
+      "bank_published": true,
+      "forced_owned_job_termination": false,
+      "duration_seconds": 25,
+      "bank": "Local\\NabuDolbyBank-bounded-pipeline-f4a330e3-0586-4866-833e-2c0c5b7ae56a",
+      "source_fingerprint": "9f110daadc95ce023c0a8c92f3d36c98ad7f14ee4ef57d137e714a196839eeaf",
+      "workers": [
+        {
+          "pid": 8204,
+          "exit_code": 0,
+          "transport": "Local\\NabuDolbyLab-{5A8B94F1-503E-4528-A138-4ED5CFECBC5A}-0",
+          "ready": false,
+          "apo_claim": 0,
+          "worker_claim": 0,
+          "stop": 1,
+          "init_kind": 1,
+          "lock_error": 0,
+          "apo_pid": 3672,
+          "generation": 4,
+          "callbacks": 218,
+          "requests_dropped": 0,
+          "worker_gaps": 3,
+          "blocks_replied": 594,
+          "frames_processed": 104448,
+          "frames_wet": 98304,
+          "frames_dry": 0
+        }
+      ],
+      "telemetry_write_failures": 0,
+      "last_telemetry_error": 0
+    },
+    "Files": {
+      "worker0.console": 7,
+      "Stop.request": 29,
+      "Broker.json": 762,
+      "worker0\\worker.json": 2621
+    },
+    "AudioDeviceOpened": false,
+    "DriverInstalled": false,
+    "SourceSha256": "5ed16f68c2dd5cea0c99c641731f088f41a9c251b5fbd9a0434eaf266f89ee97",
+    "TotalRuntimeFileBytes": 3419
+  },
+  "LiveTrial": {
+    "Folder": "bound-apo13-broker-trial-20261125-222707",
+    "ResultSha256": "7c16efccc493652325f527aca7f11335c1dbaeed17f57e45db2ab22ab1ef6fdd",
+    "Phase": "Restored",
+    "CleanupErrors": [],
+    "CandidateComponent": {
+      "Device": {
+        "InstanceId": "SWD\\DRIVERENUM\\{fd13c2df-5315-4f4f-9556-f78fb784a12a}#NabuDolbyGlobal&7&291fb903&0",
+        "ConfigResult": 0,
+        "Started": true,
+        "NeedsRestart": false,
+        "Problem": 0,
+        "Version": "2.0.0.13",
+        "Inf": "oem53.inf"
+      },
+      "RegisteredDll": "C:\\Windows\\System32\\DriverStore\\FileRepository\\nabudolbyapo.inf_arm64_5a9cd3c408bf1dc6\\NabuDolbyBridge.dll",
+      "DllHash": "8d0bf1d9ac4000ee1339ebe35b0f157ad7dd125e8a36fea19dd73f309b86f88f"
+    },
+    "CandidateCodeVersionExecutionProven": true,
+    "SystemSfxProcessingProven": true,
+    "MetricsBeforeQuiet": [
+      {
+        "ApoClaim": 1,
+        "WorkerClaim": 1,
+        "Generation": 3,
+        "Stop": 0,
+        "RequestsDropped": 0,
+        "WorkerGaps": 0,
+        "BlocksReplied": 87,
+        "WorkerReady": 1,
+        "ApoPid": 6608,
+        "InitKind": 4,
+        "LockError": 0,
+        "Callbacks": 188,
+        "FramesProcessed": 90240,
+        "FramesWet": 84096,
+        "FramesDry": 0,
+        "TransportName": "Global\\NabuDolbyLab-{F0B2A609-4C83-4DF3-9509-4FA7E1AB6790}-0"
+      },
+      {
+        "ApoClaim": 0,
+        "WorkerClaim": 1,
+        "Generation": 0,
+        "Stop": 0,
+        "RequestsDropped": 0,
+        "WorkerGaps": 0,
+        "BlocksReplied": 0,
+        "WorkerReady": 1,
+        "ApoPid": 0,
+        "InitKind": 0,
+        "LockError": 0,
+        "Callbacks": 0,
+        "FramesProcessed": 0,
+        "FramesWet": 0,
+        "FramesDry": 0,
+        "TransportName": "Global\\NabuDolbyLab-{F0B2A609-4C83-4DF3-9509-4FA7E1AB6790}-1"
+      }
+    ],
+    "MetricsAfterQuiet": [
+      {
+        "ApoClaim": 0,
+        "WorkerClaim": 1,
+        "Generation": 5,
+        "Stop": 0,
+        "RequestsDropped": 0,
+        "WorkerGaps": 2,
+        "BlocksReplied": 247,
+        "WorkerReady": 1,
+        "ApoPid": 6608,
+        "InitKind": 4,
+        "LockError": 0,
+        "Callbacks": 163,
+        "FramesProcessed": 78240,
+        "FramesWet": 72096,
+        "FramesDry": 0,
+        "TransportName": "Global\\NabuDolbyLab-{F0B2A609-4C83-4DF3-9509-4FA7E1AB6790}-0"
+      },
+      {
+        "ApoClaim": 0,
+        "WorkerClaim": 1,
+        "Generation": 0,
+        "Stop": 0,
+        "RequestsDropped": 0,
+        "WorkerGaps": 0,
+        "BlocksReplied": 0,
+        "WorkerReady": 1,
+        "ApoPid": 0,
+        "InitKind": 0,
+        "LockError": 0,
+        "Callbacks": 0,
+        "FramesProcessed": 0,
+        "FramesWet": 0,
+        "FramesDry": 0,
+        "TransportName": "Global\\NabuDolbyLab-{F0B2A609-4C83-4DF3-9509-4FA7E1AB6790}-1"
+      }
+    ],
+    "BrokerFinal": {
+      "state": "Finished",
+      "error": 0,
+      "broker_pid": 7384,
+      "audio_opened": false,
+      "drivers_changed": false,
+      "bank_published": true,
+      "forced_owned_job_termination": false,
+      "duration_seconds": 120,
+      "bank": "Global\\NabuDolbyBank-9df8834a-209e-4cc1-bc73-bb4353adfa9f",
+      "source_fingerprint": "9f110daadc95ce023c0a8c92f3d36c98ad7f14ee4ef57d137e714a196839eeaf",
+      "workers": [
+        {
+          "pid": 9340,
+          "exit_code": 0,
+          "transport": "Global\\NabuDolbyLab-{F0B2A609-4C83-4DF3-9509-4FA7E1AB6790}-0",
+          "ready": false,
+          "apo_claim": 0,
+          "worker_claim": 0,
+          "stop": 1,
+          "init_kind": 4,
+          "lock_error": 0,
+          "apo_pid": 6608,
+          "generation": 5,
+          "callbacks": 163,
+          "requests_dropped": 0,
+          "worker_gaps": 2,
+          "blocks_replied": 247,
+          "frames_processed": 78240,
+          "frames_wet": 72096,
+          "frames_dry": 0
+        },
+        {
+          "pid": 2440,
+          "exit_code": 0,
+          "transport": "Global\\NabuDolbyLab-{F0B2A609-4C83-4DF3-9509-4FA7E1AB6790}-1",
+          "ready": false,
+          "apo_claim": 0,
+          "worker_claim": 0,
+          "stop": 1,
+          "init_kind": 0,
+          "lock_error": 0,
+          "apo_pid": 0,
+          "generation": 0,
+          "callbacks": 0,
+          "requests_dropped": 0,
+          "worker_gaps": 0,
+          "blocks_replied": 0,
+          "frames_processed": 0,
+          "frames_wet": 0,
+          "frames_dry": 0
+        }
+      ],
+      "telemetry_write_failures": 0,
+      "last_telemetry_error": 0
+    },
+    "WorkerFinal": [
+      {
+        "State": "Stopped",
+        "AudioDeviceOpened": false,
+        "AudioDumpWritten": false,
+        "PacketLogWritten": false,
+        "AndroidLibrarySha256": "207d04317997bbca253157d6038505605335a5982af39d465b249fb52a590539",
+        "BridgeDllSha256": "8d0bf1d9ac4000ee1339ebe35b0f157ad7dd125e8a36fea19dd73f309b86f88f",
+        "Profile": "Captured Dynamic / speaker_landscape",
+        "CapturedPregain": -432,
+        "VirtualBass": 1,
+        "Blocks": 247,
+        "Frames": 252928,
+        "BatchFrames": 1024,
+        "InputSha256": "030d14ab83ea41eef281da004aa3d74f1ee54baee5cc63006e421545087c1618",
+        "OutputSha256": "d458fa577a5dab923b5b4e2e2ce28c972c56916a7124b16799da9c3f42a64a00",
+        "InputPeak": 0.0010000000474974513,
+        "OutputPeak": 0.0015365235740318894,
+        "ContextResetCount": 2,
+        "RecentContextResets": [
+          {
+            "Generation": 4,
+            "FirstFrame": 0,
+            "RestoreMs": 2.3311980003200006
+          },
+          {
+            "Generation": 5,
+            "FirstFrame": 0,
+            "RestoreMs": 3.2458340010634856
+          }
+        ],
+        "RecentEpochs": [
+          {
+            "Generation": 3,
+            "FirstFrame": 0,
+            "Blocks": 95,
+            "InputPeak": 0.0,
+            "OutputPeak": 0.0
+          },
+          {
+            "Generation": 4,
+            "FirstFrame": 0,
+            "Blocks": 76,
+            "InputPeak": 0.0010000000474974513,
+            "OutputPeak": 0.0015365235740318894
+          },
+          {
+            "Generation": 5,
+            "FirstFrame": 0,
+            "Blocks": 76,
+            "InputPeak": 0.0010000000474974513,
+            "OutputPeak": 0.0015365235740318894
+          }
+        ],
+        "DiscardedStaleRequests": 0,
+        "MeanRenderMs": 15.635912838046249,
+        "RecentP95RenderMs": 18.385176800438785,
+        "RecentMaxRenderMs": 53.853593999519944,
+        "DurationWindowCapacity": 2048,
+        "WholeLibraryNative": false,
+        "SnapshotBytes": 17338368,
+        "WallSeconds": 26.339322552999874,
+        "Errors": [],
+        "Transport": {
+          "ApoClaim": 0,
+          "WorkerClaim": 1,
+          "Generation": 5,
+          "Stop": 1,
+          "RequestsDropped": 0,
+          "WorkerGaps": 2,
+          "BlocksReplied": 247,
+          "WorkerReady": 0,
+          "ApoPid": 6608,
+          "InitKind": 4,
+          "LockError": 0,
+          "Callbacks": 163,
+          "FramesProcessed": 78240,
+          "FramesWet": 72096,
+          "FramesDry": 0
+        },
+        "TelemetryWriteFailures": 0,
+        "LastTelemetryError": null,
+        "NativeLevelScale": {
+          "Calls": 1004,
+          "MeanCallMs": 0.0010809366699867198
+        },
+        "NativeClassifierCalls": 125
+      },
+      {
+        "State": "Stopped",
+        "AudioDeviceOpened": false,
+        "AudioDumpWritten": false,
+        "PacketLogWritten": false,
+        "AndroidLibrarySha256": "207d04317997bbca253157d6038505605335a5982af39d465b249fb52a590539",
+        "BridgeDllSha256": "8d0bf1d9ac4000ee1339ebe35b0f157ad7dd125e8a36fea19dd73f309b86f88f",
+        "Profile": "Captured Dynamic / speaker_landscape",
+        "CapturedPregain": -432,
+        "VirtualBass": 1,
+        "Blocks": 0,
+        "Frames": 0,
+        "BatchFrames": 1024,
+        "InputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "OutputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "InputPeak": 0.0,
+        "OutputPeak": 0.0,
+        "ContextResetCount": 0,
+        "RecentContextResets": [],
+        "RecentEpochs": [],
+        "DiscardedStaleRequests": 0,
+        "MeanRenderMs": null,
+        "RecentP95RenderMs": null,
+        "RecentMaxRenderMs": null,
+        "DurationWindowCapacity": 2048,
+        "WholeLibraryNative": false,
+        "SnapshotBytes": 17338368,
+        "WallSeconds": 26.265279687000657,
+        "Errors": [],
+        "Transport": {
+          "ApoClaim": 0,
+          "WorkerClaim": 1,
+          "Generation": 0,
+          "Stop": 1,
+          "RequestsDropped": 0,
+          "WorkerGaps": 0,
+          "BlocksReplied": 0,
+          "WorkerReady": 0,
+          "ApoPid": 0,
+          "InitKind": 0,
+          "LockError": 0,
+          "Callbacks": 0,
+          "FramesProcessed": 0,
+          "FramesWet": 0,
+          "FramesDry": 0
+        },
+        "TelemetryWriteFailures": 0,
+        "LastTelemetryError": null,
+        "NativeLevelScale": {
+          "Calls": 16,
+          "MeanCallMs": 0.0010970052083333333
+        },
+        "NativeClassifierCalls": 2
+      }
+    ],
+    "QuietStereo": {
+      "endpoint": "{0.0.0.00000000}.{f70e10e9-40f6-4b96-88ec-75cde5768179}",
+      "input_peak_limit": 0.001,
+      "input_dbfs": -60,
+      "stream_gain_db": -40,
+      "source_peak_times_stream_gain": 1e-05,
+      "endpoint_volume_written": false,
+      "registry_modified": false,
+      "acoustic_lr_proven": false,
+      "maximum_volume_safety_proven": false,
+      "cases": [
+        {
+          "stream_gain_verified": true,
+          "stream_gain": 0.00999999978,
+          "measurement": {
+            "channel": "L",
+            "raw": false,
+            "hr": "0x00000000",
+            "submitted_frames": 82560,
+            "captured_frames": 77280,
+            "active_frames": 20794,
+            "rms": [
+              1.5830168155e-05,
+              1.45081900588e-05
+            ],
+            "peak": [
+              3.0517578125e-05,
+              3.0517578125e-05
+            ],
+            "opposite_rms_ratio": 0.916489952392,
+            "tone_800hz_amplitudes": [
+              6.23782974103e-06,
+              2.58258263934e-08
+            ],
+            "opposite_tone_ratio": 0.0041401941806,
+            "digital_separation_passed": true,
+            "capture_discontinuities": 1,
+            "nonfinite_frames": 0,
+            "maximum_meter_peak": 6.10353891e-05,
+            "passed": true
+          }
+        },
+        {
+          "stream_gain_verified": true,
+          "stream_gain": 0.00999999978,
+          "measurement": {
+            "channel": "R",
+            "raw": false,
+            "hr": "0x00000000",
+            "submitted_frames": 82560,
+            "captured_frames": 77280,
+            "active_frames": 20878,
+            "rms": [
+              1.44861610228e-05,
+              1.58621099152e-05
+            ],
+            "peak": [
+              3.0517578125e-05,
+              3.0517578125e-05
+            ],
+            "opposite_rms_ratio": 0.913255619849,
+            "tone_800hz_amplitudes": [
+              5.39893311068e-08,
+              6.0675612628e-06
+            ],
+            "opposite_tone_ratio": 0.00889802818108,
+            "digital_separation_passed": true,
+            "capture_discontinuities": 1,
+            "nonfinite_frames": 0,
+            "maximum_meter_peak": 6.10353891e-05,
+            "passed": true
+          }
+        },
+        {
+          "stream_gain_verified": true,
+          "stream_gain": 0.00999999978,
+          "measurement": {
+            "channel": "L",
+            "raw": true,
+            "hr": "0x00000000",
+            "submitted_frames": 82560,
+            "captured_frames": 77280,
+            "active_frames": 20557,
+            "rms": [
+              1.57396973132e-05,
+              1.4542621313e-05
+            ],
+            "peak": [
+              3.0517578125e-05,
+              3.0517578125e-05
+            ],
+            "opposite_rms_ratio": 0.923945424336,
+            "tone_800hz_amplitudes": [
+              5.91815266725e-06,
+              3.28490508994e-08
+            ],
+            "opposite_tone_ratio": 0.00555055821409,
+            "digital_separation_passed": true,
+            "capture_discontinuities": 1,
+            "nonfinite_frames": 0,
+            "maximum_meter_peak": 6.10353891e-05,
+            "passed": true
+          }
+        },
+        {
+          "stream_gain_verified": true,
+          "stream_gain": 0.00999999978,
+          "measurement": {
+            "channel": "R",
+            "raw": true,
+            "hr": "0x00000000",
+            "submitted_frames": 82560,
+            "captured_frames": 77280,
+            "active_frames": 20409,
+            "rms": [
+              1.45177394287e-05,
+              1.56829360366e-05
+            ],
+            "peak": [
+              3.0517578125e-05,
+              3.0517578125e-05
+            ],
+            "opposite_rms_ratio": 0.925702903765,
+            "tone_800hz_amplitudes": [
+              5.45138273906e-08,
+              6.04631595522e-06
+            ],
+            "opposite_tone_ratio": 0.00901604014648,
+            "digital_separation_passed": true,
+            "capture_discontinuities": 1,
+            "nonfinite_frames": 0,
+            "maximum_meter_peak": 6.10353891e-05,
+            "passed": true
+          }
+        }
+      ],
+      "volume_before": 0.710000634,
+      "volume_after": 0.710000634,
+      "volume_unchanged": true,
+      "passed": true
+    },
+    "RuntimeFiles": {
+      "worker0.console": 7,
+      "worker1.console": 7,
+      "Stop.request": 41,
+      "Broker.json": 1081,
+      "worker0\\worker.json": 2350,
+      "worker1\\worker.json": 1562
+    },
+    "TotalRuntimeFileBytes": 5048,
+    "FactoryCalibrationUnchanged": true,
+    "BaselineZeroStream": {
+      "input_numeric_peak": 0,
+      "buffer_flags": 0,
+      "mixer_changed": false,
+      "initial_meter_peak": 2.32830644e-10,
+      "initialize_hr": "0x00000000",
+      "effects_hr": "0x00000000",
+      "effects": [
+        {
+          "id": "{6F64ADCC-8211-11E2-8C70-2C27D7F001FA}",
+          "state": 1
+        }
+      ],
+      "frames_submitted": 100320,
+      "audio_started": true,
+      "maximum_meter_peak": 3.0517811e-05,
+      "meter_detection_threshold": 6.10351562e-05,
+      "final_hr": "0x00000000",
+      "passed": true
+    },
+    "FinalOwnedMappingReadback": [
+      {
+        "Name": "Global\\NabuDolbyBank-9df8834a-209e-4cc1-bc73-bb4353adfa9f",
+        "OpenError": 2,
+        "Released": true
+      },
+      {
+        "Name": "Global\\NabuDolbyLab-{F0B2A609-4C83-4DF3-9509-4FA7E1AB6790}-0",
+        "OpenError": 2,
+        "Released": true
+      },
+      {
+        "Name": "Global\\NabuDolbyLab-{F0B2A609-4C83-4DF3-9509-4FA7E1AB6790}-1",
+        "OpenError": 2,
+        "Released": true
+      }
+    ]
+  },
+  "FinalSystem": {
+    "Boot": "2026-11-25T20:10:16.505501+05:00",
+    "Amplifiers": [
+      {
+        "InstanceId": "ACPI\\10133541\\0",
+        "ConfigResult": 0,
+        "Started": true,
+        "NeedsRestart": false,
+        "Problem": 0,
+        "Version": "4.17.27.18",
+        "Inf": "oem50.inf"
+      },
+      {
+        "InstanceId": "ACPI\\10133541\\1",
+        "ConfigResult": 0,
+        "Started": true,
+        "NeedsRestart": false,
+        "Problem": 0,
+        "Version": "4.17.27.18",
+        "Inf": "oem50.inf"
+      },
+      {
+        "InstanceId": "ACPI\\10133541\\2",
+        "ConfigResult": 0,
+        "Started": true,
+        "NeedsRestart": false,
+        "Problem": 0,
+        "Version": "4.17.27.18",
+        "Inf": "oem50.inf"
+      },
+      {
+        "InstanceId": "ACPI\\10133541\\3",
+        "ConfigResult": 0,
+        "Started": true,
+        "NeedsRestart": false,
+        "Problem": 0,
+        "Version": "4.17.27.18",
+        "Inf": "oem50.inf"
+      }
+    ],
+    "Adapters": [
+      {
+        "InstanceId": "AUDD\\VEN_QCOM&DEV_052C&SUBSYS_MTPA8150\\6&249463a5&b&1",
+        "ConfigResult": 0,
+        "Started": true,
+        "NeedsRestart": false,
+        "Problem": 0,
+        "Version": "1.0.2100.0",
+        "Inf": "oem10.inf"
+      }
+    ],
+    "Apo": {
+      "InstanceId": "SWD\\DRIVERENUM\\{fd13c2df-5315-4f4f-9556-f78fb784a12a}#NabuDolbyGlobal&7&291fb903&0",
+      "ConfigResult": 0,
+      "Started": true,
+      "NeedsRestart": false,
+      "Problem": 0,
+      "Version": "2.0.0.4",
+      "Inf": "oem36.inf"
+    },
+    "KernelSha256": "653b8ded9ebc89b0cafa8d455c0eef8bfe613943c455de8ff5f6887eda7e6cc4",
+    "ApoSha256": "dc0c29a144090f83b4532c215332f1a0c96aa4c99ca9db1ccdbc1bb5c117889c",
+    "Healthy": true,
+    "RebootPerformed": false
+  },
+  "Scope": {
+    "BoundedRuntimeLifecycleProven": true,
+    "OriginalOutputPreserved": true,
+    "QuietLiveSfxProcessingProven": true,
+    "StartupServiceInstalled": false,
+    "RelocatableBackendCompleted": false,
+    "WorkerAutomaticRecoveryProven": false,
+    "MiSoundLiveProcessingProven": false,
+    "PhysicalSpeakerIsolationProven": false,
+    "HardwarePcm24Proven": false,
+    "HyperOsAcousticsProven": false,
+    "MaximumVolumeSafetyProven": false,
+    "KernelOrGainOrProtectionChanged": false
+  },
+  "Findings": [
+    "Original laboratory worker wrote unbounded audio/packet logs; new runtime writes bounded telemetry instead.",
+    "Report sharing failures are counted independently of DSP processing. A held broker journal no longer terminates owned workers.",
+    "Early helper-build selection, reader sharing and laboratory VirtualLock quota failures occurred before hardware installation; their artifacts are retained.",
+    "The formatted EWDK object retains all tested code/data/relocations; only timestamp, debug output path and compiler metadata checksums differ."
+  ],
+  "References": [
+    "https://learn.microsoft.com/en-us/windows/win32/procthread/job-objects",
+    "https://learn.microsoft.com/en-us/windows/win32/procthread/multimedia-class-scheduler-service"
+  ],
+  "MiSoundResearch": {
+    "OriginalFirmwareSha256": "3bdf15fd2102c0b808decfde615adf8797adc7fdd0406076dc9e4e50ef562ab7",
+    "StateExportSha256": "ce1322db364855536fd10a506fa36d4d696c05cf432e5bd073eec026001432c6",
+    "RawTagsExportSha256": "a939beaa9d1410afc6ad936572eeec61e5078451816242458812317260b0d73b",
+    "Tags": [
+      "MMFD",
+      "MAXS",
+      "MODL",
+      "ENDF"
+    ],
+    "EntryPoints": [
+      "b0631508",
+      "b0632780",
+      "b06327b0",
+      "b0632804"
+    ],
+    "RawSharedEntry": "b0632804 sets mode1 and jumps to b06327b8; b06327b0 sets mode0 and uses the same body.",
+    "ReadOnly": true,
+    "FirmwareExecuted": false,
+    "LiveDspCommandSent": false,
+    "Interpretation": "These are resource-record/state selectors. They do not establish physical speaker indices or populate the missing Windows MiSound graph.",
+    "Limit": "The decompiler includes common Hexagon prologue/tail helpers; its apparent wide-vector parameter types are not a recovered callable ABI."
+  },
+  "LockedJournalOriginalOutputTest": {
+    "Passed": true,
+    "Cases": [
+      {
+        "Label": "normal_locked_reports",
+        "Hresult": 0,
+        "Comparison": {
+          "ReferenceFrames": 196608,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        },
+        "Stats": {
+          "bytes": 56,
+          "callbacks": 423,
+          "frames_out": 202752,
+          "reset_frame": 0,
+          "latency": 1280000,
+          "maximum_callback_us": 202.13541666666666,
+          "maximum_schedule_late_ms": 16.735885416666665,
+          "invalid_callbacks": 0,
+          "nonfinite_frames": 0,
+          "duplicate_attach_rejected": 1,
+          "dll_unloadable": 1
+        },
+        "OutputSha256": "0bd96a21ad5efbdf8457ec55491299b908d4a9c912b2c67737e2218f57fc2410"
+      }
+    ],
+    "Worker": {
+      "State": "Stopped",
+      "AudioDeviceOpened": false,
+      "AudioDumpWritten": false,
+      "PacketLogWritten": false,
+      "AndroidLibrarySha256": "207d04317997bbca253157d6038505605335a5982af39d465b249fb52a590539",
+      "BridgeDllSha256": "8d0bf1d9ac4000ee1339ebe35b0f157ad7dd125e8a36fea19dd73f309b86f88f",
+      "Profile": "Captured Dynamic / speaker_landscape",
+      "CapturedPregain": -432,
+      "VirtualBass": 1,
+      "Blocks": 198,
+      "Frames": 202752,
+      "BatchFrames": 1024,
+      "InputSha256": "0a038a348ec3e7ecbaa4f1383a93ed93e3333a92978567dcf6fb2ea22aafcf75",
+      "OutputSha256": "756d3703584bb2901b0fdae1d39263864b13b4d86bc1e1699ac95beae724be50",
+      "InputPeak": 0.27972412109375,
+      "OutputPeak": 0.2224377989768982,
+      "ContextResetCount": 0,
+      "RecentContextResets": [],
+      "RecentEpochs": [
+        {
+          "Generation": 1,
+          "FirstFrame": 0,
+          "Blocks": 198,
+          "InputPeak": 0.27972412109375,
+          "OutputPeak": 0.2224377989768982
+        }
+      ],
+      "DiscardedStaleRequests": 0,
+      "MeanRenderMs": 16.497384787827386,
+      "RecentP95RenderMs": 20.553439798732143,
+      "RecentMaxRenderMs": 39.75479100154189,
+      "DurationWindowCapacity": 2048,
+      "WholeLibraryNative": false,
+      "SnapshotBytes": 17338368,
+      "WallSeconds": 5.140651042000172,
+      "Errors": [],
+      "Transport": {
+        "ApoClaim": 0,
+        "WorkerClaim": 1,
+        "Generation": 1,
+        "Stop": 1,
+        "RequestsDropped": 0,
+        "WorkerGaps": 0,
+        "BlocksReplied": 198,
+        "WorkerReady": 0,
+        "ApoPid": 5064,
+        "InitKind": 1,
+        "LockError": 0,
+        "Callbacks": 423,
+        "FramesProcessed": 202752,
+        "FramesWet": 196608,
+        "FramesDry": 0
+      },
+      "TelemetryWriteFailures": 4,
+      "LastTelemetryError": {
+        "Errno": 13,
+        "Winerror": 5
+      },
+      "NativeLevelScale": {
+        "Calls": 808,
+        "MeanCallMs": 0.0010319977310231023
+      },
+      "NativeClassifierCalls": 101
+    },
+    "Broker": {
+      "state": "Finished",
+      "error": 0,
+      "broker_pid": 3344,
+      "audio_opened": false,
+      "drivers_changed": false,
+      "bank_published": true,
+      "forced_owned_job_termination": false,
+      "duration_seconds": 25,
+      "bank": "Local\\NabuDolbyBank-bounded-pipeline-f5403127-1335-4a2f-8d56-be9e46329891",
+      "source_fingerprint": "9f110daadc95ce023c0a8c92f3d36c98ad7f14ee4ef57d137e714a196839eeaf",
+      "workers": [
+        {
+          "pid": 10488,
+          "exit_code": 0,
+          "transport": "Local\\NabuDolbyLab-{AAA9576A-5BA0-40C9-B697-6CD3B3A6D221}-0",
+          "ready": false,
+          "apo_claim": 0,
+          "worker_claim": 0,
+          "stop": 1,
+          "init_kind": 1,
+          "lock_error": 0,
+          "apo_pid": 5064,
+          "generation": 1,
+          "callbacks": 423,
+          "requests_dropped": 0,
+          "worker_gaps": 0,
+          "blocks_replied": 198,
+          "frames_processed": 202752,
+          "frames_wet": 196608,
+          "frames_dry": 0
+        }
+      ],
+      "telemetry_write_failures": 4,
+      "last_telemetry_error": 5
+    },
+    "Files": {
+      "worker0.console": 7,
+      "Broker.json": 764,
+      "Stop.request": 29,
+      "worker0\\worker.json": 1862
+    },
+    "AudioDeviceOpened": false,
+    "DriverInstalled": false,
+    "SourceSha256": "5ed16f68c2dd5cea0c99c641731f088f41a9c251b5fbd9a0434eaf266f89ee97",
+    "TotalRuntimeFileBytes": 2662
+  }
+}

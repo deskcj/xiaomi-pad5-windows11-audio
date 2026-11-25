@@ -16,3 +16,5 @@ Use an ARM64 EWDK environment with Unicorn 2.1.4 headers and a new output direct
 - `Build-NativeLevelScale.ps1` builds the level helper.
 
 Both helpers are experimental, unsigned/unregistered and excluded from the public driver ZIP. Neither opens an audio device, dispatches DSP commands, changes the profile/gain/protection, installs a driver or proves system effects. The actual .11/.36 installation trial opened zero-input streams but did not activate Nabu processing; current .18 / APO .4 is restored. Physical L/R, MiSound, PCM24, HyperOS parity and maximum-volume safety remain open.
+
+The newer [runtime supervisor and bounded worker](runtime/) passed native lifecycle/failure tests and a quiet real .13/.36 SFX trial. [Current evidence](../../../docs/results/audio-runtime-broker-2026-11-25.json) records the installed trial separately from the earlier native-adapter prototypes.

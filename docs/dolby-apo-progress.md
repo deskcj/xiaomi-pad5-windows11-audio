@@ -2,6 +2,17 @@
 
 [English](dolby-apo-progress.md) · [Русский](dolby-apo-progress.ru.md) · [简体中文](dolby-apo-progress.zh-CN.md)
 
+**2026-11-25 — Bounded Dolby runtime and quiet live verification**
+
+The supervisor now waits for worker readiness, rejects duplicate banks and manages only its own Job Object. Bounded counters replace full audio/packet logs; file-sharing failures are isolated from DSP processing. Ten native lifecycle/fault cases pass, and normal/irregular output still matches all 196,608 original frames; the reset comparison also passes.
+
+A real quiet .13/.36 trial passed with the new supervisor and original Android worker. The last normal stream had 72,096 wet frames and zero dry frames; four Normal/RAW L/R cases passed without changing device volume. Both workers stopped cooperatively, all owned mappings were released, and .18 / APO .4 returned healthy. This remains an experimental 128 ms setup with external backend dependencies; service deployment, recovery, MiSound, acoustic L/R, PCM24 and maximum-volume safety are unfinished.
+
+[Source / Исходники / 源码](../driver/apo/worker-native/runtime/) · [Evidence / Данные / 数据](results/audio-runtime-broker-2026-11-25.json)
+
+<details>
+<summary>Previous research and tests</summary>
+
 **2026-11-25 — Fixed APO aggregation; live Dolby processing**
 
 The .12 control returned `0x80040110` for 11 aggregated creations in two audiodg processes. .13 now supplies a private IUnknown and delegates public identity/reference counts to the controlling object. This fixes a demonstrated system-activation failure; ordinary non-aggregated creation still works.
@@ -19,8 +30,7 @@ Current tablet: four .18 amplifiers / APO .4 restored; no reboot, calibration, g
 
 [Evidence / Данные / 数据](results/audio-apo-aggregation-2026-11-25.json)
 
-<details>
-<summary>Previous research and tests</summary>
+
 
 > [Newer system-integration results and before/after comparison](audio-system-progress.md).
 

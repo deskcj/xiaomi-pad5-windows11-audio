@@ -26,7 +26,18 @@ Download: **4.17.27.16**. Development source: **4.17.27.18**. The published ZIP 
 
 ## Update history
 
-### 2026-11-25 — Fixed APO aggregation; live Dolby processing
+### 2026-11-25 — Bounded Dolby runtime and quiet live verification
+
+- ✅ Added ARM64 EWDK worker supervision and bounded telemetry: ten lifecycle/failure cases and four original-output comparisons pass. Journal sharing errors no longer stop processing.
+- ✅ Quiet .13/.36 Normal/RAW L/R passed at unchanged volume; after the stimulus, audiodg recorded 72,096 wet / zero dry frames. Runtime output totaled 5,048 bytes, without audio dumps.
+- ❌ Relocatable backend/service/recovery, sustained latency, MiSound, physical L/R, PCM24 and maximum-volume safety remain open. .18 / APO .4 restored without reboot.
+
+[Evidence / Данные / 数据](docs/results/audio-runtime-broker-2026-11-25.json)
+
+<details>
+<summary>Previous updates</summary>
+
+#### 2026-11-25 — Fixed APO aggregation; live Dolby processing
 
 - ✅ Found audiodg’s `CLASS_E_NOAGGREGATION` failure and fixed COM aggregation in .13. ARM64 EWDK: 24 factory, 108 settings and seven processing checks pass. DLL and catalog signatures verified.
 - ✅ Real .13/.36 installation: audiodg initializes/processes the effect; quiet nonzero Normal/RAW L/R tests pass at unchanged volume. Original worker processed 251,904 frames.
@@ -34,8 +45,7 @@ Download: **4.17.27.16**. Development source: **4.17.27.18**. The published ZIP 
 
 [Evidence / Данные / 数据](docs/results/audio-apo-aggregation-2026-11-25.json)
 
-<details>
-<summary>Previous updates</summary>
+
 
 #### 2026-11-25 — MiSound configuration, CAPX and quiet L/R checks
 
@@ -164,7 +174,7 @@ PCM24 research set: all 13 timing/reopen tests passed; average 10 ms notificatio
 | --- | --- | --- |
 | IRQ/GPIO and routing | IRQ setup ignored I²C errors; only CH_BAL was checked. | ✅ .18 rejects failed IRQ setup; real readbacks passed on all four amplifiers. |
 | Digital L/R | Separation unmeasured. | ✅ Four quiet Normal/RAW cases pass at unchanged volume; opposite coherent tone ≤0.955%. Physical speaker isolation remains open. |
-| Dolby APO | System creation rejected aggregation. | ✅ .13 activates and processes in audiodg during bounded quiet tests. ❌ Permanent deployment and sustained timing still pending. |
+| Dolby APO | Passthrough / failed system creation. | ✅ .13 live SFX and bounded worker lifecycle verified. ❌ Relocatable deployment, automatic recovery and sustained timing remain open. |
 | PCM24 | Format/pacing failures. | ✅ Earlier 13 timing/reopen cases passed. Hardware PCM24 remains unverified. |
 | MiSound | Only single controls were encoded; complete speaker dispatch was absent. | ✅ 502 exact factory records and the original command plan; 864 code comparisons pass. ❌ System DSP processing unverified. |
 
