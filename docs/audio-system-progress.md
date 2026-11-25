@@ -2,7 +2,17 @@
 
 [English](audio-system-progress.md) · [Русский](audio-system-progress.ru.md) · [简体中文](audio-system-progress.zh-CN.md)
 
-**New · APO 2.0.0.9-lab / MiSound support:** APO state now has its own VirtualAlloc allocation, so page locking does not depend on heap-object boundaries. Native inspection of three unregistered instances confirmed separate allocations, reclaim of the middle allocation and usable remaining instances. The .8 control correctly used heap storage; retained heap pages are not labelled a leak or crash. Five memory fault, seven logging, two epoch and seven original-worker cases passed again; normal/irregular output still matches 196,608 frames exactly. Signed .9 and read-only preflight passed; no candidate was installed.
+**New · MiSound resource reader v2:** the ARM64 EWDK library now validates every profile/module before exposing raw parameters. Both factory resources retain all **502 exact records** (7 profiles and 19 modules each). Thirteen malformed cases produced no callbacks; ten damaged-tail comparisons now reject files the earlier filter-only reader accepted. All ten original filter tables and fourteen rejection cases still pass. A native test with real NOACCESS guard pages passed **30,770 truncation/mutation cases**. Structurally accepted mutations are not factory-approved calibration.
+
+The four-channel file adds eight MMS0 records across NORM/MOVI/GAME/SYSS, **32 bytes per profile**. Their selectors and value bits are retained without inventing parameter units or physical speaker positions. Ghidra traced the original special filter-attachment path; its indices alone do not prove acoustic L/R. Ordinary host reads match HyperOS; successful DSP resource opening remains unobserved.
+
+Ten further original functions were reviewed. Raw instructions confirm the original **176400 → 192000 Hz factory-table selection**, now preserved by the reader. Both alias cases match every table bit, while fourteen nearby/invalid-rate cases still reject. This does not resample audio or prove playback at those rates.
+
+The original Qualcomm driver searches DSDT for **SOSI**, which is present inside its search window. Four isolated original-code cache tests show that a failed first lookup can remain cached; the SOC provider and OS imports were mocked. This is a testable failure condition, not the proven cause of the live timeout. No kernel patch is justified by these tests. APO .9 remains prepared and uninstalled; this update changed no installed driver, gain or protection setting.
+
+[Measured data](results/audio-misound-resource-2026-11-25.json) · [MiSound source](../driver/dsp/) · [Xiaomi SOC layout](https://github.com/MiCode/Xiaomi_Kernel_OpenSource/blob/71b6effd2dfa8f703dd1ea17acd1323b2fd3cf6c/drivers/soc/qcom/socinfo.c)
+
+**Previous · APO 2.0.0.9-lab / MiSound support:** APO state now has its own VirtualAlloc allocation, so page locking does not depend on heap-object boundaries. Native inspection of three unregistered instances confirmed separate allocations, reclaim of the middle allocation and usable remaining instances. The .8 control correctly used heap storage; retained heap pages are not labelled a leak or crash. Five memory fault, seven logging, two epoch and seven original-worker cases passed again; normal/irregular output still matches 196,608 frames exactly. Signed .9 and read-only preflight passed; no candidate was installed.
 
 The new ARM64 MiSound support library reads the captured SPMD/MMFD tables. Ten tables matched every binary32 coefficient/scale bit; fourteen malformed/unsupported cases preserved the caller's output. The linked EWDK library passed the same comparisons. Both installed resources were read normally by Windows and matched HyperOS. Their SPMD regions are identical; the differing OAL/dynamics/channel processing is not implemented. Four more original Ghidra functions identified the HPMD/SPMD/HRIR subregion parser and pointer helpers. This does not prove DSP resource opening or system MiSound. No new audible improvement, acoustic L/R or maximum-volume safety is claimed.
 
@@ -29,7 +39,8 @@ No loudness or HyperOS-quality improvement is claimed. Quiet digital loopback is
 | IRQ/GPIO and routing | IRQ setup ignored I²C errors; only CH_BAL was checked. | ✅ .18 rejects failed IRQ setup; real readbacks passed on all four amplifiers. |
 | Digital L/R | Separation unmeasured. | ✅ Four quiet cases passed; opposite 800 Hz tone <0.1%. UID/I²C board mapping matches Android. Acoustic isolation remains unverified. |
 | Dolby APO | Real-time state used shared heap pages. | ✅ .9 has independent allocations and correct teardown; exact output preserved. ❌ System processing unverified. |
-| PCM24 / MiSound | Format/pacing failures; DSP parameters timed out. | ✅ Earlier 13 PCM24 and 96 encoder cases. ❌ MiSound DSP processing and acoustic parity remain open. |
+| PCM24 | Format/pacing failures. | ✅ Earlier 13 timing/reopen cases passed. Hardware PCM24 remains unverified. |
+| MiSound | Filter reader ignored damaged profile tails; DSP commands timed out. | ✅ Complete profile validation and 502 exact records. ❌ System DSP processing remains unverified. |
 
 GPIO interrupt configuration and the protection mask now propagate errors and verify readbacks before DSP/amp enablement. The healthy writes, firmware, coefficients and factory calibration remain unchanged. EWDK, catalog generation and signing passed.
 

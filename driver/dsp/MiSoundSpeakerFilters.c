@@ -1,4 +1,5 @@
 #include "MiSoundSpeakerFilters.h"
+#include "MiSoundResource.h"
 #include <math.h>
 #include <string.h>
 
@@ -28,11 +29,17 @@ int NabuMiSoundReadSpeakerFilters(const void *resource, size_t bytes,
 {
     const uint8_t *data = (const uint8_t *)resource;
     uint32_t total, sectionBytes, modelBytes, maximum, model;
+    /* Original HyperOS b0630cd4: cmp.eq 0x2b110, mux 0x2ee00.
+     * This selects an existing factory table; it does not resample audio.
+     */
+    const uint32_t tableRate = sampleRate == 176400U ? 192000U : sampleRate;
     size_t end, at;
     int found = 0;
     NabuMiSoundSpeakerFilters selected = {0};
     if (!data || !output || !sampleRate)
         return NabuMiSoundFilterArgumentInvalid;
+    if (NabuMiSoundScanResource(data, bytes, NULL, NULL, NULL) != NabuMiSoundResourceScanOk)
+        return NabuMiSoundResourceInvalid;
     if (bytes < 52 || bytes - 12 > UINT32_MAX ||
         !tagged_word(data, bytes, 0, "SPKD", &total) || total != bytes - 12 ||
         memcmp(data + bytes - 8, "ENDSEND0", 8) ||
@@ -87,7 +94,7 @@ int NabuMiSoundReadSpeakerFilters(const void *resource, size_t bytes,
             if (!isfinite(value)) return NabuMiSoundResourceInvalid;
             table.Scales[i] = value;
         }
-        if (rate == sampleRate) {
+        if (rate == tableRate) {
             if (found) return NabuMiSoundResourceInvalid;
             selected = table;
             found = 1;
