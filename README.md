@@ -18,13 +18,21 @@ Driver research for the four internal Cirrus Logic CS35L41 amplifiers on Xiaomi 
 
 | Driver ZIP | Driver source |
 | --- | --- |
-| [Download 4.17.27.16 for ARM64](https://github.com/deskcj/xiaomi-pad5-windows11-audio/releases/download/v4.17.27.16/xiaomi-pad5-audio-4.17.27.16-arm64-driver.zip) | [Development C/H source, INF and EWDK project](driver/) |
+| [Download 4.17.27.20 for ARM64](https://github.com/deskcj/xiaomi-pad5-windows11-audio/releases/download/v4.17.27.20/xiaomi-pad5-audio-4.17.27.20-arm64-driver.zip) | [Development C/H source, INF and EWDK project](driver/) |
 
 The ZIP includes a PowerShell installer and rollback. Use the four factory calibration pairs from your own tablet's HyperOS installation. [Installation instructions](driver/INSTALL.md)
 
-Download: **4.17.27.16**. Development source: **4.17.27.18**. The published ZIP does not include system Dolby or MiSound.
+Download: **4.17.27.20**. Development source: **4.17.27.20**. The published ZIP does not include system Dolby or MiSound.
 
 ## Update history
+
+### 2026-11-25 — Legacy UEFI + Remtrik 2611.21 compatibility
+
+- ✅ .20 retains `ACPI\10133541` and adds verified `ACPI\CSCL3541`; all four ACPI resource/UID blocks match. Installer discovery supports both families; EWDK build, signatures and eight discovery cases pass.
+- ✅ Installed .20 on all four current-UEFI amplifiers without reboot. Four quiet Normal/RAW digital L/R cases and all four protection readbacks pass; factory calibration is unchanged.
+- ❌ Remtrik live testing, physical L/R, MiSound, hardware PCM24 and maximum-volume safety remain open. This update changes compatibility, with no claimed loudness/quality improvement.
+
+[Evidence / Данные / 数据](docs/results/audio-uefi-compatibility-2026-11-25.json)
 
 ### 2026-11-25 — Bounded Dolby runtime and quiet live verification
 

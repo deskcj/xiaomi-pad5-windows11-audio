@@ -2,6 +2,14 @@
 
 [English](audio-system-progress.md) · [Русский](audio-system-progress.ru.md) · [简体中文](audio-system-progress.zh-CN.md)
 
+### 2026-11-25 — 现有 UEFI 与 Remtrik 2611.21 兼容
+
+- ✅ .20 保留 `ACPI\10133541`，加入已验证的 `ACPI\CSCL3541`；四个功放的资源及 UID 完全对应。安装脚本支持两种 ID；EWDK 编译、签名和 8 项发现检查通过。
+- ✅ 已在当前 UEFI 的四个功放上安装 .20，无需重启。4 项安静 Normal/RAW 数字 L/R 检查及四个功放的保护数据读取通过，出厂校准未改变。
+- ❌ Remtrik 实机安装、物理 L/R、MiSound、硬件 PCM24 与最大音量安全尚未验证。本次修复兼容性，不宣称音量或音质提高。
+
+[验证数据](results/audio-uefi-compatibility-2026-11-25.json)
+
 **2026-11-25 — 有界 Dolby 运行程序与实机安静验证**
 
 管理程序等待处理程序就绪，拒绝重复占用的 bank，并仅通过 Job Object 管理自己的进程。有界计数替代完整音频／包日志，文件共享错误与 DSP 处理隔离。10 项原生生命周期／故障验证通过；普通和不规则输出各 196,608 帧仍精确匹配原版，重置对比也通过。

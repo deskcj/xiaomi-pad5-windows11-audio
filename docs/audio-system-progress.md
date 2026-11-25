@@ -2,6 +2,14 @@
 
 [English](audio-system-progress.md) · [Русский](audio-system-progress.ru.md) · [简体中文](audio-system-progress.zh-CN.md)
 
+### 2026-11-25 — Legacy UEFI + Remtrik 2611.21 compatibility
+
+- ✅ .20 retains `ACPI\10133541` and adds verified `ACPI\CSCL3541`; all four ACPI resource/UID blocks match. Installer discovery supports both families; EWDK build, signatures and eight discovery cases pass.
+- ✅ Installed .20 on all four current-UEFI amplifiers without reboot. Four quiet Normal/RAW digital L/R cases and all four protection readbacks pass; factory calibration is unchanged.
+- ❌ Remtrik live testing, physical L/R, MiSound, hardware PCM24 and maximum-volume safety remain open. This update changes compatibility, with no claimed loudness/quality improvement.
+
+[Evidence / Данные / 数据](results/audio-uefi-compatibility-2026-11-25.json)
+
 **2026-11-25 — Bounded Dolby runtime and quiet live verification**
 
 The supervisor now waits for worker readiness, rejects duplicate banks and manages only its own Job Object. Bounded counters replace full audio/packet logs; file-sharing failures are isolated from DSP processing. Ten native lifecycle/fault cases pass, and normal/irregular output still matches all 196,608 original frames; the reset comparison also passes.

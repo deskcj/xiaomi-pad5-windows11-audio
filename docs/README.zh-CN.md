@@ -18,13 +18,21 @@
 
 | 驱动 ZIP | 驱动源码 |
 | --- | --- |
-| [下载 ARM64 版 4.17.27.16](https://github.com/deskcj/xiaomi-pad5-windows11-audio/releases/download/v4.17.27.16/xiaomi-pad5-audio-4.17.27.16-arm64-driver.zip) | [开发版 C/H 源码、INF 与 EWDK 项目](../driver/) |
+| [下载 ARM64 版 4.17.27.20](https://github.com/deskcj/xiaomi-pad5-windows11-audio/releases/download/v4.17.27.20/xiaomi-pad5-audio-4.17.27.20-arm64-driver.zip) | [开发版 C/H 源码、INF 与 EWDK 项目](../driver/) |
 
 ZIP 包含 PowerShell 安装与回滚脚本。请准备当前平板原版 HyperOS 中的四组出厂校准文件。[安装说明](../driver/INSTALL.md)
 
-公开下载：**4.17.27.16**。开发源码：**4.17.27.18**。公开 ZIP 不包含系统级 Dolby 或 MiSound。
+公开下载：**4.17.27.20**。开发源码：**4.17.27.20**。公开 ZIP 不包含系统级 Dolby 或 MiSound。
 
 ## 更新记录
+
+### 2026-11-25 — 现有 UEFI 与 Remtrik 2611.21 兼容
+
+- ✅ .20 保留 `ACPI\10133541`，加入已验证的 `ACPI\CSCL3541`；四个功放的资源及 UID 完全对应。安装脚本支持两种 ID；EWDK 编译、签名和 8 项发现检查通过。
+- ✅ 已在当前 UEFI 的四个功放上安装 .20，无需重启。4 项安静 Normal/RAW 数字 L/R 检查及四个功放的保护数据读取通过，出厂校准未改变。
+- ❌ Remtrik 实机安装、物理 L/R、MiSound、硬件 PCM24 与最大音量安全尚未验证。本次修复兼容性，不宣称音量或音质提高。
+
+[验证数据](results/audio-uefi-compatibility-2026-11-25.json)
 
 ### 2026-11-25 — 有界 Dolby 运行程序与实机安静验证
 

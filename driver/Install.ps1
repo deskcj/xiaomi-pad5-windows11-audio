@@ -8,7 +8,7 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
-$version = '4.17.27.18'
+$version = '4.17.27.20'
 $expectedSigner = 'F38EDD5C105095C8342556158CE66253F045965D'
 $service = 'HKLM:\SYSTEM\CurrentControlSet\Services\cs35l41'
 $settings = Join-Path $service 'Parameters'
@@ -61,9 +61,14 @@ public static class NabuDriverTestMode
 }
 
 function Get-Amplifiers {
-    $devices = @(Get-PnpDevice -PresentOnly -Class MEDIA |
-        Where-Object { $_.InstanceId -match '^ACPI\\10133541\\[0-3]$' })
-    if ($devices.Count -ne 4) { throw 'Expected four Xiaomi Pad 5 CS35L41 amplifiers (ACPI\10133541).' }
+    $devices = @(Get-PnpDevice -PresentOnly |
+        Where-Object { $_.InstanceId -match '^ACPI\\(10133541|CSCL3541)\\[0-3]$' })
+    if ($devices.Count -ne 4) { throw 'Expected four Xiaomi Pad 5 CS35L41 amplifiers (ACPI\10133541 or ACPI\CSCL3541).' }
+    $families = @($devices | ForEach-Object { $_.InstanceId.Split('\')[1] } | Select-Object -Unique)
+    $uids = @($devices | ForEach-Object { $_.InstanceId.Split('\')[2] } | Sort-Object -Unique)
+    if ($families.Count -ne 1 -or ($uids -join ',') -ne '0,1,2,3') {
+        throw 'Expected one ACPI ID family with amplifier UIDs 0,1,2,3.'
+    }
     $keys = 'DEVPKEY_Device_DriverInfPath','DEVPKEY_Device_DriverVersion','DEVPKEY_Device_Service'
     foreach ($device in $devices) {
         $values = @{}

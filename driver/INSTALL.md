@@ -1,6 +1,6 @@
 # Install the Xiaomi Pad 5 audio driver
 
-This test release requires Xiaomi Pad 5 (nabu), Windows 11 ARM64, Windows Test Mode and four working CS35L41 devices with hardware ID `ACPI\10133541`. Windows Test Mode takes effect after Windows restarts.
+This test release requires Xiaomi Pad 5 (nabu), Windows 11 ARM64, Windows Test Mode and four working CS35L41 devices with hardware ID `ACPI\10133541` (legacy UEFI) or `ACPI\CSCL3541` (Remtrik 2611.21). A firmware upgrade is not required for the legacy ID. Windows Test Mode takes effect after Windows restarts.
 
 ## Factory calibration
 

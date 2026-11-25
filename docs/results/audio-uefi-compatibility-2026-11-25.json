@@ -1,0 +1,692 @@
+{
+  "date": "2026-11-25",
+  "version": "4.17.27.20",
+  "firmware": {
+    "release": "https://github.com/remtrik-stuff/MiPad5-Windows-Releases/releases/tag/2611.21",
+    "pinned_dsdt": "https://github.com/Kumar-Jy/Mu-Silicium/blob/492d97e436c662cba9fe50e9a94fc78e182a1bf6/Platforms/Xiaomi/nabuPkg/ACPI/Remtrik/DSDT.aml",
+    "release_image_sha256": "bad34edf94e5c44da3bdd7d700a9287b99ddd10e8b7def8bacd072409140fd42",
+    "dsdt_sha256": "02babbe97ef69806bbf8bf3a3ba45467f5a0b7c57a3d2f96ccbafb46159f552c",
+    "pinned_table_equals_release": true,
+    "live_legacy_dsdt_sha256": "b4eeefa8758fed3935b68080407273a0f2e121c223c864999c399fe92835d2b6",
+    "four_device_bodies_equal_after_name_and_hid_normalization": true,
+    "old_hid": "ACPI\\10133541",
+    "new_hid": "ACPI\\CSCL3541",
+    "cid_present": false,
+    "uid_address_irq": [
+      {
+        "uid": 0,
+        "address": "0x40",
+        "bus": "\\_SB.I2C8",
+        "speed_hz": 100000,
+        "gpio_controller": "\\_SB.GIO0",
+        "interrupt_pin": 81,
+        "coefficients": "BR"
+      },
+      {
+        "uid": 1,
+        "address": "0x41",
+        "bus": "\\_SB.I2C8",
+        "speed_hz": 100000,
+        "gpio_controller": "\\_SB.GIO0",
+        "interrupt_pin": 90,
+        "coefficients": "TR"
+      },
+      {
+        "uid": 2,
+        "address": "0x42",
+        "bus": "\\_SB.I2C8",
+        "speed_hz": 100000,
+        "gpio_controller": "\\_SB.GIO0",
+        "interrupt_pin": 91,
+        "coefficients": "BL"
+      },
+      {
+        "uid": 3,
+        "address": "0x43",
+        "bus": "\\_SB.I2C8",
+        "speed_hz": 100000,
+        "gpio_controller": "\\_SB.GIO0",
+        "interrupt_pin": 93,
+        "coefficients": "TL"
+      }
+    ]
+  },
+  "build": {
+    "ewdk": "10.0.26100.0",
+    "signed": true,
+    "catalog_members_verified": true,
+    "files": {
+      "cs35l41-dsp1-spk-prot.wmfw": "d1bea27e41001024eb3878276292b5bcc0cda4484ffced0880e12c03ec9bac2c",
+      "cs35l41.sys": "14016bfc988faca26577ad9aa0317a0d1a0d4e68313a460a22898352d4722f34",
+      "BL-cs35l41-dsp1-spk-prot.bin": "ed3b09fc202372ff099fc3d27aa8170548248e9850e3edd3557899ece4d2ded9",
+      "TL-cs35l41-dsp1-spk-prot.bin": "bf510d2eba58fef26c927229d08289ae39eb515c628ce05cb5da0e7a5eaa3e2c",
+      "BR-cs35l41-dsp1-spk-prot.bin": "8afd4530faa3716128b2807c6860e255c81e9aee5690c2d7fb6261185a69df55",
+      "TR-cs35l41-dsp1-spk-prot.bin": "9e7e1ef1ce28059fe7b0a8c880c5c6af2eba9fea4b01365c951a30a20d076859",
+      "cs35l41.inf": "eb36be65cfca2eb8aa03c3de8473759aeba8ba58f94f28ee07a36a39f921d001",
+      "cs35l41.cat": "e18b431b4f4427f0e4c110770a5a87b01076079caa34bca6b99dfb4b584149a3"
+    },
+    "source": {
+      "cs35l41.c": "8096a8d175f04e5888f4784ab17fe5a54639021693cc9ed5b7b861e22a9e159a",
+      "cs35l41.h": "f931f2ea8edacec9fed274476fd88e28a04028e29aab7624713c0d82cbf61cfa",
+      "cs35l41_dsp.c": "a2c5a696123587d77547fad09eafbdb43f639b883be7366eeaea0c4b24e27ffe",
+      "cs35l41_dsp.h": "80fdb4d310b0dd58df2bd27392ae912b3cd62ead8d9c7cb8c324bc06d85e874c",
+      "cs35l41.inf": "d161aa9b1d6f84727b1300e3c439815248f369417b7bb7ba99ebc3dd07347d25",
+      "cs35l41.vcxproj": "6848f3333e86b4b7f208ea55f53806e80229571c63d9a41292033680873f71cf",
+      "registers.h": "4f9ff5f0dd120e0f0a7b31649d65ea2b6a796e6094a5bf858d1be7ff42a1432d",
+      "spb.c": "e0707d4f55a20aea8b906f8e0bf3437f1bda3c50be043bfce6d0c9284805d9dd",
+      "spb.h": "64bf10d87b167d1ac86799790b7d81be0d04cd4c74f8d2f054fa19c209c7f81a",
+      "trace.h": "1791eb89ce85161075205acce80b842114dbf5ed5f5773a03b539c77058a5ce1",
+      "Install.ps1": "ef50911610e76e826bc2921b2dc8de9b3853c0fa60133d22374bbb142916d727",
+      "Get-Firmware.ps1": "d6fb4eb23db1b7cf9eefbcb325014be8b2ee87168e06e44e160f77dd0abe3a6a",
+      "README.md": "0d21600f284f1168d8f24e08e793f502440a4512812788e21a9df953e024c02b",
+      "INSTALL.md": "07aa2ca8859483d654ec2c7dd1e1533696517a3b782c805cb0942fcfdfdca39a",
+      "SpeakerRouting.h": "9e66d35ed179de6dfe904375e439565ea472ace60ae0e6ed68054fa4ddb362a3",
+      "SpeakerRouting.c": "19f13ff1fbecc0a9bd82728c4a877aece783c836245afddcc494c6119e34f6b5"
+    },
+    "all_kernel_sections_equal18_except_debug_metadata": true,
+    "factory_firmware_unchanged": true,
+    "installer_discovery_cases": 8,
+    "installer_cases_use_mock_devices": true
+  },
+  "current_uefi_live_trial": {
+    "devices": [
+      {
+        "Id": "ACPI\\10133541\\0",
+        "Uid": 0,
+        "Version": "4.17.27.20",
+        "Inf": "oem53.inf",
+        "ConfigResult": 0,
+        "Started": true,
+        "NeedsRestart": false,
+        "Problem": 0
+      },
+      {
+        "Id": "ACPI\\10133541\\1",
+        "Uid": 1,
+        "Version": "4.17.27.20",
+        "Inf": "oem53.inf",
+        "ConfigResult": 0,
+        "Started": true,
+        "NeedsRestart": false,
+        "Problem": 0
+      },
+      {
+        "Id": "ACPI\\10133541\\2",
+        "Uid": 2,
+        "Version": "4.17.27.20",
+        "Inf": "oem53.inf",
+        "ConfigResult": 0,
+        "Started": true,
+        "NeedsRestart": false,
+        "Problem": 0
+      },
+      {
+        "Id": "ACPI\\10133541\\3",
+        "Uid": 3,
+        "Version": "4.17.27.20",
+        "Inf": "oem53.inf",
+        "ConfigResult": 0,
+        "Started": true,
+        "NeedsRestart": false,
+        "Problem": 0
+      }
+    ],
+    "kernel_sha256": "14016bfc988faca26577ad9aa0317a0d1a0d4e68313a460a22898352d4722f34",
+    "installed_inf": "oem53.inf",
+    "boot_unchanged": true,
+    "factory_calibration_unchanged": true,
+    "quiet_digital_stereo": {
+      "endpoint": "{0.0.0.00000000}.{62acaa7b-222d-4e02-b3ea-76c01d364aa8}",
+      "input_peak_limit": 0.001,
+      "input_dbfs": -60,
+      "stream_gain_db": -40,
+      "source_peak_times_stream_gain": 1e-05,
+      "endpoint_volume_written": false,
+      "registry_modified": false,
+      "acoustic_lr_proven": false,
+      "maximum_volume_safety_proven": false,
+      "cases": [
+        {
+          "stream_gain_verified": true,
+          "stream_gain": 0.00999999978,
+          "measurement": {
+            "channel": "L",
+            "raw": false,
+            "hr": "0x00000000",
+            "submitted_frames": 82080,
+            "captured_frames": 76800,
+            "active_frames": 20362,
+            "rms": [
+              1.5713743928e-05,
+              1.45088104397e-05
+            ],
+            "peak": [
+              3.0517578125e-05,
+              3.0517578125e-05
+            ],
+            "opposite_rms_ratio": 0.923319770654,
+            "tone_800hz_amplitudes": [
+              5.96553254378e-06,
+              1.77080523096e-08
+            ],
+            "opposite_tone_ratio": 0.00296839421789,
+            "digital_separation_passed": true,
+            "capture_discontinuities": 1,
+            "nonfinite_frames": 0,
+            "maximum_meter_peak": 6.10353891e-05,
+            "passed": true
+          }
+        },
+        {
+          "stream_gain_verified": true,
+          "stream_gain": 0.00999999978,
+          "measurement": {
+            "channel": "R",
+            "raw": false,
+            "hr": "0x00000000",
+            "submitted_frames": 82080,
+            "captured_frames": 77280,
+            "active_frames": 20343,
+            "rms": [
+              1.4492399053e-05,
+              1.56575572342e-05
+            ],
+            "peak": [
+              3.0517578125e-05,
+              3.0517578125e-05
+            ],
+            "opposite_rms_ratio": 0.925584932322,
+            "tone_800hz_amplitudes": [
+              5.5623079166e-08,
+              6.03861942818e-06
+            ],
+            "opposite_tone_ratio": 0.00921122449056,
+            "digital_separation_passed": true,
+            "capture_discontinuities": 1,
+            "nonfinite_frames": 0,
+            "maximum_meter_peak": 6.10353891e-05,
+            "passed": true
+          }
+        },
+        {
+          "stream_gain_verified": true,
+          "stream_gain": 0.00999999978,
+          "measurement": {
+            "channel": "L",
+            "raw": true,
+            "hr": "0x00000000",
+            "submitted_frames": 82560,
+            "captured_frames": 77280,
+            "active_frames": 20630,
+            "rms": [
+              1.57676191807e-05,
+              1.45678743288e-05
+            ],
+            "peak": [
+              3.0517578125e-05,
+              3.0517578125e-05
+            ],
+            "opposite_rms_ratio": 0.923910842971,
+            "tone_800hz_amplitudes": [
+              5.91186181158e-06,
+              3.78338431982e-08
+            ],
+            "opposite_tone_ratio": 0.00639964945123,
+            "digital_separation_passed": true,
+            "capture_discontinuities": 1,
+            "nonfinite_frames": 0,
+            "maximum_meter_peak": 6.10353891e-05,
+            "passed": true
+          }
+        },
+        {
+          "stream_gain_verified": true,
+          "stream_gain": 0.00999999978,
+          "measurement": {
+            "channel": "R",
+            "raw": true,
+            "hr": "0x00000000",
+            "submitted_frames": 82080,
+            "captured_frames": 76800,
+            "active_frames": 20303,
+            "rms": [
+              1.45188366848e-05,
+              1.56909616999e-05
+            ],
+            "peak": [
+              3.0517578125e-05,
+              3.0517578125e-05
+            ],
+            "opposite_rms_ratio": 0.925299351464,
+            "tone_800hz_amplitudes": [
+              4.44114658982e-08,
+              6.0746387687e-06
+            ],
+            "opposite_tone_ratio": 0.00731096409008,
+            "digital_separation_passed": true,
+            "capture_discontinuities": 1,
+            "nonfinite_frames": 0,
+            "maximum_meter_peak": 6.10353891e-05,
+            "passed": true
+          }
+        }
+      ],
+      "volume_before": 0.710000634,
+      "volume_after": 0.710000634,
+      "volume_unchanged": true,
+      "passed": true
+    },
+    "amplifier_events": [
+      {
+        "Event": "SpeakerProtectionSnapshot",
+        "Fields": {
+          "AmplifierUid": "0",
+          "OnStart": "false",
+          "ReadStatus": "0x0",
+          "MaxTempRaw": "652744",
+          "MaxExcursionRaw": "69705",
+          "OverTempCount": "0",
+          "OverExcursionCount": "0",
+          "AbnormalMute": "0",
+          "VmonLowFlag": "1"
+        }
+      },
+      {
+        "Event": "SpeakerProtectionSnapshot",
+        "Fields": {
+          "AmplifierUid": "1",
+          "OnStart": "false",
+          "ReadStatus": "0x0",
+          "MaxTempRaw": "680344",
+          "MaxExcursionRaw": "56971",
+          "OverTempCount": "0",
+          "OverExcursionCount": "0",
+          "AbnormalMute": "0",
+          "VmonLowFlag": "1"
+        }
+      },
+      {
+        "Event": "SpeakerProtectionSnapshot",
+        "Fields": {
+          "AmplifierUid": "2",
+          "OnStart": "false",
+          "ReadStatus": "0x0",
+          "MaxTempRaw": "659996",
+          "MaxExcursionRaw": "74014",
+          "OverTempCount": "0",
+          "OverExcursionCount": "0",
+          "AbnormalMute": "0",
+          "VmonLowFlag": "1"
+        }
+      },
+      {
+        "Event": "SpeakerProtectionSnapshot",
+        "Fields": {
+          "AmplifierUid": "3",
+          "OnStart": "false",
+          "ReadStatus": "0x0",
+          "MaxTempRaw": "656224",
+          "MaxExcursionRaw": "51808",
+          "OverTempCount": "0",
+          "OverExcursionCount": "0",
+          "AbnormalMute": "0",
+          "VmonLowFlag": "1"
+        }
+      },
+      {
+        "Event": "NabuInterruptConfigurationCheck",
+        "Fields": {
+          "AmplifierUid": "0",
+          "Result": "0x0"
+        }
+      },
+      {
+        "Event": "NabuSpeakerRoutingCheck",
+        "Fields": {
+          "AmplifierUid": "0",
+          "Result": "0x0"
+        }
+      },
+      {
+        "Event": "SpeakerProtectionSnapshot",
+        "Fields": {
+          "AmplifierUid": "0",
+          "OnStart": "true",
+          "ReadStatus": "0x0",
+          "MaxTempRaw": "0",
+          "MaxExcursionRaw": "0",
+          "OverTempCount": "0",
+          "OverExcursionCount": "0",
+          "AbnormalMute": "0",
+          "VmonLowFlag": "0"
+        }
+      },
+      {
+        "Event": "NabuInterruptConfigurationCheck",
+        "Fields": {
+          "AmplifierUid": "1",
+          "Result": "0x0"
+        }
+      },
+      {
+        "Event": "NabuSpeakerRoutingCheck",
+        "Fields": {
+          "AmplifierUid": "1",
+          "Result": "0x0"
+        }
+      },
+      {
+        "Event": "SpeakerProtectionSnapshot",
+        "Fields": {
+          "AmplifierUid": "1",
+          "OnStart": "true",
+          "ReadStatus": "0x0",
+          "MaxTempRaw": "0",
+          "MaxExcursionRaw": "0",
+          "OverTempCount": "0",
+          "OverExcursionCount": "0",
+          "AbnormalMute": "0",
+          "VmonLowFlag": "0"
+        }
+      },
+      {
+        "Event": "NabuInterruptConfigurationCheck",
+        "Fields": {
+          "AmplifierUid": "2",
+          "Result": "0x0"
+        }
+      },
+      {
+        "Event": "NabuSpeakerRoutingCheck",
+        "Fields": {
+          "AmplifierUid": "2",
+          "Result": "0x0"
+        }
+      },
+      {
+        "Event": "SpeakerProtectionSnapshot",
+        "Fields": {
+          "AmplifierUid": "2",
+          "OnStart": "true",
+          "ReadStatus": "0x0",
+          "MaxTempRaw": "0",
+          "MaxExcursionRaw": "0",
+          "OverTempCount": "0",
+          "OverExcursionCount": "0",
+          "AbnormalMute": "0",
+          "VmonLowFlag": "0"
+        }
+      },
+      {
+        "Event": "NabuInterruptConfigurationCheck",
+        "Fields": {
+          "AmplifierUid": "3",
+          "Result": "0x0"
+        }
+      },
+      {
+        "Event": "NabuSpeakerRoutingCheck",
+        "Fields": {
+          "AmplifierUid": "3",
+          "Result": "0x0"
+        }
+      },
+      {
+        "Event": "SpeakerProtectionSnapshot",
+        "Fields": {
+          "AmplifierUid": "3",
+          "OnStart": "true",
+          "ReadStatus": "0x0",
+          "MaxTempRaw": "0",
+          "MaxExcursionRaw": "0",
+          "OverTempCount": "0",
+          "OverExcursionCount": "0",
+          "AbnormalMute": "0",
+          "VmonLowFlag": "0"
+        }
+      },
+      {
+        "Event": "SpeakerProtectionSnapshot",
+        "Fields": {
+          "AmplifierUid": "1",
+          "OnStart": "false",
+          "ReadStatus": "0x0",
+          "MaxTempRaw": "0",
+          "MaxExcursionRaw": "0",
+          "OverTempCount": "0",
+          "OverExcursionCount": "0",
+          "AbnormalMute": "0",
+          "VmonLowFlag": "0"
+        }
+      },
+      {
+        "Event": "NabuInterruptConfigurationCheck",
+        "Fields": {
+          "AmplifierUid": "1",
+          "Result": "0x0"
+        }
+      },
+      {
+        "Event": "NabuSpeakerRoutingCheck",
+        "Fields": {
+          "AmplifierUid": "1",
+          "Result": "0x0"
+        }
+      },
+      {
+        "Event": "SpeakerProtectionSnapshot",
+        "Fields": {
+          "AmplifierUid": "1",
+          "OnStart": "true",
+          "ReadStatus": "0x0",
+          "MaxTempRaw": "0",
+          "MaxExcursionRaw": "0",
+          "OverTempCount": "0",
+          "OverExcursionCount": "0",
+          "AbnormalMute": "0",
+          "VmonLowFlag": "0"
+        }
+      },
+      {
+        "Event": "SpeakerProtectionSnapshot",
+        "Fields": {
+          "AmplifierUid": "2",
+          "OnStart": "false",
+          "ReadStatus": "0x0",
+          "MaxTempRaw": "0",
+          "MaxExcursionRaw": "0",
+          "OverTempCount": "0",
+          "OverExcursionCount": "0",
+          "AbnormalMute": "0",
+          "VmonLowFlag": "0"
+        }
+      },
+      {
+        "Event": "NabuInterruptConfigurationCheck",
+        "Fields": {
+          "AmplifierUid": "2",
+          "Result": "0x0"
+        }
+      },
+      {
+        "Event": "NabuSpeakerRoutingCheck",
+        "Fields": {
+          "AmplifierUid": "2",
+          "Result": "0x0"
+        }
+      },
+      {
+        "Event": "SpeakerProtectionSnapshot",
+        "Fields": {
+          "AmplifierUid": "2",
+          "OnStart": "true",
+          "ReadStatus": "0x0",
+          "MaxTempRaw": "0",
+          "MaxExcursionRaw": "0",
+          "OverTempCount": "0",
+          "OverExcursionCount": "0",
+          "AbnormalMute": "0",
+          "VmonLowFlag": "0"
+        }
+      },
+      {
+        "Event": "SpeakerProtectionSnapshot",
+        "Fields": {
+          "AmplifierUid": "3",
+          "OnStart": "false",
+          "ReadStatus": "0x0",
+          "MaxTempRaw": "0",
+          "MaxExcursionRaw": "0",
+          "OverTempCount": "0",
+          "OverExcursionCount": "0",
+          "AbnormalMute": "0",
+          "VmonLowFlag": "0"
+        }
+      },
+      {
+        "Event": "NabuInterruptConfigurationCheck",
+        "Fields": {
+          "AmplifierUid": "3",
+          "Result": "0x0"
+        }
+      },
+      {
+        "Event": "NabuSpeakerRoutingCheck",
+        "Fields": {
+          "AmplifierUid": "3",
+          "Result": "0x0"
+        }
+      },
+      {
+        "Event": "SpeakerProtectionSnapshot",
+        "Fields": {
+          "AmplifierUid": "3",
+          "OnStart": "true",
+          "ReadStatus": "0x0",
+          "MaxTempRaw": "0",
+          "MaxExcursionRaw": "0",
+          "OverTempCount": "0",
+          "OverExcursionCount": "0",
+          "AbnormalMute": "0",
+          "VmonLowFlag": "0"
+        }
+      }
+    ],
+    "all_four_protection_readbacks_succeeded": true,
+    "cleanup_errors": []
+  },
+  "external_kumar_package_review": {
+    "ZipSha256": "feb3cc185c21eebd2d26e66e6c9174a0ddc73cca16b09b42ea8237e33db00a60",
+    "Machine": "ARM64",
+    "InfVersion": "4.17.27.19",
+    "SupportedHids": [
+      "ACPI\\10133541",
+      "ACPI\\CSCL3541"
+    ],
+    "InfMinimumBuild": 16299,
+    "KernelComparisons": [
+      {
+        "Section": ".text",
+        "EqualExceptDebugMetadata": false,
+        "RawEqual": false
+      },
+      {
+        "Section": "fothk",
+        "EqualExceptDebugMetadata": false,
+        "RawEqual": false
+      },
+      {
+        "Section": ".rdata",
+        "EqualExceptDebugMetadata": false,
+        "RawEqual": false
+      },
+      {
+        "Section": ".data",
+        "EqualExceptDebugMetadata": true,
+        "RawEqual": true
+      },
+      {
+        "Section": ".pdata",
+        "EqualExceptDebugMetadata": false,
+        "RawEqual": false
+      },
+      {
+        "Section": "PAGE",
+        "EqualExceptDebugMetadata": true,
+        "RawEqual": true
+      },
+      {
+        "Section": "INIT",
+        "EqualExceptDebugMetadata": false,
+        "RawEqual": false
+      },
+      {
+        "Section": ".reloc",
+        "EqualExceptDebugMetadata": true,
+        "RawEqual": true
+      }
+    ],
+    "AllKernelSectionsEqual20ExceptDebugMetadata": false,
+    "CatalogMembers": [
+      {
+        "File": "BL-cs35l41-dsp1-spk-prot.bin",
+        "CatalogHash": "ED3B09FC202372FF099FC3D27AA8170548248E9850E3EDD3557899ECE4D2DED9",
+        "MemberFound": true
+      },
+      {
+        "File": "BR-cs35l41-dsp1-spk-prot.bin",
+        "CatalogHash": "8AFD4530FAA3716128B2807C6860E255C81E9AEE5690C2D7FB6261185A69DF55",
+        "MemberFound": true
+      },
+      {
+        "File": "cs35l41-dsp1-spk-prot.wmfw",
+        "CatalogHash": "D1BEA27E41001024EB3878276292B5BCC0CDA4484FFCED0880E12C03EC9BAC2C",
+        "MemberFound": true
+      },
+      {
+        "File": "cs35l41.inf",
+        "CatalogHash": "55A89F2924B89F4A670B732B227608617977CA5CC3E15E5CCF63C0B8D1E0A119",
+        "MemberFound": true
+      },
+      {
+        "File": "cs35l41.sys",
+        "CatalogHash": "4C85351604892D6FE2AE413F6250E685F1F8FD17B5B211C33329925A9A7B6038",
+        "MemberFound": true
+      },
+      {
+        "File": "TL-cs35l41-dsp1-spk-prot.bin",
+        "CatalogHash": "BF510D2EBA58FEF26C927229D08289AE39EB515C628CE05CB5DA0E7A5EAA3E2C",
+        "MemberFound": true
+      },
+      {
+        "File": "TR-cs35l41-dsp1-spk-prot.bin",
+        "CatalogHash": "9E7E1EF1CE28059FE7B0A8C880C5C6AF2EBA9FEA4B01365C951A30A20D076859",
+        "MemberFound": true
+      }
+    ],
+    "AllFilesFoundInCatalog": true,
+    "FirmwareAndCoefficientsEqual20": true,
+    "SysAndCatalogAuthenticodeStatus": "NotSigned",
+    "ExternalDriverInstalled": false,
+    "ExternalDriverPlayedSound": false,
+    "Win10HardwareCompatibilityTested": false,
+    "RemtrikLiveBindingTested": false
+  },
+  "prepared_package": {
+    "zip_name": "xiaomi-pad5-audio-4.17.27.20-arm64-driver.zip",
+    "sha256": "f13ae1c6b374af0463c9f0ecf94f0f4071e9fb4d64a49c94aa2f02e078e81451",
+    "bytes": 60952
+  },
+  "scope": {
+    "remtrik_live_binding_tested": false,
+    "physical_lr_measured": false,
+    "acoustic_quality_or_loudness_improved": false,
+    "hardware_pcm24_tested": false,
+    "system_dolby_or_misound_tested_in_this_trial": false,
+    "maximum_volume_safety_proven": false,
+    "uefi_changed": false,
+    "windows_rebooted": false,
+    "win10_compatibility_tested": false,
+    "note": "This fixes a verified ACPI matching blocker. Live playback/telemetry was on the existing legacy UEFI. Digital loopback is not a physical-speaker acoustic measurement."
+  }
+}

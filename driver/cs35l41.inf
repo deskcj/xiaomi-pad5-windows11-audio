@@ -8,7 +8,7 @@ Class       = Media
 ClassGuid   = {4d36e96c-e325-11ce-bfc1-08002be10318}
 Provider    = %ManufacturerName%
 CatalogFile = cs35l41.cat
-DriverVer   = 11/25/2026,4.17.27.18
+DriverVer   = 11/25/2026,4.17.27.20
 PnpLockdown = 1
 
 [DestinationDirs]
@@ -38,6 +38,9 @@ TR-cs35l41-dsp1-spk-prot.bin = 1
 ; ones on XP and later.
 [Standard.NT$ARCH$.10.0...22000]
 %cs35l41.DeviceDesc%=cs35l41_Device, ACPI\10133541
+; Remtrik 2611.21: verified against the release image and pinned DSDT.
+; Its four amplifier resources and UID-to-calibration mapping match the legacy UEFI.
+%cs35l41.DeviceDesc%=cs35l41_Device, ACPI\CSCL3541
 
 [cs35l41_Device.NT]
 CopyFiles=Drivers_Dir
