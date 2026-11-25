@@ -119,6 +119,7 @@ public:
     {
         ULONG remaining = InterlockedDecrement(&references_);
         if (!remaining) {
+            close_notifications();
             if (logging_) { logging_->Release(); logging_=nullptr; }
             free_delay();
             if (transport_) {
@@ -247,6 +248,7 @@ public:
         }
         if (transport_) {
             shared_ = transport_->shared;
+            InterlockedExchange(&shared_->effect_enabled, InterlockedCompareExchange(&effect_enabled_,0,0));
             InterlockedExchange(&shared_->apo_pid, LONG(GetCurrentProcessId()));
             InterlockedExchange(&shared_->init_kind, init_kind_);
         }
@@ -264,37 +266,52 @@ public:
         return S_OK;
     }
 
-    HRESULT STDMETHODCALLTYPE GetEffectsList(GUID **effects, UINT *count, HANDLE) override
+    HRESULT STDMETHODCALLTYPE GetEffectsList(GUID **effects, UINT *count, HANDLE event) override
     {
         if (!effects || !count) return E_POINTER;
         *effects = nullptr; *count = 0;
-        if (transport_ || discovery_effect_) {
+        if (has_effect()) {
             *effects = static_cast<GUID *>(CoTaskMemAlloc(sizeof(GUID)));
             if (!*effects) return E_OUTOFMEMORY;
             **effects = NabuDolbyEffectId; *count = 1;
         }
-        return S_OK;
+        HRESULT status = subscribe_event(event,false);
+        if (FAILED(status)) { CoTaskMemFree(*effects);*effects=nullptr;*count=0; }
+        else if (!InterlockedCompareExchange(&effect_enabled_,0,0)) { CoTaskMemFree(*effects);*effects=nullptr;*count=0; }
+        return status;
     }
 
-    HRESULT STDMETHODCALLTYPE GetControllableSystemEffectsList(AUDIO_SYSTEMEFFECT **effects, UINT *count, HANDLE) override
+    HRESULT STDMETHODCALLTYPE GetControllableSystemEffectsList(AUDIO_SYSTEMEFFECT **effects, UINT *count, HANDLE event) override
     {
         if (!effects || !count) return E_POINTER;
         *effects = nullptr; *count = 0;
-        if (transport_ || discovery_effect_) {
+        if (has_effect()) {
             auto *entry = static_cast<AUDIO_SYSTEMEFFECT *>(CoTaskMemAlloc(sizeof(AUDIO_SYSTEMEFFECT)));
             if (!entry) return E_OUTOFMEMORY;
-            *entry = {NabuDolbyEffectId, FALSE, AUDIO_SYSTEMEFFECT_STATE_ON};
+            *entry = {NabuDolbyEffectId, TRUE, AUDIO_SYSTEMEFFECT_STATE_OFF};
             *effects = entry; *count = 1;
         }
-        return S_OK;
+        HRESULT status = subscribe_event(event,true);
+        if (FAILED(status)) { CoTaskMemFree(*effects);*effects=nullptr;*count=0; }
+        else if (*effects) (*effects)->state = InterlockedCompareExchange(&effect_enabled_,0,0) ? AUDIO_SYSTEMEFFECT_STATE_ON : AUDIO_SYSTEMEFFECT_STATE_OFF;
+        return status;
     }
 
     HRESULT STDMETHODCALLTYPE SetAudioSystemEffectState(GUID id, AUDIO_SYSTEMEFFECT_STATE state) override
     {
-        if (id != NabuDolbyEffectId) return E_INVALIDARG;
-        // Original immutable profile: do not advertise a toggle we cannot apply.
-        const auto actual = transport_ || discovery_effect_ ? AUDIO_SYSTEMEFFECT_STATE_ON : AUDIO_SYSTEMEFFECT_STATE_OFF;
-        return state == actual ? S_OK : HRESULT_FROM_WIN32(ERROR_NOT_SUPPORTED);
+        if (id != NabuDolbyEffectId || (state != AUDIO_SYSTEMEFFECT_STATE_ON && state != AUDIO_SYSTEMEFFECT_STATE_OFF)) return E_INVALIDARG;
+        if (!initialized_) return APOERR_NOT_INITIALIZED;
+        if (!has_effect() && state == AUDIO_SYSTEMEFFECT_STATE_ON) return HRESULT_FROM_WIN32(ERROR_NOT_SUPPORTED);
+        const LONG enabled = state == AUDIO_SYSTEMEFFECT_STATE_ON ? 1 : 0;
+        LONG previous = InterlockedExchange(&effect_enabled_,enabled);
+        if (shared_) InterlockedExchange(&shared_->effect_enabled,enabled);
+        if (previous != enabled) {
+            AcquireSRWLockShared(&notification_lock_);
+            if (legacy_event_) SetEvent(legacy_event_);
+            if (control_event_) SetEvent(control_event_);
+            ReleaseSRWLockShared(&notification_lock_);
+        }
+        return S_OK;
     }
 
     HRESULT STDMETHODCALLTYPE GetLatency(HNSTIME *latency) override
@@ -433,7 +450,7 @@ public:
             memset(result, 0, size_t(count) * sizeof(*result));
             data = result;
         }
-        dolby_stream_process(&stream_, data, result, count);
+        dolby_stream_process_effect(&stream_, data, result, count, InterlockedCompareExchange(&effect_enabled_,0,0) != 0);
         if (shared_) {
             // The view wrapper lives on the pageable heap. Only access the
             // cached mapping here; LockForProcess pins it and this object.
@@ -444,12 +461,37 @@ public:
             InterlockedExchange64(&s->frames_processed, stream_.fallback.next_frame);
             InterlockedExchange64(&s->frames_wet, stream_.fallback.wet_count);
             InterlockedExchange64(&s->frames_dry, stream_.fallback.dry_count);
+            InterlockedExchange64(&s->frames_bypassed, stream_.fallback.bypass_count);
             InterlockedExchange64(&s->first_dry_frame, LONG64(stream_.fallback.first_dry_frame));
         }
         output.u32BufferFlags = BUFFER_VALID;
     }
 
 private:
+    bool has_effect() const { return transport_ || discovery_effect_ || (requests_ && replies_ && delay_); }
+
+    HRESULT subscribe_event(HANDLE event, bool controllable)
+    {
+        HANDLE owned = nullptr;
+        if (event && !DuplicateHandle(GetCurrentProcess(),event,GetCurrentProcess(),&owned,0,FALSE,DUPLICATE_SAME_ACCESS))
+            return HRESULT_FROM_WIN32(GetLastError());
+        AcquireSRWLockExclusive(&notification_lock_);
+        HANDLE &slot = controllable ? control_event_ : legacy_event_;
+        HANDLE previous = slot;slot=owned;
+        ReleaseSRWLockExclusive(&notification_lock_);
+        if (previous) CloseHandle(previous);
+        return S_OK;
+    }
+
+    void close_notifications()
+    {
+        AcquireSRWLockExclusive(&notification_lock_);
+        if (legacy_event_) CloseHandle(legacy_event_);
+        if (control_event_) CloseHandle(control_event_);
+        legacy_event_=control_event_=nullptr;
+        ReleaseSRWLockExclusive(&notification_lock_);
+    }
+
     void log_event(const WCHAR *phase,HRESULT status)
     {
         DWORD error=GetLastError();
@@ -492,6 +534,7 @@ private:
         // instance while its worker is alive must never reuse old queue replies.
         generation_ = shared_ ? UINT32(InterlockedIncrement(&shared_->generation)) : generation_ + 1;
         dolby_stream_init(&stream_, delay_frames_, delay_, requests_, replies_, generation_);
+        stream_.fallback.wet_mix = InterlockedCompareExchange(&effect_enabled_,0,0) ? DOLBY_EFFECT_RAMP_FRAMES : 0;
         if (shared_) {
             stream_.requests_dropped = &shared_->requests_dropped;
             // Frame telemetry belongs to the new epoch, not the previous owner.
@@ -499,6 +542,7 @@ private:
             InterlockedExchange64(&shared_->frames_processed,0);
             InterlockedExchange64(&shared_->frames_wet,0);
             InterlockedExchange64(&shared_->frames_dry,0);
+            InterlockedExchange64(&shared_->frames_bypassed,0);
             InterlockedExchange64(&shared_->first_dry_frame,-1);
             nabu_publish_dry_history(shared_, stream_.fallback);
         }
@@ -520,6 +564,9 @@ private:
     // would create a cycle. Public interfaces delegate identity and references.
     IUnknown *controlling_;
     volatile LONG references_ = 1;
+    volatile LONG effect_enabled_ = 1;
+    SRWLOCK notification_lock_ = SRWLOCK_INIT;
+    HANDLE legacy_event_ = nullptr, control_event_ = nullptr;
     bool initialized_ = false;
     UINT32 max_frames_ = 0;
     UINT32 generation_ = 0;

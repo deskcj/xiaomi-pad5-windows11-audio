@@ -2,6 +2,14 @@
 
 [English](dolby-apo-progress.md) · [Русский](dolby-apo-progress.ru.md) · [简体中文](dolby-apo-progress.zh-CN.md)
 
+### 2026-11-25 — Dolby .19: effect control verified in software
+
+- **Code:** ON/OFF through IAudioSystemEffects3, a 10 ms delay-aligned crossfade, owned notification handles and separate intentional-bypass telemetry. Original DSP state continues while OFF; default ON remains byte-exact.
+- **Proof:** 24 COM factory, 14 control / 10,000 concurrent changes, 11 crossfade guards and 108 settings-failure cases pass. Original ON→OFF→ON: 148,129 exact Dolby, 47,521 exact input and 958 crossfade frames; zero unexpected fallback. Three ordinary original-output comparisons also pass. These opened no audio device.
+- **Open:** .19 is built/signed and packaged on SSD, not installed or tested in audiodg. Adapter restart flag still blocks live deployment. Qualcomm initialization can hide topology-registration errors; Ghidra confirmed the caller/resource path, not live processing. Global preference, startup, physical L/R and PCM24 remain unfinished.
+
+[Evidence](results/audio-dolby-toggle-software-2026-11-25.json)
+
 ### 2026-11-25 — Dolby .17 diagnostics; .18 startup candidate
 
 - **Device .17:** three-minute quiet recovery test: one dry interval, frames 122,880–209,663 (1.808 s); no later dry frames in this run. The initial zero-stream verification caught a transient global meter signal; a separate zero recheck and FX readback passed.

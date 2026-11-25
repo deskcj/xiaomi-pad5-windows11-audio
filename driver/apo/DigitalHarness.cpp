@@ -191,8 +191,18 @@ extern "C" __declspec(dllexport) HRESULT WINAPI NabuProbeSystemInit(const WCHAR 
         hr=apo->QueryInterface(IID_PPV_ARGS(&modern));
         if(SUCCEEDED(hr))hr=modern->GetControllableSystemEffectsList(&entries,&count,nullptr);
         if(SUCCEEDED(hr) && count!=*effects)hr=E_UNEXPECTED;
-        if(SUCCEEDED(hr) && count && (entries[0].canSetState || entries[0].state!=AUDIO_SYSTEMEFFECT_STATE_ON || entries[0].id!=ids[0]))hr=E_UNEXPECTED;
-        if(SUCCEEDED(hr) && count && modern->SetAudioSystemEffectState(entries[0].id,AUDIO_SYSTEMEFFECT_STATE_OFF)!=HRESULT_FROM_WIN32(ERROR_NOT_SUPPORTED))hr=E_UNEXPECTED;
+        if(SUCCEEDED(hr) && count && (!entries[0].canSetState || entries[0].state!=AUDIO_SYSTEMEFFECT_STATE_ON || entries[0].id!=ids[0]))hr=E_UNEXPECTED;
+        if(SUCCEEDED(hr) && count) {
+            hr=modern->SetAudioSystemEffectState(ids[0],AUDIO_SYSTEMEFFECT_STATE_OFF);
+            if(entries)CoTaskMemFree(entries);entries=nullptr;
+            if(SUCCEEDED(hr))hr=modern->GetControllableSystemEffectsList(&entries,&count,nullptr);
+            if(SUCCEEDED(hr) && (count!=*effects || !entries || !entries[0].canSetState || entries[0].state!=AUDIO_SYSTEMEFFECT_STATE_OFF))hr=E_UNEXPECTED;
+            GUID *disabled=nullptr;UINT disabled_count=0;
+            if(SUCCEEDED(hr))hr=modern->GetEffectsList(&disabled,&disabled_count,nullptr);
+            if(SUCCEEDED(hr) && disabled_count)hr=E_UNEXPECTED;
+            if(disabled)CoTaskMemFree(disabled);
+            if(SUCCEEDED(hr))hr=modern->SetAudioSystemEffectState(ids[0],AUDIO_SYSTEMEFFECT_STATE_ON);
+        }
         if(entries)CoTaskMemFree(entries);
         if(modern)modern->Release();
     }

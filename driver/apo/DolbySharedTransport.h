@@ -4,8 +4,8 @@
 #include "DolbyBlockQueue.h"
 
 // Standalone protocol only. No global mapping, service, or driver registration.
-constexpr UINT32 NabuTransportSignature = 0x3454424e;
-constexpr UINT32 NabuTransportVersion = 4;
+constexpr UINT32 NabuTransportSignature = 0x3554424e;
+constexpr UINT32 NabuTransportVersion = 5;
 constexpr UINT32 NabuTransportInitSignature = 0x3149424e;
 constexpr UINT32 NabuTransportNameChars = 128;
 
@@ -36,6 +36,8 @@ struct NabuSharedTransport {
     volatile LONG64 dry_runs;
     volatile LONG64 dry_revision;
     struct { volatile LONG64 first_frame, last_frame; } dry_ranges[DOLBY_DRY_HISTORY];
+    volatile LONG64 frames_bypassed;
+    volatile LONG effect_enabled; // Requested state; transitions fade for 480 samples.
 };
 
 struct NabuTransportView {
@@ -56,7 +58,7 @@ static_assert(sizeof(StereoFrame) == 8);
 static_assert(sizeof(DolbyAudioBlock) == 8208);
 static_assert(sizeof(DolbyBlockQueue) == 262664);
 static_assert(offsetof(NabuSharedTransport, requests) == 88);
-static_assert(sizeof(NabuSharedTransport) == 525704);
+static_assert(sizeof(NabuSharedTransport) == 525720);
 static_assert(sizeof(NabuApoTransportInit) == 280);
 
 NabuTransportView *nabu_open_transport(const WCHAR *name);

@@ -1,4 +1,19 @@
-# Dolby APO development source · 2.0.0.18-lab
+# Dolby APO development source · 2.0.0.19-lab
+
+**.19:** per-stream ON/OFF is exposed through IAudioSystemEffects3. It preserves
+the transport delay, fades over 480 samples (10 ms at 48 kHz), keeps original DSP
+state running while OFF and reports intentional bypass separately from failure.
+Notification handles are duplicated/owned; the audio callback takes no control
+lock. Global preference persistence and real Windows EffectsManager deployment
+remain untested.
+
+Software: 24 factory, 14 control including 10,000 concurrent changes, 11 crossfade
+guard and 108 settings-failure cases pass. Original-DAP ON→OFF→ON matched 148,129
+original-output frames and 47,521 input frames, with 958 bounded fade frames and
+zero failure fallback. Three normal/irregular/reset comparisons remain exact.
+No audio device was opened; .19 is signed/packaged on SSD, not installed. The
+Qualcomm adapter still needs Windows restart; .20 / APO .4 remain installed.
+[Evidence](../../docs/results/audio-dolby-toggle-software-2026-11-25.json)
 
 **.17 → .18:** wire4 adds a consistent 16-interval fallback history and bounded
 worker timing. A quiet three-minute .17 worker-failure trial recorded one

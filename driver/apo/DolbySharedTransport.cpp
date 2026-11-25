@@ -119,6 +119,7 @@ extern "C" void *WINAPI NabuTransportCreateSecured(const WCHAR *name, UINT32 del
         s->delay_frames = delay;
         s->first_dry_frame = -1;
         s->last_dry_frame = -1;
+        s->effect_enabled = 1;
     }
     return view;
 }
@@ -279,14 +280,14 @@ extern "C" LONG WINAPI NabuTransportMetric(void *view, UINT32 index)
     auto *s = static_cast<NabuTransportView *>(view)->shared;
     volatile LONG *fields[] = {&s->apo_claim, &s->worker_claim, &s->generation, &s->stop,
         &s->requests_dropped, &s->worker_gaps, &s->blocks_replied, &s->worker_ready,
-        &s->apo_pid, &s->init_kind, &s->lock_error, &s->callbacks};
+        &s->apo_pid, &s->init_kind, &s->lock_error, &s->callbacks, &s->effect_enabled};
     return index < ARRAYSIZE(fields) ? InterlockedCompareExchange(fields[index], 0, 0) : -1;
 }
 
 extern "C" LONG64 WINAPI NabuTransportFrames(void *view, UINT32 index)
 {
     auto *s = static_cast<NabuTransportView *>(view)->shared;
-    volatile LONG64 *fields[] = {&s->frames_processed, &s->frames_wet, &s->frames_dry, &s->first_dry_frame, &s->last_dry_frame, &s->dry_runs};
+    volatile LONG64 *fields[] = {&s->frames_processed, &s->frames_wet, &s->frames_dry, &s->first_dry_frame, &s->last_dry_frame, &s->dry_runs, &s->frames_bypassed};
     return index < ARRAYSIZE(fields) ? InterlockedCompareExchange64(fields[index], 0, 0) : -1;
 }
 extern "C" BOOL WINAPI NabuTransportDryRanges(void *pointer, DolbyDryRange *ranges, UINT32 capacity, UINT64 *runs)

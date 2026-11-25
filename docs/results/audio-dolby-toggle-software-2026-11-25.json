@@ -1,0 +1,234 @@
+{
+  "date": "2026-11-25",
+  "candidate": "2.0.0.19-lab",
+  "wire_version": 5,
+  "change": {
+    "controllable_effect": true,
+    "transition_frames": 480,
+    "transition_ms_at_48khz": 10,
+    "off_output": "delay-aligned original input",
+    "original_dsp_continues_while_off": true,
+    "intentional_bypass_count_separate": true,
+    "notification_handles_duplicated": true,
+    "audio_callback_takes_notification_lock": false,
+    "global_effect_preference_persisted": false
+  },
+  "build": {
+    "Architecture": "ARM64",
+    "PackageVersion": "2.0.0.19",
+    "EmbeddedDllSignatureVerified": true,
+    "EmbeddedCertificateBytes": 3104,
+    "CatalogAndMembersVerified": true,
+    "UnsignedDllSha256": "dcf0ffc558e1469d40a77d179279e67d58133f223052277397ea86ec835f6629",
+    "Files": {
+      "nabudolbyapo.cat": "6a5317650ea8ef7242afc16a4fba2154cdc032a81ede36129351519acef186bf",
+      "NabuDolbyApo.inf": "bdd1b1afce5297a967bc55e3017aac2094e6dff559b392ab291a84d228aa12da",
+      "NabuDolbyBridge.dll": "4887adf25ba2ac3497cf2fdab45f947873d8beacc19388570b269cf676e26fe3"
+    },
+    "Installed": false,
+    "SystemEffectsProven": false
+  },
+  "source_fingerprint": "dca1baba2691f540f4dbeadbafe47e825c61ee9fdb606d214ba4033e63f20e96",
+  "software": {
+    "factory_cases": 24,
+    "crossfade_guard_cases": 11,
+    "com_control_cases": {
+      "Passed": true,
+      "Cases": 14,
+      "ConcurrentStateChanges": 10000,
+      "SourceFramesQueued": 72704,
+      "AudioOpened": false,
+      "DriverInstalled": false
+    },
+    "settings_failure_cases": 108,
+    "settings_passed": 108,
+    "original_on_comparisons": [
+      {
+        "Label": "normal",
+        "Hresult": 0,
+        "Comparison": {
+          "ReferenceFrames": 196608,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        },
+        "Stats": {
+          "bytes": 56,
+          "callbacks": 423,
+          "frames_out": 202752,
+          "reset_frame": 0,
+          "latency": 1280000,
+          "maximum_callback_us": 178.17708333333334,
+          "maximum_schedule_late_ms": 16.0990625,
+          "invalid_callbacks": 0,
+          "nonfinite_frames": 0,
+          "duplicate_attach_rejected": 1,
+          "dll_unloadable": 1
+        },
+        "OutputSha256": "0bd96a21ad5efbdf8457ec55491299b908d4a9c912b2c67737e2218f57fc2410"
+      },
+      {
+        "Label": "irregular",
+        "Hresult": 0,
+        "Comparison": {
+          "ReferenceFrames": 196608,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        },
+        "Stats": {
+          "bytes": 56,
+          "callbacks": 529,
+          "frames_out": 202752,
+          "reset_frame": 0,
+          "latency": 1280000,
+          "maximum_callback_us": 396.9270833333333,
+          "maximum_schedule_late_ms": 15.888645833333333,
+          "invalid_callbacks": 0,
+          "nonfinite_frames": 0,
+          "duplicate_attach_rejected": 1,
+          "dll_unloadable": 1
+        },
+        "OutputSha256": "0bd96a21ad5efbdf8457ec55491299b908d4a9c912b2c67737e2218f57fc2410"
+      },
+      {
+        "Label": "reset",
+        "Hresult": 0,
+        "Comparison": {
+          "ReferenceFrames": 190464,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        },
+        "Stats": {
+          "bytes": 56,
+          "callbacks": 423,
+          "frames_out": 202752,
+          "reset_frame": 98304,
+          "latency": 1280000,
+          "maximum_callback_us": 184.01041666666666,
+          "maximum_schedule_late_ms": 15.74171875,
+          "invalid_callbacks": 0,
+          "nonfinite_frames": 0,
+          "duplicate_attach_rejected": 1,
+          "dll_unloadable": 1
+        },
+        "OutputSha256": "8d71cd2f4fde47176931609544a78382d3bd550b74337094cda39fe6316e2a65"
+      }
+    ],
+    "original_toggle_comparison": {
+      "Passed": true,
+      "ActualPacedComApo": true,
+      "OriginalAndroidStereoDap": true,
+      "AudioOpened": false,
+      "DriverInstalled": false,
+      "Client": {
+        "ClientPassed": true,
+        "Frames": 202752,
+        "DelayFrames": 6144,
+        "DisableOutputFrame": 48000,
+        "EnableOutputFrame": 96000,
+        "MaxClientScheduleLateMs": 16.32,
+        "AudioOpened": false
+      },
+      "Comparison": {
+        "ExactOriginal": 148129,
+        "ExactIntentionalBypass": 47521,
+        "Crossfade": 958
+      },
+      "MaxCrossfadeError": 8.381903157661519e-10,
+      "OutputSha256": "2700507bfa705c99741f5cf783e8b982cb6163e811e4c1811b7e9d3775a661f5"
+    },
+    "original_toggle_metrics": {
+      "pid": 9800,
+      "exit_code": 259,
+      "transport": "Local\\NabuDolbyLab-{86ABA4F7-24D7-4609-A49A-71F80E483F63}-0",
+      "restart_count": 0,
+      "previous_exit_code": 0,
+      "recovering": false,
+      "output": "H:\\Vlad\\xiaomi-pad5-windows11-audio\\local\\Codex-2026-11-25\\dolby-service-v1\\original-toggle19b\\runtime\\worker0",
+      "ready": true,
+      "apo_claim": 0,
+      "worker_claim": 9800,
+      "stop": 0,
+      "init_kind": 1,
+      "lock_error": 0,
+      "apo_pid": 7072,
+      "generation": 1,
+      "callbacks": 423,
+      "requests_dropped": 0,
+      "worker_gaps": 0,
+      "blocks_replied": 198,
+      "frames_processed": 202752,
+      "frames_wet": 149087,
+      "frames_dry": 0,
+      "frames_bypassed": 47521,
+      "effect_enabled": 1,
+      "first_dry_frame": -1,
+      "last_dry_frame": -1,
+      "dry_ranges_available": true,
+      "dry_runs": 0,
+      "dry_ranges": []
+    },
+    "audio_device_opened": false,
+    "driver_installed": false,
+    "first_com_fixture_failed_due_to_missing_test_working_set_setup": true,
+    "working_set_corrected_fixture_retained": true
+  },
+  "misound_static_analysis": {
+    "original_driver_sha256": "b82cabb860404edd71cb38ce28720c74628dd3ad12e20f8ecbd874853cac0edd",
+    "topology_register_function": "0x140071b90",
+    "initializer_caller": "0x14006c820",
+    "caller_site": "0x14006d578",
+    "initializer_logs_registration_error_and_returns_success": true,
+    "topology_size_resource_query": "0x132ac",
+    "topology_data_parser": "0x140052f38",
+    "analysis_output_sha256": "a49e455aad67ad88365caab6f0cc1ce6236a16365630b9dfec62eb6cca7f86b5",
+    "driver_executed": false,
+    "dsp_command_sent": false,
+    "live_failure_proven": false,
+    "live_misound_processing_proven": false
+  },
+  "package": {
+    "filename": "runtime-bundle19.zip",
+    "bytes": 11860490,
+    "sha256": "ce42075736218c84c93f39d021c774455c33c4353f35b7daa57ae2bb6fc1abf5",
+    "members_verified": true,
+    "runtime_only_installer": true,
+    "graph_installation_finished": false
+  },
+  "system": {
+    "kernel": "4.17.27.20",
+    "apo": "2.0.0.4",
+    "backend": "2.0.0.18 Manual smoke bank",
+    "adapter_restart_still_required": true,
+    "os_reboot_performed": false,
+    "new_package_installed": false,
+    "new_hardware_test_performed": false,
+    "gain_or_protection_changed": false
+  },
+  "open": [
+    "Windows EffectsManager/audiodg .19 control trial",
+    "global UI/preference persistence",
+    "permanent APO/autostart",
+    "128 ms latency",
+    "active recovery timing",
+    "live MiSound",
+    "physical four-speaker L/R",
+    "hardware PCM24",
+    "Atmos object rendering",
+    "loud/sleep safety"
+  ]
+}

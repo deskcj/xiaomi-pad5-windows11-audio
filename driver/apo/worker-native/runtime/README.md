@@ -1,5 +1,15 @@
 # Original Dolby runtime · development
 
+.19 uses wire5 and exposes per-stream effect control with a 10 ms fade. Workers
+continue the original state/input sequence during OFF; intentional bypass has
+its own counter. The default ON path still matches original output exactly.
+The paced software ON→OFF→ON comparison passed 196,608 total frames, including
+958 transition frames. Notification, concurrent control and settings-failure
+checks pass. .19 is not installed or hardware-tested, and global preference /
+Windows EffectsManager integration remain open. C:still runs the .18 smoke
+backend; the prepared .19 ZIP is retained on H:.
+[.19 evidence](../../../../docs/results/audio-dolby-toggle-software-2026-11-25.json)
+
 Current candidate is .18, wire4. A bounded 16-interval history distinguishes
 startup fallback from later stalls. The new sole-consumer startup discard
 advances only the committed request prefix; producer indices remain intact.

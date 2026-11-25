@@ -26,8 +26,8 @@ static BOOL dolby_stream_init(DolbyStream *stream, StereoFrame *delay_frames, si
     return TRUE;
 }
 
-static void dolby_stream_process(DolbyStream *stream, const StereoFrame *input,
-    StereoFrame *output, uint32_t count)
+static void dolby_stream_process_effect(DolbyStream *stream, const StereoFrame *input,
+    StereoFrame *output, uint32_t count, BOOL enabled)
 {
     /* Bound discarded stale replies, not valid replies consumed by a callback.
      * Otherwise several stale records can exhaust the budget and incorrectly
@@ -88,10 +88,16 @@ static void dolby_stream_process(DolbyStream *stream, const StereoFrame *input,
                 }
             }
 
-            dolby_fallback_process(&stream->fallback, input + offset, output + offset, (size_t)run, &wet);
+            dolby_fallback_process_effect(&stream->fallback, input + offset, output + offset, (size_t)run, &wet, enabled);
             offset += (uint32_t)run;
         }
     }
+}
+
+static void dolby_stream_process(DolbyStream *stream, const StereoFrame *input,
+    StereoFrame *output, uint32_t count)
+{
+    dolby_stream_process_effect(stream, input, output, count, TRUE);
 }
 
 #endif

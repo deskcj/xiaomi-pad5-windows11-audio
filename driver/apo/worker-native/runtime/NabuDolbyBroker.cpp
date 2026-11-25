@@ -237,6 +237,8 @@ class Broker
                      << ",\"frames_processed\":" << api_.frames(w.view, 0)
                      << ",\"frames_wet\":" << api_.frames(w.view, 1)
                      << ",\"frames_dry\":" << api_.frames(w.view, 2)
+                     << ",\"frames_bypassed\":" << api_.frames(w.view, 6)
+                     << ",\"effect_enabled\":" << api_.metric(w.view, 12)
                      << ",\"first_dry_frame\":" << api_.frames(w.view, 3)
                      << ",\"last_dry_frame\":" << api_.frames(w.view, 4);
             if (w.view) {
