@@ -1,0 +1,594 @@
+{
+  "Date": "2026-11-25",
+  "ApoVersion": "2.0.0.8-lab",
+  "KernelVersion": "4.17.27.18",
+  "Scope": {
+    "SystemDolbyProven": false,
+    "SystemMiSoundProven": false,
+    "AcousticLrProven": false,
+    "HyperOsParityProven": false,
+    "MaximumVolumeSafetyProven": false,
+    "RebootPerformed": false,
+    "DriverInstalled": false
+  },
+  "Build": {
+    "CandidateVersion": "2.0.0.8-lab",
+    "Architecture": "ARM64",
+    "Registered": false,
+    "SourceFingerprint": "b10860f34d4a00202e73a5cce8136045cdbdc357093bf58865d6f9864c888405",
+    "Signed": false,
+    "SystemEffectsProven": false,
+    "DllSha256": "b7ca199e472cb852e7b2220bd47907f66f90ea323c7d0fcf866982878258b624",
+    "SourceSha256": {
+      "ApoDiagnostics.cpp": "227e10a9b5ef720ac2e18e932f1643f4ee34ab35d75988fa0d535b653da70a32",
+      "ApoDiagnostics.h": "f9e3cec1792f9c7af3010c7fdff13001b36b021107bb2373bf11aad7d01ff863",
+      "Build-Apo.ps1": "025cda580a1d2bf75711caf4e1fca6a2d396b58a6e0b1c71ad086b40f4dd0303",
+      "DigitalHarness.cpp": "a234e82dbb347f5550c92f596335bfdeae2b17e14a150d806ea9070c42749589",
+      "DolbyBank.cpp": "b6ce1f90e8f0a4f7cf9c7ab43815a7923178aed7dc328f9a59eef4210b9d43aa",
+      "DolbyBank.h": "d2e8611e4d2abf71acd65352062923c13d16bd2242316989a38b9ddb971702ed",
+      "DolbyBlockQueue.h": "b7df0202bdc53498e952cc67e2ff806ad78506f169ff578d257fa0241d0b763e",
+      "DolbyFallback.h": "41a8aad572daa3298ea84bbfee0f2a13135caad0640a9d368f568963b42b2db4",
+      "DolbySharedTransport.cpp": "17781fdb4db28e9cdaf6a16000462d5c9f64b6ddbed79117844045c8cfd0f96b",
+      "DolbySharedTransport.h": "3d7b9970856806d27e2a1f35522f5a2c921f299623287a6d4466592ecaeda9a7",
+      "DolbyStream.h": "78e8dfc38f52b480ebc62975e83bbd271105969ffc3a33cbffc9ac37fb5d68b5",
+      "NabuDolbyApo.cpp": "41ddd91c0af2d6182d61d599154924713ed25c42d7be451756d6d7fc15bbc6cc",
+      "NabuDolbyApo.h": "afa308a9eba57e84f7762c3e77ca1f469a5797a98b2956df39e07e74cc46a647"
+    }
+  },
+  "Package": {
+    "Version": "2.0.0.8",
+    "Architecture": "ARM64",
+    "CatalogSignedAndVerified": true,
+    "Installed": false,
+    "Registered": false,
+    "SystemDolbyProven": false,
+    "RequiresDriverBoundSfxExtension": true,
+    "KernelChanged": false,
+    "GainOrProtectionChanged": false,
+    "RollbackActuallyExercised": false,
+    "PackageFiles": {
+      "NabuDolbyApo.inf": "6daaf6a3a1c263f2b68557efc01e9c0507567e6d57a5ad7b2738be6f73274fc6",
+      "NabuDolbyBridge.dll": "b7ca199e472cb852e7b2220bd47907f66f90ea323c7d0fcf866982878258b624",
+      "nabudolbyapo.cat": "194234b1e7d078c19e9d12cf2dfbeb19455af48c2bf46ea6bf426c3b172a84ad"
+    },
+    "RollbackFiles": {
+      "NabuDolbyGlobal.inf": "046f03b6c180d5f004af371914a326c2326c17933a8bd72e3ac3497b9b48f08d",
+      "NabuDolbyGlobal.cat": "9689cffaf11b2e983ffc926df551f82c258afbf29d2c321fe848c2a9d07f36da",
+      "NabuDolbyBridge.dll": "dc0c29a144090f83b4532c215332f1a0c96aa4c99ca9db1ccdbc1bb5c117889c"
+    }
+  },
+  "MemoryContract": {
+    "PinningAndAllocationApisSubstituted": true,
+    "NativeArm64ComCalls": true,
+    "GuardedViewPages": true,
+    "BaselineVersion": "2.0.0.7-lab",
+    "BaselinePassed": false,
+    "BaselineCases": [
+      {
+        "scenario": 0,
+        "first_hr": "0x80070718",
+        "pins_after_first": 0,
+        "first_lock_error": 1816,
+        "retry_hr": "0x00000000",
+        "retry_lock_error": 1816,
+        "process_exception": "0xc0000005",
+        "reset_exception": "0xc0000005",
+        "pins_after_unlock": 1,
+        "passed": false
+      },
+      {
+        "scenario": 1,
+        "first_hr": "0x80070718",
+        "pins_after_first": 1,
+        "first_lock_error": 1816,
+        "retry_hr": "0x00000000",
+        "retry_lock_error": 1816,
+        "process_exception": "0xc0000005",
+        "reset_exception": "0xc0000005",
+        "pins_after_unlock": 1,
+        "passed": false
+      },
+      {
+        "scenario": 2,
+        "first_hr": "0x80070718",
+        "pins_after_first": 1,
+        "first_lock_error": 0,
+        "retry_hr": "0x00000000",
+        "retry_lock_error": 0,
+        "process_exception": "0xc0000005",
+        "reset_exception": "0xc0000005",
+        "pins_after_unlock": 1,
+        "passed": false
+      },
+      {
+        "scenario": 3,
+        "first_hr": "0x8007000e",
+        "pins_after_first": 2,
+        "first_lock_error": 0,
+        "retry_hr": "0x00000000",
+        "retry_lock_error": 0,
+        "process_exception": "0xc0000005",
+        "reset_exception": "0xc0000005",
+        "pins_after_unlock": 1,
+        "passed": false
+      },
+      {
+        "scenario": 4,
+        "first_hr": "0x00000000",
+        "pins_after_first": 3,
+        "first_lock_error": 0,
+        "retry_hr": "0x00000000",
+        "retry_lock_error": 0,
+        "process_exception": "0xc0000005",
+        "reset_exception": "0xc0000005",
+        "pins_after_unlock": 1,
+        "passed": false
+      }
+    ],
+    "CandidatePassed": true,
+    "CandidateCases": [
+      {
+        "scenario": 0,
+        "first_hr": "0x80070718",
+        "pins_after_first": 0,
+        "first_lock_error": 1816,
+        "retry_hr": "0x00000000",
+        "retry_lock_error": 0,
+        "process_exception": "0x00000000",
+        "reset_exception": "0x00000000",
+        "pins_after_unlock": 0,
+        "passed": true
+      },
+      {
+        "scenario": 1,
+        "first_hr": "0x80070718",
+        "pins_after_first": 0,
+        "first_lock_error": 1816,
+        "retry_hr": "0x00000000",
+        "retry_lock_error": 0,
+        "process_exception": "0x00000000",
+        "reset_exception": "0x00000000",
+        "pins_after_unlock": 0,
+        "passed": true
+      },
+      {
+        "scenario": 2,
+        "first_hr": "0x80070718",
+        "pins_after_first": 0,
+        "first_lock_error": 0,
+        "retry_hr": "0x00000000",
+        "retry_lock_error": 0,
+        "process_exception": "0x00000000",
+        "reset_exception": "0x00000000",
+        "pins_after_unlock": 0,
+        "passed": true
+      },
+      {
+        "scenario": 3,
+        "first_hr": "0x8007000e",
+        "pins_after_first": 0,
+        "first_lock_error": 0,
+        "retry_hr": "0x00000000",
+        "retry_lock_error": 0,
+        "process_exception": "0x00000000",
+        "reset_exception": "0x00000000",
+        "pins_after_unlock": 0,
+        "passed": true
+      },
+      {
+        "scenario": 4,
+        "first_hr": "0x00000000",
+        "pins_after_first": 3,
+        "first_lock_error": 0,
+        "retry_hr": "0x00000000",
+        "retry_lock_error": 0,
+        "process_exception": "0x00000000",
+        "reset_exception": "0x00000000",
+        "pins_after_unlock": 0,
+        "passed": true
+      }
+    ],
+    "Interpretation": "Software fault fixture: protected view pages deliberately raise an access violation on old view dereferences. This is not an observed audiodg/tablet crash or proof of the historic shutdown cause."
+  },
+  "LoggingContractsPassed": 7,
+  "EpochCounterCasesPassed": 2,
+  "OriginalWorker": {
+    "Passed": true,
+    "Completed": 7,
+    "CandidateDllSha256": "b7ca199e472cb852e7b2220bd47907f66f90ea323c7d0fcf866982878258b624",
+    "Scenarios": [
+      {
+        "Label": "normal",
+        "Passed": true,
+        "Comparison": {
+          "ReferenceFrames": 196608,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        }
+      },
+      {
+        "Label": "irregular",
+        "Passed": true,
+        "Comparison": {
+          "ReferenceFrames": 196608,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        }
+      },
+      {
+        "Label": "exit",
+        "Passed": true,
+        "Comparison": {
+          "ReferenceFrames": 98304,
+          "ExactDryFallbackFrames": 98304,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": false
+        }
+      },
+      {
+        "Label": "pause",
+        "Passed": true,
+        "Comparison": {
+          "ReferenceFrames": 175200,
+          "ExactDryFallbackFrames": 21408,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        }
+      },
+      {
+        "Label": "reset",
+        "Passed": true,
+        "Comparison": {
+          "ReferenceFrames": 190464,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        }
+      },
+      {
+        "Label": "bypass",
+        "Passed": true,
+        "Comparison": {
+          "ExactZeroLatencyBypass": true
+        }
+      },
+      {
+        "Label": "absent",
+        "Passed": true,
+        "Comparison": {
+          "ReferenceFrames": 1,
+          "ExactDryFallbackFrames": 196607,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": false
+        }
+      }
+    ],
+    "AudioDeviceOpened": false
+  },
+  "Observer": {
+    "SyntheticFixtures": true,
+    "PassedCases": 17,
+    "SystemExecutionProven": false
+  },
+  "QuietDigitalStereo": {
+    "endpoint": "{0.0.0.00000000}.{9d311770-9130-4295-bfc6-e64627ad96d3}",
+    "input_peak_limit": 0.001,
+    "input_dbfs": -60,
+    "registry_modified": false,
+    "acoustic_lr_proven": false,
+    "maximum_volume_safety_proven": false,
+    "cases": [
+      {
+        "channel": "L",
+        "raw": false,
+        "hr": "0x00000000",
+        "submitted_frames": 82080,
+        "captured_frames": 76800,
+        "active_frames": 20074,
+        "rms": [
+          1.56022206297e-05,
+          0
+        ],
+        "peak": [
+          3.0517578125e-05,
+          0
+        ],
+        "opposite_rms_ratio": 0,
+        "tone_800hz_amplitudes": [
+          1.4760588298e-05,
+          0
+        ],
+        "opposite_tone_ratio": 0,
+        "digital_separation_passed": true,
+        "capture_discontinuities": 1,
+        "nonfinite_frames": 0,
+        "maximum_meter_peak": 0.00103759789,
+        "passed": true
+      },
+      {
+        "channel": "R",
+        "raw": false,
+        "hr": "0x00000000",
+        "submitted_frames": 83040,
+        "captured_frames": 77760,
+        "active_frames": 20101,
+        "rms": [
+          0,
+          1.55160357248e-05
+        ],
+        "peak": [
+          0,
+          3.0517578125e-05
+        ],
+        "opposite_rms_ratio": 0,
+        "tone_800hz_amplitudes": [
+          0,
+          1.4595981579e-05
+        ],
+        "opposite_tone_ratio": 0,
+        "digital_separation_passed": true,
+        "capture_discontinuities": 1,
+        "nonfinite_frames": 0,
+        "maximum_meter_peak": 0.00103759789,
+        "passed": true
+      },
+      {
+        "channel": "L",
+        "raw": true,
+        "hr": "0x00000000",
+        "submitted_frames": 82560,
+        "captured_frames": 77280,
+        "active_frames": 20074,
+        "rms": [
+          1.55536910545e-05,
+          0
+        ],
+        "peak": [
+          3.0517578125e-05,
+          0
+        ],
+        "opposite_rms_ratio": 0,
+        "tone_800hz_amplitudes": [
+          1.46689076254e-05,
+          0
+        ],
+        "opposite_tone_ratio": 0,
+        "digital_separation_passed": true,
+        "capture_discontinuities": 1,
+        "nonfinite_frames": 0,
+        "maximum_meter_peak": 0.00103759789,
+        "passed": true
+      },
+      {
+        "channel": "R",
+        "raw": true,
+        "hr": "0x00000000",
+        "submitted_frames": 82560,
+        "captured_frames": 77280,
+        "active_frames": 20151,
+        "rms": [
+          7.60566385314e-07,
+          1.55834929858e-05
+        ],
+        "peak": [
+          3.0517578125e-05,
+          3.0517578125e-05
+        ],
+        "opposite_rms_ratio": 0.0488058990375,
+        "tone_800hz_amplitudes": [
+          9.88258341472e-09,
+          1.46841650574e-05
+        ],
+        "opposite_tone_ratio": 0.000673009556628,
+        "digital_separation_passed": true,
+        "capture_discontinuities": 1,
+        "nonfinite_frames": 0,
+        "maximum_meter_peak": 0.00103759789,
+        "passed": true
+      }
+    ],
+    "volume_before": 0.0599999912,
+    "volume_after": 0.0599999912,
+    "volume_unchanged": true,
+    "passed": true
+  },
+  "QuietProcessedFileDelivery": {
+    "Result": {
+      "hr": "0x00000000",
+      "audio_started": true,
+      "source_peak": 0.001000000047,
+      "source_frames": 202752,
+      "submitted_frames": 229920,
+      "captured_frames": 224640,
+      "raw_stream": true,
+      "volume_before": 0.05999999121,
+      "volume_after": 0.05999999121,
+      "volume_unchanged": true,
+      "maximum_meter": 0.001007080311,
+      "capture_discontinuities": 1,
+      "nonfinite_frames": 0,
+      "best_template_correlation": 0.4910133801,
+      "lag_frames": 541,
+      "digital_delivery_passed": false,
+      "system_dolby_proven": false,
+      "acoustic_lr_proven": false
+    },
+    "AcceptedAsDolbyEvidence": false,
+    "Interpretation": "At -60 dBFS source peak and 6% endpoint volume, capture has only PCM16-sized values and a zero right channel. Template correlation failed; no successful Dolby delivery or speaker-side isolation is claimed. Equal-peak channel-only controls passed separately."
+  },
+  "ReadOnlyPreflight": {
+    "Passed": true,
+    "Amplifiers": [
+      {
+        "InstanceId": "ACPI\\10133541\\0",
+        "ConfigResult": 0,
+        "Started": true,
+        "NeedsRestart": false,
+        "Problem": 0,
+        "Version": "4.17.27.18",
+        "Inf": "oem50.inf"
+      },
+      {
+        "InstanceId": "ACPI\\10133541\\1",
+        "ConfigResult": 0,
+        "Started": true,
+        "NeedsRestart": false,
+        "Problem": 0,
+        "Version": "4.17.27.18",
+        "Inf": "oem50.inf"
+      },
+      {
+        "InstanceId": "ACPI\\10133541\\2",
+        "ConfigResult": 0,
+        "Started": true,
+        "NeedsRestart": false,
+        "Problem": 0,
+        "Version": "4.17.27.18",
+        "Inf": "oem50.inf"
+      },
+      {
+        "InstanceId": "ACPI\\10133541\\3",
+        "ConfigResult": 0,
+        "Started": true,
+        "NeedsRestart": false,
+        "Problem": 0,
+        "Version": "4.17.27.18",
+        "Inf": "oem50.inf"
+      }
+    ],
+    "KernelHash": "653b8ded9ebc89b0cafa8d455c0eef8bfe613943c455de8ff5f6887eda7e6cc4"
+  },
+  "GainFirmwareCalibrationAndProtectionChanged": false,
+  "MiSoundResourceStages": {
+    "OriginalHyperOsFirmwareSha256": "3bdf15fd2102c0b808decfde615adf8797adc7fdd0406076dc9e4e50ef562ab7",
+    "Exports": [
+      {
+        "Review": "hyperos-resource-stages03",
+        "Sha256": "ff1e9ef3ae77b581fd9009cc448c176039a9990a67cdb345bdddda3013540abf",
+        "Functions": 4,
+        "RawInstructionsRetained": true
+      },
+      {
+        "Review": "hyperos-resource-stages04",
+        "Sha256": "43e694eebe87ab8251dcf753ca41e23f4ae4d98ea2ad15354238bdc7597b9495",
+        "Functions": 4,
+        "RawInstructionsRetained": true
+      }
+    ],
+    "ComparedRegions": [
+      {
+        "Address": "0xb062e560",
+        "Bytes": 116,
+        "Stage": "load and choose OAL1/NORM/OAL2",
+        "Identical": true,
+        "HyperOsSha256": "650ab98c3792af40c35d67e51c3b41b78b34de6f8dce14adf3d58bd363235e25",
+        "WindowsSha256": "650ab98c3792af40c35d67e51c3b41b78b34de6f8dce14adf3d58bd363235e25"
+      },
+      {
+        "Address": "0xb0630888",
+        "Bytes": 284,
+        "Stage": "file/cache read",
+        "Identical": true,
+        "HyperOsSha256": "75a2b6fc10c6fd06d482d461e20b2c80b5c5e64d6c20e8a860e8e95b82099ccb",
+        "WindowsSha256": "75a2b6fc10c6fd06d482d461e20b2c80b5c5e64d6c20e8a860e8e95b82099ccb"
+      },
+      {
+        "Address": "0xb0630e20",
+        "Bytes": 120,
+        "Stage": "resource parse",
+        "Identical": true,
+        "HyperOsSha256": "facba3a599367448a186d66febb1116c80bbec77c46f9c502ffc30ec3551be8a",
+        "WindowsSha256": "facba3a599367448a186d66febb1116c80bbec77c46f9c502ffc30ec3551be8a"
+      },
+      {
+        "Address": "0xb062e82c",
+        "Bytes": 116,
+        "Stage": "named section selection",
+        "Identical": true,
+        "HyperOsSha256": "09aa34823ce7d58b58ab67c62d9b508a62312834e34068f055517ea9ecf4796b",
+        "WindowsSha256": "09aa34823ce7d58b58ab67c62d9b508a62312834e34068f055517ea9ecf4796b"
+      },
+      {
+        "Address": "0xb0633878",
+        "Bytes": 60,
+        "Stage": "cache match boolean",
+        "Identical": true,
+        "HyperOsSha256": "30a8f897bbd795b7f2497a998a5f1394d9e57d17b76ed845c4c605b3fc24c8bf",
+        "WindowsSha256": "30a8f897bbd795b7f2497a998a5f1394d9e57d17b76ed845c4c605b3fc24c8bf"
+      },
+      {
+        "Address": "0xb0631968",
+        "Bytes": 56,
+        "Stage": "output stage constructor",
+        "Identical": true,
+        "HyperOsSha256": "4b991efca0e29fdfecb14f9ff9cf1a4640ed12fdb3e0bcd842e05cc60f0d6c74",
+        "WindowsSha256": "4b991efca0e29fdfecb14f9ff9cf1a4640ed12fdb3e0bcd842e05cc60f0d6c74"
+      },
+      {
+        "Address": "0xb0632244",
+        "Bytes": 96,
+        "Stage": "per-channel stage constructor",
+        "Identical": true,
+        "HyperOsSha256": "08af296ee640b24e1ee4d390de27db41c56ad61641d2a79b9ec302eedf7f4cf8",
+        "WindowsSha256": "08af296ee640b24e1ee4d390de27db41c56ad61641d2a79b9ec302eedf7f4cf8"
+      },
+      {
+        "Address": "0xb0633d94",
+        "Bytes": 76,
+        "Stage": "15ms/30ms timing constructor",
+        "Identical": true,
+        "HyperOsSha256": "04f1351c8d685e9445fe94f325cec597af8c6828dd08e5f01a8155ceef32eb44",
+        "WindowsSha256": "04f1351c8d685e9445fe94f325cec597af8c6828dd08e5f01a8155ceef32eb44"
+      }
+    ],
+    "DspCodeExecuted": false,
+    "DriversInstalled": false,
+    "AudioOpened": false,
+    "NewCalibrationValuesChosen": false,
+    "Findings": {
+      "ResourceSectionNames": [
+        "OAL1",
+        "NORM",
+        "OAL2"
+      ],
+      "FileReaderErrors": {
+        "FileOpen": -1,
+        "NameLongerThan49": -2,
+        "ShortRead": -3
+      },
+      "CacheResultActualRawInstruction": "mux R0,P0,#0x1,#0x0",
+      "CacheDecompilerReturn0xfeIsMisleading": true,
+      "TimingFloatBitPatterns": [
+        "0x3c75c28f",
+        "0x3cf5c28f"
+      ]
+    },
+    "Interpretation": "The compared initialization/parse/selection code already exists in Windows firmware. Readiness, real file opening, ADM acknowledgement and speaker quality are unproven. Raw Hexagon packets are required to interpret registers and predicates; decompiler output must not be copied as an ABI specification."
+  }
+}

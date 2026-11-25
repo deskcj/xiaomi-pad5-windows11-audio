@@ -33,6 +33,7 @@ HRESULT supported_format(IAudioMediaType *opposite, IAudioMediaType *requested, 
 {
     if (!result)
         return E_POINTER;
+    *result = nullptr;
     if (!stereo_float(requested) || (opposite && !stereo_float(opposite)))
         return APOERR_FORMAT_NOT_SUPPORTED;
     requested->AddRef();
@@ -198,8 +199,9 @@ public:
             return E_INVALIDARG;
         }
         if (transport_) {
-            InterlockedExchange(&transport_->shared->apo_pid, LONG(GetCurrentProcessId()));
-            InterlockedExchange(&transport_->shared->init_kind, init_kind_);
+            shared_ = transport_->shared;
+            InterlockedExchange(&shared_->apo_pid, LONG(GetCurrentProcessId()));
+            InterlockedExchange(&shared_->init_kind, init_kind_);
         }
         initialized_ = true;
         log_event(L"Initialize",S_OK);
@@ -321,22 +323,22 @@ public:
 
         if (delay_) {
             if (transport_ && !nabu_pin_transport(transport_))
-                return lock_result(lock_error(GetLastError()));
+                return failed_lock(lock_error(GetLastError()));
             if (!VirtualLock(this, sizeof(*this)))
-                return lock_result(lock_error(GetLastError()));
+                return failed_lock(lock_error(GetLastError()));
             self_pinned_ = true;
             delay_frames_ = static_cast<StereoFrame *>(VirtualAlloc(nullptr, delay_bytes(),
                 MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE));
             if (!delay_frames_)
-                return lock_result(E_OUTOFMEMORY);
+                return failed_lock(E_OUTOFMEMORY);
             if (!VirtualLock(delay_frames_, delay_bytes())) {
                 HRESULT error = HRESULT_FROM_WIN32(GetLastError());
-                free_delay();
-                return lock_result(error);
+                return failed_lock(error);
             }
             reset_stream();
         }
         max_frames_ = input.u32MaxFrameCount;
+        if (shared_) InterlockedExchange(&shared_->lock_error, 0);
         return lock_result(S_OK);
     }
 
@@ -346,6 +348,7 @@ public:
             return APOERR_ALREADY_UNLOCKED;
         max_frames_ = 0;
         free_delay();
+        nabu_unpin_transport(transport_);
         return S_OK;
     }
 
@@ -384,8 +387,10 @@ public:
             data = result;
         }
         dolby_stream_process(&stream_, data, result, count);
-        if (transport_) {
-            auto *s = transport_->shared;
+        if (shared_) {
+            // The view wrapper lives on the pageable heap. Only access the
+            // cached mapping here; LockForProcess pins it and this object.
+            auto *s = shared_;
             InterlockedIncrement(&s->callbacks);
             InterlockedExchange64(&s->frames_processed, stream_.fallback.next_frame);
             InterlockedExchange64(&s->frames_wet, stream_.fallback.wet_count);
@@ -416,6 +421,13 @@ private:
         return status;
     }
 
+    HRESULT failed_lock(HRESULT status)
+    {
+        free_delay();
+        nabu_unpin_transport(transport_);
+        return lock_result(status);
+    }
+
     HRESULT lock_error(DWORD error)
     {
         nabu_diag(10,LONG(error));
@@ -428,15 +440,15 @@ private:
     {
         // The epoch belongs to the mapping, not this COM instance. Reopening an
         // instance while its worker is alive must never reuse old queue replies.
-        generation_ = transport_ ? UINT32(InterlockedIncrement(&transport_->shared->generation)) : generation_ + 1;
+        generation_ = shared_ ? UINT32(InterlockedIncrement(&shared_->generation)) : generation_ + 1;
         dolby_stream_init(&stream_, delay_frames_, delay_, requests_, replies_, generation_);
-        if (transport_) {
-            stream_.requests_dropped = &transport_->shared->requests_dropped;
+        if (shared_) {
+            stream_.requests_dropped = &shared_->requests_dropped;
             // Frame telemetry belongs to the new epoch, not the previous owner.
-            InterlockedExchange(&transport_->shared->callbacks,0);
-            InterlockedExchange64(&transport_->shared->frames_processed,0);
-            InterlockedExchange64(&transport_->shared->frames_wet,0);
-            InterlockedExchange64(&transport_->shared->frames_dry,0);
+            InterlockedExchange(&shared_->callbacks,0);
+            InterlockedExchange64(&shared_->frames_processed,0);
+            InterlockedExchange64(&shared_->frames_wet,0);
+            InterlockedExchange64(&shared_->frames_dry,0);
         }
     }
 
@@ -459,6 +471,7 @@ private:
     DolbyBlockQueue *replies_;
     UINT32 delay_;
     NabuTransportView *transport_ = nullptr;
+    NabuSharedTransport *shared_ = nullptr;
     bool self_pinned_ = false;
     bool system_init_ = false;
     bool discovery_effect_ = false;

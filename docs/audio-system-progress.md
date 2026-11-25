@@ -2,9 +2,17 @@
 
 [English](audio-system-progress.md) · [Русский](audio-system-progress.ru.md) · [简体中文](audio-system-progress.zh-CN.md)
 
+**New · APO 2.0.0.8-lab:** processing and reset now use a cached, pinned mapping instead of dereferencing the pageable view wrapper. Failed lock/allocation paths and UnlockForProcess release their pinned pages; successful retry clears the old lock error. Five native COM fault fixtures passed (.7 failed all five). Allocation/pinning APIs are substituted and view pages deliberately protected: this verifies the code path, not an observed device crash. Seven logging, two counter and seven original-worker cases passed; normal/irregular streams still match 196,608 frames exactly. The signed .8 package passed catalog/member checks and read-only preflight, but is not installed.
+
+Four new quiet digital L/R controls passed at unchanged 6% volume; worst opposite 800 Hz tone ratio: 0.000673. A separate very quiet preprocessed-file delivery test failed template correlation (0.491) and captured a zero right channel with only PCM16-sized values. It is not accepted as Dolby evidence; equal-peak channel-only controls passed independently. Acoustic L/R, system effects and maximum-volume safety remain open.
+
+Ghidra reviewed eight further HyperOS resource/parser/channel-stage functions; the compared code windows already match Windows firmware. The loader selects OAL1/NORM/OAL2; its file reader distinguishes open failure, long name and short read. A decompiler cache return was corrected against raw `mux` instructions (Boolean 0/1). These findings guide the next resource-opening trace; they do not confirm MiSound processing.
+
+[Source and test evidence](results/audio-apo-memory-2026-11-25.json)
+
 No loudness or HyperOS-quality improvement is claimed. Quiet digital loopback is not an acoustic speaker test.
 
-**Latest · APO 2.0.0.7-lab:** added Windows 11 logging of the source fingerprint, mapping name and epoch. Old frame counters are cleared when a stream resets or reopens, preventing results from a previous owner being counted as new processing. Seven logging contracts, two native counter tests and seven original-worker scenarios passed; normal/irregular renders each remained exact for 196,608 frames. Logging is limited to Initialize/LockForProcess and excluded from Reset/APOProcess. Seventeen synthetic observer cases reject wrong builds, streams, generations and helper PIDs. These are software checks; the signed .7/.35 trial is prepared but has not installed a candidate.
+**Previous · APO 2.0.0.7-lab:** added Windows 11 logging of the source fingerprint, mapping name and epoch. Old frame counters are cleared when a stream resets or reopens, preventing results from a previous owner being counted as new processing. Seven logging contracts, two native counter tests and seven original-worker scenarios passed; normal/irregular renders each remained exact for 196,608 frames. Logging is limited to Initialize/LockForProcess and excluded from Reset/APOProcess. Seventeen synthetic observer cases reject wrong builds, streams, generations and helper PIDs. These are software checks; the signed .7/.35 trial is prepared but has not installed a candidate.
 
 **MiSound investigation:** the installed `qcadsprpcd` kernel driver is running and its ACPI device reports no problem. Ghidra identified `apps_std` registration, the `audiopd` branch and the resource path handler. Two archived traces contain only two daemon messages named `FastRPCDriverD0Entry`; they do not establish an active listener, successful resource opening or ADM acknowledgement. Starting another user-mode listener is therefore not justified by the earlier absence hypothesis.
 
@@ -14,7 +22,7 @@ No loudness or HyperOS-quality improvement is claimed. Quiet digital loopback is
 | --- | --- | --- |
 | IRQ/GPIO and routing | IRQ setup ignored I²C errors; only CH_BAL was checked. | ✅ .18 rejects failed IRQ setup; real readbacks passed on all four amplifiers. |
 | Digital L/R | Separation unmeasured. | ✅ Four quiet cases passed; opposite 800 Hz tone <0.1%. UID/I²C board mapping matches Android. Acoustic isolation remains unverified. |
-| Dolby APO | Registration or old counters could be mistaken for execution. | ✅ .7 identifies the build, stream and epoch; resets old counters. ❌ Live system processing unverified. |
+| Dolby APO | Processing read a pageable view; failed locks retained pinned pages. | ✅ .8 passes five memory fault cases and preserves exact original output. ❌ System processing unverified. |
 | PCM24 / MiSound | Format/pacing failures; DSP parameters timed out. | ✅ Earlier 13 PCM24 and 96 encoder cases. ❌ MiSound DSP processing and acoustic parity remain open. |
 
 GPIO interrupt configuration and the protection mask now propagate errors and verify readbacks before DSP/amp enablement. The healthy writes, firmware, coefficients and factory calibration remain unchanged. EWDK, catalog generation and signing passed.

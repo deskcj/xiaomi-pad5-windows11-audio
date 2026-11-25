@@ -61,14 +61,21 @@ bool nabu_pin_transport(NabuTransportView *view)
     return view->pinned;
 }
 
+void nabu_unpin_transport(NabuTransportView *view)
+{
+    if (view && view->pinned) {
+        VirtualUnlock(view->shared, sizeof(*view->shared));
+        view->pinned = false;
+    }
+}
+
 void nabu_close_transport(NabuTransportView *view)
 {
     if (!view)
         return;
     if (view->worker)
         InterlockedExchange(&view->shared->worker_claim, 0);
-    if (view->pinned)
-        VirtualUnlock(view->shared, sizeof(*view->shared));
+    nabu_unpin_transport(view);
     UnmapViewOfFile(view->shared);
     CloseHandle(view->mapping);
     HeapFree(GetProcessHeap(), 0, view);

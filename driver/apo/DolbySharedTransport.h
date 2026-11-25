@@ -56,6 +56,7 @@ static_assert(sizeof(NabuApoTransportInit) == 280);
 
 NabuTransportView *nabu_open_transport(const WCHAR *name);
 bool nabu_pin_transport(NabuTransportView *view);
+void nabu_unpin_transport(NabuTransportView *view);
 void nabu_close_transport(NabuTransportView *view);
 
 extern "C" __declspec(dllexport) void *WINAPI NabuTransportCreate(const WCHAR *name, UINT32 delay);

@@ -26,16 +26,22 @@ Download: **4.17.27.16**. Development source: **4.17.27.18**. The published ZIP 
 
 ## Update history
 
-### 2026-11-25 — 4.17.27.18 / Dolby APO 2.0.0.7-lab
+### 2026-11-25 — 4.17.27.18 / Dolby APO 2.0.0.8-lab
 
-- ✅ Added Windows 11 logging, per-stream identity and clearing of old counters: **7 + 2 + 7 software cases** passed.
-- ✅ Original Dolby output still matches 196,608 frames exactly; a signed .7 candidate is prepared. [APO source](driver/apo/)
-- ⏳ MiSound: the kernel RPC daemon is already running; real resource opening and ADM acknowledgement remain unresolved. System effects and acoustic L/R are still unverified.
+- ✅ Removed pageable view access from processing/reset and cleaned up failed memory locks: **5 native fault cases** passed.
+- ✅ Original Dolby output still matches 196,608 frames; **7 + 2 + 7** logging/reset/worker cases passed. Signed .8 candidate prepared.
+- ✅ Four quiet digital L/R controls passed again. ❌ System Dolby, MiSound and acoustic L/R remain unverified.
 
 [Measured evidence](docs/audio-system-progress.md)
 
 <details>
 <summary>Previous updates</summary>
+
+#### 2026-11-25 — 4.17.27.18 / Dolby APO 2.0.0.7-lab
+
+- ✅ Added Windows 11 logging, per-stream identity and clearing of old counters: **7 + 2 + 7 software cases** passed.
+- ✅ Original Dolby output still matches 196,608 frames exactly; a signed .7 candidate is prepared. [APO source](driver/apo/)
+- ⏳ MiSound: the kernel RPC daemon is already running; real resource opening and ADM acknowledgement remain unresolved. System effects and acoustic L/R are still unverified.
 
 #### 2026-11-25 — APO 2.0.0.5-lab
 
@@ -68,7 +74,7 @@ PCM24 research set: all 13 timing/reopen tests passed; average 10 ms notificatio
 | --- | --- | --- |
 | IRQ/GPIO and routing | IRQ setup ignored I²C errors; only CH_BAL was checked. | ✅ .18 rejects failed IRQ setup; real readbacks passed on all four amplifiers. |
 | Digital L/R | Separation unmeasured. | ✅ Four quiet cases passed; opposite 800 Hz tone <0.1%. UID/I²C board mapping matches Android. Acoustic isolation remains unverified. |
-| Dolby APO | Registration or old counters could be mistaken for execution. | ✅ .7 identifies the build, stream and epoch; resets old counters. ❌ Live system processing unverified. |
+| Dolby APO | Processing read a pageable view; failed locks retained pinned pages. | ✅ .8 passes five memory fault cases and preserves exact original output. ❌ System processing unverified. |
 | PCM24 / MiSound | Format/pacing failures; DSP parameters timed out. | ✅ Earlier 13 PCM24 and 96 encoder cases. ❌ MiSound DSP processing and acoustic parity remain open. |
 
 System Dolby, MiSound, acoustic L/R separation and HyperOS-quality sound remain unconfirmed. No new loudness increase is claimed.
