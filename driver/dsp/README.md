@@ -1,5 +1,7 @@
 # MiSound support source
 
+`MiSoundAudioConfig.c/.h` reproduce the captured `MiSound_setConfig` validation and preserve all 112 configuration bytes. Rates, masks and format bytes must match; output access is 0 or 2. The original channel count matches the mask popcount. All 246 executions of the original Android function match, including 150 rejections, and 16 native boundary/null/overlap cases pass. Opaque Android pointers are copied as data and never dereferenced on Windows. Accepted format IDs are not Windows format negotiation or evidence of hardware PCM24. [Configuration evidence](../../docs/results/audio-config-capx-stereo-2026-11-25.json)
+
 `MiSoundProtocol.c/.h` encode the original Android control commands. `MiSoundResource.c/.h` validate the captured SPKD/SPMD/NUMM container and all named profile/module records before visiting their raw selectors and binary32 value bits. `MiSoundSpeakerFilters.c/.h` then read the SPMD/MMFD tables without changing their coefficients or scales. Damaged profile tails now reject the resource even when its filter section is intact.
 
 `MiSoundSpeakerPlan.c/.h` reproduce the original `MiSoundDSP_SetSPKParam` sequence for 4- and 8-byte controls. This includes both AppType IDs, active/persistent routes, the five caller-supplied factory rates, mode exceptions and exact unpadded Base64. The returned plan contains 2, 4, 10 or 12 commands. All 864 comparisons against execution of the original Android ARM64 code passed, plus 53 native guard-page and 13 invalid-input cases. [Speaker-plan evidence](../../docs/results/audio-misound-speaker-plan-2026-11-25.json)
@@ -32,6 +34,6 @@ This is a user-mode support library. Structural acceptance is not approval of ca
 
 The input must remain unchanged throughout a scan. Complete structural validation precedes callbacks; cancellation can still occur after earlier callbacks, leaving the optional summary untouched. Collect records before attempting a DSP transaction. Profile/module order and both selectors are preserved; DSP indices do not establish physical left/right speaker positions.
 
-From an ARM64 EWDK environment, run `powershell.exe -File .\Build-MiSoundSupport.ps1 -OutputDirectory <new-folder>`. It builds all nine components into `NabuMiSoundSupport.lib` and records the source hashes. No installation or device access occurs.
+From an ARM64 EWDK environment, run `powershell.exe -File .\Build-MiSoundSupport.ps1 -OutputDirectory <new-folder>`. It builds all ten components into `NabuMiSoundSupport.lib` and records the source hashes. No installation or device access occurs.
 
 [Measured project status](../../docs/audio-system-progress.md)

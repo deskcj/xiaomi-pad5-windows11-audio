@@ -2,14 +2,20 @@
 
 [English](audio-system-progress.md) · [Русский](audio-system-progress.ru.md) · [简体中文](audio-system-progress.zh-CN.md)
 
+**New · MiSound config and live CAPX checks:** `MiSoundAudioConfig.c/.h` preserve the original 112-byte configuration and validate matching rates, channel masks, format bytes and access modes. **246 original Android executions + 16 native memory cases passed**. The ten-component ARM64 EWDK library is prepared; these checks neither enable MiSound nor prove hardware PCM24.
+
+After the manual reboot, two .11/.36 trials installed without another reboot. A native Windows API opened the actual CAPX Default context and read the exact bank name; Dolby events/counters still stayed zero. The corrected second rollback removed only captured-new contexts and restored .18 / APO .4, with a passing zero-input stream and no pending adapter restart. Four quiet normal/RAW L/R tests passed using only 0.01 stream gain at unchanged 71% device volume. Worst opposite 800 Hz tone: **1.03%**, near the PCM16 dither floor; this is a different stimulus from the earlier <0.1% result, not a measured quality improvement. Physical speaker isolation and maximum-volume safety remain unverified.
+
+[Code, builds and measured evidence](results/audio-config-capx-stereo-2026-11-25.json) · [Probe source](../tools/README.md)
+
+<details>
+<summary>Earlier source checks · 25 November</summary>
+
 **New · original native level stage and hardware installation:** the audited Android DRC level calculation now has an ARM64 C++/H adapter. Four calls match every mutable region, including the guest-stack output; 196,608 output frames and persistent state match exactly. Fourteen argument guards, thirteen hook/page contracts and seven worker scenarios pass. Moving mapping ownership checks to attachment removes the measured per-call query overhead; a sustained whole-worker speed gain is still unproven.
 
 The signed .11/.36 pair was actually installed and tested with zero input. Windows recreated the speaker endpoint: rollback now follows the same physical adapter and preserves existing contexts. The stream opened, but Dolby counters/events stayed zero. A classic-registration diagnostic required a reboot and was rolled back. Current .18 / APO .4 passes a silent stream; the adapter retains a restart flag, so further installs are stopped. System Dolby/MiSound, physical L/R, hardware PCM24, HyperOS parity and maximum-volume safety remain unverified.
 
 [Native code and live-trial evidence](results/audio-native-level-and-live-apo-2026-11-25.json) · [C++/H source](../driver/apo/worker-native/)
-
-<details>
-<summary>Earlier source checks · 25 November</summary>
 
 **New · original native classifier prototype:** an ARM64 C++/H adapter executes the audited Android classifier slice without changing the profile, gain or algorithm. An active call preserved all 658 changed bytes. The public EWDK build preserves 196,608 original output frames and persistent guest heap/data; 11 invalid contracts reject. The hybrid worker with the preceding equivalent bridge passed seven offline scenarios.
 
@@ -104,10 +110,10 @@ No loudness or HyperOS-quality improvement is claimed. Quiet digital loopback is
 | Area | Before | Proven now |
 | --- | --- | --- |
 | IRQ/GPIO and routing | IRQ setup ignored I²C errors; only CH_BAL was checked. | ✅ .18 rejects failed IRQ setup; real readbacks passed on all four amplifiers. |
-| Digital L/R | Separation unmeasured. | ✅ Four quiet cases passed; opposite 800 Hz tone <0.1%. UID/I²C board mapping matches Android. Acoustic isolation remains unverified. |
-| Dolby APO | An unavailable explicit bank could select the common fallback; settings used the flat store. | ✅ .10 honors explicit selection; .36 declares the correct context. 28 software cases pass. ❌ System processing unverified. |
+| Digital L/R | Separation unmeasured. | ✅ Four quiet normal/RAW cases pass with only the test stream attenuated; device volume unchanged. Physical speaker isolation unverified. |
+| Dolby APO | Failed settings could select a fallback; system integration unverified. | ✅ .11 bypasses failed reads; real .36 CAPX Default read passed. ❌ Processing counters remain zero. |
 | PCM24 | Format/pacing failures. | ✅ Earlier 13 timing/reopen cases passed. Hardware PCM24 remains unverified. |
-| MiSound / DSP routes | No complete plan, cache GET or checked DSP readback. | ✅ Exact factory data, stream selector, real cache read and bounded ADM GET/readback source. ❌ MiSound query fails; live DSP processing unverified. |
+| MiSound / DSP routes | No complete route/config/readback support. | ✅ Exact factory data, config validation and bounded GET source; real cache read. ❌ Live MiSound processing unverified. |
 
 GPIO interrupt configuration and the protection mask now propagate errors and verify readbacks before DSP/amp enablement. The healthy writes, firmware, coefficients and factory calibration remain unchanged. EWDK, catalog generation and signing passed.
 

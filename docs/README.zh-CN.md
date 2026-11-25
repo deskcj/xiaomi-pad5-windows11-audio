@@ -26,14 +26,22 @@ ZIP 包含 PowerShell 安装与回滚脚本。请准备当前平板原版 HyperO
 
 ## 更新记录
 
-### 2026-11-25 — 原生 Dolby 电平阶段及实际 APO 安装验证
+### 2026-11-25 — MiSound 配置、CAPX 与安静 L/R 验证
+
+- ✅ 添加原版 MiSound 配置检查：246 项 Android 代码对比及 16 项原生内存检查通过；ARM64 EWDK 库已构建。
+- ✅ .11/.36 安装未要求再次重启；Windows CAPX Default 配置读取通过。在设备音量保持 71% 时，四项安静普通／RAW 数字 L/R 测试通过。
+- ❌ Dolby 处理计数仍为零。MiSound 处理、物理 L/R、PCM24、HyperOS 音质及最大音量安全仍待验证；已恢复 .18 / APO .4。
+
+[源码及测量结果](results/audio-config-capx-stereo-2026-11-25.json)
+
+<details>
+<summary>以前的更新</summary>
+
+#### 2026-11-25 — 原生 Dolby 电平阶段及实际 APO 安装验证
 
 - ✅ 新增 ARM64 C++/H 适配器，保留原版 Dolby 电平状态及 196,608 帧输出。4 项活跃案例、27 项防护检查和 7 项工作进程场景通过。
 - ✅ 实际验证 .11/.36 安装、端点重建及回滚；当前 .18 / APO .4 可打开零输入流。
 - ❌ 系统 Dolby 未激活。注册诊断要求重启，但未重启平板。MiSound、物理 L/R、PCM24 和最大音量安全仍待验证。
-
-<details>
-<summary>以前的更新</summary>
 
 #### 2026-11-25 — 原版 Dolby 分类器：原生 C++/H 原型
 

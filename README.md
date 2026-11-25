@@ -26,14 +26,22 @@ Download: **4.17.27.16**. Development source: **4.17.27.18**. The published ZIP 
 
 ## Update history
 
-### 2026-11-25 — Native Dolby level stage and live APO installation checks
+### 2026-11-25 — MiSound configuration, CAPX and quiet L/R checks
+
+- ✅ Added original MiSound configuration checks: 246 Android-code comparisons and 16 native memory cases passed; ARM64 EWDK library built.
+- ✅ .11/.36 installed without another reboot; Windows CAPX Default bank read passed. Four quiet normal/RAW digital L/R cases passed at unchanged 71% device volume.
+- ❌ Dolby processing counters stayed zero. MiSound processing, physical L/R, PCM24, HyperOS quality and maximum-volume safety remain open. Working .18 / APO .4 restored.
+
+[Source and measured results](docs/results/audio-config-capx-stereo-2026-11-25.json)
+
+<details>
+<summary>Previous updates</summary>
+
+#### 2026-11-25 — Native Dolby level stage and live APO installation checks
 
 - ✅ New ARM64 C++/H adapter preserves original Dolby level-stage state and 196,608 output frames. Four active cases, 27 guards and seven worker scenarios pass.
 - ✅ Real .11/.36 installation, endpoint re-enumeration and rollback were tested; current .18 / APO .4 still opens a silent stream.
 - ❌ System Dolby did not activate. The registration diagnostic requested a reboot; none was performed. MiSound, physical L/R, PCM24 and maximum-volume safety remain open.
-
-<details>
-<summary>Previous updates</summary>
 
 #### 2026-11-25 — Original Dolby classifier: native C++/H prototype
 
