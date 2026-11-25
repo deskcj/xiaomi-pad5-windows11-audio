@@ -1,0 +1,258 @@
+{
+  "date": "2026-11-25",
+  "candidate": "2.0.0.18-lab",
+  "changes": {
+    "wire_version": 4,
+    "dry_interval_history_capacity": 16,
+    "consistent_history_reader": true,
+    "bounded_worker_reply_and_report_timing": true,
+    "startup_discards_committed_request_prefix": true,
+    "producer_cursor_reset": false,
+    "original_dsp_settings_changed": false
+  },
+  "build": {
+    "Architecture": "ARM64",
+    "PackageVersion": "2.0.0.18",
+    "EmbeddedDllSignatureVerified": true,
+    "EmbeddedCertificateBytes": 3104,
+    "CatalogAndMembersVerified": true,
+    "UnsignedDllSha256": "3535d47efe598f81927319e2c4fe19f90497babe395c85f31ddd5b9c7efdfc53",
+    "Files": {
+      "nabudolbyapo.cat": "c19db4b3c299955686eed44dc13d9de8704930da3c56772549dc05ff0e7cb534",
+      "NabuDolbyApo.inf": "98512f3b2e984e03f5744c1a8bd12544c43b777d063100c07a2510994e3fc551",
+      "NabuDolbyBridge.dll": "76631d8f0dbc9805ffb8de94935ee23dee5f08e2b1a713e49cb013a90b79c046"
+    },
+    "Installed": false,
+    "SystemEffectsProven": false
+  },
+  "source_fingerprint": "0a31a4ae352eaa3bb461288953715e936d904402491c03411fefb00e648ac035",
+  "software": {
+    "factory_cases": 24,
+    "dry_history_cases": 7,
+    "dry_history_reader_cases": 7,
+    "startup_discard_cases": {
+      "Passed": true,
+      "Cases": 7,
+      "ProducerRecords": 10000,
+      "Discarded": 7391,
+      "Consumed": 2609,
+      "AudioOpened": false
+    },
+    "original_comparisons": [
+      {
+        "Label": "normal",
+        "Hresult": 0,
+        "Comparison": {
+          "ReferenceFrames": 196608,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        },
+        "Stats": {
+          "bytes": 56,
+          "callbacks": 423,
+          "frames_out": 202752,
+          "reset_frame": 0,
+          "latency": 1280000,
+          "maximum_callback_us": 1664.2708333333333,
+          "maximum_schedule_late_ms": 17.443020833333332,
+          "invalid_callbacks": 0,
+          "nonfinite_frames": 0,
+          "duplicate_attach_rejected": 1,
+          "dll_unloadable": 1
+        },
+        "OutputSha256": "0bd96a21ad5efbdf8457ec55491299b908d4a9c912b2c67737e2218f57fc2410"
+      },
+      {
+        "Label": "irregular",
+        "Hresult": 0,
+        "Comparison": {
+          "ReferenceFrames": 196608,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        },
+        "Stats": {
+          "bytes": 56,
+          "callbacks": 529,
+          "frames_out": 202752,
+          "reset_frame": 0,
+          "latency": 1280000,
+          "maximum_callback_us": 406.875,
+          "maximum_schedule_late_ms": 16.2975,
+          "invalid_callbacks": 0,
+          "nonfinite_frames": 0,
+          "duplicate_attach_rejected": 1,
+          "dll_unloadable": 1
+        },
+        "OutputSha256": "0bd96a21ad5efbdf8457ec55491299b908d4a9c912b2c67737e2218f57fc2410"
+      },
+      {
+        "Label": "reset",
+        "Hresult": 0,
+        "Comparison": {
+          "ReferenceFrames": 190464,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        },
+        "Stats": {
+          "bytes": 56,
+          "callbacks": 423,
+          "frames_out": 202752,
+          "reset_frame": 98304,
+          "latency": 1280000,
+          "maximum_callback_us": 217.34375,
+          "maximum_schedule_late_ms": 16.587447916666665,
+          "invalid_callbacks": 0,
+          "nonfinite_frames": 0,
+          "duplicate_attach_rejected": 1,
+          "dll_unloadable": 1
+        },
+        "OutputSha256": "8d71cd2f4fde47176931609544a78382d3bd550b74337094cda39fe6316e2a65"
+      }
+    ],
+    "settings_108_rerun": false
+  },
+  "quiet_17": {
+    "frames": {
+      "ApoClaim": 0,
+      "WorkerClaim": 4396,
+      "Generation": 4,
+      "Stop": 0,
+      "RequestsDropped": 147,
+      "WorkerGaps": 1,
+      "BlocksReplied": 8448,
+      "WorkerReady": 1,
+      "ApoPid": 8536,
+      "InitKind": 4,
+      "LockError": 0,
+      "Callbacks": 18001,
+      "FramesProcessed": 8640480,
+      "FramesWet": 8547552,
+      "FramesDry": 86784,
+      "FirstDryFrame": 122880,
+      "LastDryFrame": 209663,
+      "DryRangesAvailable": true,
+      "DryRuns": 1,
+      "DryRanges": [
+        {
+          "first": 122880,
+          "last": 209663
+        }
+      ],
+      "TransportName": "Global\\NabuDolbyLab-{DB2B4D98-56C7-4D47-9032-4563D844AC97}-0"
+    },
+    "capture": {
+      "channel": "L",
+      "raw": false,
+      "hr": "0x00000000",
+      "submitted_frames": 8645280,
+      "captured_frames": 8640000,
+      "active_frames": 4385372,
+      "rms": [
+        2.17418459111e-05,
+        1.46186011125e-05
+      ],
+      "peak": [
+        3.0517578125e-05,
+        3.0517578125e-05
+      ],
+      "opposite_rms_ratio": 0.672371663945,
+      "tone_800hz_amplitudes": [
+        2.24386892399e-05,
+        1.03739790153e-09
+      ],
+      "opposite_tone_ratio": 4.62325535347e-05,
+      "digital_separation_passed": true,
+      "capture_discontinuities": 1,
+      "nonfinite_frames": 0,
+      "maximum_meter_peak": 6.10353891e-05,
+      "passed": true
+    },
+    "recovered_in_same_stream": true,
+    "additional_dry_after_recovery_snapshot": 0,
+    "worker_errors": [],
+    "reply_gap_max_ms": 48.382708002463914,
+    "report_max_ms": 28.467812000599224,
+    "context_setup_after_imports_ms": 461.7061979988648,
+    "original_cleanup_errors": [
+      "NativeZeroStream.exe: {\"input_numeric_peak\":0,\"buffer_flags\":0,\"mixer_changed\":false,\"initial_meter_peak\":2.32830644e-10,\"initialize_hr\":\"0x00000000\",\"effects_hr\":\"0x00000000\",\"effects\":[{\"id\":\"{6F64ADCC-8211-11E2-8C70-2C27D7F001FA}\",\"state\":1}],\"frames_submitted\":33600,\"audio_started\":true,\"maximum_meter_peak\":0.099822998,\"meter_detection_threshold\":6.10351562e-05,\"final_hr\":\"0x80004005\",\"passed\":false}\n"
+    ],
+    "zero_recheck": {
+      "input_numeric_peak": 0,
+      "buffer_flags": 0,
+      "mixer_changed": false,
+      "initial_meter_peak": 2.32830644e-10,
+      "initialize_hr": "0x00000000",
+      "effects_hr": "0x00000000",
+      "effects": [
+        {
+          "id": "{6F64ADCC-8211-11E2-8C70-2C27D7F001FA}",
+          "state": 1
+        }
+      ],
+      "frames_submitted": 100320,
+      "audio_started": true,
+      "maximum_meter_peak": 3.0517811e-05,
+      "meter_detection_threshold": 6.10351562e-05,
+      "final_hr": "0x00000000",
+      "passed": true
+    },
+    "original_trial_sha256": "3cb8ca13b3609527bee6da5094175aa0ad5c2ea6f4109ac3878ef702339db3de",
+    "unexpected_global_meter_source_identified": false
+  },
+  "hardware_18": {
+    "installed": false,
+    "trial_performed": false,
+    "preflight_blocked": true,
+    "adapter_version": "1.0.2100.0",
+    "started": true,
+    "problem": 0,
+    "needs_restart": true,
+    "device_restart_attempt_exit": 50,
+    "windows_reboot_performed": false,
+    "setupapi_cause": "Restoring oem47.inf metadata at 01:20:54: adapter query-removal veto type 6, CR_REMOVE_VETOED; reboot required.",
+    "audio_service_running": true
+  },
+  "package": {
+    "filename": "runtime-bundle18.zip",
+    "sha256": "ec211f7981037c070ad50c0d8528b1a4cbbf8d489a77a25d86e02e8dea0aa27e",
+    "bytes": 11858928,
+    "members_verified": true,
+    "runtime_only_installer": true,
+    "automatic_startup_tested": false
+  },
+  "current": {
+    "amplifiers": "4.17.27.20",
+    "amplifier_count": 4,
+    "apo": "2.0.0.4",
+    "backend": "2.0.0.18, Manual smoke bank",
+    "factory_calibration_unchanged": true,
+    "reboot_performed": false
+  },
+  "open": [
+    "physical .18 trial",
+    "full Windows effect toggle",
+    "permanent APO/startup",
+    "128 ms latency",
+    "broader stability",
+    "Atmos objects",
+    "live MiSound",
+    "physical four-speaker L/R",
+    "hardware PCM24",
+    "loudness/thermal protection trials"
+  ]
+}

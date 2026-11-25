@@ -118,6 +118,7 @@ extern "C" void *WINAPI NabuTransportCreateSecured(const WCHAR *name, UINT32 del
         s->bytes = sizeof(*s);
         s->delay_frames = delay;
         s->first_dry_frame = -1;
+        s->last_dry_frame = -1;
     }
     return view;
 }
@@ -176,6 +177,25 @@ extern "C" BOOL WINAPI NabuWorkerReadCurrent(void *pointer, DolbyAudioBlock *blo
         return TRUE;
     }
     return FALSE;
+}
+extern "C" BOOL WINAPI NabuWorkerDiscardPending(void *pointer, UINT32 *discarded)
+{
+    auto *view = static_cast<NabuTransportView *>(pointer);
+    if (!view || !view->worker || !discarded) { SetLastError(ERROR_INVALID_PARAMETER);return FALSE; }
+    auto *s = view->shared;
+    if (InterlockedCompareExchange(&s->stop, 0, 0)) { SetLastError(ERROR_OPERATION_ABORTED);return FALSE; }
+    if (DWORD(InterlockedCompareExchange(&s->worker_claim, 0, 0)) != GetCurrentProcessId()) {
+        SetLastError(ERROR_INVALID_OWNER);return FALSE;
+    }
+    auto *q = &s->requests;
+    const LONG read = InterlockedCompareExchange(&q->read_index, 0, 0);
+    const LONG write = InterlockedCompareExchange(&q->write_index, 0, 0);
+    const UINT32 count = UINT32(write) - UINT32(read);
+    if (count > DOLBY_QUEUE_SLOTS) { SetLastError(ERROR_INVALID_DATA);return FALSE; }
+    // Only this worker writes read_index. A producer may publish after this
+    // snapshot; those later records are left intact for the ordinary consumer.
+    InterlockedExchange(&q->read_index, write);
+    *discarded = count;return TRUE;
 }
 extern "C" BOOL WINAPI NabuWorkerWrite(void *view, const DolbyAudioBlock *block)
 {
@@ -266,6 +286,30 @@ extern "C" LONG WINAPI NabuTransportMetric(void *view, UINT32 index)
 extern "C" LONG64 WINAPI NabuTransportFrames(void *view, UINT32 index)
 {
     auto *s = static_cast<NabuTransportView *>(view)->shared;
-    volatile LONG64 *fields[] = {&s->frames_processed, &s->frames_wet, &s->frames_dry, &s->first_dry_frame};
+    volatile LONG64 *fields[] = {&s->frames_processed, &s->frames_wet, &s->frames_dry, &s->first_dry_frame, &s->last_dry_frame, &s->dry_runs};
     return index < ARRAYSIZE(fields) ? InterlockedCompareExchange64(fields[index], 0, 0) : -1;
+}
+extern "C" BOOL WINAPI NabuTransportDryRanges(void *pointer, DolbyDryRange *ranges, UINT32 capacity, UINT64 *runs)
+{
+    auto *view = static_cast<NabuTransportView *>(pointer);
+    if (!view || !ranges || capacity < DOLBY_DRY_HISTORY || !runs) {
+        SetLastError(ERROR_INVALID_PARAMETER);return FALSE;
+    }
+    auto *s = view->shared;
+    for (unsigned attempt = 0; attempt < 4; ++attempt) {
+        LONG64 revision = InterlockedCompareExchange64(&s->dry_revision, 0, 0);
+        if (revision & 1) continue;
+        UINT64 count = UINT64(InterlockedCompareExchange64(&s->dry_runs, 0, 0));
+        DolbyDryRange copy[DOLBY_DRY_HISTORY];
+        for (unsigned i = 0; i < DOLBY_DRY_HISTORY; ++i) {
+            copy[i].first_frame = UINT64(InterlockedCompareExchange64(&s->dry_ranges[i].first_frame, 0, 0));
+            copy[i].last_frame = UINT64(InterlockedCompareExchange64(&s->dry_ranges[i].last_frame, 0, 0));
+        }
+        if (InterlockedCompareExchange64(&s->dry_revision, 0, 0) != revision) continue;
+        UINT32 retained = count < DOLBY_DRY_HISTORY ? UINT32(count) : DOLBY_DRY_HISTORY;
+        UINT32 oldest = count > DOLBY_DRY_HISTORY ? UINT32(count % DOLBY_DRY_HISTORY) : 0;
+        for (UINT32 i = 0; i < retained; ++i) ranges[i] = copy[(oldest + i) % DOLBY_DRY_HISTORY];
+        *runs = count;return TRUE;
+    }
+    SetLastError(ERROR_BUSY);return FALSE;
 }

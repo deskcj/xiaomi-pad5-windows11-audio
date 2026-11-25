@@ -4,8 +4,8 @@
 #include "DolbyBlockQueue.h"
 
 // Standalone protocol only. No global mapping, service, or driver registration.
-constexpr UINT32 NabuTransportSignature = 0x3354424e;
-constexpr UINT32 NabuTransportVersion = 3;
+constexpr UINT32 NabuTransportSignature = 0x3454424e;
+constexpr UINT32 NabuTransportVersion = 4;
 constexpr UINT32 NabuTransportInitSignature = 0x3149424e;
 constexpr UINT32 NabuTransportNameChars = 128;
 
@@ -32,6 +32,10 @@ struct NabuSharedTransport {
     DolbyBlockQueue requests;
     DolbyBlockQueue replies;
     volatile LONG64 first_dry_frame; // -1 until a missing/invalid reply causes fallback.
+    volatile LONG64 last_dry_frame;
+    volatile LONG64 dry_runs;
+    volatile LONG64 dry_revision;
+    struct { volatile LONG64 first_frame, last_frame; } dry_ranges[DOLBY_DRY_HISTORY];
 };
 
 struct NabuTransportView {
@@ -52,7 +56,7 @@ static_assert(sizeof(StereoFrame) == 8);
 static_assert(sizeof(DolbyAudioBlock) == 8208);
 static_assert(sizeof(DolbyBlockQueue) == 262664);
 static_assert(offsetof(NabuSharedTransport, requests) == 88);
-static_assert(sizeof(NabuSharedTransport) == 525424);
+static_assert(sizeof(NabuSharedTransport) == 525704);
 static_assert(sizeof(NabuApoTransportInit) == 280);
 
 NabuTransportView *nabu_open_transport(const WCHAR *name);
@@ -70,6 +74,9 @@ extern "C" __declspec(dllexport) BOOL WINAPI NabuWorkerRead(void *view, DolbyAud
 // Sole-consumer read for a restarted worker. Skip only records whose entire
 // output interval has already passed; preserve both SPSC producer cursors.
 extern "C" __declspec(dllexport) BOOL WINAPI NabuWorkerReadCurrent(void *view, DolbyAudioBlock *block, UINT32 *discarded);
+// Startup only, sole request consumer. Discard the committed prefix without
+// resetting the producer cursor; the next new record retains the full delay.
+extern "C" __declspec(dllexport) BOOL WINAPI NabuWorkerDiscardPending(void *view, UINT32 *discarded);
 extern "C" __declspec(dllexport) BOOL WINAPI NabuWorkerWrite(void *view, const DolbyAudioBlock *block);
 extern "C" __declspec(dllexport) void WINAPI NabuWorkerReady(void *view, LONG ready);
 extern "C" __declspec(dllexport) void WINAPI NabuWorkerGap(void *view);
@@ -82,4 +89,18 @@ extern "C" __declspec(dllexport) BOOL WINAPI NabuSupervisorReclaimExitedWorker(v
 extern "C" __declspec(dllexport) BOOL WINAPI NabuSupervisorReleaseExitedWorker(void *view, HANDLE process);
 extern "C" __declspec(dllexport) LONG WINAPI NabuTransportMetric(void *view, UINT32 index);
 extern "C" __declspec(dllexport) LONG64 WINAPI NabuTransportFrames(void *view, UINT32 index);
+extern "C" __declspec(dllexport) BOOL WINAPI NabuTransportDryRanges(void *view, DolbyDryRange *ranges, UINT32 capacity, UINT64 *runs);
+
+// Single APO writer; readers retry in their non-RT thread. Never wait in audio.
+inline void nabu_publish_dry_history(NabuSharedTransport *s, const DolbyFallback &f)
+{
+    InterlockedIncrement64(&s->dry_revision);
+    InterlockedExchange64(&s->last_dry_frame, LONG64(f.last_dry_frame));
+    InterlockedExchange64(&s->dry_runs, LONG64(f.dry_runs));
+    for (unsigned i = 0; i < DOLBY_DRY_HISTORY; ++i) {
+        InterlockedExchange64(&s->dry_ranges[i].first_frame, LONG64(f.dry_ranges[i].first_frame));
+        InterlockedExchange64(&s->dry_ranges[i].last_frame, LONG64(f.dry_ranges[i].last_frame));
+    }
+    InterlockedIncrement64(&s->dry_revision);
+}
 extern "C" __declspec(dllexport) void *WINAPI NabuTransportCreateSecured(const WCHAR *name, UINT32 delay, const WCHAR *sddl);

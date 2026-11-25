@@ -26,6 +26,14 @@ Download: **4.17.27.20**. Development source: **4.17.27.20**. The published ZIP 
 
 ## Update history
 
+### 2026-11-25 — Dolby .17 diagnostics; .18 startup candidate
+
+- **Device .17:** three-minute quiet recovery test: one dry interval, frames 122,880–209,663 (1.808 s); no later dry frames in this run. The initial zero-stream verification caught a transient global meter signal; a separate zero recheck and FX readback passed.
+- **Code .18:** retain 16 dry intervals and discard the committed startup queue prefix without resetting the producer. Signed ARM64 build: 24 COM, seven concurrent queue checks (10,000 records) and three exact original-output comparisons pass. Hardware .18 has not run.
+- **Blocker:** during metadata rollback the Qualcomm adapter vetoed query-removal and set `NeedsRestart`. Device-only restart cannot finish the pending operation; Windows was not rebooted. .20 / APO .4 remain installed. ZIP is prepared locally; toggle, startup, MiSound, acoustic L/R and PCM24 stay open.
+
+[Evidence](docs/results/audio-dolby-history-startup-2026-11-25.json)
+
 ### 2026-11-25 — Portable Dolby service and active-stream recovery (.16)
 
 - **Before → now:** research-path worker → packaged LocalService backend; restart after stream release → replacement inside the same live stream. Signed .16 and 24 COM / 8 ownership / 7 expiry / 10 broker cases pass; three original-output comparisons remain exact.

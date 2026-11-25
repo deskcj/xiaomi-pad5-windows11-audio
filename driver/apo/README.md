@@ -1,4 +1,18 @@
-# Dolby APO development source · 2.0.0.16-lab
+# Dolby APO development source · 2.0.0.18-lab
+
+**.17 → .18:** wire4 adds a consistent 16-interval fallback history and bounded
+worker timing. A quiet three-minute .17 worker-failure trial recorded one
+1.808 s fallback interval and no later fallback in that run. .18 starts a new
+worker on fresh requests while preserving the producer cursor and exact original
+DSP state. Seven concurrent queue checks (10,000 records), 24 COM cases and
+three original-output comparisons pass; the signed .18 is not hardware-tested.
+
+Restoring the old settings extension after .17 hit a Qualcomm query-remove veto.
+APO .4 / four .20 amplifiers remain started, but the adapter requests a Windows
+restart; device-only restart cannot complete it. A transient global-meter signal
+failed the first zero verification; a separate zero check and FX readback passed.
+No Windows reboot, gain/protection change or physical .18 trial was performed.
+[Evidence](../../docs/results/audio-dolby-history-startup-2026-11-25.json)
 
 **2.0.0.16-lab:** the packaged original stereo DAP backend runs under SCM
 LocalService. Owned worker death can recover inside an active APO stream without

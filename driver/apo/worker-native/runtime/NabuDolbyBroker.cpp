@@ -141,12 +141,15 @@ struct Api
     using Close = void(WINAPI *)(void *);
     using Metric = LONG(WINAPI *)(void *, UINT32);
     using Frames = LONG64(WINAPI *)(void *, UINT32);
+    struct Range { UINT64 first, last; };
+    using Ranges = BOOL(WINAPI *)(void *, Range *, UINT32, UINT64 *);
     using Reclaim = BOOL(WINAPI *)(void *, HANDLE);
     Create create = nullptr;
     Bank bank = nullptr;
     Close close = nullptr, bankClose = nullptr, stop = nullptr;
     Metric metric = nullptr;
     Frames frames = nullptr;
+    Ranges ranges = nullptr;
     Reclaim reclaim = nullptr;
     template <class T> T get(const char *name)
     {
@@ -171,6 +174,7 @@ struct Api
         stop = get<Close>("NabuTransportStop");
         metric = get<Metric>("NabuTransportMetric");
         frames = get<Frames>("NabuTransportFrames");
+        ranges = get<Ranges>("NabuTransportDryRanges");
         reclaim = get<Reclaim>("NabuSupervisorReleaseExitedWorker");
     }
 };
@@ -233,7 +237,19 @@ class Broker
                      << ",\"frames_processed\":" << api_.frames(w.view, 0)
                      << ",\"frames_wet\":" << api_.frames(w.view, 1)
                      << ",\"frames_dry\":" << api_.frames(w.view, 2)
-                     << ",\"first_dry_frame\":" << api_.frames(w.view, 3);
+                     << ",\"first_dry_frame\":" << api_.frames(w.view, 3)
+                     << ",\"last_dry_frame\":" << api_.frames(w.view, 4);
+            if (w.view) {
+                Api::Range ranges[16];UINT64 runs = 0;
+                BOOL available = api_.ranges(w.view, ranges, 16, &runs);
+                data << ",\"dry_ranges_available\":" << (available ? "true" : "false")
+                     << ",\"dry_runs\":" << runs << ",\"dry_ranges\":[";
+                for (unsigned j = 0; available && j < (runs < 16 ? runs : 16); ++j) {
+                    if (j) data << ',';
+                    data << "{\"first\":" << ranges[j].first << ",\"last\":" << ranges[j].last << '}';
+                }
+                data << ']';
+            }
             data << '}';
         }
         data << "],\"telemetry_write_failures\":" << skippedReports_

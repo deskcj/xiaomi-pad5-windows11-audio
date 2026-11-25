@@ -30,6 +30,7 @@ def main():
         'NabuTransportStopped':(C.c_int32,(C.c_void_p,)),
         'NabuTransportGeneration':(C.c_int32,(C.c_void_p,)),
         'NabuWorkerReadCurrent':(C.c_int32,(C.c_void_p,C.POINTER(Block),C.POINTER(C.c_uint32))),
+        'NabuWorkerDiscardPending':(C.c_int32,(C.c_void_p,C.POINTER(C.c_uint32))),
         'NabuWorkerWrite':(C.c_int32,(C.c_void_p,C.POINTER(Block))),
         'NabuWorkerReady':(None,(C.c_void_p,C.c_int32)),
         'NabuWorkerGap':(None,(C.c_void_p,)),
@@ -45,8 +46,10 @@ def main():
     frames=blocks=discarded=reset_count=expired_requests=0;generation=expected_frame=first=0
     pending=bytearray();input_digest=hashlib.sha256();output_digest=hashlib.sha256();input_peak=output_peak=render_ms=0.0
     began=time.perf_counter();last_report=began;cancelled=False;telemetry_errors=0;last_telemetry_error=None
+    reply_gaps=collections.deque(maxlen=64);last_reply=None;max_reply_gap=max_report_ms=0.0;startup_ms=None;startup_discarded=0
     def report(phase):
-        nonlocal telemetry_errors,last_telemetry_error
+        nonlocal telemetry_errors,last_telemetry_error,max_report_ms
+        report_began=time.perf_counter()
         data=dict(State=phase,AudioDeviceOpened=False,AudioDumpWritten=False,PacketLogWritten=False,
             AndroidLibrarySha256=render.SHA256,BridgeDllSha256=expected,Profile='Captured Dynamic / speaker_landscape',
             CapturedPregain=pregain,VirtualBass=bass,Blocks=blocks,Frames=frames,BatchFrames=1024,
@@ -57,7 +60,8 @@ def main():
             RecentMaxRenderMs=max(durations) if durations else None,DurationWindowCapacity=2048,
             WholeLibraryNative=False,SnapshotBytes=pristine.bytes if pristine else None,
             WallSeconds=time.perf_counter()-began,Errors=errors,Transport=metrics(lib,view),
-            TelemetryWriteFailures=telemetry_errors,LastTelemetryError=last_telemetry_error)
+            TelemetryWriteFailures=telemetry_errors,LastTelemetryError=last_telemetry_error,
+            StartupMs=startup_ms,StartupRequestsDiscarded=startup_discarded,MaxReplyGapMs=max_reply_gap,RecentReplyGaps=list(reply_gaps),MaxReportMs=max_report_ms)
         if player:
             data['NativeLevelScale']=player.dap.level_statistics();data['NativeClassifierCalls']=player.dap.native_statistics()[0]
         temp=output/'worker.json.tmp'
@@ -67,11 +71,15 @@ def main():
             except OSError as e:
                 if attempt<3 and getattr(e,'winerror',None) in (5,32):time.sleep(.01);continue
                 telemetry_errors+=1;last_telemetry_error=dict(Errno=e.errno,Winerror=getattr(e,'winerror',None));break
+        max_report_ms=max(max_report_ms,(time.perf_counter()-report_began)*1000)
     try:
         player=render.StereoRenderer(settings|{'preg':(pregain,)},bass,call_timeout_us=None,fast_imports=imports,fast_heap=True)
         player.prepare_buffers(4);player.dap.enable_level();player.dap.enable_c_classifier();pristine=OriginalState(player)
         for _ in range(4):player.render((0.0,)*2048)
-        pristine.restore(player);lib.NabuWorkerReady(view,1);report('Ready');print('READY',flush=True)
+        pristine.restore(player);dropped=C.c_uint32()
+        if not lib.NabuWorkerDiscardPending(view,C.byref(dropped)):raise C.WinError(C.get_last_error())
+        startup_discarded=dropped.value;startup_ms=(time.perf_counter()-began)*1000
+        lib.NabuWorkerReady(view,1);report('Ready');print('READY',flush=True)
         request,reply=Block(),Block();skipped=C.c_uint32()
         while not lib.NabuTransportStopped(view):
             available=lib.NabuWorkerReadCurrent(view,C.byref(request),C.byref(skipped))
@@ -86,6 +94,7 @@ def main():
                     lib.NabuWorkerGap(view);lib.NabuWorkerReady(view,0);reset_start=time.perf_counter();pristine.restore(player)
                     reset_count+=1;resets.append(dict(Generation=request.generation,FirstFrame=request.first_frame,RestoreMs=(time.perf_counter()-reset_start)*1000));lib.NabuWorkerReady(view,1)
                 generation=request.generation;first=expected_frame=request.first_frame;pending.clear()
+                last_reply=None
                 epochs.append(dict(Generation=generation,FirstFrame=first,Blocks=0,InputPeak=0.0,OutputPeak=0.0))
             pending.extend(C.string_at(C.addressof(request.frames),request.count*8));expected_frame+=request.count
             while len(pending)>=1024*8:
@@ -102,6 +111,11 @@ def main():
                     if time.perf_counter()>deadline:raise TimeoutError('Reply queue did not drain')
                     time.sleep(.001)
                 if cancelled:break
+                replied=time.perf_counter()
+                if last_reply is not None:
+                    gap=(replied-last_reply)*1000;max_reply_gap=max(max_reply_gap,gap)
+                    if gap>=25:reply_gaps.append(dict(Generation=generation,FirstFrame=first,GapMs=gap,RenderMs=duration))
+                last_reply=replied
                 durations.append(duration);render_ms+=duration;blocks+=1;frames+=1024;first+=1024
                 input_digest.update(data);output_digest.update(encoded);input_peak=max(input_peak,ip);output_peak=max(output_peak,op)
                 epoch=epochs[-1];epoch['Blocks']+=1;epoch['InputPeak']=max(epoch['InputPeak'],ip);epoch['OutputPeak']=max(epoch['OutputPeak'],op)

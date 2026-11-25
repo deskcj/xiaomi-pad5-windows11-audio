@@ -1,5 +1,18 @@
 # Original Dolby runtime · development
 
+Current candidate is .18, wire4. A bounded 16-interval history distinguishes
+startup fallback from later stalls. The new sole-consumer startup discard
+advances only the committed request prefix; producer indices remain intact.
+Seven native ownership/wrap/corruption/concurrent checks (10,000 records),
+24 COM cases and three original-output comparisons pass.
+
+A three-minute quiet .17 trial recovered with one 1.808 s dry interval and no
+later dry interval. .18 hardware testing is blocked by the Qualcomm adapter's
+pending restart after metadata rollback; a device-only restart could not finish
+the operation. Windows was not rebooted. The global-meter zero check initially
+saw a transient signal; a separate recheck passed. .20 / APO .4 remain installed.
+[New evidence](../../../../docs/results/audio-dolby-history-startup-2026-11-25.json)
+
 The original Android stereo DAP renderer runs in an ARM64 guest with qualified
 native classifier, level and math helpers. It uses the captured Dynamic /
 speaker_landscape profile with its original pregain. This does not establish

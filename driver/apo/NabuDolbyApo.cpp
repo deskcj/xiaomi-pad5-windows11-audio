@@ -439,6 +439,8 @@ public:
             // cached mapping here; LockForProcess pins it and this object.
             auto *s = shared_;
             InterlockedIncrement(&s->callbacks);
+            if (UINT64(InterlockedCompareExchange64(&s->frames_dry, 0, 0)) != stream_.fallback.dry_count)
+                nabu_publish_dry_history(s, stream_.fallback);
             InterlockedExchange64(&s->frames_processed, stream_.fallback.next_frame);
             InterlockedExchange64(&s->frames_wet, stream_.fallback.wet_count);
             InterlockedExchange64(&s->frames_dry, stream_.fallback.dry_count);
@@ -498,6 +500,7 @@ private:
             InterlockedExchange64(&shared_->frames_wet,0);
             InterlockedExchange64(&shared_->frames_dry,0);
             InterlockedExchange64(&shared_->first_dry_frame,-1);
+            nabu_publish_dry_history(shared_, stream_.fallback);
         }
     }
 
