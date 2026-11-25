@@ -2,6 +2,8 @@
 
 Native ARM64 COM transport, stereo queues, delayed dry fallback and diagnostics. The separate worker runs original Android Dolby code; that library and worker runtime are not included here. This source does not implement MiSound processing.
 
+An experimental [native classifier bridge](worker-native/) now runs an audited slice of the original Android code in the lab worker. Original active/output/state comparisons pass; sustained timing gains and actual system processing remain unproven. The public driver ZIP does not include it.
+
 The .11 prototype distinguishes an absent property (successful `VT_EMPTY`) from a failed context or settings read. Failed reads use zero-latency bypass and advertise no effect; diagnostic field 4 retains the original error. All 108 native fault/control cases pass, while .10 failed 74. The previous 28 bank-selection, five memory, seven logging and two epoch checks pass. Test fixtures substitute the fixed Global resolver with real Local mappings; no system endpoint is involved.
 
 Normal/irregular output matches the original Dolby for 196,608 frames each. Pause recovery failed in the first run; the .10 control and .11 repeat subsequently passed. That timing sensitivity remains open. The signed .11/.36 pair is prepared locally and uninstalled; current installed APO remains .4. System effects, acoustic L/R and maximum-volume safety are unverified. [Evidence](../../docs/results/audio-apo-property-read-2026-11-25.json)

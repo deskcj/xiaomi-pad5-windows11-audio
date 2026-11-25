@@ -1,0 +1,497 @@
+{
+  "Date": "2026-11-25",
+  "InstalledKernelVersion": "4.17.27.18",
+  "InstalledApoVersion": "2.0.0.4",
+  "ApoCandidateVersion": "2.0.0.11-lab",
+  "Scope": {
+    "DriverInstalled": false,
+    "AudioOpened": false,
+    "RebootPerformed": false,
+    "GainOrProtectionChanged": false,
+    "SystemDolbyProven": false,
+    "SystemMiSoundProven": false,
+    "PhysicalStereoProven": false,
+    "HyperOsQualityProven": false,
+    "MaximumVolumeSafetyProven": false
+  },
+  "Change": "A new ARM64 C++/H adapter runs the audited original classifier slice directly in the lab worker while the rest remains emulated. Original code/profile/gain is preserved; disabled/no-input calls use the captured early-return gates.",
+  "OriginalLibrarySha256": "207d04317997bbca253157d6038505605335a5982af39d465b249fb52a590539",
+  "GhidraAbiAudit": {
+    "Instructions": 240716,
+    "X18References": 867,
+    "TlsReferences": 51,
+    "SyscallInstructions": 0,
+    "WholeLibraryCompatibleWithWindows": false,
+    "ReviewSha256": "47deb9da25b22ab6e3c2125278e8b9924ca0622844ee57dcb1f8e9793dd33e6e",
+    "SelectedFunctions": [
+      {
+        "Address": "0x13b888",
+        "Name": "DAP_CPDP_PVT_classifier_process",
+        "Bytes": 4088
+      },
+      {
+        "Address": "0x14bf1c",
+        "Name": "DAP_CPDP_PVT_mi_vec_exp",
+        "Bytes": 300
+      }
+    ],
+    "SelectedImports": [
+      "lrintf"
+    ],
+    "SelectedGraphHasX18OrTls": false,
+    "IndirectAndUnresolvedCallsRejected": true,
+    "ConditionalBranchesAlsoAudited": true,
+    "ClassifierReviewSha256": "0967409acf8367a0793866ce34b65d39450fdee0ca89c445e2fa6cbbd153620f",
+    "LibraryExecutedDuringGhidra": false
+  },
+  "Build": {
+    "Architecture": "ARM64",
+    "Prototype": "native-classifier-v1",
+    "SourceSha256": {
+      "NativeClassifier.cpp": "d0bef2519aea8fed40ccda593a9c68e9c2f9c1b48c7fe026cde01bf90e6833ac",
+      "NativeClassifier.h": "0a3821c7a63300e8a76dea9a2a0e6b38ee64390dbefb42e6a9243d30ce2a752c",
+      "Build-NativeClassifier.ps1": "00f60e55b145c744657a5cfdd24f089e97dc0b1c88f139478d61fd0f44044476"
+    },
+    "DllSha256": "e08800b50144a46dc601075bbd959e54d7965a66d42471f8926436b6ef91e59c",
+    "Registered": false,
+    "DriverInstalled": false,
+    "AudioOpened": false,
+    "SystemDolbyProven": false
+  },
+  "PreparedHelper": {
+    "Architecture": "ARM64",
+    "ExperimentalUserModeHelper": true,
+    "Registered": false,
+    "DriverInstalled": false,
+    "AudioOpened": false,
+    "RequiredOriginalAndroidLibrarySha256": "207d04317997bbca253157d6038505605335a5982af39d465b249fb52a590539",
+    "WholeLibraryNative": false,
+    "TimingImprovementProven": false,
+    "Files": {
+      "NativeClassifier.cpp": "d0bef2519aea8fed40ccda593a9c68e9c2f9c1b48c7fe026cde01bf90e6833ac",
+      "NativeClassifier.h": "0a3821c7a63300e8a76dea9a2a0e6b38ee64390dbefb42e6a9243d30ce2a752c",
+      "Build-NativeClassifier.ps1": "00f60e55b145c744657a5cfdd24f089e97dc0b1c88f139478d61fd0f44044476",
+      "NativeClassifier.dll": "e08800b50144a46dc601075bbd959e54d7965a66d42471f8926436b6ef91e59c"
+    }
+  },
+  "ActiveStateComparison": {
+    "Passed": true,
+    "ChangedReferenceBytes": 658,
+    "Regions": [
+      {
+        "Address": "0x101ed000",
+        "Bytes": 28672,
+        "Exact": true,
+        "FirstDifference": null,
+        "ChangedReferenceBytes": 0,
+        "ReferenceSha256": "c0357491ca90dde57eccf8a9ddb41bbdde17dda1e356d88e812fad9835c39178",
+        "NativeSha256": "c0357491ca90dde57eccf8a9ddb41bbdde17dda1e356d88e812fad9835c39178"
+      },
+      {
+        "Address": "0x101f4000",
+        "Bytes": 4096,
+        "Exact": true,
+        "FirstDifference": null,
+        "ChangedReferenceBytes": 0,
+        "ReferenceSha256": "50baef5c23ed4cac6c3ac77082dc363ce363b1d5c99c52fa07b7b6b6be25eaa2",
+        "NativeSha256": "50baef5c23ed4cac6c3ac77082dc363ce363b1d5c99c52fa07b7b6b6be25eaa2"
+      },
+      {
+        "Address": "0x40000000",
+        "Bytes": 16777216,
+        "Exact": true,
+        "FirstDifference": null,
+        "ChangedReferenceBytes": 658,
+        "ReferenceSha256": "3f127f8ccc8d58f5e9029fb751350ddae583006c831b997822b3dd88d249dfe9",
+        "NativeSha256": "3f127f8ccc8d58f5e9029fb751350ddae583006c831b997822b3dd88d249dfe9"
+      }
+    ],
+    "SourceBuild": "local build03; same processing body before public header",
+    "TemporaryCallStacksExcluded": true,
+    "TimingNumbersExcludedBecauseEmulatorCacheWasRebuilt": true
+  },
+  "OriginalActivity": {
+    "OriginalSha256": "207d04317997bbca253157d6038505605335a5982af39d465b249fb52a590539",
+    "Counts": {
+      "Calls": 3072,
+      "EnabledGate": 3072,
+      "NonzeroInputGate": 96,
+      "BothGates": 96
+    },
+    "Examples": [
+      {
+        "ContextGate": 1,
+        "InputGate": 0
+      },
+      {
+        "ContextGate": 1,
+        "InputGate": 0
+      },
+      {
+        "ContextGate": 1,
+        "InputGate": 0
+      },
+      {
+        "ContextGate": 1,
+        "InputGate": 0
+      }
+    ],
+    "Frames": 196608,
+    "GateOffsetsFromCapturedGhidra": true,
+    "TimingIsInstrumented": true,
+    "AudioOpened": false,
+    "DriverInstalled": false,
+    "ParametersChanged": false
+  },
+  "CompletePublicBuildStream": {
+    "Passed": true,
+    "Cases": [
+      {
+        "Label": "emulated-control",
+        "Passed": true,
+        "Frames": 196608,
+        "FirstDifferenceFrame": null,
+        "OutputSha256": "62b5e0cd8af295a0071f1ec078b281c1b0b29592c1b9d3570b7c8b46a74fe4ff",
+        "Seconds": 3.0125570829986827,
+        "TimesRealtime": 1.3596422863207174,
+        "MedianBatchMs": 15.816926999832503,
+        "P95BatchMs": 17.888213501282735,
+        "MaxBatchMs": 18.722656001045834,
+        "BatchFrames": 1024,
+        "Batches": 192,
+        "BatchesOver21ms": 0,
+        "NativeCalls": 0,
+        "MeanNativeCallMs": null,
+        "NativeCHook": true,
+        "ExactLogicalState": true,
+        "LogicalRegions": [
+          {
+            "Address": "0x101ed000",
+            "Bytes": 28672,
+            "Sha256": "c0357491ca90dde57eccf8a9ddb41bbdde17dda1e356d88e812fad9835c39178"
+          },
+          {
+            "Address": "0x101f4000",
+            "Bytes": 4096,
+            "Sha256": "50baef5c23ed4cac6c3ac77082dc363ce363b1d5c99c52fa07b7b6b6be25eaa2"
+          },
+          {
+            "Address": "0x40000000",
+            "Bytes": 16777216,
+            "Sha256": "99841296aeca0fb24e083729489c0e60a7d8673e74a7a925ac81c18f14d1d9aa"
+          }
+        ]
+      },
+      {
+        "Label": "native-classifier",
+        "Passed": true,
+        "Frames": 196608,
+        "FirstDifferenceFrame": null,
+        "OutputSha256": "62b5e0cd8af295a0071f1ec078b281c1b0b29592c1b9d3570b7c8b46a74fe4ff",
+        "Seconds": 3.1076834370032884,
+        "TimesRealtime": 1.3180235641857192,
+        "MedianBatchMs": 15.829504995053867,
+        "P95BatchMs": 19.36898439853394,
+        "MaxBatchMs": 24.575365001510363,
+        "BatchFrames": 1024,
+        "Batches": 192,
+        "BatchesOver21ms": 4,
+        "NativeCalls": 96,
+        "MeanNativeCallMs": 0.02103949652777778,
+        "NativeCHook": true,
+        "ExactLogicalState": true,
+        "LogicalRegions": [
+          {
+            "Address": "0x101ed000",
+            "Bytes": 28672,
+            "Sha256": "c0357491ca90dde57eccf8a9ddb41bbdde17dda1e356d88e812fad9835c39178"
+          },
+          {
+            "Address": "0x101f4000",
+            "Bytes": 4096,
+            "Sha256": "50baef5c23ed4cac6c3ac77082dc363ce363b1d5c99c52fa07b7b6b6be25eaa2"
+          },
+          {
+            "Address": "0x40000000",
+            "Bytes": 16777216,
+            "Sha256": "99841296aeca0fb24e083729489c0e60a7d8673e74a7a925ac81c18f14d1d9aa"
+          }
+        ]
+      }
+    ],
+    "OriginalSha256": "207d04317997bbca253157d6038505605335a5982af39d465b249fb52a590539",
+    "AudioOpened": false,
+    "DriverInstalled": false,
+    "SystemDolbyProven": false,
+    "PhysicalStereoProven": false,
+    "GainOrProtectionChanged": false
+  },
+  "GuardChecks": {
+    "Passed": true,
+    "Cases": [
+      {
+        "Case": "null_guest",
+        "Status": 15,
+        "Rejected": true,
+        "GotUnchanged": true
+      },
+      {
+        "Case": "null_module",
+        "Status": 15,
+        "Rejected": true,
+        "GotUnchanged": true
+      },
+      {
+        "Case": "zero_count",
+        "Status": 15,
+        "Rejected": true,
+        "GotUnchanged": true
+      },
+      {
+        "Case": "count_over128",
+        "Status": 15,
+        "Rejected": true,
+        "GotUnchanged": true
+      },
+      {
+        "Case": "zero_address",
+        "Status": 15,
+        "Rejected": true,
+        "GotUnchanged": true
+      },
+      {
+        "Case": "wrong_allocation",
+        "Status": 15,
+        "Rejected": true,
+        "GotUnchanged": true
+      },
+      {
+        "Case": "misaligned",
+        "Status": 15,
+        "Rejected": true,
+        "GotUnchanged": true
+      },
+      {
+        "Case": "wrong_old_value",
+        "Status": 15,
+        "Rejected": true,
+        "GotUnchanged": true
+      },
+      {
+        "Case": "wrong_native_target",
+        "Status": 15,
+        "Rejected": true,
+        "GotUnchanged": true
+      },
+      {
+        "Case": "wrong_entry",
+        "Status": 87,
+        "Rejected": true,
+        "GotUnchanged": true
+      },
+      {
+        "Case": "null_arguments",
+        "Status": 87,
+        "Rejected": true,
+        "GotUnchanged": true
+      }
+    ],
+    "NativeCallsExecuted": false,
+    "AudioOpened": false,
+    "DriverInstalled": false,
+    "SourceBuild": "public EWDK build05"
+  },
+  "HybridWorker": {
+    "Passed": true,
+    "Completed": 7,
+    "ApoDllSha256": "5ec7121cf64cf173a7cd08aa07b57b5afae74e434610c25e4d01132ebb75752f",
+    "NativeClassifierDllSha256": "933c02eaee0583feab09e8ceb462cc6b594ac24d95609fb7c0741f7379678968",
+    "SourceBuild": "local build03; same processing body before public header",
+    "Cases": [
+      {
+        "Label": "normal",
+        "Passed": true,
+        "Comparison": {
+          "ReferenceFrames": 196608,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        },
+        "NativeClassifier": {
+          "Enabled": true,
+          "Calls": 100,
+          "MeanCallMs": 0.0210515625,
+          "SourceSha256": "965ed95a7b26619df88741c1126babfb90c94ec6db811501c39b9ce7dea9abf5",
+          "WholeLibraryNative": false,
+          "AudioOpened": false
+        }
+      },
+      {
+        "Label": "irregular",
+        "Passed": true,
+        "Comparison": {
+          "ReferenceFrames": 196608,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        },
+        "NativeClassifier": {
+          "Enabled": true,
+          "Calls": 101,
+          "MeanCallMs": 0.021625412541254125,
+          "SourceSha256": "965ed95a7b26619df88741c1126babfb90c94ec6db811501c39b9ce7dea9abf5",
+          "WholeLibraryNative": false,
+          "AudioOpened": false
+        }
+      },
+      {
+        "Label": "exit",
+        "Passed": true,
+        "Comparison": {
+          "ReferenceFrames": 98304,
+          "ExactDryFallbackFrames": 98304,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": false
+        },
+        "NativeClassifier": {
+          "Enabled": true,
+          "Calls": 50,
+          "MeanCallMs": 0.021819791666666668,
+          "SourceSha256": "965ed95a7b26619df88741c1126babfb90c94ec6db811501c39b9ce7dea9abf5",
+          "WholeLibraryNative": false,
+          "AudioOpened": false
+        }
+      },
+      {
+        "Label": "pause",
+        "Passed": true,
+        "Comparison": {
+          "ReferenceFrames": 185408,
+          "ExactDryFallbackFrames": 11200,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        },
+        "NativeClassifier": {
+          "Enabled": true,
+          "Calls": 100,
+          "MeanCallMs": 0.0213234375,
+          "SourceSha256": "965ed95a7b26619df88741c1126babfb90c94ec6db811501c39b9ce7dea9abf5",
+          "WholeLibraryNative": false,
+          "AudioOpened": false
+        }
+      },
+      {
+        "Label": "reset",
+        "Passed": true,
+        "Comparison": {
+          "ReferenceFrames": 190464,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        },
+        "NativeClassifier": {
+          "Enabled": true,
+          "Calls": 100,
+          "MeanCallMs": 0.022572916666666668,
+          "SourceSha256": "965ed95a7b26619df88741c1126babfb90c94ec6db811501c39b9ce7dea9abf5",
+          "WholeLibraryNative": false,
+          "AudioOpened": false
+        }
+      },
+      {
+        "Label": "bypass",
+        "Passed": true,
+        "Comparison": {
+          "ExactZeroLatencyBypass": true
+        },
+        "NativeClassifier": null
+      },
+      {
+        "Label": "absent",
+        "Passed": true,
+        "Comparison": {
+          "ReferenceFrames": 1,
+          "ExactDryFallbackFrames": 196607,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": false
+        },
+        "NativeClassifier": null
+      }
+    ]
+  },
+  "PerformanceConclusion": "No sustained whole-worker speed improvement is proven. The Python gateway was slower; C++ removes that gateway overhead, but full-stream control/native times vary, and the public run was slower overall. The hybrid pause passed once; the earlier .11 pause failure remains unresolved evidence.",
+  "MiSoundRouteReview": {
+    "OriginalWindowsDriverSha256": "b82cabb860404edd71cb38ce28720c74628dd3ad12e20f8ecbd874853cac0edd",
+    "ImageBase": "0x140000000",
+    "ExceptionDirectoryRva": "0x35000",
+    "ExceptionDirectoryBytes": 5848,
+    "References": [
+      {
+        "ReferenceRva": "0x35e60",
+        "ExpectedFunctionRva": "0x78e98",
+        "InArm64ExceptionDirectory": true,
+        "RecordRva": "0x35e60",
+        "BeginAddressRva": "0x78e98",
+        "UnwindData": "0x1e604",
+        "MatchesFunction": true,
+        "IsCallableInterfacePointer": false
+      },
+      {
+        "ReferenceRva": "0x36278",
+        "ExpectedFunctionRva": "0x90ae8",
+        "InArm64ExceptionDirectory": true,
+        "RecordRva": "0x36278",
+        "BeginAddressRva": "0x90ae8",
+        "UnwindData": "0x1ee2c",
+        "MatchesFunction": true,
+        "IsCallableInterfacePointer": false
+      },
+      {
+        "ReferenceRva": "0x36050",
+        "ExpectedFunctionRva": "0x82f60",
+        "InArm64ExceptionDirectory": true,
+        "RecordRva": "0x36050",
+        "BeginAddressRva": "0x82f60",
+        "UnwindData": "0x36905d9",
+        "MatchesFunction": true,
+        "IsCallableInterfacePointer": false
+      }
+    ],
+    "Finding": "The apparent data references to live GET78e98, builder90ae8 and user calibration82f60 are ARM64 exception records, not a user-callable function table. The newly exported b6be0 dispatches source-domain4 packets to95bf0; this is the receive route, not an exposed live GET interface.",
+    "DriverExecuted": false,
+    "LiveGetSent": false,
+    "RegistryModified": false,
+    "AudioOpened": false
+  },
+  "Remaining": "Actual system .11/.36 activation, owned live MiSound COPP/resources/matched DSP response, real four-speaker L/R and hardware PCM24; sustained timing, HyperOS acoustic quality and maximum-volume protection/shutdown cause.",
+  "References": [
+    "https://learn.microsoft.com/en-us/cpp/build/arm64-windows-abi-conventions?view=msvc-170",
+    "https://github.com/ARM-software/abi-aa/blob/main/aapcs64/aapcs64.rst",
+    "https://learn.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualprotect"
+  ],
+  "PublishedSourceEquivalentAfterEofWhitespaceCleanup": true
+}

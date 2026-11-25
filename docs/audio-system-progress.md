@@ -2,14 +2,22 @@
 
 [English](audio-system-progress.md) · [Русский](audio-system-progress.ru.md) · [简体中文](audio-system-progress.zh-CN.md)
 
+**New · original native classifier prototype:** an ARM64 C++/H adapter executes the audited Android classifier slice without changing the profile, gain or algorithm. An active call preserved all 658 changed bytes. The public EWDK build preserves 196,608 original output frames and persistent guest heap/data; 11 invalid contracts reject. The hybrid worker with the preceding equivalent bridge passed seven offline scenarios.
+
+Whole-stream speed improvement is not proven: results vary, and the public comparison was slower overall. The earlier pause failure remains in the evidence. Ghidra/PE inspection also confirms that three apparent live-GET function references are exception metadata, not a callable MiSound interface. System Dolby/MiSound, physical L/R, hardware PCM24 and maximum-volume safety remain open. Installed .18 / APO .4 is unchanged; .11/.36 is prepared.
+
+[Native/state evidence](results/audio-native-classifier-2026-11-25.json) · [C++/H source](../driver/apo/worker-native/)
+
+<details>
+<summary>Earlier source checks · 25 November</summary>
+
 **New · Dolby APO .11:** failed context/settings reads now use zero-latency bypass and retain the error, instead of selecting the common profile. **108 native cases pass**; .10 failed 74. The earlier 28 bank-selection cases, five memory cases, seven logging cases and two epoch cases pass. ARM64 .11 is built, signed and uninstalled.
 
 Normal/irregular output exactly matches the original Dolby for 196,608 frames each. The first pause test did not recover the effect before the stream ended; the .10 control and .11 repeat recovered. This timing limitation remains open. Ghidra also reviewed the captured Android protection handlers; no gain/protection setting changed. System Dolby/MiSound, physical L/R, PCM24 and maximum-volume safety are unverified. Installed .18 / APO .4 remains; .11/.36 is prepared.
 
 [.11 source/tests and retained failure](results/audio-apo-property-read-2026-11-25.json)
 
-<details>
-<summary>Earlier source checks · 25 November</summary>
+
 
 **New · matched DSP reply source:** the C/H readback helper now checks the standard APR envelope, both endpoints, transaction token, V6 opcode and DSP error status before reading parameter data. A basic GET receipt with zero status still returns “no parameter data”. Native checks passed on 112 original Windows mapped GET readbacks, 100 constructed in-band packets, 21 rejected replies and 73 real memory-boundary cases. Earlier 76 readback memory cases also pass on the new library.
 
