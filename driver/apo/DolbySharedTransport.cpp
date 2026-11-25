@@ -73,8 +73,10 @@ void nabu_close_transport(NabuTransportView *view)
 {
     if (!view)
         return;
-    if (view->worker)
-        InterlockedExchange(&view->shared->worker_claim, 0);
+    if (view->worker && DWORD(InterlockedCompareExchange(&view->shared->worker_claim, 0, 0)) == GetCurrentProcessId()) {
+        InterlockedExchange(&view->shared->worker_ready, 0);
+        InterlockedCompareExchange(&view->shared->worker_claim, 0, LONG(GetCurrentProcessId()));
+    }
     nabu_unpin_transport(view);
     UnmapViewOfFile(view->shared);
     CloseHandle(view->mapping);
@@ -122,7 +124,10 @@ extern "C" void *WINAPI NabuTransportCreateSecured(const WCHAR *name, UINT32 del
 extern "C" void *WINAPI NabuWorkerOpen(const WCHAR *name)
 {
     auto *view = nabu_open_transport(name);
-    if (view && InterlockedCompareExchange(&view->shared->worker_claim, 1, 0)) {
+    if (view && InterlockedCompareExchange(&view->shared->stop, 0, 0)) {
+        nabu_close_transport(view);SetLastError(ERROR_OPERATION_ABORTED);return nullptr;
+    }
+    if (view && InterlockedCompareExchange(&view->shared->worker_claim, LONG(GetCurrentProcessId()), 0)) {
         nabu_close_transport(view);
         SetLastError(ERROR_BUSY);
         return nullptr;
@@ -156,11 +161,48 @@ extern "C" BOOL WINAPI NabuWorkerWrite(void *view, const DolbyAudioBlock *block)
 }
 extern "C" void WINAPI NabuWorkerReady(void *view, LONG ready)
 {
-    InterlockedExchange(&static_cast<NabuTransportView *>(view)->shared->worker_ready, ready);
+    auto *s = static_cast<NabuTransportView *>(view)->shared;
+    if (DWORD(InterlockedCompareExchange(&s->worker_claim, 0, 0)) == GetCurrentProcessId())
+        InterlockedExchange(&s->worker_ready, ready);
 }
 extern "C" void WINAPI NabuWorkerGap(void *view)
 {
     InterlockedIncrement(&static_cast<NabuTransportView *>(view)->shared->worker_gaps);
+}
+extern "C" BOOL WINAPI NabuSupervisorReclaimExitedWorker(void *pointer, HANDLE process)
+{
+    auto *view = static_cast<NabuTransportView *>(pointer);
+    if (!view || view->worker || !process) { SetLastError(ERROR_INVALID_PARAMETER);return FALSE; }
+    const DWORD pid = GetProcessId(process);
+    if (!pid) return FALSE;
+    const DWORD waited = WaitForSingleObject(process, 0);
+    if (waited != WAIT_OBJECT_0) {
+        if (waited == WAIT_TIMEOUT) SetLastError(ERROR_BUSY);
+        return FALSE;
+    }
+    auto *s = view->shared;
+    const LONG owner = InterlockedCompareExchange(&s->worker_claim, 0, 0);
+    if (owner && DWORD(owner) != pid) { SetLastError(ERROR_INVALID_OWNER);return FALSE; }
+    if (owner) InterlockedExchange(&s->worker_ready, 0);
+    if (InterlockedCompareExchange(&s->stop, 0, 0)) { SetLastError(ERROR_OPERATION_ABORTED);return FALSE; }
+    // Exclude new APO acquisitions while confirming quiescence. Never reset
+    // SPSC cursors while a producer or the old worker can still access them.
+    if (InterlockedCompareExchange(&s->apo_claim, -1, 0)) { SetLastError(ERROR_BUSY);return FALSE; }
+    BOOL ok = FALSE;
+    DWORD error = ERROR_INVALID_OWNER;
+    if (InterlockedCompareExchange(&s->worker_claim, -1, owner) == owner) {
+        InterlockedExchange(&s->worker_ready, 0);
+        InterlockedExchange(&s->requests.read_index, 0);
+        InterlockedExchange(&s->requests.write_index, 0);
+        InterlockedExchange(&s->replies.read_index, 0);
+        InterlockedExchange(&s->replies.write_index, 0);
+        InterlockedIncrement(&s->generation);
+        InterlockedExchange(&s->worker_claim, 0);
+        ok = TRUE;
+    }
+    InterlockedExchange(&s->apo_claim, 0);
+    if (!ok) SetLastError(error);
+    return ok;
 }
 extern "C" LONG WINAPI NabuTransportMetric(void *view, UINT32 index)
 {

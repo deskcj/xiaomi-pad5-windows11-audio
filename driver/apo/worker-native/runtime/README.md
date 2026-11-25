@@ -56,6 +56,17 @@ external resources:
 
 These paths describe the current research backend; they are recorded in the
 prepared local package rather than inferred from the chat or current directory.
-Real system activation uses the verified .13 APO and bound .36 settings; source
+Real system activation uses the verified .14 APO and bound .36 settings; source
 fingerprint and DLL hashes must match their tested manifests. The current public
 kernel driver ZIP does not include this experimental runtime.
+
+Worker claims now store their PID. The supervisor validates a signaled process
+handle against that PID before reclaiming an idle slot. If an APO still owns the
+stream, readiness is withdrawn and recovery waits for release; queue cursors are
+not reset during active production. Each slot has at most two restart attempts,
+with previous worker logs retained in separate attempt folders. Active-stream
+recovery and a complete relocatable backend/service installation remain open.
+
+The .14 quiet trial on kernel .20 confirms normal live processing and cleanup.
+Worker failure/restart was exercised separately with paced COM and original
+Android DSP software comparisons; it was not injected into the physical trial.

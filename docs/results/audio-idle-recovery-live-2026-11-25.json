@@ -1,0 +1,471 @@
+{
+  "date": "2026-11-25",
+  "version": "2.0.0.14-lab",
+  "change": {
+    "worker_ownership": "PID",
+    "supervisor_requires_signaled_process_handle": true,
+    "queue_reclamation": "after APO stream release",
+    "restart_limit_per_slot": 2,
+    "previous_attempt_logs_preserved": true,
+    "active_stream_recovery": false
+  },
+  "build": {
+    "Architecture": "ARM64",
+    "PackageVersion": "2.0.0.14",
+    "EmbeddedDllSignatureVerified": true,
+    "EmbeddedCertificateBytes": 3072,
+    "CatalogAndMembersVerified": true,
+    "UnsignedDllSha256": "737c4b5310cf12d46aad569e8afa278463435835e3e216f1a65c4b26bcb7325e",
+    "Files": {
+      "nabudolbyapo.cat": "176d53111b1bf2b6b63ed9d334cc8cc38d7baa56dfc3b443adc69b89970843d5",
+      "NabuDolbyApo.inf": "f326c184b04f5f2c9cd18f22ec90b6652e977c8d5e55258b17ab79af4bb69759",
+      "NabuDolbyBridge.dll": "699edb64f19b8b6393bd0eff1f729ba8c947eec7f7132c4de02e1fa8acee2712"
+    },
+    "Installed": false,
+    "SystemEffectsProven": false
+  },
+  "broker_build": {
+    "Architecture": "ARM64",
+    "ExeSha256": "aa6004cdedeea6ea1773c6bb6140838f1e227cee4ae2e327abc26f6ee7060db9",
+    "SourceSha256": "6795dc05106abc05a9b3a62a32289a8b3be15042c5f59c34b9de696172cc48af",
+    "OpensAudio": false,
+    "InstallsDrivers": false,
+    "StartupRegistered": false
+  },
+  "software": {
+    "transport_api_cases": 8,
+    "broker_cases": 10,
+    "original_comparisons": [
+      {
+        "Label": "normal",
+        "Hresult": 0,
+        "Comparison": {
+          "ReferenceFrames": 196608,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        },
+        "Stats": {
+          "bytes": 56,
+          "callbacks": 423,
+          "frames_out": 202752,
+          "reset_frame": 0,
+          "latency": 1280000,
+          "maximum_callback_us": 295.0520833333333,
+          "maximum_schedule_late_ms": 16.0990625,
+          "invalid_callbacks": 0,
+          "nonfinite_frames": 0,
+          "duplicate_attach_rejected": 1,
+          "dll_unloadable": 1
+        },
+        "OutputSha256": "0bd96a21ad5efbdf8457ec55491299b908d4a9c912b2c67737e2218f57fc2410"
+      },
+      {
+        "Label": "irregular",
+        "Hresult": 0,
+        "Comparison": {
+          "ReferenceFrames": 196608,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        },
+        "Stats": {
+          "bytes": 56,
+          "callbacks": 529,
+          "frames_out": 202752,
+          "reset_frame": 0,
+          "latency": 1280000,
+          "maximum_callback_us": 175.625,
+          "maximum_schedule_late_ms": 17.027447916666667,
+          "invalid_callbacks": 0,
+          "nonfinite_frames": 0,
+          "duplicate_attach_rejected": 1,
+          "dll_unloadable": 1
+        },
+        "OutputSha256": "0bd96a21ad5efbdf8457ec55491299b908d4a9c912b2c67737e2218f57fc2410"
+      },
+      {
+        "Label": "reset",
+        "Hresult": 0,
+        "Comparison": {
+          "ReferenceFrames": 190464,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        },
+        "Stats": {
+          "bytes": 56,
+          "callbacks": 423,
+          "frames_out": 202752,
+          "reset_frame": 98304,
+          "latency": 1280000,
+          "maximum_callback_us": 318.6979166666667,
+          "maximum_schedule_late_ms": 16.3875,
+          "invalid_callbacks": 0,
+          "nonfinite_frames": 0,
+          "duplicate_attach_rejected": 1,
+          "dll_unloadable": 1
+        },
+        "OutputSha256": "8d71cd2f4fde47176931609544a78382d3bd550b74337094cda39fe6316e2a65"
+      }
+    ],
+    "factory_cases": 24,
+    "settings_cases": 108,
+    "idle_failure_recovery_proven": true,
+    "physical_audio_device_opened": false
+  },
+  "live": {
+    "kernel_version": "4.17.27.20",
+    "candidate_component": {
+      "Device": {
+        "InstanceId": "SWD\\DRIVERENUM\\{fd13c2df-5315-4f4f-9556-f78fb784a12a}#NabuDolbyGlobal&7&291fb903&0",
+        "ConfigResult": 0,
+        "Started": true,
+        "NeedsRestart": false,
+        "Problem": 0,
+        "Version": "2.0.0.14",
+        "Inf": "oem54.inf"
+      },
+      "RegisteredDll": "C:\\Windows\\System32\\DriverStore\\FileRepository\\nabudolbyapo.inf_arm64_71322da058e400a3\\NabuDolbyBridge.dll",
+      "DllHash": "699edb64f19b8b6393bd0eff1f729ba8c947eec7f7132c4de02e1fa8acee2712"
+    },
+    "candidate_code_identity_proven": true,
+    "source_fingerprint": "d533af3dbe3b6ee43580d7d7b5264665045fb372e1e919aabde1b4b2e24e0f04",
+    "identity_correlation": {
+      "InitializationCorrelated": true,
+      "StreamLockCorrelated": true,
+      "ZeroInputProcessingCorrelated": true,
+      "MatchedAudiodgPids": [
+        2284
+      ],
+      "MatchedStreams": [
+        {
+          "Pid": 2284,
+          "TransportName": "Global\\NabuDolbyLab-{A81D365D-93B3-47F4-9470-20A6EC9352C0}-0",
+          "Generation": 5
+        }
+      ],
+      "AcceptedEvents": [
+        {
+          "Pid": 2284,
+          "Phase": "Initialize",
+          "DelayFrames": 6144,
+          "TransportName": "Global\\NabuDolbyLab-{A81D365D-93B3-47F4-9470-20A6EC9352C0}-0",
+          "Generation": 0
+        },
+        {
+          "Pid": 2284,
+          "Phase": "LockForProcess",
+          "DelayFrames": 6144,
+          "TransportName": "Global\\NabuDolbyLab-{A81D365D-93B3-47F4-9470-20A6EC9352C0}-0",
+          "Generation": 3
+        },
+        {
+          "Pid": 2284,
+          "Phase": "Initialize",
+          "DelayFrames": 6144,
+          "TransportName": "Global\\NabuDolbyLab-{A81D365D-93B3-47F4-9470-20A6EC9352C0}-0",
+          "Generation": 0
+        },
+        {
+          "Pid": 2284,
+          "Phase": "LockForProcess",
+          "DelayFrames": 6144,
+          "TransportName": "Global\\NabuDolbyLab-{A81D365D-93B3-47F4-9470-20A6EC9352C0}-0",
+          "Generation": 4
+        },
+        {
+          "Pid": 2284,
+          "Phase": "Initialize",
+          "DelayFrames": 6144,
+          "TransportName": "Global\\NabuDolbyLab-{A81D365D-93B3-47F4-9470-20A6EC9352C0}-0",
+          "Generation": 0
+        },
+        {
+          "Pid": 2284,
+          "Phase": "LockForProcess",
+          "DelayFrames": 6144,
+          "TransportName": "Global\\NabuDolbyLab-{A81D365D-93B3-47F4-9470-20A6EC9352C0}-0",
+          "Generation": 5
+        }
+      ],
+      "AcousticLrProven": false,
+      "HyperOsQualityProven": false,
+      "Interpretation": "Correlation of supplied trace/counter records only; real trial provenance must be established by the collector."
+    },
+    "metrics_before_quiet": [
+      {
+        "ApoClaim": 1,
+        "WorkerClaim": 12364,
+        "Generation": 3,
+        "Stop": 0,
+        "RequestsDropped": 0,
+        "WorkerGaps": 0,
+        "BlocksReplied": 71,
+        "WorkerReady": 1,
+        "ApoPid": 2284,
+        "InitKind": 4,
+        "LockError": 0,
+        "Callbacks": 155,
+        "FramesProcessed": 74400,
+        "FramesWet": 68256,
+        "FramesDry": 0,
+        "TransportName": "Global\\NabuDolbyLab-{A81D365D-93B3-47F4-9470-20A6EC9352C0}-0"
+      },
+      {
+        "ApoClaim": 0,
+        "WorkerClaim": 3844,
+        "Generation": 0,
+        "Stop": 0,
+        "RequestsDropped": 0,
+        "WorkerGaps": 0,
+        "BlocksReplied": 0,
+        "WorkerReady": 1,
+        "ApoPid": 0,
+        "InitKind": 0,
+        "LockError": 0,
+        "Callbacks": 0,
+        "FramesProcessed": 0,
+        "FramesWet": 0,
+        "FramesDry": 0,
+        "TransportName": "Global\\NabuDolbyLab-{A81D365D-93B3-47F4-9470-20A6EC9352C0}-1"
+      }
+    ],
+    "metrics_after_quiet": [
+      {
+        "ApoClaim": 0,
+        "WorkerClaim": 12364,
+        "Generation": 5,
+        "Stop": 0,
+        "RequestsDropped": 0,
+        "WorkerGaps": 2,
+        "BlocksReplied": 246,
+        "WorkerReady": 1,
+        "ApoPid": 2284,
+        "InitKind": 4,
+        "LockError": 0,
+        "Callbacks": 163,
+        "FramesProcessed": 78240,
+        "FramesWet": 72096,
+        "FramesDry": 0,
+        "TransportName": "Global\\NabuDolbyLab-{A81D365D-93B3-47F4-9470-20A6EC9352C0}-0"
+      },
+      {
+        "ApoClaim": 0,
+        "WorkerClaim": 3844,
+        "Generation": 0,
+        "Stop": 0,
+        "RequestsDropped": 0,
+        "WorkerGaps": 0,
+        "BlocksReplied": 0,
+        "WorkerReady": 1,
+        "ApoPid": 0,
+        "InitKind": 0,
+        "LockError": 0,
+        "Callbacks": 0,
+        "FramesProcessed": 0,
+        "FramesWet": 0,
+        "FramesDry": 0,
+        "TransportName": "Global\\NabuDolbyLab-{A81D365D-93B3-47F4-9470-20A6EC9352C0}-1"
+      }
+    ],
+    "quiet_digital_lr": {
+      "endpoint": "{0.0.0.00000000}.{ffdf96fd-2206-4f2d-9e3e-0eb83f6cddfa}",
+      "input_peak_limit": 0.001,
+      "input_dbfs": -60,
+      "stream_gain_db": -40,
+      "source_peak_times_stream_gain": 1e-05,
+      "endpoint_volume_written": false,
+      "registry_modified": false,
+      "acoustic_lr_proven": false,
+      "maximum_volume_safety_proven": false,
+      "cases": [
+        {
+          "stream_gain_verified": true,
+          "stream_gain": 0.00999999978,
+          "measurement": {
+            "channel": "L",
+            "raw": false,
+            "hr": "0x00000000",
+            "submitted_frames": 82560,
+            "captured_frames": 77280,
+            "active_frames": 20794,
+            "rms": [
+              1.5830168155e-05,
+              1.45081900588e-05
+            ],
+            "peak": [
+              3.0517578125e-05,
+              3.0517578125e-05
+            ],
+            "opposite_rms_ratio": 0.916489952392,
+            "tone_800hz_amplitudes": [
+              6.23782974103e-06,
+              2.58258263934e-08
+            ],
+            "opposite_tone_ratio": 0.0041401941806,
+            "digital_separation_passed": true,
+            "capture_discontinuities": 1,
+            "nonfinite_frames": 0,
+            "maximum_meter_peak": 6.10353891e-05,
+            "passed": true
+          }
+        },
+        {
+          "stream_gain_verified": true,
+          "stream_gain": 0.00999999978,
+          "measurement": {
+            "channel": "R",
+            "raw": false,
+            "hr": "0x00000000",
+            "submitted_frames": 82560,
+            "captured_frames": 77760,
+            "active_frames": 20999,
+            "rms": [
+              1.44889902894e-05,
+              1.5858833731e-05
+            ],
+            "peak": [
+              3.0517578125e-05,
+              3.0517578125e-05
+            ],
+            "opposite_rms_ratio": 0.913622687213,
+            "tone_800hz_amplitudes": [
+              6.14386762297e-08,
+              6.02500904189e-06
+            ],
+            "opposite_tone_ratio": 0.0101972753572,
+            "digital_separation_passed": true,
+            "capture_discontinuities": 1,
+            "nonfinite_frames": 0,
+            "maximum_meter_peak": 6.10353891e-05,
+            "passed": true
+          }
+        },
+        {
+          "stream_gain_verified": true,
+          "stream_gain": 0.00999999978,
+          "measurement": {
+            "channel": "L",
+            "raw": true,
+            "hr": "0x00000000",
+            "submitted_frames": 82080,
+            "captured_frames": 76800,
+            "active_frames": 20411,
+            "rms": [
+              1.57326396844e-05,
+              1.45238472118e-05
+            ],
+            "peak": [
+              3.0517578125e-05,
+              3.0517578125e-05
+            ],
+            "opposite_rms_ratio": 0.923166582541,
+            "tone_800hz_amplitudes": [
+              5.96290875277e-06,
+              2.27880932335e-08
+            ],
+            "opposite_tone_ratio": 0.00382164044065,
+            "digital_separation_passed": true,
+            "capture_discontinuities": 1,
+            "nonfinite_frames": 0,
+            "maximum_meter_peak": 6.10353891e-05,
+            "passed": true
+          }
+        },
+        {
+          "stream_gain_verified": true,
+          "stream_gain": 0.00999999978,
+          "measurement": {
+            "channel": "R",
+            "raw": true,
+            "hr": "0x00000000",
+            "submitted_frames": 82080,
+            "captured_frames": 76800,
+            "active_frames": 20290,
+            "rms": [
+              1.45146599243e-05,
+              1.56859374383e-05
+            ],
+            "peak": [
+              3.0517578125e-05,
+              3.0517578125e-05
+            ],
+            "opposite_rms_ratio": 0.925329453938,
+            "tone_800hz_amplitudes": [
+              5.27341259677e-08,
+              6.07486991735e-06
+            ],
+            "opposite_tone_ratio": 0.00868070044054,
+            "digital_separation_passed": true,
+            "capture_discontinuities": 1,
+            "nonfinite_frames": 0,
+            "maximum_meter_peak": 6.10353891e-05,
+            "passed": true
+          }
+        }
+      ],
+      "volume_before": 0.710000634,
+      "volume_after": 0.710000634,
+      "volume_unchanged": true,
+      "passed": true
+    },
+    "worker_final": [
+      {
+        "state": "Stopped",
+        "frames": 251904,
+        "errors": [],
+        "telemetry_write_failures": 0
+      },
+      {
+        "state": "Stopped",
+        "frames": 0,
+        "errors": [],
+        "telemetry_write_failures": 0
+      }
+    ],
+    "forced_worker_termination": false,
+    "worker_failure_injected": false,
+    "restored_apo_version": "2.0.0.4",
+    "kernel20_retained": true,
+    "factory_calibration_unchanged": true,
+    "cleanup_errors": []
+  },
+  "mi_sound_investigation": {
+    "original_windows_sha256": "b82cabb860404edd71cb38ce28720c74628dd3ad12e20f8ecbd874853cac0edd",
+    "function": "0x140071b90",
+    "acdb_size_command": "0x13297",
+    "acdb_data_command": "0x13296",
+    "avcs_register_topologies_opcode": "0x12923",
+    "packet_bytes": 36,
+    "mapped_payload_body_bytes": 16,
+    "missing_acdb_data_minus18_returns_success_without_registration": true,
+    "ghidra_export_sha256": "83819c22b892a3efb1537bf4d4ca54880e8a212b4df980fa93e8a8338d82308c",
+    "primary_reference": "https://android.googlesource.com/kernel/msm-extra/+/7d02ebed32f03421d272eae1831dda37f24f2147/include/dsp/q6core.h",
+    "android_adm_add_topologies_opcode_is_distinct": "0x10335",
+    "live_mi_sound_command_sent": false
+  },
+  "scope": {
+    "permanent_service_backend": false,
+    "latency_ms": 128,
+    "active_stream_recovery": false,
+    "physical_speaker_lr_measured": false,
+    "mi_sound_live_processing": false,
+    "hardware_pcm24_proven": false,
+    "maximum_volume_safety_proven": false,
+    "louder_or_better_acoustic_quality_proven": false,
+    "windows_rebooted": false
+  }
+}

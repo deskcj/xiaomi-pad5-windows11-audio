@@ -15,7 +15,7 @@ struct NabuSharedTransport {
     UINT32 bytes;
     UINT32 delay_frames;
     volatile LONG apo_claim;
-    volatile LONG worker_claim;
+    volatile LONG worker_claim; // Worker PID; -1 while supervisor reclaims an idle slot.
     volatile LONG generation;
     volatile LONG stop;
     volatile LONG requests_dropped;
@@ -69,6 +69,10 @@ extern "C" __declspec(dllexport) BOOL WINAPI NabuWorkerRead(void *view, DolbyAud
 extern "C" __declspec(dllexport) BOOL WINAPI NabuWorkerWrite(void *view, const DolbyAudioBlock *block);
 extern "C" __declspec(dllexport) void WINAPI NabuWorkerReady(void *view, LONG ready);
 extern "C" __declspec(dllexport) void WINAPI NabuWorkerGap(void *view);
+// Non-RT supervisor only. A signaled owned process handle must match the
+// registered worker PID. Active APO streams return ERROR_BUSY without touching
+// queue cursors; worker readiness is withdrawn after confirmed process death.
+extern "C" __declspec(dllexport) BOOL WINAPI NabuSupervisorReclaimExitedWorker(void *view, HANDLE process);
 extern "C" __declspec(dllexport) LONG WINAPI NabuTransportMetric(void *view, UINT32 index);
 extern "C" __declspec(dllexport) LONG64 WINAPI NabuTransportFrames(void *view, UINT32 index);
 extern "C" __declspec(dllexport) void *WINAPI NabuTransportCreateSecured(const WCHAR *name, UINT32 delay, const WCHAR *sddl);

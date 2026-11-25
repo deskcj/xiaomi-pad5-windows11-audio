@@ -2,6 +2,14 @@
 
 [English](audio-system-progress.md) · [Русский](audio-system-progress.ru.md) · [简体中文](audio-system-progress.zh-CN.md)
 
+### 2026-11-25 — Dolby .14：流间恢复及实机处理
+
+- ✅ 流释放后可重启已退出的处理程序；8 项 API、10 项管理程序检查及 3 项原版 DSP 输出对比通过。活动流中恢复尚未完成。
+- ✅ 内核 .20 上安静 .14/.36 测试：实际 audiodg 记录 72,096 湿处理帧、零干信号回退；4 项 Normal/RAW 数字 L/R 通过。已恢复 APO .4，保留 .20，未重启。
+- ❌ 常驻后端／服务、MiSound、物理 L/R、硬件 PCM24 与最大音量安全仍未完成。Ghidra 确认 Windows 独立拓扑注册路径；未向设备发送 MiSound 命令。
+
+[验证数据](results/audio-idle-recovery-live-2026-11-25.json)
+
 ### 2026-11-25 — 现有 UEFI 与 Remtrik 2611.21 兼容
 
 - ✅ .20 保留 `ACPI\10133541`，加入已验证的 `ACPI\CSCL3541`；四个功放的资源及 UID 完全对应。安装脚本支持两种 ID；EWDK 编译、签名和 8 项发现检查通过。

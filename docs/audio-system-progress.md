@@ -2,6 +2,14 @@
 
 [English](audio-system-progress.md) · [Русский](audio-system-progress.ru.md) · [简体中文](audio-system-progress.zh-CN.md)
 
+### 2026-11-25 — Dolby .14: idle recovery and fresh live processing
+
+- ✅ Dead workers can restart after stream release: eight API cases, ten supervisor cases and three original-output comparisons pass; active-stream recovery stays open.
+- ✅ Quiet .14/.36 on kernel .20: 72,096 wet / zero dry frames in real audiodg; four Normal/RAW digital L/R cases pass. APO .4 restored, .20 retained, no reboot.
+- ❌ Permanent backend/service, MiSound, physical L/R, hardware PCM24 and maximum-volume safety remain open. Ghidra confirmed the separate Windows topology-registration path; no live MiSound command was sent.
+
+[Evidence / Данные / 数据](results/audio-idle-recovery-live-2026-11-25.json)
+
 ### 2026-11-25 — Legacy UEFI + Remtrik 2611.21 compatibility
 
 - ✅ .20 retains `ACPI\10133541` and adds verified `ACPI\CSCL3541`; all four ACPI resource/UID blocks match. Installer discovery supports both families; EWDK build, signatures and eight discovery cases pass.

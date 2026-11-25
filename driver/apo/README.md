@@ -1,4 +1,6 @@
-# Dolby APO development source · 2.0.0.11-lab
+# Dolby APO development source · 2.0.0.14-lab
+
+**2.0.0.14-lab:** the supervisor verifies the exited worker's process handle and PID, then reclaims queues only after the APO releases the stream. Each slot permits two restart attempts; active-stream recovery remains unfinished. Eight transport/API cases, ten supervisor cases, three original-output comparisons, 24 COM factory cases and 108 settings cases pass. A fresh quiet .14/.36 trial with kernel .20 processed 72,096 wet frames and zero dry frames in real audiodg; four Normal/RAW digital L/R cases passed. Both workers stopped normally and APO .4 was restored. The physical trial did not inject a worker failure or measure acoustic speaker separation. [Evidence](../../docs/results/audio-idle-recovery-live-2026-11-25.json)
 
 **2.0.0.13-lab:** real audiodg SFX activation and quiet nonzero processing now pass after fixing COM aggregation. A private IUnknown manages the inner lifetime; public interfaces delegate to the controlling object. The .12 control returned CLASS_E_NOAGGREGATION in 11 live calls. ARM64 EWDK: 24 factory, 108 settings and seven original-worker scenarios pass. Embedded DLL signing with page hashes and catalog/member verification are available through `Build-ApoPackage.ps1`.
 

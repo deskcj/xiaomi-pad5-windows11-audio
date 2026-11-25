@@ -141,11 +141,13 @@ struct Api
     using Close = void(WINAPI *)(void *);
     using Metric = LONG(WINAPI *)(void *, UINT32);
     using Frames = LONG64(WINAPI *)(void *, UINT32);
+    using Reclaim = BOOL(WINAPI *)(void *, HANDLE);
     Create create = nullptr;
     Bank bank = nullptr;
     Close close = nullptr, bankClose = nullptr, stop = nullptr;
     Metric metric = nullptr;
     Frames frames = nullptr;
+    Reclaim reclaim = nullptr;
     template <class T> T get(const char *name)
     {
         auto p = GetProcAddress(dll.h, name);
@@ -169,6 +171,7 @@ struct Api
         stop = get<Close>("NabuTransportStop");
         metric = get<Metric>("NabuTransportMetric");
         frames = get<Frames>("NabuTransportFrames");
+        reclaim = get<Reclaim>("NabuSupervisorReclaimExitedWorker");
     }
 };
 struct Worker
@@ -176,7 +179,11 @@ struct Worker
     Handle process, log;
     void *view = nullptr;
     DWORD pid = 0, exit = STILL_ACTIVE;
-    std::wstring name;
+    DWORD previousExit = 0;
+    unsigned restarts = 0;
+    bool recovering = false;
+    ULONGLONG launched = 0;
+    std::wstring name, output;
 };
 class Broker
 {
@@ -185,6 +192,8 @@ class Broker
     std::vector<Worker> workers_;
     void *bank_ = nullptr;
     std::wstring output_, bankName_, fingerprint_;
+    std::wstring dllPath_, exePath_, scriptPath_;
+    bool native_ = false;
     unsigned seconds_ = 0;
     bool published_ = false, forced_ = false;
     DWORD error_ = 0, reportError_ = 0;
@@ -198,6 +207,7 @@ class Broker
              << (published_ ? "true" : "false")
              << ",\"forced_owned_job_termination\":" << (forced_ ? "true" : "false")
              << ",\"duration_seconds\":" << seconds_ << ",\"bank\":" << json(bankName_)
+             << ",\"recovery_mode\":\"after_stream_release\",\"restart_limit_per_slot\":2"
              << ",\"source_fingerprint\":" << json(fingerprint_) << ",\"workers\":[";
         for (size_t i = 0; i < workers_.size(); ++i)
         {
@@ -205,6 +215,9 @@ class Broker
             if (i)
                 data << ',';
             data << "{\"pid\":" << w.pid << ",\"exit_code\":" << w.exit << ",\"transport\":" << json(w.name)
+                 << ",\"restart_count\":" << w.restarts << ",\"previous_exit_code\":" << w.previousExit
+                 << ",\"recovering\":" << (w.recovering ? "true" : "false")
+                 << ",\"output\":" << json(w.output)
                  << ",\"ready\":" << (w.view && api_.metric(w.view, 7) ? "true" : "false");
             if (w.view)
                 data << ",\"apo_claim\":" << api_.metric(w.view, 0)
@@ -273,6 +286,101 @@ class Broker
                 throw DWORD(ERROR_BROKEN_PIPE);
             }
     }
+    void startWorker(Worker &w, unsigned index)
+    {
+        if (w.process.h)
+        {
+            if (WaitForSingleObject(w.process.h, 0) != WAIT_OBJECT_0)
+                throw DWORD(ERROR_BUSY);
+            CloseHandle(w.process.h);
+            w.process.h = nullptr;
+        }
+        if (w.log.h)
+        {
+            CloseHandle(w.log.h);
+            w.log.h = nullptr;
+        }
+        std::wstring stem = L"worker" + std::to_wstring(index);
+        if (w.restarts)
+            stem += L"-attempt" + std::to_wstring(w.restarts);
+        w.output = output_ + L"\\" + stem;
+        SECURITY_ATTRIBUTES inheritable = {sizeof(inheritable), nullptr, TRUE};
+        w.log.h = CreateFileW((output_ + L"\\" + stem + L".console").c_str(), GENERIC_WRITE, FILE_SHARE_READ,
+                              &inheritable, CREATE_NEW, FILE_ATTRIBUTE_NORMAL, nullptr);
+        if (w.log.h == INVALID_HANDLE_VALUE)
+            throw GetLastError();
+        std::wstring command = quote(exePath_) + L" ";
+        if (!native_)
+            command += quote(scriptPath_) + L" ";
+        command += quote(w.name) + L" " + quote(w.output) + L" " + quote(dllPath_);
+        std::vector<WCHAR> mutableCommand(command.begin(), command.end());
+        mutableCommand.push_back(0);
+        STARTUPINFOW startup = {};
+        startup.cb = sizeof(startup);
+        startup.dwFlags = STARTF_USESTDHANDLES;
+        startup.hStdInput = input_.h;
+        startup.hStdOutput = startup.hStdError = w.log.h;
+        PROCESS_INFORMATION process = {};
+        if (!CreateProcessW(exePath_.c_str(), mutableCommand.data(), nullptr, nullptr, TRUE,
+                            CREATE_SUSPENDED | CREATE_NO_WINDOW, nullptr, output_.c_str(), &startup,
+                            &process))
+            throw GetLastError();
+        w.process.h = process.hProcess;
+        w.pid = process.dwProcessId;
+        w.exit = STILL_ACTIVE;
+        Handle thread;
+        thread.h = process.hThread;
+        if (!AssignProcessToJobObject(job_.h, w.process.h))
+        {
+            DWORD error = GetLastError();
+            TerminateProcess(w.process.h, error);
+            WaitForSingleObject(w.process.h, 2000);
+            throw error;
+        }
+        if (ResumeThread(thread.h) == DWORD(-1))
+            throw GetLastError();
+        w.launched = GetTickCount64();
+    }
+    bool recoverExitedWorkers()
+    {
+        bool pending = false;
+        for (unsigned index = 0; index < workers_.size(); ++index)
+        {
+            auto &w = workers_[index];
+            const DWORD waited = WaitForSingleObject(w.process.h, 0);
+            if (waited == WAIT_FAILED)
+                throw GetLastError();
+            if (waited == WAIT_OBJECT_0)
+            {
+                GetExitCodeProcess(w.process.h, &w.exit);
+                w.previousExit = w.exit;
+                w.recovering = true;
+                if (w.restarts >= 2)
+                    throw DWORD(ERROR_BROKEN_PIPE);
+                if (!api_.reclaim(w.view, w.process.h))
+                {
+                    const DWORD error = GetLastError();
+                    if (error != ERROR_BUSY)
+                        throw error;
+                }
+                else
+                {
+                    ++w.restarts;
+                    startWorker(w, index);
+                }
+                pending = true;
+            }
+            else if (w.recovering)
+            {
+                if (api_.metric(w.view, 7))
+                    w.recovering = false;
+                else if (GetTickCount64() - w.launched >= 30000)
+                    throw DWORD(ERROR_TIMEOUT);
+                pending |= w.recovering;
+            }
+        }
+        return pending;
+    }
     void cleanup()
     {
         if (bank_)
@@ -312,6 +420,10 @@ class Broker
         const auto dll = full(argv[1]), exe = full(argv[2]);
         const bool native = wcscmp(argv[3], L"-") == 0;
         const auto script = native ? L"" : full(argv[3]);
+        dllPath_ = dll;
+        exePath_ = exe;
+        scriptPath_ = script;
+        native_ = native;
         output_ = full(argv[4]);
         bankName_ = argv[5];
         seconds_ = number(argv[6], 3600);
@@ -362,40 +474,7 @@ class Broker
                 if (!w.view)
                     throw GetLastError();
                 wcscpy_s(names.data() + i * 128, 128, w.name.c_str());
-                const auto log = output_ + L"\\worker" + std::to_wstring(i) + L".console";
-                w.log.h = CreateFileW(log.c_str(), GENERIC_WRITE, FILE_SHARE_READ, &inheritable, CREATE_NEW,
-                                      FILE_ATTRIBUTE_NORMAL, nullptr);
-                if (w.log.h == INVALID_HANDLE_VALUE)
-                    throw GetLastError();
-                std::wstring command = quote(exe) + L" ";
-                if (!native)
-                    command += quote(script) + L" ";
-                command += quote(w.name) + L" " + quote(output_ + L"\\worker" + std::to_wstring(i)) + L" " +
-                           quote(dll);
-                std::vector<WCHAR> mutableCommand(command.begin(), command.end());
-                mutableCommand.push_back(0);
-                STARTUPINFOW startup = {};
-                startup.cb = sizeof(startup);
-                startup.dwFlags = STARTF_USESTDHANDLES;
-                startup.hStdInput = input_.h;
-                startup.hStdOutput = startup.hStdError = w.log.h;
-                PROCESS_INFORMATION process = {};
-                if (!CreateProcessW(exe.c_str(), mutableCommand.data(), nullptr, nullptr, TRUE,
-                                    CREATE_SUSPENDED | CREATE_NO_WINDOW, nullptr, output_.c_str(), &startup,
-                                    &process))
-                    throw GetLastError();
-                w.process.h = process.hProcess;
-                w.pid = process.dwProcessId;
-                Handle thread;
-                thread.h = process.hThread;
-                if (!AssignProcessToJobObject(job_.h, w.process.h))
-                {
-                    DWORD e = GetLastError();
-                    TerminateProcess(w.process.h, e);
-                    throw e;
-                }
-                if (ResumeThread(thread.h) == DWORD(-1))
-                    throw GetLastError();
+                startWorker(w, i);
             }
             write("Starting");
             ULONGLONG began = GetTickCount64();
@@ -420,13 +499,13 @@ class Broker
             ULONGLONG report = began;
             while (!seconds_ || GetTickCount64() - began < UINT64(seconds_) * 1000)
             {
-                exited();
                 if (GetFileAttributesW((output_ + L"\\Stop.request").c_str()) != INVALID_FILE_ATTRIBUTES ||
                     WaitForSingleObject(cancelEvent, 20) == WAIT_OBJECT_0)
                     break;
+                const bool recovering = recoverExitedWorkers();
                 if (GetTickCount64() - report >= 1000)
                 {
-                    snapshot("Ready");
+                    snapshot(recovering ? "Recovering" : "Ready");
                     report = GetTickCount64();
                 }
             }
