@@ -1,0 +1,46 @@
+[Version]
+Signature="$WINDOWS NT$"
+Class=Extension
+ClassGuid={E2F84CE7-8EFA-411C-AA69-97454CA4CB57}
+ExtensionId={FD13C2DF-5315-4F4F-9556-F78FB784A12A}
+Provider=%Provider%
+DriverVer=11/25/2026,1.0.2140.36
+CatalogFile=NabuDolbyBound.cat
+PnpLockdown=1
+[Manufacturer]
+%Provider%=Models,NTarm64.10.0...26100
+[Models.NTarm64.10.0...26100]
+%Description%=NabuBound,AUDD\VEN_QCOM&DEV_052C&SUBSYS_MTPA8150
+[NabuBound.NTarm64]
+[NabuBound.NTarm64.Components]
+AddComponent=NabuDolbyGlobal,,NabuComponent
+[NabuComponent]
+ComponentIds=VEN_DSKC&CID_NABUDOLBYGLOBAL
+Description="Nabu original Dolby audio-interface SFX lab"
+[NabuBound.NTarm64.Interfaces]
+AddInterface=%KSCATEGORY_AUDIO%,%KSNAME_TopologySpeaker%,BoundSpeakerInterface
+AddInterface=%KSCATEGORY_TOPOLOGY%,%KSNAME_TopologySpeaker%,BoundSpeakerInterface
+[BoundSpeakerInterface]
+AddReg=BoundSpeakerSfx
+[BoundSpeakerSfx]
+HKR,FX\0,%PKEY_FX_Association%,,%KSNODETYPE_SPEAKER%
+HKR,FX\0,%PKEY_FX_StreamEffectClsid%,,%APO_CLSID%
+HKR,FX\0,%PKEY_SFX_ProcessingModes%,0x00010000,%MODE_DEFAULT%,%MODE_MEDIA%
+; APOInitSystemEffects3 opens this exact context's Default store. Do not also
+; publish the same custom bank property in the legacy flat FX\0 store.
+HKR,FX\0\%APO_CLSID%,%PKEY_FX_Association%,,%KSNODETYPE_SPEAKER%
+HKR,FX\0\%APO_CLSID%\Default,%PKEY_NabuDolbyBank%,,"Global\NabuDolbyBank-9df8834a-209e-4cc1-bc73-bb4353adfa9f"
+[Strings]
+Provider="DeskCj"
+Description="Nabu original Dolby driver-bound SFX settings-context lab extension"
+KSCATEGORY_AUDIO="{6994AD04-93EF-11D0-A3CC-00A0C9223196}"
+KSCATEGORY_TOPOLOGY="{DDA54A40-1E4C-11D1-A050-405705C10000}"
+KSNAME_TopologySpeaker="TopologySpeaker"
+KSNODETYPE_SPEAKER="{DFF21CE1-F70F-11D0-B917-00A0C9223196}"
+PKEY_FX_Association="{D04E05A6-594B-4FB6-A80D-01AF5EED7D1D},0"
+PKEY_FX_StreamEffectClsid="{D04E05A6-594B-4FB6-A80D-01AF5EED7D1D},5"
+PKEY_SFX_ProcessingModes="{D3993A3F-99C2-4402-B5EC-A92A0367664B},5"
+PKEY_NabuDolbyBank="{1A5BCC9E-61EE-41B7-9DC2-1B580DCAFA1B},1"
+MODE_DEFAULT="{C18E2F7E-933D-4965-B7D1-1EEF228D2AF3}"
+MODE_MEDIA="{4780004E-7133-41D8-8C74-660DADD2C0EE}"
+APO_CLSID="{9DF8834A-209E-4CC1-BC73-BB4353ADFA9F}"

@@ -26,16 +26,22 @@ Download: **4.17.27.16**. Development source: **4.17.27.18**. The published ZIP 
 
 ## Update history
 
-### 2026-11-25 — MiSound resource reader v2
+### 2026-11-25 — Dolby APO 2.0.0.10-lab / settings .36
 
-- ✅ All **502 factory parameter records** are read exactly; damaged profile tails are rejected before callbacks.
-- ✅ **13 malformed + 30,770 bounds/mutation cases** passed. Original 176.4 → 192 kHz factory-table selection now matches both resources.
-- ❌ System Dolby/MiSound and acoustic L/R remain open. Installed kernel .18 and prepared APO .9 are unchanged.
+- ✅ Fixed explicit Dolby configuration fallback: **28 software cases** pass; the .9 control failed 14.
+- ✅ Added the Windows 11 settings context; signed .10/.36 packages are prepared. **5 + 7 + 2 + 7** regression cases pass; original output stays exact for 196,608 frames.
+- ❌ Real system Dolby/MiSound and physical L/R remain unconfirmed. Installed kernel .18 is unchanged.
 
 [Measured evidence](docs/audio-system-progress.md)
 
 <details>
 <summary>Previous updates</summary>
+
+#### 2026-11-25 — MiSound resource reader v2
+
+- ✅ All **502 factory parameter records** are read exactly; damaged profile tails are rejected before callbacks.
+- ✅ **13 malformed + 30,770 bounds/mutation cases** passed. Original 176.4 → 192 kHz factory-table selection now matches both resources.
+- ❌ System Dolby/MiSound and acoustic L/R remain open. Installed kernel .18 and prepared APO .9 are unchanged.
 
 #### 2026-11-25 — 4.17.27.18 / Dolby APO 2.0.0.9-lab
 
@@ -86,7 +92,7 @@ PCM24 research set: all 13 timing/reopen tests passed; average 10 ms notificatio
 | --- | --- | --- |
 | IRQ/GPIO and routing | IRQ setup ignored I²C errors; only CH_BAL was checked. | ✅ .18 rejects failed IRQ setup; real readbacks passed on all four amplifiers. |
 | Digital L/R | Separation unmeasured. | ✅ Four quiet cases passed; opposite 800 Hz tone <0.1%. UID/I²C board mapping matches Android. Acoustic isolation remains unverified. |
-| Dolby APO | Real-time state used shared heap pages. | ✅ .9 has independent allocations and correct teardown; exact output preserved. ❌ System processing unverified. |
+| Dolby APO | An unavailable explicit bank could select the common fallback; settings used the flat store. | ✅ .10 honors explicit selection; .36 declares the correct context. 28 software cases pass. ❌ System processing unverified. |
 | PCM24 | Format/pacing failures. | ✅ Earlier 13 timing/reopen cases passed. Hardware PCM24 remains unverified. |
 | MiSound | Filter reader ignored damaged profile tails; DSP commands timed out. | ✅ Complete profile validation and 502 exact records. ❌ System DSP processing remains unverified. |
 

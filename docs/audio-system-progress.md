@@ -2,7 +2,15 @@
 
 [English](audio-system-progress.md) · [Русский](audio-system-progress.ru.md) · [简体中文](audio-system-progress.zh-CN.md)
 
-**New · MiSound resource reader v2:** the ARM64 EWDK library now validates every profile/module before exposing raw parameters. Both factory resources retain all **502 exact records** (7 profiles and 19 modules each). Thirteen malformed cases produced no callbacks; ten damaged-tail comparisons now reject files the earlier filter-only reader accepted. All ten original filter tables and fourteen rejection cases still pass. A native test with real NOACCESS guard pages passed **30,770 truncation/mutation cases**. Structurally accepted mutations are not factory-approved calibration.
+**New · APO .10 / Windows 11 settings .36:** an explicitly selected unavailable, invalid or occupied Dolby bank no longer falls through to the common bank. The .9 control failed 14 of 28 native policy fixtures; .10 passed all 28. Only the fixed Global resolver was redirected to real Local test mappings. This is a reproducible software fix, not a system-audio or shutdown-cause diagnosis.
+
+The .36 extension declares the Default store for the exact context used by APOInitSystemEffects3, instead of placing the custom bank property in the legacy flat store. Native SetupAPI parsing passed and rejected five malformed contracts, including an OEM MFX overwrite. Existing OEM MFX/EFX values are untouched by this INF. Signed .10/.36 catalogs and members passed verification; read-only preflight passed. Five memory, seven logging, two epoch and seven original-worker regressions passed; normal/irregular output remains exact for 196,608 frames. Fifteen synthetic context-cleanup cases pass; actual installation, context read and rollback remain untested.
+
+Ghidra reviewed the original AMP0/LMT0 per-channel constructors. Compared code already exists in Windows firmware; this does not prove live amplifier protection. No new driver was installed or sound started. System Dolby/MiSound, physical L/R and maximum-volume safety remain open.
+
+[Measured evidence](results/audio-apo-policy-settings-2026-11-25.json) · [APO source](../driver/apo/) · [Windows 11 settings framework](https://learn.microsoft.com/en-us/windows-hardware/drivers/audio/windows-11-apis-for-audio-processing-objects)
+
+**Previous · MiSound resource reader v2:** the ARM64 EWDK library now validates every profile/module before exposing raw parameters. Both factory resources retain all **502 exact records** (7 profiles and 19 modules each). Thirteen malformed cases produced no callbacks; ten damaged-tail comparisons now reject files the earlier filter-only reader accepted. All ten original filter tables and fourteen rejection cases still pass. A native test with real NOACCESS guard pages passed **30,770 truncation/mutation cases**. Structurally accepted mutations are not factory-approved calibration.
 
 The four-channel file adds eight MMS0 records across NORM/MOVI/GAME/SYSS, **32 bytes per profile**. Their selectors and value bits are retained without inventing parameter units or physical speaker positions. Ghidra traced the original special filter-attachment path; its indices alone do not prove acoustic L/R. Ordinary host reads match HyperOS; successful DSP resource opening remains unobserved.
 
@@ -38,7 +46,7 @@ No loudness or HyperOS-quality improvement is claimed. Quiet digital loopback is
 | --- | --- | --- |
 | IRQ/GPIO and routing | IRQ setup ignored I²C errors; only CH_BAL was checked. | ✅ .18 rejects failed IRQ setup; real readbacks passed on all four amplifiers. |
 | Digital L/R | Separation unmeasured. | ✅ Four quiet cases passed; opposite 800 Hz tone <0.1%. UID/I²C board mapping matches Android. Acoustic isolation remains unverified. |
-| Dolby APO | Real-time state used shared heap pages. | ✅ .9 has independent allocations and correct teardown; exact output preserved. ❌ System processing unverified. |
+| Dolby APO | An unavailable explicit bank could select the common fallback; settings used the flat store. | ✅ .10 honors explicit selection; .36 declares the correct context. 28 software cases pass. ❌ System processing unverified. |
 | PCM24 | Format/pacing failures. | ✅ Earlier 13 timing/reopen cases passed. Hardware PCM24 remains unverified. |
 | MiSound | Filter reader ignored damaged profile tails; DSP commands timed out. | ✅ Complete profile validation and 502 exact records. ❌ System DSP processing remains unverified. |
 

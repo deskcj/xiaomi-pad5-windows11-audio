@@ -177,14 +177,20 @@ public:
                 PROPVARIANT value = {};
                 HRESULT hr = properties ? properties->GetValue(PKEY_NabuDolbyBank, &value) : E_NOINTERFACE;
                 nabu_diag(4,hr);nabu_diag(5,value.vt);
+                // An explicit property belongs to this endpoint/context. Do not
+                // substitute another bank when it is invalid, missing or busy.
+                // VT_EMPTY is the memory/property-store representation of absence.
+                const bool bank_configured = SUCCEEDED(hr) && value.vt != VT_EMPTY;
                 if (SUCCEEDED(hr) && value.vt == VT_LPWSTR && value.pwszVal && wcsnlen(value.pwszVal, 128) < 128) {
                     if (discovering) discovery_effect_ = nabu_bank_ready(value.pwszVal);
                     else transport_ = nabu_bank_acquire(value.pwszVal);
                 }
                 PropVariantClear(&value);
-                if (discovering) {
+                if (discovering && !bank_configured) {
                     if (!discovery_effect_) discovery_effect_ = nabu_bank_ready(L"Global\\NabuDolbyBank-9df8834a-209e-4cc1-bc73-bb4353adfa9f");
-                } else if (!transport_) transport_=nabu_bank_acquire(L"Global\\NabuDolbyBank-9df8834a-209e-4cc1-bc73-bb4353adfa9f");
+                } else if (!discovering && !bank_configured && !transport_) {
+                    transport_=nabu_bank_acquire(L"Global\\NabuDolbyBank-9df8834a-209e-4cc1-bc73-bb4353adfa9f");
+                }
                 nabu_diag(17,transport_ ? 0 : LONG(GetLastError()));
             }
             if (owns_properties) properties->Release();

@@ -1,0 +1,1227 @@
+{
+  "Date": "2026-11-25",
+  "KernelVersion": "4.17.27.18",
+  "CandidateApoVersion": "2.0.0.10-lab",
+  "CandidateExtensionVersion": "1.0.2140.36",
+  "Scope": {
+    "DriverInstalled": false,
+    "AudioStarted": false,
+    "RebootPerformed": false,
+    "SystemDolbyProven": false,
+    "SystemMiSoundProven": false,
+    "AcousticLrProven": false,
+    "HyperOsParityProven": false,
+    "MaximumVolumeSafetyProven": false,
+    "GainOrProtectionChanged": false
+  },
+  "ApoBuild": {
+    "CandidateVersion": "2.0.0.10-lab",
+    "Architecture": "ARM64",
+    "Registered": false,
+    "SourceFingerprint": "bccf038a08c3ed05f5dab5b0813dcc211230f6e035de16d31562ec73be190829",
+    "Signed": false,
+    "SystemEffectsProven": false,
+    "DllSha256": "aa8cdd44f35e4a4a22fe924650b896162569c54b6eef7c0e9dd0d64abcf566bb",
+    "SourceSha256": {
+      "ApoDiagnostics.cpp": "227e10a9b5ef720ac2e18e932f1643f4ee34ab35d75988fa0d535b653da70a32",
+      "ApoDiagnostics.h": "f9e3cec1792f9c7af3010c7fdff13001b36b021107bb2373bf11aad7d01ff863",
+      "Build-Apo.ps1": "32aa488b4d6c687cf06ab663beb08d2a9f01e87c6969f352f05cd6a2915cafd5",
+      "DigitalHarness.cpp": "a234e82dbb347f5550c92f596335bfdeae2b17e14a150d806ea9070c42749589",
+      "DolbyBank.cpp": "b6ce1f90e8f0a4f7cf9c7ab43815a7923178aed7dc328f9a59eef4210b9d43aa",
+      "DolbyBank.h": "d2e8611e4d2abf71acd65352062923c13d16bd2242316989a38b9ddb971702ed",
+      "DolbyBlockQueue.h": "b7df0202bdc53498e952cc67e2ff806ad78506f169ff578d257fa0241d0b763e",
+      "DolbyFallback.h": "41a8aad572daa3298ea84bbfee0f2a13135caad0640a9d368f568963b42b2db4",
+      "DolbySharedTransport.cpp": "17781fdb4db28e9cdaf6a16000462d5c9f64b6ddbed79117844045c8cfd0f96b",
+      "DolbySharedTransport.h": "3d7b9970856806d27e2a1f35522f5a2c921f299623287a6d4466592ecaeda9a7",
+      "DolbyStream.h": "78e8dfc38f52b480ebc62975e83bbd271105969ffc3a33cbffc9ac37fb5d68b5",
+      "NabuDolbyApo.cpp": "40c67b9a729c67be5f0c3865c0bffe16d967f77ec0296674faf198e5f76b8f19",
+      "NabuDolbyApo.h": "afa308a9eba57e84f7762c3e77ca1f469a5797a98b2956df39e07e74cc46a647"
+    }
+  },
+  "ApoPackage": {
+    "Version": "2.0.0.10",
+    "Architecture": "ARM64",
+    "CatalogSignedAndVerified": true,
+    "Installed": false,
+    "Registered": false,
+    "SystemDolbyProven": false,
+    "RequiresDriverBoundSfxExtension": true,
+    "KernelChanged": false,
+    "GainOrProtectionChanged": false,
+    "RollbackActuallyExercised": false,
+    "PackageFiles": {
+      "NabuDolbyApo.inf": "fe662efbd1033f6994e2d0d9aae778158a48b668880d663907da9a362fdc3f55",
+      "NabuDolbyBridge.dll": "aa8cdd44f35e4a4a22fe924650b896162569c54b6eef7c0e9dd0d64abcf566bb",
+      "nabudolbyapo.cat": "8cc0fdc0c1c2cbb7331d23faecb9b591763a05376afd90aae7dfd455d9121b95"
+    },
+    "RollbackFiles": {
+      "NabuDolbyGlobal.inf": "046f03b6c180d5f004af371914a326c2326c17933a8bd72e3ac3497b9b48f08d",
+      "NabuDolbyGlobal.cat": "9689cffaf11b2e983ffc926df551f82c258afbf29d2c321fe848c2a9d07f36da",
+      "NabuDolbyBridge.dll": "dc0c29a144090f83b4532c215332f1a0c96aa4c99ca9db1ccdbc1bb5c117889c"
+    }
+  },
+  "SettingsExtension": {
+    "Version": "1.0.2140.36",
+    "Architecture": "ARM64",
+    "MetadataOnly": true,
+    "MicrosoftPrivateSchemaUsed": false,
+    "CatalogSignedAndVerified": true,
+    "Installed": false,
+    "SystemDolbyProven": false,
+    "GainOrProtectionChanged": false,
+    "KernelChanged": false,
+    "NewContextDefaultStoreDeclared": true,
+    "LegacyBankPropertyDeclared": false,
+    "PriorEnumerationInfSha256": "2a23915a596e36ea08a493bf9b0155b594fd2f4cb069077d8ea83c6abe58700e",
+    "ExistingApoDllSha256": "dc0c29a144090f83b4532c215332f1a0c96aa4c99ca9db1ccdbc1bb5c117889c",
+    "Files": {
+      "NabuDolbyBound.inf": "622e4c38ed18ac51dc4ef063e9c9a009a132d228a4779ba86830dc6dd8a7fbe1",
+      "nabudolbybound.cat": "a30bf4036356b52bcb0a2d6a469039cd1e745bea1996032dc349790128e3cc58"
+    }
+  },
+  "ExplicitBankPolicy": {
+    "Summary": {
+      "Passed": true,
+      "BaselineFailures": 14,
+      "CandidateCases": 28,
+      "NativeArm64": true,
+      "GlobalBankResolverSubstituted": true,
+      "ActualLocalTransportMappings": true,
+      "AudioOpened": false,
+      "DriverInstalled": false,
+      "SystemDolbyProven": false
+    },
+    "Baseline9": {
+      "Build": "baseline9",
+      "AllCasesPassed": false,
+      "Cases": [
+        {
+          "Init": 2,
+          "Discovery": false,
+          "Case": "unconfigured",
+          "Status": 0,
+          "Effects": 1,
+          "Latency": 13334,
+          "FallbackCalls": 1,
+          "ExpectedEffects": 1,
+          "Passed": true
+        },
+        {
+          "Init": 2,
+          "Discovery": false,
+          "Case": "explicit_missing",
+          "Status": 0,
+          "Effects": 1,
+          "Latency": 13334,
+          "FallbackCalls": 1,
+          "ExpectedEffects": 0,
+          "Passed": false
+        },
+        {
+          "Init": 2,
+          "Discovery": false,
+          "Case": "explicit_invalid",
+          "Status": 0,
+          "Effects": 1,
+          "Latency": 13334,
+          "FallbackCalls": 1,
+          "ExpectedEffects": 0,
+          "Passed": false
+        },
+        {
+          "Init": 2,
+          "Discovery": false,
+          "Case": "explicit_too_long",
+          "Status": 0,
+          "Effects": 1,
+          "Latency": 13334,
+          "FallbackCalls": 1,
+          "ExpectedEffects": 0,
+          "Passed": false
+        },
+        {
+          "Init": 2,
+          "Discovery": false,
+          "Case": "explicit_ready",
+          "Status": 0,
+          "Effects": 1,
+          "Latency": 13334,
+          "FallbackCalls": 0,
+          "ExpectedEffects": 1,
+          "Passed": true
+        },
+        {
+          "Init": 2,
+          "Discovery": false,
+          "Case": "explicit_busy",
+          "Status": 0,
+          "Effects": 1,
+          "Latency": 13334,
+          "FallbackCalls": 1,
+          "ExpectedEffects": 0,
+          "Passed": false
+        },
+        {
+          "Init": 2,
+          "Discovery": true,
+          "Case": "unconfigured",
+          "Status": 0,
+          "Effects": 1,
+          "Latency": 0,
+          "FallbackCalls": 1,
+          "ExpectedEffects": 1,
+          "Passed": true
+        },
+        {
+          "Init": 2,
+          "Discovery": true,
+          "Case": "explicit_missing",
+          "Status": 0,
+          "Effects": 1,
+          "Latency": 0,
+          "FallbackCalls": 1,
+          "ExpectedEffects": 0,
+          "Passed": false
+        },
+        {
+          "Init": 2,
+          "Discovery": true,
+          "Case": "explicit_invalid",
+          "Status": 0,
+          "Effects": 1,
+          "Latency": 0,
+          "FallbackCalls": 1,
+          "ExpectedEffects": 0,
+          "Passed": false
+        },
+        {
+          "Init": 2,
+          "Discovery": true,
+          "Case": "explicit_too_long",
+          "Status": 0,
+          "Effects": 1,
+          "Latency": 0,
+          "FallbackCalls": 1,
+          "ExpectedEffects": 0,
+          "Passed": false
+        },
+        {
+          "Init": 2,
+          "Discovery": true,
+          "Case": "explicit_ready",
+          "Status": 0,
+          "Effects": 1,
+          "Latency": 0,
+          "FallbackCalls": 0,
+          "ExpectedEffects": 1,
+          "Passed": true
+        },
+        {
+          "Init": 2,
+          "Discovery": true,
+          "Case": "explicit_busy",
+          "Status": 0,
+          "Effects": 1,
+          "Latency": 0,
+          "FallbackCalls": 0,
+          "ExpectedEffects": 1,
+          "Passed": true
+        },
+        {
+          "Init": 2,
+          "Case": "raw",
+          "Status": 0,
+          "Effects": 0,
+          "Latency": 0,
+          "FallbackCalls": 0,
+          "Passed": true
+        },
+        {
+          "Init": 2,
+          "Case": "raw",
+          "Status": 0,
+          "Effects": 0,
+          "Latency": 0,
+          "FallbackCalls": 0,
+          "Passed": true
+        },
+        {
+          "Init": 3,
+          "Discovery": false,
+          "Case": "unconfigured",
+          "Status": 0,
+          "Effects": 1,
+          "Latency": 13334,
+          "FallbackCalls": 1,
+          "ExpectedEffects": 1,
+          "Passed": true
+        },
+        {
+          "Init": 3,
+          "Discovery": false,
+          "Case": "explicit_missing",
+          "Status": 0,
+          "Effects": 1,
+          "Latency": 13334,
+          "FallbackCalls": 1,
+          "ExpectedEffects": 0,
+          "Passed": false
+        },
+        {
+          "Init": 3,
+          "Discovery": false,
+          "Case": "explicit_invalid",
+          "Status": 0,
+          "Effects": 1,
+          "Latency": 13334,
+          "FallbackCalls": 1,
+          "ExpectedEffects": 0,
+          "Passed": false
+        },
+        {
+          "Init": 3,
+          "Discovery": false,
+          "Case": "explicit_too_long",
+          "Status": 0,
+          "Effects": 1,
+          "Latency": 13334,
+          "FallbackCalls": 1,
+          "ExpectedEffects": 0,
+          "Passed": false
+        },
+        {
+          "Init": 3,
+          "Discovery": false,
+          "Case": "explicit_ready",
+          "Status": 0,
+          "Effects": 1,
+          "Latency": 13334,
+          "FallbackCalls": 0,
+          "ExpectedEffects": 1,
+          "Passed": true
+        },
+        {
+          "Init": 3,
+          "Discovery": false,
+          "Case": "explicit_busy",
+          "Status": 0,
+          "Effects": 1,
+          "Latency": 13334,
+          "FallbackCalls": 1,
+          "ExpectedEffects": 0,
+          "Passed": false
+        },
+        {
+          "Init": 3,
+          "Discovery": true,
+          "Case": "unconfigured",
+          "Status": 0,
+          "Effects": 1,
+          "Latency": 0,
+          "FallbackCalls": 1,
+          "ExpectedEffects": 1,
+          "Passed": true
+        },
+        {
+          "Init": 3,
+          "Discovery": true,
+          "Case": "explicit_missing",
+          "Status": 0,
+          "Effects": 1,
+          "Latency": 0,
+          "FallbackCalls": 1,
+          "ExpectedEffects": 0,
+          "Passed": false
+        },
+        {
+          "Init": 3,
+          "Discovery": true,
+          "Case": "explicit_invalid",
+          "Status": 0,
+          "Effects": 1,
+          "Latency": 0,
+          "FallbackCalls": 1,
+          "ExpectedEffects": 0,
+          "Passed": false
+        },
+        {
+          "Init": 3,
+          "Discovery": true,
+          "Case": "explicit_too_long",
+          "Status": 0,
+          "Effects": 1,
+          "Latency": 0,
+          "FallbackCalls": 1,
+          "ExpectedEffects": 0,
+          "Passed": false
+        },
+        {
+          "Init": 3,
+          "Discovery": true,
+          "Case": "explicit_ready",
+          "Status": 0,
+          "Effects": 1,
+          "Latency": 0,
+          "FallbackCalls": 0,
+          "ExpectedEffects": 1,
+          "Passed": true
+        },
+        {
+          "Init": 3,
+          "Discovery": true,
+          "Case": "explicit_busy",
+          "Status": 0,
+          "Effects": 1,
+          "Latency": 0,
+          "FallbackCalls": 0,
+          "ExpectedEffects": 1,
+          "Passed": true
+        },
+        {
+          "Init": 3,
+          "Case": "raw",
+          "Status": 0,
+          "Effects": 0,
+          "Latency": 0,
+          "FallbackCalls": 0,
+          "Passed": true
+        },
+        {
+          "Init": 3,
+          "Case": "raw",
+          "Status": 0,
+          "Effects": 0,
+          "Latency": 0,
+          "FallbackCalls": 0,
+          "Passed": true
+        }
+      ]
+    },
+    "Candidate10": {
+      "Build": "candidate10",
+      "AllCasesPassed": true,
+      "Cases": [
+        {
+          "Init": 2,
+          "Discovery": false,
+          "Case": "unconfigured",
+          "Status": 0,
+          "Effects": 1,
+          "Latency": 13334,
+          "FallbackCalls": 1,
+          "ExpectedEffects": 1,
+          "Passed": true
+        },
+        {
+          "Init": 2,
+          "Discovery": false,
+          "Case": "explicit_missing",
+          "Status": 0,
+          "Effects": 0,
+          "Latency": 0,
+          "FallbackCalls": 0,
+          "ExpectedEffects": 0,
+          "Passed": true
+        },
+        {
+          "Init": 2,
+          "Discovery": false,
+          "Case": "explicit_invalid",
+          "Status": 0,
+          "Effects": 0,
+          "Latency": 0,
+          "FallbackCalls": 0,
+          "ExpectedEffects": 0,
+          "Passed": true
+        },
+        {
+          "Init": 2,
+          "Discovery": false,
+          "Case": "explicit_too_long",
+          "Status": 0,
+          "Effects": 0,
+          "Latency": 0,
+          "FallbackCalls": 0,
+          "ExpectedEffects": 0,
+          "Passed": true
+        },
+        {
+          "Init": 2,
+          "Discovery": false,
+          "Case": "explicit_ready",
+          "Status": 0,
+          "Effects": 1,
+          "Latency": 13334,
+          "FallbackCalls": 0,
+          "ExpectedEffects": 1,
+          "Passed": true
+        },
+        {
+          "Init": 2,
+          "Discovery": false,
+          "Case": "explicit_busy",
+          "Status": 0,
+          "Effects": 0,
+          "Latency": 0,
+          "FallbackCalls": 0,
+          "ExpectedEffects": 0,
+          "Passed": true
+        },
+        {
+          "Init": 2,
+          "Discovery": true,
+          "Case": "unconfigured",
+          "Status": 0,
+          "Effects": 1,
+          "Latency": 0,
+          "FallbackCalls": 1,
+          "ExpectedEffects": 1,
+          "Passed": true
+        },
+        {
+          "Init": 2,
+          "Discovery": true,
+          "Case": "explicit_missing",
+          "Status": 0,
+          "Effects": 0,
+          "Latency": 0,
+          "FallbackCalls": 0,
+          "ExpectedEffects": 0,
+          "Passed": true
+        },
+        {
+          "Init": 2,
+          "Discovery": true,
+          "Case": "explicit_invalid",
+          "Status": 0,
+          "Effects": 0,
+          "Latency": 0,
+          "FallbackCalls": 0,
+          "ExpectedEffects": 0,
+          "Passed": true
+        },
+        {
+          "Init": 2,
+          "Discovery": true,
+          "Case": "explicit_too_long",
+          "Status": 0,
+          "Effects": 0,
+          "Latency": 0,
+          "FallbackCalls": 0,
+          "ExpectedEffects": 0,
+          "Passed": true
+        },
+        {
+          "Init": 2,
+          "Discovery": true,
+          "Case": "explicit_ready",
+          "Status": 0,
+          "Effects": 1,
+          "Latency": 0,
+          "FallbackCalls": 0,
+          "ExpectedEffects": 1,
+          "Passed": true
+        },
+        {
+          "Init": 2,
+          "Discovery": true,
+          "Case": "explicit_busy",
+          "Status": 0,
+          "Effects": 1,
+          "Latency": 0,
+          "FallbackCalls": 0,
+          "ExpectedEffects": 1,
+          "Passed": true
+        },
+        {
+          "Init": 2,
+          "Case": "raw",
+          "Status": 0,
+          "Effects": 0,
+          "Latency": 0,
+          "FallbackCalls": 0,
+          "Passed": true
+        },
+        {
+          "Init": 2,
+          "Case": "raw",
+          "Status": 0,
+          "Effects": 0,
+          "Latency": 0,
+          "FallbackCalls": 0,
+          "Passed": true
+        },
+        {
+          "Init": 3,
+          "Discovery": false,
+          "Case": "unconfigured",
+          "Status": 0,
+          "Effects": 1,
+          "Latency": 13334,
+          "FallbackCalls": 1,
+          "ExpectedEffects": 1,
+          "Passed": true
+        },
+        {
+          "Init": 3,
+          "Discovery": false,
+          "Case": "explicit_missing",
+          "Status": 0,
+          "Effects": 0,
+          "Latency": 0,
+          "FallbackCalls": 0,
+          "ExpectedEffects": 0,
+          "Passed": true
+        },
+        {
+          "Init": 3,
+          "Discovery": false,
+          "Case": "explicit_invalid",
+          "Status": 0,
+          "Effects": 0,
+          "Latency": 0,
+          "FallbackCalls": 0,
+          "ExpectedEffects": 0,
+          "Passed": true
+        },
+        {
+          "Init": 3,
+          "Discovery": false,
+          "Case": "explicit_too_long",
+          "Status": 0,
+          "Effects": 0,
+          "Latency": 0,
+          "FallbackCalls": 0,
+          "ExpectedEffects": 0,
+          "Passed": true
+        },
+        {
+          "Init": 3,
+          "Discovery": false,
+          "Case": "explicit_ready",
+          "Status": 0,
+          "Effects": 1,
+          "Latency": 13334,
+          "FallbackCalls": 0,
+          "ExpectedEffects": 1,
+          "Passed": true
+        },
+        {
+          "Init": 3,
+          "Discovery": false,
+          "Case": "explicit_busy",
+          "Status": 0,
+          "Effects": 0,
+          "Latency": 0,
+          "FallbackCalls": 0,
+          "ExpectedEffects": 0,
+          "Passed": true
+        },
+        {
+          "Init": 3,
+          "Discovery": true,
+          "Case": "unconfigured",
+          "Status": 0,
+          "Effects": 1,
+          "Latency": 0,
+          "FallbackCalls": 1,
+          "ExpectedEffects": 1,
+          "Passed": true
+        },
+        {
+          "Init": 3,
+          "Discovery": true,
+          "Case": "explicit_missing",
+          "Status": 0,
+          "Effects": 0,
+          "Latency": 0,
+          "FallbackCalls": 0,
+          "ExpectedEffects": 0,
+          "Passed": true
+        },
+        {
+          "Init": 3,
+          "Discovery": true,
+          "Case": "explicit_invalid",
+          "Status": 0,
+          "Effects": 0,
+          "Latency": 0,
+          "FallbackCalls": 0,
+          "ExpectedEffects": 0,
+          "Passed": true
+        },
+        {
+          "Init": 3,
+          "Discovery": true,
+          "Case": "explicit_too_long",
+          "Status": 0,
+          "Effects": 0,
+          "Latency": 0,
+          "FallbackCalls": 0,
+          "ExpectedEffects": 0,
+          "Passed": true
+        },
+        {
+          "Init": 3,
+          "Discovery": true,
+          "Case": "explicit_ready",
+          "Status": 0,
+          "Effects": 1,
+          "Latency": 0,
+          "FallbackCalls": 0,
+          "ExpectedEffects": 1,
+          "Passed": true
+        },
+        {
+          "Init": 3,
+          "Discovery": true,
+          "Case": "explicit_busy",
+          "Status": 0,
+          "Effects": 1,
+          "Latency": 0,
+          "FallbackCalls": 0,
+          "ExpectedEffects": 1,
+          "Passed": true
+        },
+        {
+          "Init": 3,
+          "Case": "raw",
+          "Status": 0,
+          "Effects": 0,
+          "Latency": 0,
+          "FallbackCalls": 0,
+          "Passed": true
+        },
+        {
+          "Init": 3,
+          "Case": "raw",
+          "Status": 0,
+          "Effects": 0,
+          "Latency": 0,
+          "FallbackCalls": 0,
+          "Passed": true
+        }
+      ]
+    },
+    "FixtureDescription": "Native unregistered APO. Only the fixed Global bank resolver is redirected to real Local test mappings; no privilege or system audio graph is involved."
+  },
+  "ExistingSoftwareRegression": {
+    "Memory": {
+      "audio_device_opened": false,
+      "pinning_calls_mocked": true,
+      "view_guard_uses_page_noaccess": true,
+      "cases": [
+        {
+          "scenario": 0,
+          "first_hr": "0x80070718",
+          "pins_after_first": 0,
+          "first_lock_error": 1816,
+          "retry_hr": "0x00000000",
+          "retry_lock_error": 0,
+          "process_exception": "0x00000000",
+          "reset_exception": "0x00000000",
+          "pins_after_unlock": 0,
+          "passed": true
+        },
+        {
+          "scenario": 1,
+          "first_hr": "0x80070718",
+          "pins_after_first": 0,
+          "first_lock_error": 1816,
+          "retry_hr": "0x00000000",
+          "retry_lock_error": 0,
+          "process_exception": "0x00000000",
+          "reset_exception": "0x00000000",
+          "pins_after_unlock": 0,
+          "passed": true
+        },
+        {
+          "scenario": 2,
+          "first_hr": "0x80070718",
+          "pins_after_first": 0,
+          "first_lock_error": 0,
+          "retry_hr": "0x00000000",
+          "retry_lock_error": 0,
+          "process_exception": "0x00000000",
+          "reset_exception": "0x00000000",
+          "pins_after_unlock": 0,
+          "passed": true
+        },
+        {
+          "scenario": 3,
+          "first_hr": "0x8007000e",
+          "pins_after_first": 0,
+          "first_lock_error": 0,
+          "retry_hr": "0x00000000",
+          "retry_lock_error": 0,
+          "process_exception": "0x00000000",
+          "reset_exception": "0x00000000",
+          "pins_after_unlock": 0,
+          "passed": true
+        },
+        {
+          "scenario": 4,
+          "first_hr": "0x00000000",
+          "pins_after_first": 3,
+          "first_lock_error": 0,
+          "retry_hr": "0x00000000",
+          "retry_lock_error": 0,
+          "process_exception": "0x00000000",
+          "reset_exception": "0x00000000",
+          "pins_after_unlock": 0,
+          "passed": true
+        }
+      ],
+      "passed_cases": 5,
+      "total_cases": 5,
+      "all_objects_released": true,
+      "passed": true,
+      "SourceSha256": {
+        "ApoDiagnostics.cpp": "227e10a9b5ef720ac2e18e932f1643f4ee34ab35d75988fa0d535b653da70a32",
+        "ApoDiagnostics.h": "f9e3cec1792f9c7af3010c7fdff13001b36b021107bb2373bf11aad7d01ff863",
+        "DigitalHarness.cpp": "a234e82dbb347f5550c92f596335bfdeae2b17e14a150d806ea9070c42749589",
+        "DolbyBank.cpp": "b6ce1f90e8f0a4f7cf9c7ab43815a7923178aed7dc328f9a59eef4210b9d43aa",
+        "DolbyBank.h": "d2e8611e4d2abf71acd65352062923c13d16bd2242316989a38b9ddb971702ed",
+        "DolbyBlockQueue.h": "b7df0202bdc53498e952cc67e2ff806ad78506f169ff578d257fa0241d0b763e",
+        "DolbyFallback.h": "41a8aad572daa3298ea84bbfee0f2a13135caad0640a9d368f568963b42b2db4",
+        "DolbySharedTransport.cpp": "17781fdb4db28e9cdaf6a16000462d5c9f64b6ddbed79117844045c8cfd0f96b",
+        "DolbySharedTransport.h": "3d7b9970856806d27e2a1f35522f5a2c921f299623287a6d4466592ecaeda9a7",
+        "DolbyStream.h": "78e8dfc38f52b480ebc62975e83bbd271105969ffc3a33cbffc9ac37fb5d68b5",
+        "NabuDolbyApo.cpp": "40c67b9a729c67be5f0c3865c0bffe16d967f77ec0296674faf198e5f76b8f19",
+        "NabuDolbyApo.h": "afa308a9eba57e84f7762c3e77ca1f469a5797a98b2956df39e07e74cc46a647"
+      },
+      "ExeSha256": "67b1b112eadcfb753eb5e332c178552fe3f276c069bbb02af09e7e683ca4a5d1"
+    },
+    "Logging": {
+      "audio_device_opened": false,
+      "driver_installed": false,
+      "cases": [
+        {
+          "name": "logger_success",
+          "passed": true,
+          "queries": 1,
+          "log_records": 2,
+          "logger_refs_final": 1,
+          "rt_logging": false,
+          "exact_bypass": true,
+          "format_error_logged": false
+        },
+        {
+          "name": "service_unavailable",
+          "passed": true,
+          "queries": 1,
+          "log_records": 0,
+          "logger_refs_final": 1,
+          "rt_logging": false,
+          "exact_bypass": true,
+          "format_error_logged": false
+        },
+        {
+          "name": "success_null_service",
+          "passed": true,
+          "queries": 1,
+          "log_records": 0,
+          "logger_refs_final": 1,
+          "rt_logging": false,
+          "exact_bypass": true,
+          "format_error_logged": false
+        },
+        {
+          "name": "missing_provider",
+          "passed": true,
+          "queries": 0,
+          "log_records": 0,
+          "logger_refs_final": 1,
+          "rt_logging": false,
+          "exact_bypass": true,
+          "format_error_logged": false
+        },
+        {
+          "name": "raw_bypass",
+          "passed": true,
+          "queries": 1,
+          "log_records": 2,
+          "logger_refs_final": 1,
+          "rt_logging": false,
+          "exact_bypass": true,
+          "format_error_logged": false
+        },
+        {
+          "name": "discovery_bypass",
+          "passed": true,
+          "queries": 1,
+          "log_records": 2,
+          "logger_refs_final": 1,
+          "rt_logging": false,
+          "exact_bypass": true,
+          "format_error_logged": false
+        },
+        {
+          "name": "invalid_format_logged",
+          "passed": true,
+          "queries": 1,
+          "log_records": 2,
+          "logger_refs_final": 1,
+          "rt_logging": false,
+          "exact_bypass": false,
+          "format_error_logged": true
+        }
+      ],
+      "passed": true,
+      "dll_unloadable": true
+    },
+    "Epochs": {
+      "audio_opened": false,
+      "synthetic_counter_seed": true,
+      "cases": [
+        {
+          "name": "first_owner",
+          "lock_cleared_old_counters": true,
+          "fresh_callback_counted": true,
+          "reset_cleared_old_counters": true,
+          "passed": true
+        },
+        {
+          "name": "reopened_owner",
+          "lock_cleared_old_counters": true,
+          "fresh_callback_counted": true,
+          "reset_cleared_old_counters": true,
+          "passed": true
+        }
+      ],
+      "dll_unloadable": true,
+      "passed": true
+    },
+    "OriginalWorker": {
+      "Passed": true,
+      "Completed": 7,
+      "CandidateDllSha256": "aa8cdd44f35e4a4a22fe924650b896162569c54b6eef7c0e9dd0d64abcf566bb",
+      "Scenarios": [
+        {
+          "Label": "normal",
+          "Passed": true,
+          "Comparison": {
+            "ReferenceFrames": 196608,
+            "ExactDryFallbackFrames": 0,
+            "UnexpectedFrames": 0,
+            "FramesMatchingBoth": 1,
+            "FirstUnexpectedFrame": null,
+            "MaxUnexpectedError": 0.0,
+            "InitialDelaySilent": true,
+            "DolbyAtEnd": true
+          }
+        },
+        {
+          "Label": "irregular",
+          "Passed": true,
+          "Comparison": {
+            "ReferenceFrames": 196608,
+            "ExactDryFallbackFrames": 0,
+            "UnexpectedFrames": 0,
+            "FramesMatchingBoth": 1,
+            "FirstUnexpectedFrame": null,
+            "MaxUnexpectedError": 0.0,
+            "InitialDelaySilent": true,
+            "DolbyAtEnd": true
+          }
+        },
+        {
+          "Label": "exit",
+          "Passed": true,
+          "Comparison": {
+            "ReferenceFrames": 98304,
+            "ExactDryFallbackFrames": 98304,
+            "UnexpectedFrames": 0,
+            "FramesMatchingBoth": 1,
+            "FirstUnexpectedFrame": null,
+            "MaxUnexpectedError": 0.0,
+            "InitialDelaySilent": true,
+            "DolbyAtEnd": false
+          }
+        },
+        {
+          "Label": "pause",
+          "Passed": true,
+          "Comparison": {
+            "ReferenceFrames": 179072,
+            "ExactDryFallbackFrames": 17536,
+            "UnexpectedFrames": 0,
+            "FramesMatchingBoth": 1,
+            "FirstUnexpectedFrame": null,
+            "MaxUnexpectedError": 0.0,
+            "InitialDelaySilent": true,
+            "DolbyAtEnd": true
+          }
+        },
+        {
+          "Label": "reset",
+          "Passed": true,
+          "Comparison": {
+            "ReferenceFrames": 190464,
+            "ExactDryFallbackFrames": 0,
+            "UnexpectedFrames": 0,
+            "FramesMatchingBoth": 1,
+            "FirstUnexpectedFrame": null,
+            "MaxUnexpectedError": 0.0,
+            "InitialDelaySilent": true,
+            "DolbyAtEnd": true
+          }
+        },
+        {
+          "Label": "bypass",
+          "Passed": true,
+          "Comparison": {
+            "ExactZeroLatencyBypass": true
+          }
+        },
+        {
+          "Label": "absent",
+          "Passed": true,
+          "Comparison": {
+            "ReferenceFrames": 1,
+            "ExactDryFallbackFrames": 196607,
+            "UnexpectedFrames": 0,
+            "FramesMatchingBoth": 1,
+            "FirstUnexpectedFrame": null,
+            "MaxUnexpectedError": 0.0,
+            "InitialDelaySilent": true,
+            "DolbyAtEnd": false
+          }
+        }
+      ]
+    }
+  },
+  "SettingsSchema": {
+    "Passed": true,
+    "Baseline35": {
+      "SetupApiParsed": true,
+      "ContextContractAccepted": false,
+      "FlatBankProperties": 1,
+      "DefaultBankProperties": 0,
+      "OemMfxEfxTouched": false,
+      "Rows": [
+        [
+          "HKR",
+          "FX\\0",
+          "{D04E05A6-594B-4FB6-A80D-01AF5EED7D1D},0",
+          "",
+          "{DFF21CE1-F70F-11D0-B917-00A0C9223196}"
+        ],
+        [
+          "HKR",
+          "FX\\0",
+          "{D04E05A6-594B-4FB6-A80D-01AF5EED7D1D},5",
+          "",
+          "{9DF8834A-209E-4CC1-BC73-BB4353ADFA9F}"
+        ],
+        [
+          "HKR",
+          "FX\\0",
+          "{D3993A3F-99C2-4402-B5EC-A92A0367664B},5",
+          "0x00010000",
+          "{C18E2F7E-933D-4965-B7D1-1EEF228D2AF3}",
+          "{4780004E-7133-41D8-8C74-660DADD2C0EE}"
+        ],
+        [
+          "HKR",
+          "FX\\0",
+          "{1A5BCC9E-61EE-41B7-9DC2-1B580DCAFA1B},1",
+          "",
+          "Global\\NabuDolbyBank-9df8834a-209e-4cc1-bc73-bb4353adfa9f"
+        ]
+      ]
+    },
+    "Candidate36": {
+      "SetupApiParsed": true,
+      "ContextContractAccepted": true,
+      "FlatBankProperties": 0,
+      "DefaultBankProperties": 1,
+      "OemMfxEfxTouched": false,
+      "Rows": [
+        [
+          "HKR",
+          "FX\\0",
+          "{D04E05A6-594B-4FB6-A80D-01AF5EED7D1D},0",
+          "",
+          "{DFF21CE1-F70F-11D0-B917-00A0C9223196}"
+        ],
+        [
+          "HKR",
+          "FX\\0",
+          "{D04E05A6-594B-4FB6-A80D-01AF5EED7D1D},5",
+          "",
+          "{9DF8834A-209E-4CC1-BC73-BB4353ADFA9F}"
+        ],
+        [
+          "HKR",
+          "FX\\0",
+          "{D3993A3F-99C2-4402-B5EC-A92A0367664B},5",
+          "0x00010000",
+          "{C18E2F7E-933D-4965-B7D1-1EEF228D2AF3}",
+          "{4780004E-7133-41D8-8C74-660DADD2C0EE}"
+        ],
+        [
+          "HKR",
+          "FX\\0\\{9DF8834A-209E-4CC1-BC73-BB4353ADFA9F}",
+          "{D04E05A6-594B-4FB6-A80D-01AF5EED7D1D},0",
+          "",
+          "{DFF21CE1-F70F-11D0-B917-00A0C9223196}"
+        ],
+        [
+          "HKR",
+          "FX\\0\\{9DF8834A-209E-4CC1-BC73-BB4353ADFA9F}\\Default",
+          "{1A5BCC9E-61EE-41B7-9DC2-1B580DCAFA1B},1",
+          "",
+          "Global\\NabuDolbyBank-9df8834a-209e-4cc1-bc73-bb4353adfa9f"
+        ]
+      ]
+    },
+    "RejectionCases": [
+      {
+        "Case": "wrong_context",
+        "Rejected": true
+      },
+      {
+        "Case": "legacy_duplicate",
+        "Rejected": true
+      },
+      {
+        "Case": "default_missing",
+        "Rejected": true
+      },
+      {
+        "Case": "wrong_bank_type",
+        "Rejected": true
+      },
+      {
+        "Case": "oem_mfx_overwrite",
+        "Rejected": true
+      }
+    ],
+    "NativeSetupApi": true,
+    "SourceInfSha256": "622e4c38ed18ac51dc4ef063e9c9a009a132d228a4779ba86830dc6dd8a7fbe1",
+    "TestSourceSha256": "8b0e39fe010c3914d7a638314fa528203d73b4cc19517e8ceebf10feea31cbe2",
+    "Installed": false,
+    "RegistryModified": false,
+    "AudioOpened": false,
+    "ActualContextStoreReadProven": false
+  },
+  "ContextRollbackPlanning": {
+    "Passed": true,
+    "Accepted": [
+      {
+        "Case": "missing",
+        "Operations": 0,
+        "Accepted": true
+      },
+      {
+        "Case": "empty",
+        "Operations": 1,
+        "Accepted": true
+      },
+      {
+        "Case": "full_owned",
+        "Operations": 6,
+        "Accepted": true
+      },
+      {
+        "Case": "default_only",
+        "Operations": 3,
+        "Accepted": true
+      },
+      {
+        "Case": "case_insensitive_default",
+        "Operations": 3,
+        "Accepted": true
+      },
+      {
+        "Case": "captured_context_case_insensitive",
+        "Accepted": true
+      }
+    ],
+    "Rejected": [
+      {
+        "Case": "foreign_value",
+        "Rejected": true,
+        "InputPreserved": true
+      },
+      {
+        "Case": "modified_bank",
+        "Rejected": true,
+        "InputPreserved": true
+      },
+      {
+        "Case": "wrong_kind",
+        "Rejected": true,
+        "InputPreserved": true
+      },
+      {
+        "Case": "user_setting",
+        "Rejected": true,
+        "InputPreserved": true
+      },
+      {
+        "Case": "foreign_child",
+        "Rejected": true,
+        "InputPreserved": true
+      },
+      {
+        "Case": "nested_default",
+        "Rejected": true,
+        "InputPreserved": true
+      },
+      {
+        "Case": "foreign_path",
+        "Rejected": true
+      },
+      {
+        "Case": "foreign_path",
+        "Rejected": true
+      },
+      {
+        "Case": "uncaptured_context",
+        "Rejected": true
+      }
+    ],
+    "SyntheticTrees": true,
+    "ActualRegistryRestoreExecuted": false,
+    "RegistryModified": false,
+    "AudioOpened": false
+  },
+  "ContextRollbackSourceSha256": "381a24baba4971481a45578e405aec59ac4edb895bd1e082a3c02daa20c6078e",
+  "ReadOnlyPreflight": {
+    "Passed": true,
+    "AmplifierCount": 4,
+    "KernelVersion": "4.17.27.18",
+    "KernelSha256": "653b8ded9ebc89b0cafa8d455c0eef8bfe613943c455de8ff5f6887eda7e6cc4",
+    "NewNabuContextCount": 3,
+    "NewNabuContextsAbsent": true,
+    "ActualHardwareTrialPerformed": false
+  },
+  "OriginalMiSoundReview": {
+    "Functions": 2,
+    "Sha256": "0f707e887581335634ad920796ed1d2239e1a8f6ce9a203f1a43e38bd14cf8f9",
+    "ComparedRegions": [
+      {
+        "Address": "0xb0632454",
+        "Bytes": 96,
+        "WindowsAndHyperOsIdentical": true,
+        "Sha256": "1c8cda57c751a51429fb3426b5068b061b53568b506f06db83fbe743096b94bd"
+      },
+      {
+        "Address": "0xb06329f0",
+        "Bytes": 88,
+        "WindowsAndHyperOsIdentical": true,
+        "Sha256": "ebcfd1ea3c06be3e7d21b66fd8aa9d7305dc82b8f18dcddf9130635b45a3cf0e"
+      }
+    ],
+    "ReadOnly": true,
+    "DspExecuted": false,
+    "Findings": "AMP0 and LMT0 construct per-channel state. Their compared code already exists in Windows firmware. Parameter units, live enablement and maximum-volume protection were not established."
+  },
+  "Remaining": "Activate and correlate APO .10/.36 in the real Windows graph; observe DSP resource-open/ADM acknowledgement; independently test physical L/R and amplifier safety.",
+  "References": [
+    "https://learn.microsoft.com/en-us/windows-hardware/drivers/audio/windows-11-apis-for-audio-processing-objects",
+    "https://learn.microsoft.com/en-us/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-iaudiosystemeffectspropertystore-opendefaultpropertystore"
+  ]
+}
