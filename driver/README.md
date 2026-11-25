@@ -2,7 +2,7 @@
 
 This directory contains the C sources, headers, INF and EWDK project for the ARM64 driver. The code builds on map220v's CS35L41 driver. The INF targets Windows 11 on nabu with the four `ACPI\10133541` devices. [Pinned upstream revision](https://github.com/map220v/cs35l41_win/tree/53d367532fa1632accf4e4d20dc0493e2673e077)
 
-[Dolby APO lab source](apo/) is a separate, uninstalled user-mode prototype. [MiSound protocol source](dsp/) implements verified control encoding, not DSP audio processing. Neither is included in the current public driver ZIP.
+[Dolby APO lab source](apo/) is a separate, uninstalled user-mode prototype. [MiSound support source](dsp/) implements verified control encoding and factory filter-table validation, without DSP audio processing. Neither is included in the current public driver ZIP.
 
 ## Build with EWDK
 

@@ -1,0 +1,774 @@
+{
+  "Date": "2026-11-25",
+  "KernelVersion": "4.17.27.18",
+  "ApoVersion": "2.0.0.9-lab",
+  "Scope": {
+    "SystemDolbyProven": false,
+    "SystemMiSoundProven": false,
+    "AcousticLrProven": false,
+    "HyperOsQualityProven": false,
+    "MaximumVolumeSafetyProven": false,
+    "DriverInstalled": false,
+    "AudioStarted": false,
+    "RebootPerformed": false
+  },
+  "ApoBuild": {
+    "CandidateVersion": "2.0.0.9-lab",
+    "Architecture": "ARM64",
+    "Registered": false,
+    "SourceFingerprint": "f546c124a999c49c475795bcd498431caba5fffeafb4ca29dee96784a686dac2",
+    "Signed": false,
+    "SystemEffectsProven": false,
+    "DllSha256": "4c737473930f5e0f5e47fec5e08dd1fe41af3042542921a37606c2988a22619b",
+    "SourceSha256": {
+      "ApoDiagnostics.cpp": "227e10a9b5ef720ac2e18e932f1643f4ee34ab35d75988fa0d535b653da70a32",
+      "ApoDiagnostics.h": "f9e3cec1792f9c7af3010c7fdff13001b36b021107bb2373bf11aad7d01ff863",
+      "Build-Apo.ps1": "32265966d926825e83555b1f0acf1fae65135fc554ebaa9a717fce82aaf83e89",
+      "DigitalHarness.cpp": "a234e82dbb347f5550c92f596335bfdeae2b17e14a150d806ea9070c42749589",
+      "DolbyBank.cpp": "b6ce1f90e8f0a4f7cf9c7ab43815a7923178aed7dc328f9a59eef4210b9d43aa",
+      "DolbyBank.h": "d2e8611e4d2abf71acd65352062923c13d16bd2242316989a38b9ddb971702ed",
+      "DolbyBlockQueue.h": "b7df0202bdc53498e952cc67e2ff806ad78506f169ff578d257fa0241d0b763e",
+      "DolbyFallback.h": "41a8aad572daa3298ea84bbfee0f2a13135caad0640a9d368f568963b42b2db4",
+      "DolbySharedTransport.cpp": "17781fdb4db28e9cdaf6a16000462d5c9f64b6ddbed79117844045c8cfd0f96b",
+      "DolbySharedTransport.h": "3d7b9970856806d27e2a1f35522f5a2c921f299623287a6d4466592ecaeda9a7",
+      "DolbyStream.h": "78e8dfc38f52b480ebc62975e83bbd271105969ffc3a33cbffc9ac37fb5d68b5",
+      "NabuDolbyApo.cpp": "85f540d99013751e4ae6266c586e7b1f09938a392b91cf484aecbb228483f61d",
+      "NabuDolbyApo.h": "afa308a9eba57e84f7762c3e77ca1f469a5797a98b2956df39e07e74cc46a647"
+    }
+  },
+  "ApoPackage": {
+    "Version": "2.0.0.9",
+    "Architecture": "ARM64",
+    "CatalogSignedAndVerified": true,
+    "Installed": false,
+    "Registered": false,
+    "SystemDolbyProven": false,
+    "RequiresDriverBoundSfxExtension": true,
+    "KernelChanged": false,
+    "GainOrProtectionChanged": false,
+    "RollbackActuallyExercised": false,
+    "PackageFiles": {
+      "NabuDolbyApo.inf": "e9766831a0a92b223d89e725d14909900b1c27f68ccbc3e38ecc94a62e086989",
+      "NabuDolbyBridge.dll": "4c737473930f5e0f5e47fec5e08dd1fe41af3042542921a37606c2988a22619b",
+      "nabudolbyapo.cat": "76ae6d144940164eb79753d1ecd4ed4e400d16dd005c16cf11c5f70a981fdb73"
+    },
+    "RollbackFiles": {
+      "NabuDolbyGlobal.inf": "046f03b6c180d5f004af371914a326c2326c17933a8bd72e3ac3497b9b48f08d",
+      "NabuDolbyGlobal.cat": "9689cffaf11b2e983ffc926df551f82c258afbf29d2c321fe848c2a9d07f36da",
+      "NabuDolbyBridge.dll": "dc0c29a144090f83b4532c215332f1a0c96aa4c99ca9db1ccdbc1bb5c117889c"
+    }
+  },
+  "NativeObjectIsolation": {
+    "Passed": true,
+    "AudioOpened": false,
+    "Baseline": {
+      "audio_opened": false,
+      "apis_substituted": false,
+      "instances": [
+        {
+          "index": 0,
+          "private_page_allocation": false,
+          "region_bytes": 20480
+        },
+        {
+          "index": 1,
+          "private_page_allocation": false,
+          "region_bytes": 12288
+        },
+        {
+          "index": 2,
+          "private_page_allocation": false,
+          "region_bytes": 16384
+        }
+      ],
+      "middle_allocation_reclaimed": false,
+      "other_instances_usable": true,
+      "dll_unloadable": true,
+      "isolated_pages_proven": false,
+      "DllSha256": "b7ca199e472cb852e7b2220bd47907f66f90ea323c7d0fcf866982878258b624"
+    },
+    "Candidate": {
+      "audio_opened": false,
+      "apis_substituted": false,
+      "instances": [
+        {
+          "index": 0,
+          "private_page_allocation": true,
+          "region_bytes": 12288
+        },
+        {
+          "index": 1,
+          "private_page_allocation": true,
+          "region_bytes": 12288
+        },
+        {
+          "index": 2,
+          "private_page_allocation": true,
+          "region_bytes": 12288
+        }
+      ],
+      "middle_allocation_reclaimed": true,
+      "other_instances_usable": true,
+      "dll_unloadable": true,
+      "isolated_pages_proven": true,
+      "DllSha256": "4c737473930f5e0f5e47fec5e08dd1fe41af3042542921a37606c2988a22619b"
+    }
+  },
+  "MemoryRecovery": {
+    "NativeArm64": true,
+    "PinningAndAllocationApisSubstituted": true,
+    "PassedCases": 5,
+    "Cases": [
+      {
+        "scenario": 0,
+        "first_hr": "0x80070718",
+        "pins_after_first": 0,
+        "first_lock_error": 1816,
+        "retry_hr": "0x00000000",
+        "retry_lock_error": 0,
+        "process_exception": "0x00000000",
+        "reset_exception": "0x00000000",
+        "pins_after_unlock": 0,
+        "passed": true
+      },
+      {
+        "scenario": 1,
+        "first_hr": "0x80070718",
+        "pins_after_first": 0,
+        "first_lock_error": 1816,
+        "retry_hr": "0x00000000",
+        "retry_lock_error": 0,
+        "process_exception": "0x00000000",
+        "reset_exception": "0x00000000",
+        "pins_after_unlock": 0,
+        "passed": true
+      },
+      {
+        "scenario": 2,
+        "first_hr": "0x80070718",
+        "pins_after_first": 0,
+        "first_lock_error": 0,
+        "retry_hr": "0x00000000",
+        "retry_lock_error": 0,
+        "process_exception": "0x00000000",
+        "reset_exception": "0x00000000",
+        "pins_after_unlock": 0,
+        "passed": true
+      },
+      {
+        "scenario": 3,
+        "first_hr": "0x8007000e",
+        "pins_after_first": 0,
+        "first_lock_error": 0,
+        "retry_hr": "0x00000000",
+        "retry_lock_error": 0,
+        "process_exception": "0x00000000",
+        "reset_exception": "0x00000000",
+        "pins_after_unlock": 0,
+        "passed": true
+      },
+      {
+        "scenario": 4,
+        "first_hr": "0x00000000",
+        "pins_after_first": 3,
+        "first_lock_error": 0,
+        "retry_hr": "0x00000000",
+        "retry_lock_error": 0,
+        "process_exception": "0x00000000",
+        "reset_exception": "0x00000000",
+        "pins_after_unlock": 0,
+        "passed": true
+      }
+    ],
+    "PhysicalCrashTest": false
+  },
+  "LoggingCasesPassed": 7,
+  "EpochCasesPassed": 2,
+  "OriginalWorker": {
+    "Passed": true,
+    "Cases": [
+      {
+        "Label": "normal",
+        "Passed": true,
+        "Comparison": {
+          "ReferenceFrames": 196608,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        }
+      },
+      {
+        "Label": "irregular",
+        "Passed": true,
+        "Comparison": {
+          "ReferenceFrames": 196608,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        }
+      },
+      {
+        "Label": "exit",
+        "Passed": true,
+        "Comparison": {
+          "ReferenceFrames": 98304,
+          "ExactDryFallbackFrames": 98304,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": false
+        }
+      },
+      {
+        "Label": "pause",
+        "Passed": true,
+        "Comparison": {
+          "ReferenceFrames": 176960,
+          "ExactDryFallbackFrames": 19648,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        }
+      },
+      {
+        "Label": "reset",
+        "Passed": true,
+        "Comparison": {
+          "ReferenceFrames": 190464,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        }
+      },
+      {
+        "Label": "bypass",
+        "Passed": true,
+        "Comparison": {
+          "ExactZeroLatencyBypass": true
+        }
+      },
+      {
+        "Label": "absent",
+        "Passed": true,
+        "Comparison": {
+          "ReferenceFrames": 1,
+          "ExactDryFallbackFrames": 196607,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": false
+        }
+      }
+    ],
+    "AudioOpened": false
+  },
+  "MiSoundBuild": {
+    "Architecture": "ARM64",
+    "SourceSha256": {
+      "Build-MiSoundSupport.ps1": "ee96f842cbef18a8906a87a67325c028f14ae8845cfd666fc3d0d1874283fd0c",
+      "MiSoundProtocol.c": "1f7b8c10f7a9e92a701e742319503e78a0768d975044afcf23356024a68cb85d",
+      "MiSoundProtocol.h": "2ce4074fe4500d504fb8703b91d1f640a34cf7bb3278a4072b9e65d91c9c604f",
+      "MiSoundSpeakerFilters.c": "1d97b72a529683d5cb5192dc13a71d0698dcbabf56340dbb807f80952cf02551",
+      "MiSoundSpeakerFilters.h": "31c3879bb53134e39fd08b139cfa20823cba5cd5337be9155ab48045fec4bb3b"
+    },
+    "LibrarySha256": "9511eccef1cec80dbb0c49bc9daa987d88b25add50bf3a4ba75167fd14e40693",
+    "Installed": false,
+    "DspProcessingImplemented": false
+  },
+  "MiSoundNativeDecoder": {
+    "Passed": true,
+    "OriginalResources": [
+      {
+        "Name": "misound_res_spk.bin",
+        "Bytes": 5592,
+        "Sha256": "4d617682a2ac00a2a9fc43f51f3fda86fc61aabcbee250245029a1769e63292d"
+      },
+      {
+        "Name": "misound_res_spk4ch.bin",
+        "Bytes": 5720,
+        "Sha256": "86dedc55e40ed6f24ccfb268e5197c599e48741d311cd8ebb285ab083df77ead"
+      }
+    ],
+    "ExactTableCases": [
+      {
+        "Resource": "misound_res_spk.bin",
+        "Rate": 44100,
+        "Status": 0,
+        "ExactCoefficientBits": true,
+        "Passed": true
+      },
+      {
+        "Resource": "misound_res_spk.bin",
+        "Rate": 48000,
+        "Status": 0,
+        "ExactCoefficientBits": true,
+        "Passed": true
+      },
+      {
+        "Resource": "misound_res_spk.bin",
+        "Rate": 88200,
+        "Status": 0,
+        "ExactCoefficientBits": true,
+        "Passed": true
+      },
+      {
+        "Resource": "misound_res_spk.bin",
+        "Rate": 96000,
+        "Status": 0,
+        "ExactCoefficientBits": true,
+        "Passed": true
+      },
+      {
+        "Resource": "misound_res_spk.bin",
+        "Rate": 192000,
+        "Status": 0,
+        "ExactCoefficientBits": true,
+        "Passed": true
+      },
+      {
+        "Resource": "misound_res_spk4ch.bin",
+        "Rate": 44100,
+        "Status": 0,
+        "ExactCoefficientBits": true,
+        "Passed": true
+      },
+      {
+        "Resource": "misound_res_spk4ch.bin",
+        "Rate": 48000,
+        "Status": 0,
+        "ExactCoefficientBits": true,
+        "Passed": true
+      },
+      {
+        "Resource": "misound_res_spk4ch.bin",
+        "Rate": 88200,
+        "Status": 0,
+        "ExactCoefficientBits": true,
+        "Passed": true
+      },
+      {
+        "Resource": "misound_res_spk4ch.bin",
+        "Rate": 96000,
+        "Status": 0,
+        "ExactCoefficientBits": true,
+        "Passed": true
+      },
+      {
+        "Resource": "misound_res_spk4ch.bin",
+        "Rate": 192000,
+        "Status": 0,
+        "ExactCoefficientBits": true,
+        "Passed": true
+      }
+    ],
+    "RejectedCases": [
+      {
+        "Case": "truncated",
+        "Status": 1,
+        "OutputUntouched": true,
+        "Passed": true
+      },
+      {
+        "Case": "declared_length",
+        "Status": 1,
+        "OutputUntouched": true,
+        "Passed": true
+      },
+      {
+        "Case": "section_overflow",
+        "Status": 1,
+        "OutputUntouched": true,
+        "Passed": true
+      },
+      {
+        "Case": "max_sos_unsupported",
+        "Status": 2,
+        "OutputUntouched": true,
+        "Passed": true
+      },
+      {
+        "Case": "model_unsupported",
+        "Status": 2,
+        "OutputUntouched": true,
+        "Passed": true
+      },
+      {
+        "Case": "coefficient_nan",
+        "Status": 1,
+        "OutputUntouched": true,
+        "Passed": true
+      },
+      {
+        "Case": "denominator_zero",
+        "Status": 1,
+        "OutputUntouched": true,
+        "Passed": true
+      },
+      {
+        "Case": "unstable_pole",
+        "Status": 1,
+        "OutputUntouched": true,
+        "Passed": true
+      },
+      {
+        "Case": "scale_nan",
+        "Status": 1,
+        "OutputUntouched": true,
+        "Passed": true
+      },
+      {
+        "Case": "bad_coef_tag",
+        "Status": 1,
+        "OutputUntouched": true,
+        "Passed": true
+      },
+      {
+        "Case": "bad_boundary",
+        "Status": 1,
+        "OutputUntouched": true,
+        "Passed": true
+      },
+      {
+        "Case": "missing_rate",
+        "Status": 3,
+        "OutputUntouched": true,
+        "Passed": true
+      },
+      {
+        "Case": "zero_rate",
+        "Status": 4,
+        "OutputUntouched": true,
+        "Passed": true
+      },
+      {
+        "Case": "duplicate_selected_rate",
+        "Status": 1,
+        "OutputUntouched": true,
+        "Passed": true
+      }
+    ],
+    "NativeArm64": true,
+    "ReferenceDecoderSha256": "e94165621baaf42f3c4bc8f8cdf6c365ef00a22a386eca34efe8218ca3b5c3dc",
+    "DspCodeExecuted": false,
+    "AudioOpened": false,
+    "MiSoundProcessingProven": false,
+    "GainChanged": false
+  },
+  "LinkedStaticModuleDecoder": {
+    "Passed": true,
+    "OriginalResources": [
+      {
+        "Name": "misound_res_spk.bin",
+        "Bytes": 5592,
+        "Sha256": "4d617682a2ac00a2a9fc43f51f3fda86fc61aabcbee250245029a1769e63292d"
+      },
+      {
+        "Name": "misound_res_spk4ch.bin",
+        "Bytes": 5720,
+        "Sha256": "86dedc55e40ed6f24ccfb268e5197c599e48741d311cd8ebb285ab083df77ead"
+      }
+    ],
+    "ExactTableCases": [
+      {
+        "Resource": "misound_res_spk.bin",
+        "Rate": 44100,
+        "Status": 0,
+        "ExactCoefficientBits": true,
+        "Passed": true
+      },
+      {
+        "Resource": "misound_res_spk.bin",
+        "Rate": 48000,
+        "Status": 0,
+        "ExactCoefficientBits": true,
+        "Passed": true
+      },
+      {
+        "Resource": "misound_res_spk.bin",
+        "Rate": 88200,
+        "Status": 0,
+        "ExactCoefficientBits": true,
+        "Passed": true
+      },
+      {
+        "Resource": "misound_res_spk.bin",
+        "Rate": 96000,
+        "Status": 0,
+        "ExactCoefficientBits": true,
+        "Passed": true
+      },
+      {
+        "Resource": "misound_res_spk.bin",
+        "Rate": 192000,
+        "Status": 0,
+        "ExactCoefficientBits": true,
+        "Passed": true
+      },
+      {
+        "Resource": "misound_res_spk4ch.bin",
+        "Rate": 44100,
+        "Status": 0,
+        "ExactCoefficientBits": true,
+        "Passed": true
+      },
+      {
+        "Resource": "misound_res_spk4ch.bin",
+        "Rate": 48000,
+        "Status": 0,
+        "ExactCoefficientBits": true,
+        "Passed": true
+      },
+      {
+        "Resource": "misound_res_spk4ch.bin",
+        "Rate": 88200,
+        "Status": 0,
+        "ExactCoefficientBits": true,
+        "Passed": true
+      },
+      {
+        "Resource": "misound_res_spk4ch.bin",
+        "Rate": 96000,
+        "Status": 0,
+        "ExactCoefficientBits": true,
+        "Passed": true
+      },
+      {
+        "Resource": "misound_res_spk4ch.bin",
+        "Rate": 192000,
+        "Status": 0,
+        "ExactCoefficientBits": true,
+        "Passed": true
+      }
+    ],
+    "RejectedCases": [
+      {
+        "Case": "truncated",
+        "Status": 1,
+        "OutputUntouched": true,
+        "Passed": true
+      },
+      {
+        "Case": "declared_length",
+        "Status": 1,
+        "OutputUntouched": true,
+        "Passed": true
+      },
+      {
+        "Case": "section_overflow",
+        "Status": 1,
+        "OutputUntouched": true,
+        "Passed": true
+      },
+      {
+        "Case": "max_sos_unsupported",
+        "Status": 2,
+        "OutputUntouched": true,
+        "Passed": true
+      },
+      {
+        "Case": "model_unsupported",
+        "Status": 2,
+        "OutputUntouched": true,
+        "Passed": true
+      },
+      {
+        "Case": "coefficient_nan",
+        "Status": 1,
+        "OutputUntouched": true,
+        "Passed": true
+      },
+      {
+        "Case": "denominator_zero",
+        "Status": 1,
+        "OutputUntouched": true,
+        "Passed": true
+      },
+      {
+        "Case": "unstable_pole",
+        "Status": 1,
+        "OutputUntouched": true,
+        "Passed": true
+      },
+      {
+        "Case": "scale_nan",
+        "Status": 1,
+        "OutputUntouched": true,
+        "Passed": true
+      },
+      {
+        "Case": "bad_coef_tag",
+        "Status": 1,
+        "OutputUntouched": true,
+        "Passed": true
+      },
+      {
+        "Case": "bad_boundary",
+        "Status": 1,
+        "OutputUntouched": true,
+        "Passed": true
+      },
+      {
+        "Case": "missing_rate",
+        "Status": 3,
+        "OutputUntouched": true,
+        "Passed": true
+      },
+      {
+        "Case": "zero_rate",
+        "Status": 4,
+        "OutputUntouched": true,
+        "Passed": true
+      },
+      {
+        "Case": "duplicate_selected_rate",
+        "Status": 1,
+        "OutputUntouched": true,
+        "Passed": true
+      }
+    ],
+    "NativeArm64": true,
+    "ReferenceDecoderSha256": "e94165621baaf42f3c4bc8f8cdf6c365ef00a22a386eca34efe8218ca3b5c3dc",
+    "DspCodeExecuted": false,
+    "AudioOpened": false,
+    "MiSoundProcessingProven": false,
+    "GainChanged": false
+  },
+  "InstalledFileValidation": {
+    "Passed": true,
+    "ReadsInstalledFiles": true,
+    "NativeArm64": true,
+    "Cases": [
+      {
+        "Resource": "misound_res_spk.bin",
+        "WindowsSha256": "4d617682a2ac00a2a9fc43f51f3fda86fc61aabcbee250245029a1769e63292d",
+        "HyperOsSha256": "4d617682a2ac00a2a9fc43f51f3fda86fc61aabcbee250245029a1769e63292d",
+        "IdenticalBytes": true,
+        "HostFileReadSucceeded": true,
+        "NativeDecoderStatus": 0,
+        "Rate": 48000,
+        "Sections": 8,
+        "Passed": true
+      },
+      {
+        "Resource": "misound_res_spk4ch.bin",
+        "WindowsSha256": "86dedc55e40ed6f24ccfb268e5197c599e48741d311cd8ebb285ab083df77ead",
+        "HyperOsSha256": "86dedc55e40ed6f24ccfb268e5197c599e48741d311cd8ebb285ab083df77ead",
+        "IdenticalBytes": true,
+        "HostFileReadSucceeded": true,
+        "NativeDecoderStatus": 0,
+        "Rate": 48000,
+        "Sections": 8,
+        "Passed": true
+      }
+    ],
+    "DspFileOpenObserved": false,
+    "DspCommandSent": false,
+    "AudioOpened": false,
+    "MiSoundProcessingProven": false,
+    "DriverInstalled": false
+  },
+  "SharedSpeakerFilters": {
+    "StereoSpmdBytes": 1304,
+    "FourChannelSpmdBytes": 1304,
+    "IdenticalSpmd": true,
+    "SpmdSha256": "75d4fe946bccff386ca680e6e1536478ba10152289031522f8230844ac18c2c0",
+    "WholeFilesIdentical": false,
+    "NamedSectionOffsets": {
+      "OAL1": {
+        "Stereo": 1320,
+        "FourChannel": 1320
+      },
+      "NORM": {
+        "Stereo": 1376,
+        "FourChannel": 1376
+      },
+      "OAL2": {
+        "Stereo": 5528,
+        "FourChannel": 5656
+      }
+    },
+    "StereoNormSpanBytes": 4152,
+    "FourChannelNormSpanBytes": 4280,
+    "UnparsedRemainderIdentical": false,
+    "Interpretation": "The captured SPMD filter region is shared by the stereo/four-channel resources. The NORM span has 128 additional bytes in the four-channel file. OAL/dynamics/channel processing is not transferred or executed by this decoder."
+  },
+  "OriginalHyperOsGhidra": {
+    "ReviewSha256": "1e142dcea2ca45e645dc9625e1caf1c15a44707dc98b2cad50fcfbd02c10fbc7",
+    "ReadOnly": true,
+    "DspCodeExecuted": false,
+    "Addresses": [
+      "0xb0630eb0",
+      "0xb0630b00",
+      "0xb0630cc4",
+      "0xb03f8db8"
+    ],
+    "Facts": [
+      "Parser recognises HPMD/SPMD/HRIR subregions.",
+      "Resource validity helper checks a stored buffer pointer.",
+      "Section-name helper returns a stored pointer."
+    ]
+  },
+  "ReadOnlyPreflight": {
+    "Passed": true,
+    "Amplifiers": [
+      {
+        "InstanceId": "ACPI\\10133541\\0",
+        "ConfigResult": 0,
+        "Started": true,
+        "NeedsRestart": false,
+        "Problem": 0,
+        "Version": "4.17.27.18",
+        "Inf": "oem50.inf"
+      },
+      {
+        "InstanceId": "ACPI\\10133541\\1",
+        "ConfigResult": 0,
+        "Started": true,
+        "NeedsRestart": false,
+        "Problem": 0,
+        "Version": "4.17.27.18",
+        "Inf": "oem50.inf"
+      },
+      {
+        "InstanceId": "ACPI\\10133541\\2",
+        "ConfigResult": 0,
+        "Started": true,
+        "NeedsRestart": false,
+        "Problem": 0,
+        "Version": "4.17.27.18",
+        "Inf": "oem50.inf"
+      },
+      {
+        "InstanceId": "ACPI\\10133541\\3",
+        "ConfigResult": 0,
+        "Started": true,
+        "NeedsRestart": false,
+        "Problem": 0,
+        "Version": "4.17.27.18",
+        "Inf": "oem50.inf"
+      }
+    ],
+    "KernelHash": "653b8ded9ebc89b0cafa8d455c0eef8bfe613943c455de8ff5f6887eda7e6cc4"
+  },
+  "GainFirmwareCalibrationAndProtectionChanged": false,
+  "Interpretation": "Software/module and ordinary host-file checks only. No new driver installation, DSP parameter submission, acoustic L/R test or volume increase occurred. Heap retention in the .8 comparison is not described as a memory leak or an observed audio crash."
+}

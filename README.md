@@ -26,16 +26,22 @@ Download: **4.17.27.16**. Development source: **4.17.27.18**. The published ZIP 
 
 ## Update history
 
-### 2026-11-25 — 4.17.27.18 / Dolby APO 2.0.0.8-lab
+### 2026-11-25 — 4.17.27.18 / Dolby APO 2.0.0.9-lab
 
-- ✅ Removed pageable view access from processing/reset and cleaned up failed memory locks: **5 native fault cases** passed.
-- ✅ Original Dolby output still matches 196,608 frames; **7 + 2 + 7** logging/reset/worker cases passed. Signed .8 candidate prepared.
-- ✅ Four quiet digital L/R controls passed again. ❌ System Dolby, MiSound and acoustic L/R remain unverified.
+- ✅ APO instances now own separate pages; allocation/release and **5 + 7 + 2 + 7** software cases passed. Original output remains exact for 196,608 frames.
+- ✅ Added the ARM64 MiSound factory-table reader: **10 exact tables + 14 rejection cases** passed; installed files match HyperOS.
+- ❌ System Dolby/MiSound and acoustic L/R remain unverified. Signed .9 is prepared; the installed driver remains .18.
 
 [Measured evidence](docs/audio-system-progress.md)
 
 <details>
 <summary>Previous updates</summary>
+
+#### 2026-11-25 — 4.17.27.18 / Dolby APO 2.0.0.8-lab
+
+- ✅ Removed pageable view access from processing/reset and cleaned up failed memory locks: **5 native fault cases** passed.
+- ✅ Original Dolby output still matches 196,608 frames; **7 + 2 + 7** logging/reset/worker cases passed. Signed .8 candidate prepared.
+- ✅ Four quiet digital L/R controls passed again. ❌ System Dolby, MiSound and acoustic L/R remain unverified.
 
 #### 2026-11-25 — 4.17.27.18 / Dolby APO 2.0.0.7-lab
 
@@ -74,7 +80,7 @@ PCM24 research set: all 13 timing/reopen tests passed; average 10 ms notificatio
 | --- | --- | --- |
 | IRQ/GPIO and routing | IRQ setup ignored I²C errors; only CH_BAL was checked. | ✅ .18 rejects failed IRQ setup; real readbacks passed on all four amplifiers. |
 | Digital L/R | Separation unmeasured. | ✅ Four quiet cases passed; opposite 800 Hz tone <0.1%. UID/I²C board mapping matches Android. Acoustic isolation remains unverified. |
-| Dolby APO | Processing read a pageable view; failed locks retained pinned pages. | ✅ .8 passes five memory fault cases and preserves exact original output. ❌ System processing unverified. |
+| Dolby APO | Real-time state used shared heap pages. | ✅ .9 has independent allocations and correct teardown; exact output preserved. ❌ System processing unverified. |
 | PCM24 / MiSound | Format/pacing failures; DSP parameters timed out. | ✅ Earlier 13 PCM24 and 96 encoder cases. ❌ MiSound DSP processing and acoustic parity remain open. |
 
 System Dolby, MiSound, acoustic L/R separation and HyperOS-quality sound remain unconfirmed. No new loudness increase is claimed.

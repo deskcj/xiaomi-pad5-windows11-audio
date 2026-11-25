@@ -1,6 +1,8 @@
-# Dolby APO development source · 2.0.0.8-lab
+# Dolby APO development source · 2.0.0.9-lab
 
 Native ARM64 COM transport, stereo queues, delayed dry fallback and diagnostics. The separate worker runs original Android Dolby code; that library and worker runtime are not included here. This source does not implement MiSound processing.
+
+The .9 prototype allocates each APO state on separate VirtualAlloc pages, avoiding shared heap-page ownership during locking. Three native COM instances verified allocation/teardown; five memory fault, seven logging, two epoch and seven original-worker cases passed. Original output remains exact. The signed .9 component is prepared locally and uninstalled. [Evidence](../../docs/results/audio-isolation-filters-2026-11-25.json)
 
 The .8 prototype removes pageable view-wrapper reads from processing/reset and releases pinned pages after failed locks and unlock. Five native COM memory fault fixtures, seven logging cases, two epoch cases and seven original-worker scenarios passed. Normal and irregular streams still match all 196,608 frames exactly. The pinning/allocation fixture uses substituted APIs and guarded memory; it is not a hardware crash test. A signed .8 component is prepared locally and remains uninstalled. [Evidence](../../docs/results/audio-apo-memory-2026-11-25.json)
 

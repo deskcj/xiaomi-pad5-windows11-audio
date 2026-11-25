@@ -92,7 +92,7 @@ public:
                 nabu_close_transport(transport_);
             }
             this->~NabuDolbyApo();
-            HeapFree(GetProcessHeap(), 0, this);
+            VirtualFree(this, 0, MEM_RELEASE);
             InterlockedDecrement(&Objects);
         }
         return remaining;
@@ -489,7 +489,11 @@ HRESULT create_apo(REFIID iid, void **result, DolbyBlockQueue *requests = nullpt
     if (!result)
         return E_POINTER;
     *result = nullptr;
-    void *storage = HeapAlloc(GetProcessHeap(), 0, sizeof(NabuDolbyApo));
+    // VirtualLock/VirtualUnlock operate on entire pages, without regard to
+    // heap-object boundaries. Give every real-time object its own allocation
+    // so unlocking it cannot also unlock another instance's state.
+    void *storage = VirtualAlloc(nullptr, sizeof(NabuDolbyApo),
+        MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
     if (!storage)
         return E_OUTOFMEMORY;
     auto *apo = new (storage) NabuDolbyApo(requests, replies, delay);
