@@ -4,8 +4,8 @@
 #include "DolbyBlockQueue.h"
 
 // Standalone protocol only. No global mapping, service, or driver registration.
-constexpr UINT32 NabuTransportSignature = 0x3254424e;
-constexpr UINT32 NabuTransportVersion = 2;
+constexpr UINT32 NabuTransportSignature = 0x3354424e;
+constexpr UINT32 NabuTransportVersion = 3;
 constexpr UINT32 NabuTransportInitSignature = 0x3149424e;
 constexpr UINT32 NabuTransportNameChars = 128;
 
@@ -31,6 +31,7 @@ struct NabuSharedTransport {
     volatile LONG64 frames_dry;
     DolbyBlockQueue requests;
     DolbyBlockQueue replies;
+    volatile LONG64 first_dry_frame; // -1 until a missing/invalid reply causes fallback.
 };
 
 struct NabuTransportView {
@@ -51,7 +52,7 @@ static_assert(sizeof(StereoFrame) == 8);
 static_assert(sizeof(DolbyAudioBlock) == 8208);
 static_assert(sizeof(DolbyBlockQueue) == 262664);
 static_assert(offsetof(NabuSharedTransport, requests) == 88);
-static_assert(sizeof(NabuSharedTransport) == 525416);
+static_assert(sizeof(NabuSharedTransport) == 525424);
 static_assert(sizeof(NabuApoTransportInit) == 280);
 
 NabuTransportView *nabu_open_transport(const WCHAR *name);
@@ -66,6 +67,9 @@ extern "C" __declspec(dllexport) LONG WINAPI NabuTransportGeneration(void *view)
 extern "C" __declspec(dllexport) void WINAPI NabuTransportStop(void *view);
 extern "C" __declspec(dllexport) LONG WINAPI NabuTransportStopped(void *view);
 extern "C" __declspec(dllexport) BOOL WINAPI NabuWorkerRead(void *view, DolbyAudioBlock *block);
+// Sole-consumer read for a restarted worker. Skip only records whose entire
+// output interval has already passed; preserve both SPSC producer cursors.
+extern "C" __declspec(dllexport) BOOL WINAPI NabuWorkerReadCurrent(void *view, DolbyAudioBlock *block, UINT32 *discarded);
 extern "C" __declspec(dllexport) BOOL WINAPI NabuWorkerWrite(void *view, const DolbyAudioBlock *block);
 extern "C" __declspec(dllexport) void WINAPI NabuWorkerReady(void *view, LONG ready);
 extern "C" __declspec(dllexport) void WINAPI NabuWorkerGap(void *view);
@@ -73,6 +77,9 @@ extern "C" __declspec(dllexport) void WINAPI NabuWorkerGap(void *view);
 // registered worker PID. Active APO streams return ERROR_BUSY without touching
 // queue cursors; worker readiness is withdrawn after confirmed process death.
 extern "C" __declspec(dllexport) BOOL WINAPI NabuSupervisorReclaimExitedWorker(void *view, HANDLE process);
+// Active-stream recovery changes ownership only. The signaled handle must match
+// the dead worker. No APO claim, epoch, queue cursor or audio data is reset.
+extern "C" __declspec(dllexport) BOOL WINAPI NabuSupervisorReleaseExitedWorker(void *view, HANDLE process);
 extern "C" __declspec(dllexport) LONG WINAPI NabuTransportMetric(void *view, UINT32 index);
 extern "C" __declspec(dllexport) LONG64 WINAPI NabuTransportFrames(void *view, UINT32 index);
 extern "C" __declspec(dllexport) void *WINAPI NabuTransportCreateSecured(const WCHAR *name, UINT32 delay, const WCHAR *sddl);

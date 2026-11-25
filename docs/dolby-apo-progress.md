@@ -2,6 +2,14 @@
 
 [English](dolby-apo-progress.md) · [Русский](dolby-apo-progress.ru.md) · [简体中文](dolby-apo-progress.zh-CN.md)
 
+### 2026-11-25 — Portable Dolby service and active-stream recovery (.16)
+
+- **Before → now:** research-path worker → packaged LocalService backend; restart after stream release → replacement inside the same live stream. Signed .16 and 24 COM / 8 ownership / 7 expiry / 10 broker cases pass; three original-output comparisons remain exact.
+- **Device:** three-minute quiet .15: 8,635,296 wet / zero dry frames. Quiet .16 worker-kill trial recovered in the same audiodg/epoch, with 86,272 dry frames (1.80 s total); 896 accumulated after the recovery snapshot. APO .4 / kernel .20 and calibration restored, no reboot. Runtime-only ZIP installer, reuse and rollback passed.
+- **Open:** intermittent fallback, 128 ms latency, effect toggle, permanent APO/startup, Atmos objects, MiSound, acoustic four-speaker L/R and hardware PCM24. The public kernel ZIP remains .20; the runtime ZIP is retained locally for development.
+
+[Evidence](results/audio-dolby-service-recovery-2026-11-25.json)
+
 **2026-11-25 — Bounded Dolby runtime and quiet live verification**
 
 The supervisor now waits for worker readiness, rejects duplicate banks and manages only its own Job Object. Bounded counters replace full audio/packet logs; file-sharing failures are isolated from DSP processing. Ten native lifecycle/fault cases pass, and normal/irregular output still matches all 196,608 original frames; the reset comparison also passes.

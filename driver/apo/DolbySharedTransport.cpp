@@ -117,6 +117,7 @@ extern "C" void *WINAPI NabuTransportCreateSecured(const WCHAR *name, UINT32 del
         s->version = NabuTransportVersion;
         s->bytes = sizeof(*s);
         s->delay_frames = delay;
+        s->first_dry_frame = -1;
     }
     return view;
 }
@@ -150,6 +151,31 @@ extern "C" LONG WINAPI NabuTransportStopped(void *view)
 extern "C" BOOL WINAPI NabuWorkerRead(void *view, DolbyAudioBlock *block)
 {
     return dolby_queue_read(&static_cast<NabuTransportView *>(view)->shared->requests, block);
+}
+extern "C" BOOL WINAPI NabuWorkerReadCurrent(void *pointer, DolbyAudioBlock *block, UINT32 *discarded)
+{
+    auto *view = static_cast<NabuTransportView *>(pointer);
+    if (discarded) *discarded = 0;
+    if (!view || !view->worker || !block || !discarded) {
+        SetLastError(ERROR_INVALID_PARAMETER);return FALSE;
+    }
+    auto *s = view->shared;
+    if (DWORD(InterlockedCompareExchange(&s->worker_claim, 0, 0)) != GetCurrentProcessId()) {
+        SetLastError(ERROR_INVALID_OWNER);return FALSE;
+    }
+    for (unsigned i = 0; i < DOLBY_QUEUE_SLOTS; ++i) {
+        if (!dolby_queue_read(&s->requests, block)) return FALSE;
+        const UINT32 generation = UINT32(InterlockedCompareExchange(&s->generation, 0, 0));
+        const UINT64 now = UINT64(InterlockedCompareExchange64(&s->frames_processed, 0, 0));
+        const UINT64 target = now > s->delay_frames ? now - s->delay_frames : 0;
+        if (block->generation != generation ||
+            (block->first_frame <= target && block->count <= target - block->first_frame)) {
+            ++*discarded;
+            continue;
+        }
+        return TRUE;
+    }
+    return FALSE;
 }
 extern "C" BOOL WINAPI NabuWorkerWrite(void *view, const DolbyAudioBlock *block)
 {
@@ -204,6 +230,30 @@ extern "C" BOOL WINAPI NabuSupervisorReclaimExitedWorker(void *pointer, HANDLE p
     if (!ok) SetLastError(error);
     return ok;
 }
+extern "C" BOOL WINAPI NabuSupervisorReleaseExitedWorker(void *pointer, HANDLE process)
+{
+    auto *view = static_cast<NabuTransportView *>(pointer);
+    if (!view || view->worker || !process) { SetLastError(ERROR_INVALID_PARAMETER);return FALSE; }
+    const DWORD pid = GetProcessId(process);
+    if (!pid) return FALSE;
+    const DWORD waited = WaitForSingleObject(process, 0);
+    if (waited != WAIT_OBJECT_0) {
+        if (waited == WAIT_TIMEOUT) SetLastError(ERROR_BUSY);
+        return FALSE;
+    }
+    auto *s = view->shared;
+    const LONG owner = InterlockedCompareExchange(&s->worker_claim, 0, 0);
+    if (owner && DWORD(owner) != pid) { SetLastError(ERROR_INVALID_OWNER);return FALSE; }
+    if (InterlockedCompareExchange(&s->stop, 0, 0)) { SetLastError(ERROR_OPERATION_ABORTED);return FALSE; }
+    if (InterlockedCompareExchange(&s->worker_claim, -1, owner) != owner) {
+        SetLastError(ERROR_INVALID_OWNER);return FALSE;
+    }
+    InterlockedExchange(&s->worker_ready, 0);
+    // A live APO retains its queue/frame ownership. The replacement is the
+    // sole request consumer and skips expired records through ReadCurrent.
+    InterlockedExchange(&s->worker_claim, 0);
+    return TRUE;
+}
 extern "C" LONG WINAPI NabuTransportMetric(void *view, UINT32 index)
 {
     auto *s = static_cast<NabuTransportView *>(view)->shared;
@@ -216,6 +266,6 @@ extern "C" LONG WINAPI NabuTransportMetric(void *view, UINT32 index)
 extern "C" LONG64 WINAPI NabuTransportFrames(void *view, UINT32 index)
 {
     auto *s = static_cast<NabuTransportView *>(view)->shared;
-    volatile LONG64 *fields[] = {&s->frames_processed, &s->frames_wet, &s->frames_dry};
+    volatile LONG64 *fields[] = {&s->frames_processed, &s->frames_wet, &s->frames_dry, &s->first_dry_frame};
     return index < ARRAYSIZE(fields) ? InterlockedCompareExchange64(fields[index], 0, 0) : -1;
 }

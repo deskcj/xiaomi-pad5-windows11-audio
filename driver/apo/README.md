@@ -1,4 +1,18 @@
-# Dolby APO development source · 2.0.0.14-lab
+# Dolby APO development source · 2.0.0.16-lab
+
+**2.0.0.16-lab:** the packaged original stereo DAP backend runs under SCM
+LocalService. Owned worker death can recover inside an active APO stream without
+resetting its epoch or SPSC producer cursors. Signed ARM64 .16, 24 COM cases,
+eight release checks, seven expiry cases, ten broker scenarios and three exact
+original comparisons pass.
+
+Two three-minute quiet device trials completed: .15 had zero dry frames; .16
+recovered from an injected worker exit with 86,272 dry frames, including 896
+after the recovery snapshot. Timing remains open. Both trials restored APO .4
+on kernel .20 without reboot or calibration changes. The runtime-only installer,
+identical-version reuse and rollback passed. Permanent APO binding, startup,
+the effect toggle and Atmos objects remain unfinished.
+[Evidence](../../docs/results/audio-dolby-service-recovery-2026-11-25.json)
 
 **2.0.0.14-lab:** the supervisor verifies the exited worker's process handle and PID, then reclaims queues only after the APO releases the stream. Each slot permits two restart attempts; active-stream recovery remains unfinished. Eight transport/API cases, ten supervisor cases, three original-output comparisons, 24 COM factory cases and 108 settings cases pass. A fresh quiet .14/.36 trial with kernel .20 processed 72,096 wet frames and zero dry frames in real audiodg; four Normal/RAW digital L/R cases passed. Both workers stopped normally and APO .4 was restored. The physical trial did not inject a worker failure or measure acoustic speaker separation. [Evidence](../../docs/results/audio-idle-recovery-live-2026-11-25.json)
 

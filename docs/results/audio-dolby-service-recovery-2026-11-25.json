@@ -1,0 +1,255 @@
+{
+  "date": "2026-11-25",
+  "version": "2.0.0.16-lab",
+  "before": "External research paths; owned worker restart waited for APO release.",
+  "after": "Packaged original stereo DAP under SCM LocalService; active worker replacement preserves the APO stream and SPSC cursors.",
+  "build": {
+    "Architecture": "ARM64",
+    "PackageVersion": "2.0.0.16",
+    "EmbeddedDllSignatureVerified": true,
+    "EmbeddedCertificateBytes": 3072,
+    "CatalogAndMembersVerified": true,
+    "UnsignedDllSha256": "18dfc3f1e3f114a40610682045a6870093de4d63979552bc73fed7dcb2554d19",
+    "Files": {
+      "nabudolbyapo.cat": "d6701979b5afc4eab0128df67a374b7af53722043700e9c24399bb3bf760691f",
+      "NabuDolbyApo.inf": "31f92ff663924d2a0126e1ea5c43d47ee1f9eaba0647e492c727915020223387",
+      "NabuDolbyBridge.dll": "20f0a2ea1ee757ea5e71d1825682e04b618a1b03162986083ca3f692c1d7edd3"
+    },
+    "Installed": false,
+    "SystemEffectsProven": false
+  },
+  "broker_build": {
+    "Architecture": "ARM64",
+    "ExeSha256": "929a9571ee405f29ccd6f6d8b2a92a269a26b496b5a6ce96df4f8e731b31e1e0",
+    "SourceSha256": "d2ca3e1364b5394807efecd02a7a355c2b6ed3db9c4ba43f76fd19d01e42e320",
+    "OpensAudio": false,
+    "InstallsDrivers": false,
+    "StartupRegistered": false
+  },
+  "source_fingerprint": "6ae49657ccc165ab890181002c85f940f9caecc51d8028f17a08eed0c2cd271a",
+  "software": {
+    "factory_cases": 24,
+    "legacy_reclaim_api_cases": 8,
+    "active_release_api_cases": 8,
+    "expired_request_cases": 7,
+    "broker_cases": 10,
+    "original_output_comparisons": [
+      {
+        "Label": "normal",
+        "Hresult": 0,
+        "Comparison": {
+          "ReferenceFrames": 196608,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        },
+        "Stats": {
+          "bytes": 56,
+          "callbacks": 423,
+          "frames_out": 202752,
+          "reset_frame": 0,
+          "latency": 1280000,
+          "maximum_callback_us": 210.3125,
+          "maximum_schedule_late_ms": 15.786302083333334,
+          "invalid_callbacks": 0,
+          "nonfinite_frames": 0,
+          "duplicate_attach_rejected": 1,
+          "dll_unloadable": 1
+        },
+        "OutputSha256": "0bd96a21ad5efbdf8457ec55491299b908d4a9c912b2c67737e2218f57fc2410"
+      },
+      {
+        "Label": "irregular",
+        "Hresult": 0,
+        "Comparison": {
+          "ReferenceFrames": 196608,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        },
+        "Stats": {
+          "bytes": 56,
+          "callbacks": 529,
+          "frames_out": 202752,
+          "reset_frame": 0,
+          "latency": 1280000,
+          "maximum_callback_us": 144.6875,
+          "maximum_schedule_late_ms": 16.044583333333332,
+          "invalid_callbacks": 0,
+          "nonfinite_frames": 0,
+          "duplicate_attach_rejected": 1,
+          "dll_unloadable": 1
+        },
+        "OutputSha256": "0bd96a21ad5efbdf8457ec55491299b908d4a9c912b2c67737e2218f57fc2410"
+      },
+      {
+        "Label": "reset",
+        "Hresult": 0,
+        "Comparison": {
+          "ReferenceFrames": 190464,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        },
+        "Stats": {
+          "bytes": 56,
+          "callbacks": 423,
+          "frames_out": 202752,
+          "reset_frame": 98304,
+          "latency": 1280000,
+          "maximum_callback_us": 100.625,
+          "maximum_schedule_late_ms": 15.953177083333333,
+          "invalid_callbacks": 0,
+          "nonfinite_frames": 0,
+          "duplicate_attach_rejected": 1,
+          "dll_unloadable": 1
+        },
+        "OutputSha256": "8d71cd2f4fde47176931609544a78382d3bd550b74337094cda39fe6316e2a65"
+      }
+    ],
+    "settings_108_cases_rerun_for_16": false,
+    "portable_exact_original_frames": 196608
+  },
+  "service": {
+    "account": "NT AUTHORITY\\LocalService",
+    "session": 0,
+    "start_type": "Manual",
+    "research_tree_required_at_runtime": false,
+    "portable_bytes": 27359650,
+    "scm_lifecycle_passed": true,
+    "runtime_installer_and_rollback_passed": true,
+    "identical_runtime_reuse_and_rollback_passed": true,
+    "both_runtime_directories_retained": true,
+    "full_apo_graph_installer_finished": false,
+    "automatic_start_and_cold_boot_tested": false
+  },
+  "quiet_device_trials": {
+    "normal_15": {
+      "frames_processed": 8641440,
+      "wet_frames": 8635296,
+      "dry_frames": 0,
+      "first_dry_frame": -1,
+      "capture": {
+        "channel": "L",
+        "raw": false,
+        "hr": "0x00000000",
+        "submitted_frames": 8645760,
+        "captured_frames": 8640480,
+        "active_frames": 4414253,
+        "rms": [
+          2.18127157942e-05,
+          1.46185858428e-05
+        ],
+        "peak": [
+          3.0517578125e-05,
+          3.0517578125e-05
+        ],
+        "opposite_rms_ratio": 0.670186416981,
+        "tone_800hz_amplitudes": [
+          2.26321566028e-05,
+          1.01102513549e-09
+        ],
+        "opposite_tone_ratio": 4.46720634376e-05,
+        "digital_separation_passed": true,
+        "capture_discontinuities": 1,
+        "nonfinite_frames": 0,
+        "maximum_meter_peak": 6.10353891e-05,
+        "passed": true
+      },
+      "restored": true,
+      "retained_result_sha256": "5ede8aa865519f66fb93c18c8d1a4a8471140bc07796716cbd61a3c77a14b5c2"
+    },
+    "active_failure_16": {
+      "old_worker_pid": 4192,
+      "new_worker_pid": 6460,
+      "failure_exit_code": 17,
+      "recovered_while_apo_claimed": true,
+      "same_apo_pid": true,
+      "same_generation": true,
+      "frames_processed": 8640480,
+      "wet_frames": 8548064,
+      "dry_frames": 86272,
+      "first_dry_frame": 114688,
+      "dry_seconds_total": 1.7973333333333332,
+      "additional_dry_after_recovery_snapshot": 896,
+      "expired_requests_skipped": 32,
+      "requests_dropped": 144,
+      "capture": {
+        "channel": "L",
+        "raw": false,
+        "hr": "0x00000000",
+        "submitted_frames": 8644800,
+        "captured_frames": 8640000,
+        "active_frames": 4385796,
+        "rms": [
+          2.17428969416e-05,
+          1.46186564145e-05
+        ],
+        "peak": [
+          3.0517578125e-05,
+          3.0517578125e-05
+        ],
+        "opposite_rms_ratio": 0.672341705604,
+        "tone_800hz_amplitudes": [
+          2.24411670451e-05,
+          1.01731191732e-09
+        ],
+        "opposite_tone_ratio": 4.53323980556e-05,
+        "digital_separation_passed": true,
+        "capture_discontinuities": 1,
+        "nonfinite_frames": 0,
+        "maximum_meter_peak": 6.10353891e-05,
+        "passed": true
+      },
+      "worker_errors": [],
+      "mean_render_ms": 15.85945757662926,
+      "restored": true,
+      "retained_result_sha256": "f72fed6abc0ecf7741836530b9d68a200cf0bc85f7cdd2beb3067cfbdaf9aca6"
+    }
+  },
+  "bundle": {
+    "Sha256": "3d532a172c235ee8ed5b1d6a2a1a263b3932755dcd48a0c8789fb672630757f9",
+    "Bytes": 11534316,
+    "RuntimeOnlyInstaller": true,
+    "ZipMembersVerified": true,
+    "AutomaticStartupTested": false,
+    "DriverInstalled": false
+  },
+  "current": {
+    "amplifier_version": "4.17.27.20",
+    "amplifiers": 4,
+    "apo_version": "2.0.0.4",
+    "factory_calibration_unchanged": true,
+    "kernel_changed": false,
+    "gain_or_protection_changed": false,
+    "reboot_performed": false
+  },
+  "limits": {
+    "steady_timing_closed": false,
+    "first_dry_only_cannot_locate_later_fallback": true,
+    "effect_toggle_implemented": false,
+    "latency_ms": 128,
+    "original_stereo_dap": true,
+    "windows_atmos_object_rendering": false,
+    "misound_live_processing": false,
+    "physical_four_speaker_lr": false,
+    "hardware_pcm24": false,
+    "hyperos_acoustic_parity": false,
+    "maximum_volume_safety": false,
+    "new_amplifier_protection_measurement": false,
+    "remtrik_live_trial": false,
+    "sleep_resume_trial": false
+  }
+}

@@ -1,72 +1,72 @@
-# Dolby runtime supervisor · development
+# Original Dolby runtime · development
 
-`NabuDolbyBroker.cpp` creates fresh transport slots, starts owned workers inside
-a Windows Job Object and publishes the APO bank after all workers report ready.
-It monitors worker exit, closes the bank and stops its workers on completion.
-Closing an abruptly terminated broker's job also terminates its owned children.
-Duplicate banks are rejected; another owner's mappings and processes are retained.
-[Windows Job Object lifecycle](https://learn.microsoft.com/en-us/windows/win32/procthread/job-objects)
+The original Android stereo DAP renderer runs in an ARM64 guest with qualified
+native classifier, level and math helpers. It uses the captured Dynamic /
+speaker_landscape profile with its original pregain. This does not establish
+Windows Atmos object rendering or MiSound processing.
 
-`BoundedOriginalWorker.py` keeps the qualified original Android renderer,
-classifier and level helper. It writes periodic counters, hashes and recent
-epoch peaks instead of saving audio or packet logs. Timing history is limited
-to 2048 blocks, context resets to 64 and epochs to 16. Report-file sharing errors
-are retried briefly and counted independently of DSP processing.
+`PortableOriginalWorker.py` resolves its isolated Python, backend, resources and
+native libraries within the runtime directory. The profile is validated during
+staging; processing reads no research tree or ACDB database. The 26 MiB backend
+matched all 196,608 original reference frames exactly from an unrelated directory.
+Adapters are public here; captured resources and qualified dependency binaries
+are retained in the local package.
 
-ARM64 EWDK compilation, ten native lifecycle/failure cases, four original-output
-comparisons and a real quiet .13/.36 trial passed. Ordinary and irregular streams
-each preserve all 196,608 reference frames. The quiet trial's last normal stream
-recorded 72,096 wet frames, zero dry frames and cooperative worker shutdown.
-[Measured results](../../../../docs/results/audio-runtime-broker-2026-11-25.json)
+`NabuDolbyService.cpp` runs as SCM-owned LocalService in session 0. It resolves
+resources beside its EXE, waits for broker readiness and cooperatively stops
+owned nested kill-on-close Jobs. It starts manually; automatic startup and cold
+boot have not been tested.
 
-The external Android renderer still runs inside an ARM64 guest with audited
-native helpers and 128 ms buffering. A relocatable backend package, service
-deployment, worker restart/recovery and sustained scheduling remain open.
-Startup registration is not performed by these tools. Kernel/codec gain,
-calibration and amplifier protection are untouched.
+`NabuDolbyBroker.cpp` verifies owned process handles and worker PIDs. Confirmed
+death releases only worker ownership. The live APO epoch and queue cursors stay
+intact. The replacement is the sole request consumer and skips entirely expired
+records; discontinuities restore exact original DSP state. Each slot permits two
+restart attempts, with all attempt logs retained. Broker/service open no audio
+endpoint and dispatch no Qualcomm DSP commands.
 
-Build from an ARM64 EWDK environment:
+ARM64 EWDK .16 passed 24 COM, eight ownership, seven expiry and ten broker cases;
+three original-output comparisons remain exact. Three-minute quiet .15 recorded
+8,635,296 wet / zero dry frames. Quiet .16 recovered an injected worker exit in
+the same audiodg/epoch: 86,272 dry frames (1.80 s total), including 896 after the
+recovery snapshot. Timing and 128 ms latency remain open. APO .4 / kernel .20
+and calibration were restored; acoustic L/R and maximum-volume safety unproved.
+
+[Measured evidence](../../../../docs/results/audio-dolby-service-recovery-2026-11-25.json)
+
+From an ARM64 EWDK environment:
 
 ```powershell
-powershell.exe -File .\Build-Broker.ps1 -OutputDirectory <new-folder>
+.\Build-Service.ps1 -OutputDirectory <new-service-build>
+.\Build-Broker.ps1 -OutputDirectory <new-broker-build>
 ```
 
-The command contract is:
+Stage an already qualified, signed runtime plus its matching APO:
+
+```powershell
+.\Build-RuntimeBundle.ps1 -RuntimeDirectory <qualified-runtime> `
+  -ApoPackageDirectory <signed-apo-package> -OutputDirectory <new-bundle> `
+  -RuntimeVersion 1.0.0-lab02
+```
+
+The builder copies manifest-listed files, verifies signatures/matching APO
+hashes and emits ZIP/member digests. `Install-Runtime.ps1` installs a versioned
+LocalService backend and saves previous service configuration on SSD. Identical
+versions can be reused; differing content is preserved and rejected. Rollback
+restores the previous owned service, retaining both directories. Actual fresh
+and reused installations, cooperative stop and rollback passed.
+
+The installer installs only the backend, with a unique smoke bank and Manual
+start. The included signed APO candidate still needs controlled graph binding.
+It changes no drivers, endpoint properties, gain/protection, automatic startup
+or Windows boot state. The public kernel ZIP remains .20 without this runtime.
+
+Broker contract:
 
 ```text
 NabuDolbyBroker.exe <bridge.dll> <worker.exe> <worker-script-or-dash> <new-output>
                    <bank-name> <duration-seconds> <slots> <source-fingerprint>
 ```
 
-Use `-` for a native worker; otherwise the broker invokes the worker executable
-with its script. Each worker receives the transport name, a fresh output folder
-and the bridge DLL path. Slots are 1–4; duration is 0–3600 seconds, with 0 meaning
-run until stopped. `Stop.request` in the owned output folder requests cooperative
-shutdown. Ctrl+C is supported when attached to a console. The broker opens no
-audio endpoint and installs no drivers.
-
-The current original worker needs explicitly configured, previously qualified
-external resources:
-
-- `NABU_DOLBY_SUPPORT_ROOT`: Bridge, OriginalState and MathImports support folder.
-- `NABU_DOLBY_RENDER_ROOT`: original renderer and benchmark dependency folder.
-- `NABU_DOLBY_NATIVE_ROOT`: qualified SharedLevelScale adapter folder.
-- `NABU_CLASSIFIER_BUILD`: selected qualified classifier helper build.
-- `NABU_DOLBY_BRIDGE_SHA256`: exact bridge DLL digest, checked before processing.
-
-These paths describe the current research backend; they are recorded in the
-prepared local package rather than inferred from the chat or current directory.
-Real system activation uses the verified .14 APO and bound .36 settings; source
-fingerprint and DLL hashes must match their tested manifests. The current public
-kernel driver ZIP does not include this experimental runtime.
-
-Worker claims now store their PID. The supervisor validates a signaled process
-handle against that PID before reclaiming an idle slot. If an APO still owns the
-stream, readiness is withdrawn and recovery waits for release; queue cursors are
-not reset during active production. Each slot has at most two restart attempts,
-with previous worker logs retained in separate attempt folders. Active-stream
-recovery and a complete relocatable backend/service installation remain open.
-
-The .14 quiet trial on kernel .20 confirms normal live processing and cleanup.
-Worker failure/restart was exercised separately with paced COM and original
-Android DSP software comparisons; it was not injected into the physical trial.
+Slots are 1–4; duration is 0–3600 seconds (0 runs until stopped). `Stop.request`
+in the owned output requests cooperative shutdown. Duplicate banks, other
+owners' mappings and unconfirmed/live process handles are rejected.

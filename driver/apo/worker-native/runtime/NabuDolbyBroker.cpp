@@ -171,7 +171,7 @@ struct Api
         stop = get<Close>("NabuTransportStop");
         metric = get<Metric>("NabuTransportMetric");
         frames = get<Frames>("NabuTransportFrames");
-        reclaim = get<Reclaim>("NabuSupervisorReclaimExitedWorker");
+        reclaim = get<Reclaim>("NabuSupervisorReleaseExitedWorker");
     }
 };
 struct Worker
@@ -207,7 +207,7 @@ class Broker
              << (published_ ? "true" : "false")
              << ",\"forced_owned_job_termination\":" << (forced_ ? "true" : "false")
              << ",\"duration_seconds\":" << seconds_ << ",\"bank\":" << json(bankName_)
-             << ",\"recovery_mode\":\"after_stream_release\",\"restart_limit_per_slot\":2"
+             << ",\"recovery_mode\":\"preserve_active_stream\",\"restart_limit_per_slot\":2"
              << ",\"source_fingerprint\":" << json(fingerprint_) << ",\"workers\":[";
         for (size_t i = 0; i < workers_.size(); ++i)
         {
@@ -232,7 +232,8 @@ class Broker
                      << ",\"blocks_replied\":" << api_.metric(w.view, 6)
                      << ",\"frames_processed\":" << api_.frames(w.view, 0)
                      << ",\"frames_wet\":" << api_.frames(w.view, 1)
-                     << ",\"frames_dry\":" << api_.frames(w.view, 2);
+                     << ",\"frames_dry\":" << api_.frames(w.view, 2)
+                     << ",\"first_dry_frame\":" << api_.frames(w.view, 3);
             data << '}';
         }
         data << "],\"telemetry_write_failures\":" << skippedReports_

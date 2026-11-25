@@ -3,7 +3,7 @@ Signature="$WINDOWS NT$"
 Class=AudioProcessingObject
 ClassGuid={5989FCE8-9CD0-467D-8A6A-5419E31529D4}
 Provider=%Provider%
-DriverVer=11/25/2026,2.0.0.14
+DriverVer=11/26/2026,2.0.0.16
 CatalogFile=NabuDolbyApo.cat
 PnpLockdown=1
 [Manufacturer]

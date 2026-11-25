@@ -23,6 +23,7 @@ typedef struct {
     uint64_t next_frame;
     uint64_t wet_count;
     uint64_t dry_count;
+    uint64_t first_dry_frame;
 } DolbyFallback;
 
 /* The caller owns the delay buffer and allocates it outside the audio callback. */
@@ -31,7 +32,7 @@ static int dolby_fallback_init(DolbyFallback *state, StereoFrame *buffer, size_t
     if (!state || !buffer || !delay || delay > SIZE_MAX / sizeof(*buffer))
         return 0;
     memset(buffer, 0, delay * sizeof(*buffer));
-    DolbyFallback initial = {buffer, delay, 0, 0, 0, 0};
+    DolbyFallback initial = {buffer, delay, 0, 0, 0, 0, UINT64_MAX};
     *state = initial;
     return 1;
 }
@@ -65,7 +66,10 @@ static void dolby_fallback_process(DolbyFallback *state, const StereoFrame *inpu
         }
         output[i] = chosen;
         if (used_wet) ++state->wet_count;
-        else if (current >= state->delay) ++state->dry_count;
+        else if (current >= state->delay) {
+            ++state->dry_count;
+            if (state->first_dry_frame == UINT64_MAX) state->first_dry_frame = current;
+        }
     }
 }
 

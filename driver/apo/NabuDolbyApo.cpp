@@ -442,6 +442,7 @@ public:
             InterlockedExchange64(&s->frames_processed, stream_.fallback.next_frame);
             InterlockedExchange64(&s->frames_wet, stream_.fallback.wet_count);
             InterlockedExchange64(&s->frames_dry, stream_.fallback.dry_count);
+            InterlockedExchange64(&s->first_dry_frame, LONG64(stream_.fallback.first_dry_frame));
         }
         output.u32BufferFlags = BUFFER_VALID;
     }
@@ -496,6 +497,7 @@ private:
             InterlockedExchange64(&shared_->frames_processed,0);
             InterlockedExchange64(&shared_->frames_wet,0);
             InterlockedExchange64(&shared_->frames_dry,0);
+            InterlockedExchange64(&shared_->first_dry_frame,-1);
         }
     }
 
