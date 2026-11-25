@@ -2,7 +2,13 @@
 
 [English](audio-system-progress.md) · [Русский](audio-system-progress.ru.md) · [简体中文](audio-system-progress.zh-CN.md)
 
-**New · APO .10 / Windows 11 settings .36:** an explicitly selected unavailable, invalid or occupied Dolby bank no longer falls through to the common bank. The .9 control failed 14 of 28 native policy fixtures; .10 passed all 28. Only the fixed Global resolver was redirected to real Local test mappings. This is a reproducible software fix, not a system-audio or shutdown-cause diagnosis.
+**New · original MiSound speaker plan:** the C/H helper reproduces MiSoundDSP_SetSPKParam instead of emitting only a scalar control. All **864 comparisons** against actual original ARM64 execution passed: 480 supported cases with exact commands/final routes and 384 unsupported cases with untouched output. The original emits 2/4/10/12 commands across AppType 0x11130/0x11134; its persistent-rate table is 44100/48000/88200/96000/192000. Eight-byte payloads and the special mode rules retain their original bits and order. This is calibration/control routing, not a hardware-rate or speaker-isolation claim.
+
+The four-component ARM64 EWDK library passed 53 native cases using real NOACCESS pages and 13 invalid-input cases. The ten factory tables and fourteen rejection cases still pass; ordinary installed-file reads still match HyperOS. Four original functions were exported in Ghidra with raw instructions. Android service dispatch/logging was intercepted in the reference execution; no DSP command, playback or driver installation occurred. This closes the missing command-plan source, while actual system MiSound/Dolby, physical L/R and maximum-volume safety remain open.
+
+[Measured evidence](results/audio-misound-speaker-plan-2026-11-25.json) · [MiSound C/H source](../driver/dsp/)
+
+**Previous · APO .10 / Windows 11 settings .36:** an explicitly selected unavailable, invalid or occupied Dolby bank no longer falls through to the common bank. The .9 control failed 14 of 28 native policy fixtures; .10 passed all 28. Only the fixed Global resolver was redirected to real Local test mappings. This is a reproducible software fix, not a system-audio or shutdown-cause diagnosis.
 
 The .36 extension declares the Default store for the exact context used by APOInitSystemEffects3, instead of placing the custom bank property in the legacy flat store. Native SetupAPI parsing passed and rejected five malformed contracts, including an OEM MFX overwrite. Existing OEM MFX/EFX values are untouched by this INF. Signed .10/.36 catalogs and members passed verification; read-only preflight passed. Five memory, seven logging, two epoch and seven original-worker regressions passed; normal/irregular output remains exact for 196,608 frames. Fifteen synthetic context-cleanup cases pass; actual installation, context read and rollback remain untested.
 
@@ -48,7 +54,7 @@ No loudness or HyperOS-quality improvement is claimed. Quiet digital loopback is
 | Digital L/R | Separation unmeasured. | ✅ Four quiet cases passed; opposite 800 Hz tone <0.1%. UID/I²C board mapping matches Android. Acoustic isolation remains unverified. |
 | Dolby APO | An unavailable explicit bank could select the common fallback; settings used the flat store. | ✅ .10 honors explicit selection; .36 declares the correct context. 28 software cases pass. ❌ System processing unverified. |
 | PCM24 | Format/pacing failures. | ✅ Earlier 13 timing/reopen cases passed. Hardware PCM24 remains unverified. |
-| MiSound | Filter reader ignored damaged profile tails; DSP commands timed out. | ✅ Complete profile validation and 502 exact records. ❌ System DSP processing remains unverified. |
+| MiSound | Only single controls were encoded; complete speaker dispatch was absent. | ✅ 502 exact factory records and the original command plan; 864 code comparisons pass. ❌ System DSP processing unverified. |
 
 GPIO interrupt configuration and the protection mask now propagate errors and verify readbacks before DSP/amp enablement. The healthy writes, firmware, coefficients and factory calibration remain unchanged. EWDK, catalog generation and signing passed.
 

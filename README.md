@@ -26,16 +26,22 @@ Download: **4.17.27.16**. Development source: **4.17.27.18**. The published ZIP 
 
 ## Update history
 
-### 2026-11-25 — Dolby APO 2.0.0.10-lab / settings .36
+### 2026-11-25 — original MiSound speaker command plan
 
-- ✅ Fixed explicit Dolby configuration fallback: **28 software cases** pass; the .9 control failed 14.
-- ✅ Added the Windows 11 settings context; signed .10/.36 packages are prepared. **5 + 7 + 2 + 7** regression cases pass; original output stays exact for 196,608 frames.
-- ❌ Real system Dolby/MiSound and physical L/R remain unconfirmed. Installed kernel .18 is unchanged.
+- ✅ Added the original 2/4/10/12-command speaker sequence, including active/persistent routes and mode exceptions.
+- ✅ ARM64 build passed **864 original-machine-code comparisons + 53 memory-bound cases**; existing factory filter checks still pass.
+- ❌ Actual system Dolby/MiSound and physical L/R remain unconfirmed. Installed kernel .18 is unchanged.
 
 [Measured evidence](docs/audio-system-progress.md)
 
 <details>
 <summary>Previous updates</summary>
+
+#### 2026-11-25 — Dolby APO 2.0.0.10-lab / settings .36
+
+- ✅ Fixed explicit Dolby configuration fallback: **28 software cases** pass; the .9 control failed 14.
+- ✅ Added the Windows 11 settings context; signed .10/.36 packages are prepared. **5 + 7 + 2 + 7** regression cases pass; original output stays exact for 196,608 frames.
+- ❌ Real system Dolby/MiSound and physical L/R remain unconfirmed. Installed kernel .18 is unchanged.
 
 #### 2026-11-25 — MiSound resource reader v2
 
@@ -94,7 +100,7 @@ PCM24 research set: all 13 timing/reopen tests passed; average 10 ms notificatio
 | Digital L/R | Separation unmeasured. | ✅ Four quiet cases passed; opposite 800 Hz tone <0.1%. UID/I²C board mapping matches Android. Acoustic isolation remains unverified. |
 | Dolby APO | An unavailable explicit bank could select the common fallback; settings used the flat store. | ✅ .10 honors explicit selection; .36 declares the correct context. 28 software cases pass. ❌ System processing unverified. |
 | PCM24 | Format/pacing failures. | ✅ Earlier 13 timing/reopen cases passed. Hardware PCM24 remains unverified. |
-| MiSound | Filter reader ignored damaged profile tails; DSP commands timed out. | ✅ Complete profile validation and 502 exact records. ❌ System DSP processing remains unverified. |
+| MiSound | Only single controls were encoded; complete speaker dispatch was absent. | ✅ 502 exact factory records and the original command plan; 864 code comparisons pass. ❌ System DSP processing unverified. |
 
 System Dolby, MiSound, acoustic L/R separation and HyperOS-quality sound remain unconfirmed. No new loudness increase is claimed.
 
