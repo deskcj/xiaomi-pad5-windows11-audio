@@ -143,7 +143,29 @@
     "MaximumVolumeSafety": false
   },
   "Publication": {
-    "PackagePublished": false
+    "PackagePublished": true,
+    "ReleaseUrl": "https://github.com/deskcj/xiaomi-pad5-windows11-audio/releases/tag/dolby-2.0.0.22-lab13",
+    "Assets": [
+      {
+        "Name": "xiaomi-pad5-dolby-2.0.0.22-lab13-arm64-addon.zip",
+        "Size": 11967177,
+        "Sha256": "961b17f2fd9b71dd0c7ab2144b2d87ad1ed22952b50ad79e2ffff839ddc79e36",
+        "Url": "https://github.com/deskcj/xiaomi-pad5-windows11-audio/releases/download/untagged-0e142b62d1f902d064a2/xiaomi-pad5-dolby-2.0.0.22-lab13-arm64-addon.zip"
+      },
+      {
+        "Name": "xiaomi-pad5-dolby-2.0.0.22-lab13-arm64-addon.zip.p7s",
+        "Size": 1200,
+        "Sha256": "7faa5b661fe4952bbcf5dbf74e6a96d979079088f0dd027c4f26c7dd3487b6b9",
+        "Url": "https://github.com/deskcj/xiaomi-pad5-windows11-audio/releases/download/untagged-0e142b62d1f902d064a2/xiaomi-pad5-dolby-2.0.0.22-lab13-arm64-addon.zip.p7s"
+      },
+      {
+        "Name": "SHA256SUMS.txt",
+        "Size": 234,
+        "Sha256": "0a13129351c209a65d64975eb3b5329d0b16d0ef29bee770b7e9b20c5a49bd00",
+        "Url": "https://github.com/deskcj/xiaomi-pad5-windows11-audio/releases/download/untagged-0e142b62d1f902d064a2/SHA256SUMS.txt"
+      }
+    ],
+    "RemoteDigestsVerified": true
   },
   "Package": {
     "Sha256": "961b17f2fd9b71dd0c7ab2144b2d87ad1ed22952b50ad79e2ffff839ddc79e36",

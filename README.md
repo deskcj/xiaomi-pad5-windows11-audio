@@ -49,9 +49,9 @@ Current tablet: amplifier **4.17.27.20**, APO **2.0.0.22**, bound SFX **.37** an
 
 [Evidence](docs/results/audio-dolby-warm-recovery-2026-11-26.json)
 
-## 🏖️ Sandbox
+## ⏳ In progress
 
-- 🔧 In progress: lower Dolby latency, gapless recovery and startup qualification.
+- ⏳ Dolby: lower latency, gapless recovery and startup qualification.
 - ❌ Unfinished: MiSound DSP, Atmos objects, physical four-speaker L/R and hardware PCM24.
 
 ## ❤️ Help bring better sound to Windows on nabu
