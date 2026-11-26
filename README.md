@@ -24,6 +24,8 @@ The ZIP includes a PowerShell installer and rollback. Use the four factory calib
 
 Download: **4.17.27.20**. Development source: **4.17.27.20**. The published ZIP does not include system Dolby or MiSound.
 
+[Experimental Dolby .21 / lab09 add-on](https://github.com/deskcj/xiaomi-pad5-windows11-audio/releases/tag/dolby-2.0.0.21-lab09): matching APO/SFX/backend, installer, rollback, archive signature and SHA-256. Qualification continues.
+
 ## Project status
 
 | Function | Status |
@@ -49,7 +51,7 @@ Current tablet: amplifier **4.17.27.20**, APO **2.0.0.21** and standalone experi
 ## Sandbox
 
 - Installed Dolby .21 now runs through the independent service. Next: startup/preferences and seamless worker recovery.
-- MiSound DSP, physical four-speaker L/R and hardware PCM24 remain open. The complete Dolby add-on ZIP is retained locally while qualification continues.
+- MiSound DSP, physical four-speaker L/R and hardware PCM24 remain open. The complete Dolby add-on ZIP is published as experimental.
 
 ## ❤️ Help bring better sound to Windows on nabu
 

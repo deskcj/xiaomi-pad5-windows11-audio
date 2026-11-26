@@ -49,10 +49,14 @@
   },
   "Package": {
     "Kind": "ExperimentalDolbyGraphAddon",
-    "Zip": "dolby-graph23c.zip",
+    "Zip": "xiaomi-pad5-dolby-2.0.0.21-lab09-arm64-addon.zip",
     "Sha256": "58769a2aff47525ca4291173875ae10d8dad27ec46be6f12657661cb24ecf70f",
     "Bytes": 11565699,
-    "PublicRelease": false
+    "PublicRelease": true,
+    "ReleaseUrl": "https://github.com/deskcj/xiaomi-pad5-windows11-audio/releases/tag/dolby-2.0.0.21-lab09",
+    "DetachedCmsSignatureVerified": true,
+    "SignatureSha256": "7d2c63191bc80741edaa519f948daac7a44638d286028ddc429929a54bc25d0f",
+    "SignerThumbprint": "F38EDD5C105095C8342556158CE66253F045965D"
   },
   "Limitations": {
     "ColdBootQualified": false,
