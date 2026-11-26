@@ -1,4 +1,4 @@
-param([ValidateSet('QuietStereoProbe','QuietContinuityProbe','ApoSettingsProbe','ApoClassActivationProbe','ApoSecurityProbe','ApoFactoryContractProbe','ApoEffectControlProbe')][string]$Probe='QuietStereoProbe',
+param([ValidateSet('QuietStereoProbe','QuietContinuityProbe','QuietEffectsManagerProbe','ApoSettingsProbe','ApoClassActivationProbe','ApoSecurityProbe','ApoFactoryContractProbe','ApoEffectControlProbe')][string]$Probe='QuietStereoProbe',
     [Parameter(Mandatory=$true)][string]$OutputDirectory)
 $ErrorActionPreference='Stop'
 $compiler=(Get-Command cl.exe -ErrorAction Stop).Source
@@ -17,8 +17,8 @@ if($LASTEXITCODE -ne 0){throw 'See Link.log'}
 [ordered]@{
     Architecture='ARM64';Probe=$Probe;SourceSha256=(Get-FileHash -LiteralPath $source).Hash.ToLowerInvariant()
     ExeSha256=(Get-FileHash -LiteralPath $exe).Hash.ToLowerInvariant()
-    SourcePeak=$(if($Probe -in 'QuietStereoProbe','QuietContinuityProbe'){0.001}else{0})
-    OwnedStreamGain=$(if($Probe -in 'QuietStereoProbe','QuietContinuityProbe'){0.01}else{$null})
-    SourcePeakTimesStreamGain=$(if($Probe -in 'QuietStereoProbe','QuietContinuityProbe'){0.00001}else{0})
+    SourcePeak=$(if($Probe -in 'QuietStereoProbe','QuietContinuityProbe','QuietEffectsManagerProbe'){0.001}else{0})
+    OwnedStreamGain=$(if($Probe -in 'QuietStereoProbe','QuietContinuityProbe','QuietEffectsManagerProbe'){0.01}else{$null})
+    SourcePeakTimesStreamGain=$(if($Probe -in 'QuietStereoProbe','QuietContinuityProbe','QuietEffectsManagerProbe'){0.00001}else{0})
     AudioStartedDuringBuild=$false;EndpointVolumeWritten=$false;AcousticStereoProven=$false
 } | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $out 'Build.json') -Encoding utf8

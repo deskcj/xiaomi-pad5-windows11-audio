@@ -1,0 +1,257 @@
+{
+  "ApoVersion": "2.0.0.20",
+  "RealWindowsTrial": true,
+  "SourceFingerprint": "2fdf23fcdde557724298f4920e59ee9c7aa52257918aaffac7fc18baff27be71",
+  "CandidateDllSha256": "7b98e2774b16a13b63225eb5442fe2a6669c5efb449db325752c8a63b5a26b04",
+  "EffectsManager": {
+    "hr": "0x00000000",
+    "endpoint": "{0.0.0.00000000}.{611e5d20-7c0f-4776-82a3-e65770807cad}",
+    "source_pid": 5972,
+    "audio_started": true,
+    "submitted_frames": 245280,
+    "source_peak": 0.001,
+    "owned_stream_gain": 0.01,
+    "stream_gain_verified": true,
+    "volume_unchanged": true,
+    "maximum_meter_peak": 6.10353891e-05,
+    "notifications": 2,
+    "controls": [
+      {
+        "state": "ON",
+        "hr": "0x00000000",
+        "query_hr": "0x00000000",
+        "observed_state": 1,
+        "observed": true,
+        "source_frames_before_request": 0,
+        "source_frames_at_observation": 0
+      },
+      {
+        "state": "OFF",
+        "hr": "0x00000000",
+        "query_hr": "0x00000000",
+        "observed_state": 0,
+        "observed": true,
+        "source_frames_before_request": 99840,
+        "source_frames_at_observation": 100800
+      },
+      {
+        "state": "ON",
+        "hr": "0x00000000",
+        "query_hr": "0x00000000",
+        "observed_state": 1,
+        "observed": true,
+        "source_frames_before_request": 147840,
+        "source_frames_at_observation": 149280
+      }
+    ],
+    "restore_hr": "0x00000000",
+    "unregister_hr": "0x00000000",
+    "physical_acoustic_test": false,
+    "dolby_sample_processing_proven": false,
+    "passed": true
+  },
+  "EffectProcessing": {
+    "FramesProcessed": 240480,
+    "FramesWet": 186815,
+    "IntentionalBypass": 47521,
+    "FailureFallback": 0,
+    "SameStream": true
+  },
+  "LongQuietTrial": {
+    "Seconds": 180,
+    "FramesProcessed": 8640960,
+    "FramesWet": 8482336,
+    "FramesDry": 152480,
+    "DryRuns": 17,
+    "InitialInjectedRecoveryDryFrames": 102368,
+    "AdditionalDryFrames": 50112,
+    "AdditionalDrySeconds": 1.044,
+    "RecoveredInSameEpoch": true,
+    "FinalRetainedRanges": [
+      {
+        "first": 3876832,
+        "last": 3907199
+      },
+      {
+        "first": 3907232,
+        "last": 3908159
+      },
+      {
+        "first": 3908256,
+        "last": 3909119
+      },
+      {
+        "first": 3909280,
+        "last": 3912959
+      },
+      {
+        "first": 3912992,
+        "last": 3921119
+      },
+      {
+        "first": 3921184,
+        "last": 3922079
+      },
+      {
+        "first": 3922208,
+        "last": 3923039
+      },
+      {
+        "first": 3923232,
+        "last": 3923999
+      },
+      {
+        "first": 3924256,
+        "last": 3924959
+      },
+      {
+        "first": 3925280,
+        "last": 3925919
+      },
+      {
+        "first": 3926304,
+        "last": 3926879
+      },
+      {
+        "first": 3927328,
+        "last": 3927839
+      },
+      {
+        "first": 3928352,
+        "last": 3928799
+      },
+      {
+        "first": 3929376,
+        "last": 3929759
+      },
+      {
+        "first": 3930400,
+        "last": 3930719
+      },
+      {
+        "first": 3934496,
+        "last": 3934559
+      }
+    ],
+    "HistoryCapacity": 16,
+    "FirstIntervalPreservedInRecoverySnapshot": [
+      {
+        "first": 126976,
+        "last": 229343
+      }
+    ],
+    "SeamlessRecovery": false,
+    "StablePlaybackQualified": false,
+    "VolumeUnchanged": true
+  },
+  "SourceIdentity": {
+    "InitializationCorrelated": true,
+    "StreamLockCorrelated": true,
+    "ZeroInputProcessingCorrelated": true,
+    "MatchedAudiodgPids": [
+      11008
+    ],
+    "MatchedStreams": [
+      {
+        "Pid": 11008,
+        "TransportName": "Global\\NabuDolbyLab-{DDEAF7EC-7E8E-4D4F-9EA8-A03E33BEF8D5}-0",
+        "Generation": 5
+      }
+    ],
+    "AcceptedEvents": [
+      {
+        "Pid": 11008,
+        "Phase": "Initialize",
+        "DelayFrames": 6144,
+        "TransportName": "Global\\NabuDolbyLab-{DDEAF7EC-7E8E-4D4F-9EA8-A03E33BEF8D5}-0",
+        "Generation": 0
+      },
+      {
+        "Pid": 11008,
+        "Phase": "LockForProcess",
+        "DelayFrames": 6144,
+        "TransportName": "Global\\NabuDolbyLab-{DDEAF7EC-7E8E-4D4F-9EA8-A03E33BEF8D5}-0",
+        "Generation": 3
+      },
+      {
+        "Pid": 11008,
+        "Phase": "Initialize",
+        "DelayFrames": 6144,
+        "TransportName": "Global\\NabuDolbyLab-{DDEAF7EC-7E8E-4D4F-9EA8-A03E33BEF8D5}-0",
+        "Generation": 0
+      },
+      {
+        "Pid": 11008,
+        "Phase": "LockForProcess",
+        "DelayFrames": 6144,
+        "TransportName": "Global\\NabuDolbyLab-{DDEAF7EC-7E8E-4D4F-9EA8-A03E33BEF8D5}-0",
+        "Generation": 4
+      },
+      {
+        "Pid": 11008,
+        "Phase": "Initialize",
+        "DelayFrames": 6144,
+        "TransportName": "Global\\NabuDolbyLab-{DDEAF7EC-7E8E-4D4F-9EA8-A03E33BEF8D5}-0",
+        "Generation": 0
+      },
+      {
+        "Pid": 11008,
+        "Phase": "LockForProcess",
+        "DelayFrames": 6144,
+        "TransportName": "Global\\NabuDolbyLab-{DDEAF7EC-7E8E-4D4F-9EA8-A03E33BEF8D5}-0",
+        "Generation": 5
+      }
+    ],
+    "AcousticLrProven": false,
+    "HyperOsQualityProven": false,
+    "Interpretation": "Correlation of supplied trace/counter records only; real trial provenance must be established by the collector."
+  },
+  "Rollback": {
+    "Apo": {
+      "Device": {
+        "InstanceId": "SWD\\DRIVERENUM\\{fd13c2df-5315-4f4f-9556-f78fb784a12a}#NabuDolbyGlobal&7&291fb903&0",
+        "ConfigResult": 0,
+        "Started": true,
+        "NeedsRestart": false,
+        "Problem": 0,
+        "Version": "2.0.0.4",
+        "Inf": "oem36.inf"
+      },
+      "RegisteredDll": "C:\\Windows\\System32\\DriverStore\\FileRepository\\nabudolbyglobal.inf_arm64_91d1618bb9502c3d\\NabuDolbyBridge.dll",
+      "DllHash": "dc0c29a144090f83b4532c215332f1a0c96aa4c99ca9db1ccdbc1bb5c117889c"
+    },
+    "Service": {
+      "Verified": true,
+      "PriorRunningStatePreserved": true
+    },
+    "FactoryCalibrationUnchanged": true,
+    "Errors": []
+  },
+  "RetainedFailures": {
+    "ImmediateStateQuery": "RuntimeError: Real Windows EffectsManager ON/OFF/ON failed",
+    "MissingLauncherFilename": "H:\\Vlad\\xiaomi-pad5-windows11-audio\\local\\build\\dolby-software-probe\\native-arm64\\pythonarm64\\tools\\python.exe: can't open file 'H:\\\\Vlad\\\\xiaomi-pad5-windows11-audio\\\\local\\\\Codex-2026-11-26\\\\audio-cycle21\\\\ApoV20EffectsTrial21be.py': [Errno 2] No such file or directory"
+  },
+  "Scope": {
+    "WindowsRebootDuringTrials": false,
+    "PhysicalAcousticIsolation": false,
+    "MiSoundDsp": false,
+    "HardwarePcm24": false,
+    "AtmosObjects": false,
+    "FullProjectComplete": false
+  },
+  "Sources": {
+    "TrialSha256": "0404c0e038e3283d044d18dcbb5e7a387bc6e5a8b81d7cce147ee66658106a35",
+    "Probe": {
+      "Architecture": "ARM64",
+      "Probe": "QuietEffectsManagerProbe",
+      "SourceSha256": "a9a623ec4f44d95e9b26f1f789ba5b5e699b8cfeeb6bc5b09acf91a1d06a1c25",
+      "ExeSha256": "14439258ab4c50405a59465188bc9d2abab3b21b894987b33d946929e809335b",
+      "SourcePeak": 0.001,
+      "OwnedStreamGain": 0.01,
+      "SourcePeakTimesStreamGain": 1e-05,
+      "AudioStartedDuringBuild": false,
+      "EndpointVolumeWritten": false,
+      "AcousticStereoProven": false
+    }
+  }
+}

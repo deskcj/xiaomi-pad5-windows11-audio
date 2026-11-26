@@ -1,6 +1,6 @@
 # Динамики Xiaomi Pad 5 (nabu) в Windows 11 ARM64
 
-[![English](https://img.shields.io/badge/English-d0d7de?style=for-the-badge&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MCAzNiI%2BPHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjM2IiBmaWxsPSIjMDEyMTY5Ii8%2BPHBhdGggZD0iTTAgMCA2MCAzNk02MCAwIDAgMzYiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxMCIvPjxwYXRoIGQ9Ik0wIDAgNjAgMzZNNjAgMCAwIDM2IiBzdHJva2U9IiNDODEwMkUiIHN0cm9rZS13aWR0aD0iNCIvPjxwYXRoIGQ9Ik0zMCAwdjM2TTAgMThoNjAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxMiIvPjxwYXRoIGQ9Ik0zMCAwdjM2TTAgMThoNjAiIHN0cm9rZT0iI0M4MTAyRSIgc3Ryb2tlLXdpZHRoPSI2Ii8%2BPC9zdmc%2B)](../README.md) [![Русский](https://img.shields.io/badge/%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9-2f81f7?style=for-the-badge&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MCAzNiI%2BPHBhdGggZmlsbD0iI2ZmZiIgZD0iTTAgMGg2MHYxMkgweiIvPjxwYXRoIGZpbGw9IiMwMDM5QTYiIGQ9Ik0wIDEyaDYwdjEySDB6Ii8%2BPHBhdGggZmlsbD0iI0Q1MkIxRSIgZD0iTTAgMjRoNjB2MTJIMHoiLz48L3N2Zz4%3D)](README.ru.md) [![简体中文](https://img.shields.io/badge/%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-d0d7de?style=for-the-badge&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MCAzNiI%2BPHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjM2IiBmaWxsPSIjREUyOTEwIi8%2BPHBvbHlnb24gcG9pbnRzPSIxMi4wLDMuNyAxMy41LDcuOSAxOC4wLDguMSAxNC41LDEwLjggMTUuNywxNS4xIDEyLjAsMTIuNiA4LjMsMTUuMSA5LjUsMTAuOCA2LjAsOC4xIDEwLjUsNy45IiBmaWxsPSIjRkZERTAwIi8%2BPHBvbHlnb24gcG9pbnRzPSIyNC4wLDEuNyAyNC42LDMuMiAyNi4yLDMuMyAyNS4wLDQuMyAyNS40LDUuOSAyNC4wLDUuMCAyMi42LDUuOSAyMy4wLDQuMyAyMS44LDMuMyAyMy40LDMuMiIgZmlsbD0iI0ZGREUwMCIvPjxwb2x5Z29uIHBvaW50cz0iMjkuMCw2LjcgMjkuNiw4LjIgMzEuMiw4LjMgMzAuMCw5LjMgMzAuNCwxMC45IDI5LjAsMTAuMCAyNy42LDEwLjkgMjguMCw5LjMgMjYuOCw4LjMgMjguNCw4LjIiIGZpbGw9IiNGRkRFMDAiLz48cG9seWdvbiBwb2ludHM9IjI5LjAsMTMuNyAyOS42LDE1LjIgMzEuMiwxNS4zIDMwLjAsMTYuMyAzMC40LDE3LjkgMjkuMCwxNy4wIDI3LjYsMTcuOSAyOC4wLDE2LjMgMjYuOCwxNS4zIDI4LjQsMTUuMiIgZmlsbD0iI0ZGREUwMCIvPjxwb2x5Z29uIHBvaW50cz0iMjQuMCwxOC43IDI0LjYsMjAuMiAyNi4yLDIwLjMgMjUuMCwyMS4zIDI1LjQsMjIuOSAyNC4wLDIyLjAgMjIuNiwyMi45IDIzLjAsMjEuMyAyMS44LDIwLjMgMjMuNCwyMC4yIiBmaWxsPSIjRkZERTAwIi8%2BPC9zdmc%2B)](README.zh-CN.md)
+[![English](https://img.shields.io/badge/English-d0d7de?style=for-the-badge&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MCAzNiI%2BPHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjM2IiBmaWxsPSIjMDEyMTY5Ii8%2BPHBhdGggZD0iTTAgMCA2MCAzNk02MCAwIDAgMzYiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxMCIvPjxwYXRoIGQ9Ik0wIDAgNjAgMzZNNjAgMCAwIDM2IiBzdHJva2U9IiNDODEwMkUiIHN0cm9rZS13aWR0aD0iNCIvPjxwYXRoIGQ9Ik0zMCAwdjM2TTAgMThoNjAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxMiIvPjxwYXRoIGQ9Ik0zMCAwdjM2TTAgMThoNjAiIHN0cm9rZT0iI0M4MTAyRSIgc3Ryb2tlLXdpZHRoPSI2Ii8%2BPC9zdmc%2B)](../README.md) [![Русский](https://img.shields.io/badge/%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9-2f81f7?style=for-the-badge&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MCAzNiI%2BPHBhdGggZmlsbD0iI2ZmZiIgZD0iTTAgMGg2MHYxMkgweiIvPjxwYXRoIGZpbGw9IiMwMDM5QTYiIGQ9Ik0wIDEyaDYwdjEySDB6Ii8%2BPHBhdGggZmlsbD0iI0Q1MkIxRSIgZD0iTTAgMjRoNjB2MTJIMHoiLz48L3N2Zz4%3D)](README.ru.md)
 
 ![Статус – в разработке](https://img.shields.io/badge/status-in%20development-orange?style=for-the-badge) ![Устройство – Xiaomi Pad 5](https://img.shields.io/badge/device-Xiaomi%20Pad%205-blue?style=for-the-badge) ![Платформа – Windows 11 ARM64](https://img.shields.io/badge/platform-Windows%2011%20ARM64-0078D4?style=for-the-badge)
 
@@ -24,27 +24,30 @@
 
 Для скачивания: **4.17.27.20**. Исходники разработки: **4.17.27.20**. В опубликованном ZIP системных Dolby и MiSound нет.
 
+## Статус проекта
+
+| Функция | Статус |
+| --- | --- |
+| Четыре усилителя CS35L41 | ✅ .20 установлена и запущена на текущей UEFI. |
+| ID текущей UEFI и Remtrik | ✅ Проверены DSDT/INF. ❌ Установка на Remtrik ещё не испытана. |
+| Оригинальная обработка Dolby | ✅ Точные сравнения с оригиналом и прежние реальные SFX-тесты. |
+| Переключение Dolby .20 | ✅ Реальная .20 в audiodg и ON/OFF/ON через Windows API; 47 521 кадр намеренного обхода, ноль аварийного. |
+| Самостоятельный backend Dolby | ✅ LocalService, настройка SCM Automatic, установка и откат. |
+| Постоянный Dolby / Atmos | ❌ Не завершены полный граф/холодный запуск, задержка/восстановление и объекты Atmos. |
+| Стерео L/R | ✅ Цифровые Normal/RAW. ❌ Разделение четырёх физических динамиков не подтверждено. |
+| Ресурсы/управление MiSound | ✅ Заводские данные, тесты команд/исходников и чтение ACDB. |
+| MiSound в Qualcomm DSP | ❌ Не завершены реальные модули, граф, COPP и обработка. |
+| Аппаратный PCM24 / качество HyperOS | ❌ Не подтверждены разрядность, акустика, сон и безопасность максимума. |
+
+На планшете: усилители **4.17.27.20**, APO **2.0.0.4**. Backend .18 в Manual остановлен после перезагрузки. Подписанный кандидат .20 и откат сохранены на SSD; постоянная системная обработка ещё не подтверждена.
+
 ## История обновлений
 
-| Дата | Изменение | Проверка |
-| --- | --- | --- |
-| 26.11 | APO .20: переключение, прогрев, Automatic backend и чтение ACDB. | Программные тесты + реальная установка/откат службы; новая APO в audiodg ещё не проверена. |
-| 25.11 | Усилители .20: ID текущей UEFI и Remtrik. | Четыре устройства на текущей UEFI; установка на Remtrik впереди. |
-| 25.11 | Восстановление активного потока Dolby .17. | Тихий тест 3 минуты; один интервал обхода 1,808 с. |
+- **26.11:** ✅ .20 установлена и проверена в audiodg; ON/OFF/ON работает. ❌ В тесте 3 минуты найдены дополнительные пропуски: 50 112 кадров (1,044 с).
+- **26.11:** ✅ Windows перезагружена, флаг Qualcomm снят. Следующий этап — новый тест .20 на устройстве.
+- **25.11:** ✅ Усилители .20 на текущей UEFI; ✅ тихий тест восстановления Dolby .17. ❌ Бесшовное восстановление ещё не завершено.
 
-[Подробная история](history/readme-2026-11-26.ru.md) · [26.11 · JSON](results/audio-dolby-runtime-acdb-2026-11-26.json)
-
-## Текущее состояние
-
-| Направление | Подтверждено | Осталось |
-| --- | --- | --- |
-| Четыре усилителя / UEFI | .20 установлена; поддержаны ID текущей UEFI и Remtrik. | Установка на Remtrik. |
-| Dolby | Ранее реальный SFX; тесты выхода/переключения .20; самостоятельный backend и SCM Automatic. | Постоянный граф/холодный запуск, EffectsManager, задержка/восстановление и объекты Atmos. |
-| Стерео | Цифровые Normal/RAW L/R. | Акустическое разделение каждого динамика. |
-| MiSound | Заводские данные/команды и проверенное чтение ACDB. | Модули, граф, COPP и обработка в реальном DSP. |
-| PCM24 / качество | Ранее программные проверки. | Аппаратный PCM24, звук HyperOS, сон и безопасность максимума. |
-
-На планшете: усилители **4.17.27.20**, APO **2.0.0.4**; backend .18 восстановлен в Manual. Qualcomm всё ещё требует перезагрузку Windows перед новым испытанием APO. Подписанная APO .20 пока кандидат, аппаратного подтверждения нет.
+[Подробная история](history/readme-2026-11-26.ru.md) · [26.11 · JSON](results/audio-effects-manager-live-2026-11-26.json)
 
 ## ❤️ Помочь улучшить звук Windows на nabu
 

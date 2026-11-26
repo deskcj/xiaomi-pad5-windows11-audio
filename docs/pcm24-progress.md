@@ -1,6 +1,6 @@
 # PCM24 progress · 24 November 2026
 
-[English](pcm24-progress.md) · [Русский](pcm24-progress.ru.md) · [简体中文](pcm24-progress.zh-CN.md)
+[English](pcm24-progress.md) · [Русский](pcm24-progress.ru.md)
 
 **Verified:** the experimental component set now transfers 48 kHz stereo PCM24 in 32-bit containers at the required rate through shared and exclusive WASAPI. All 13 native ARM64 timing checks passed. This is progress in the audio data path; additional loudness and Android acoustic parity have not been demonstrated.
 
