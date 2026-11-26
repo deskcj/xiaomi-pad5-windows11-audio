@@ -42,13 +42,13 @@ Current tablet: amplifier **4.17.27.20**, APO **2.0.0.4**. Experimental .21 was 
 
 ## Update history
 
-- **26 Nov:** ✅ .21 packed Float32, original-output tests and live ON/OFF/ON. ❌ Three-minute playback still had 64 extra fallback frames; seamless recovery remains open.
+- **26 Nov:** ✅ Original Dolby/control tests and a 3-minute quiet trial with zero additional fallback. ❌ Injected-worker recovery still pauses about 1.8 s; permanent deployment remains unfinished.
 
-[Evidence](docs/results/audio-packed-dolby-live-2026-11-26.json)
+[Evidence](docs/results/audio-worker-scheduling-live-2026-11-26.json)
 
 ## Sandbox
 
-- Packed .21 validated in a quiet trial; current work targets the remaining fallback and seamless recovery.
+- Packed .21 validated in a quiet trial; current work targets seamless worker recovery and permanent installation.
 - Next: reduce playback stalls, then finish permanent Dolby; MiSound DSP and physical L/R remain open.
 
 ## ❤️ Help bring better sound to Windows on nabu

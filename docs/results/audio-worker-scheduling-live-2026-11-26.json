@@ -1,0 +1,163 @@
+{
+  "ApoVersion": "2.0.0.21",
+  "BackendVersion": "1.0.0-lab08",
+  "Scheduling": {
+    "Task": "Audio",
+    "RequestedPriority": "AVRT_PRIORITY_HIGH",
+    "ObservedThreadPriority": 14
+  },
+  "OriginalAlgorithmsChanged": false,
+  "BatchSizeChanged": false,
+  "RejectedBatchAlternative": {
+    "Frames": 2048,
+    "OriginalOutputExact": true,
+    "PairedMedianRuntimeRatio": 1.0287664815490538,
+    "Applied": false
+  },
+  "LiveQuietTrial": {
+    "Seconds": 180,
+    "FramesProcessed": 8641440,
+    "FramesWet": 8547200,
+    "FramesDry": 88096,
+    "InjectedRecoveryDryFrames": 88096,
+    "AdditionalDryFrames": 0,
+    "DryRanges": [
+      {
+        "first": 155648,
+        "last": 243743
+      }
+    ],
+    "RecoverySeconds": 1.8353333333333333,
+    "MeanRenderMs": 15.297731964414035,
+    "MaxReplyGapMs": 38.86901100031537,
+    "MaxReportMs": 24.690155999451235,
+    "WorkerErrors": [],
+    "Controls": {
+      "hr": "0x00000000",
+      "endpoint": "{0.0.0.00000000}.{ee32bf78-a236-451b-aaef-96cbd1dfbc07}",
+      "source_pid": 2864,
+      "audio_started": true,
+      "submitted_frames": 245280,
+      "source_peak": 0.001,
+      "owned_stream_gain": 0.01,
+      "stream_gain_verified": true,
+      "volume_unchanged": true,
+      "maximum_meter_peak": 6.10353891e-05,
+      "notifications": 3,
+      "controls": [
+        {
+          "state": "ON",
+          "hr": "0x00000000",
+          "query_hr": "0x00000000",
+          "observed_state": 1,
+          "observed": true,
+          "source_frames_before_request": 0,
+          "source_frames_at_observation": 0
+        },
+        {
+          "state": "OFF",
+          "hr": "0x00000000",
+          "query_hr": "0x00000000",
+          "observed_state": 0,
+          "observed": true,
+          "source_frames_before_request": 100320,
+          "source_frames_at_observation": 101760
+        },
+        {
+          "state": "ON",
+          "hr": "0x00000000",
+          "query_hr": "0x00000000",
+          "observed_state": 1,
+          "observed": true,
+          "source_frames_before_request": 148800,
+          "source_frames_at_observation": 149760
+        }
+      ],
+      "restore_hr": "0x00000000",
+      "unregister_hr": "0x00000000",
+      "physical_acoustic_test": false,
+      "dolby_sample_processing_proven": false,
+      "passed": true
+    },
+    "SourceIdentity": {
+      "InitializationCorrelated": true,
+      "StreamLockCorrelated": true,
+      "ZeroInputProcessingCorrelated": true,
+      "MatchedAudiodgPids": [
+        6956
+      ],
+      "MatchedStreams": [
+        {
+          "Pid": 6956,
+          "TransportName": "Global\\NabuDolbyLab-{31C15C5E-36FE-4E3F-BEB7-A00B51AA16D9}-0",
+          "Generation": 5
+        }
+      ],
+      "AcceptedEvents": [
+        {
+          "Pid": 6956,
+          "Phase": "Initialize",
+          "DelayFrames": 6144,
+          "TransportName": "Global\\NabuDolbyLab-{31C15C5E-36FE-4E3F-BEB7-A00B51AA16D9}-0",
+          "Generation": 0
+        },
+        {
+          "Pid": 6956,
+          "Phase": "LockForProcess",
+          "DelayFrames": 6144,
+          "TransportName": "Global\\NabuDolbyLab-{31C15C5E-36FE-4E3F-BEB7-A00B51AA16D9}-0",
+          "Generation": 3
+        },
+        {
+          "Pid": 6956,
+          "Phase": "Initialize",
+          "DelayFrames": 6144,
+          "TransportName": "Global\\NabuDolbyLab-{31C15C5E-36FE-4E3F-BEB7-A00B51AA16D9}-0",
+          "Generation": 0
+        },
+        {
+          "Pid": 6956,
+          "Phase": "LockForProcess",
+          "DelayFrames": 6144,
+          "TransportName": "Global\\NabuDolbyLab-{31C15C5E-36FE-4E3F-BEB7-A00B51AA16D9}-0",
+          "Generation": 4
+        },
+        {
+          "Pid": 6956,
+          "Phase": "Initialize",
+          "DelayFrames": 6144,
+          "TransportName": "Global\\NabuDolbyLab-{31C15C5E-36FE-4E3F-BEB7-A00B51AA16D9}-0",
+          "Generation": 0
+        },
+        {
+          "Pid": 6956,
+          "Phase": "LockForProcess",
+          "DelayFrames": 6144,
+          "TransportName": "Global\\NabuDolbyLab-{31C15C5E-36FE-4E3F-BEB7-A00B51AA16D9}-0",
+          "Generation": 5
+        }
+      ],
+      "AcousticLrProven": false,
+      "HyperOsQualityProven": false,
+      "Interpretation": "Correlation of supplied trace/counter records only; real trial provenance must be established by the collector."
+    },
+    "VolumeUnchanged": true,
+    "FactoryCalibrationUnchanged": true,
+    "RollbackErrors": []
+  },
+  "Qualification": {
+    "QuietThreeMinuteNoAdditionalFallback": true,
+    "UniversalStablePlayback": false,
+    "SeamlessRecovery": false,
+    "PermanentDeployment": false,
+    "MiSoundDsp": false,
+    "AcousticFourSpeakerIsolation": false,
+    "HardwarePcm24": false,
+    "AtmosObjects": false
+  },
+  "Zip": {
+    "Published": false,
+    "LocalSha256": "eb84796e98260a719335a1b8399d286e3fe955852f46d512a3e24c4dcf05dbe8",
+    "FullGraphInstaller": false
+  }
+}

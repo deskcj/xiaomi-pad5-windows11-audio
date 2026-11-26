@@ -44,7 +44,7 @@ def main():
         f=getattr(lib,name);f.restype=result;f.argtypes=args
     view=lib.NabuWorkerOpen(sys.argv[1])
     if not view:raise C.WinError(C.get_last_error())
-    bench.schedule_audio_worker();settings,bass,pregain=render.original_configuration();imports=enable()
+    scheduling=bench.schedule_audio_worker();settings,bass,pregain=render.original_configuration();imports=enable()
     render.SoftwareDap=LevelDap
     player=None;pristine=None;errors=[];resets=collections.deque(maxlen=64);epochs=collections.deque(maxlen=16);durations=collections.deque(maxlen=2048)
     frames=blocks=discarded=reset_count=expired_requests=0;generation=expected_frame=first=0
@@ -69,6 +69,7 @@ def main():
             StartupMs=startup_ms,StartupRequestsDiscarded=startup_discarded,MaxReplyGapMs=max_reply_gap,RecentReplyGaps=list(reply_gaps),MaxReportMs=max_report_ms,
             SignalWarmupMs=signal_warmup_ms,SignalWarmupFrames=1024 if signal_warmup_ms is not None else 0,FirstRequestMs=first_request_ms,FirstRenderMs=first_render_ms,FirstReplyMs=first_reply_ms)
         data['PackedFloat32Path']=True
+        data['Scheduling']=scheduling
         data['SlowestBatches']=[dict(WorkMs=x[0],Generation=x[1],FirstFrame=x[2],RenderMs=x[3]) for x in sorted(slowest,reverse=True)]
         data['SlowBatchCapacity']=64
         if player:
