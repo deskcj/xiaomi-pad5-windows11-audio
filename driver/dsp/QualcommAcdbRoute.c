@@ -52,6 +52,43 @@ static int read_tables(const void *input, size_t bytes, Tables *tables)
     }
     return tables->Pool.Data ? NabuAcdbFileRouteMatches : NabuAcdbMalformed;
 }
+int NabuAcdbGetGlobalPropertyView(const void *globalFile, size_t globalBytes,
+    uint32_t property, NabuAcdbGlobalPropertyView *output)
+{
+    Tables tables={0};
+    Span selected={0};
+    uint32_t rows,matches=0;
+    int status;
+    uintptr_t inputAt=(uintptr_t)globalFile,outputAt=(uintptr_t)output;
+    if(!globalFile || !output || !property || globalBytes>UINT32_MAX)
+        return NabuAcdbInvalidArgument;
+    if(outputAt>=inputAt ? outputAt-inputAt<globalBytes : inputAt-outputAt<sizeof(*output))
+        return NabuAcdbInvalidArgument;
+    status=read_tables(globalFile,globalBytes,&tables);
+    if(status!=NabuAcdbFileRouteMatches) return status;
+    /* Confirm the captured original loader's uncompressed global-file header.
+     * Do not reinterpret device/calibration databases as the global resource.
+     */
+    if(word((const uint8_t *)globalFile+8) || word((const uint8_t *)globalFile+12) ||
+        word((const uint8_t *)globalFile+16)!=0x42444347)
+        return NabuAcdbUnsupportedFormat;
+    if(!tables.Global.Data) return NabuAcdbGlobalPropertyMissing;
+    if(!counted(tables.Global,8,&rows)) return NabuAcdbMalformed;
+    for(uint32_t i=0;i<rows;++i) {
+        const uint8_t *row=tables.Global.Data+4+(size_t)i*8;
+        Span value;
+        if(!pool_value(tables.Pool,word(row+4),&value)) return NabuAcdbMalformed;
+        if(word(row)==property) {
+            if(matches<2) ++matches;
+            selected=value;
+        }
+    }
+    if(!matches) return NabuAcdbGlobalPropertyMissing;
+    if(matches>1) return NabuAcdbAmbiguousRoute;
+    NabuAcdbGlobalPropertyView result={selected.Data,selected.Bytes,property,
+        (uint32_t)(selected.Data-(const uint8_t *)globalFile)};
+    *output=result;return NabuAcdbFileRouteMatches;
+}
 static int device_routes(const Tables *tables, const NabuAcdbRouteQuery *query,
     NabuAcdbRouteReport *report)
 {

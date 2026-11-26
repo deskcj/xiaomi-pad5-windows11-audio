@@ -27,8 +27,25 @@ enum NabuAcdbRouteResult {
     NabuAcdbAmbiguousRoute = 6,
     NabuAcdbMalformed = 7,
     NabuAcdbInvalidArgument = 8,
-    NabuAcdbUnsupportedFormat = 9
+    NabuAcdbUnsupportedFormat = 9,
+    NabuAcdbGlobalPropertyMissing = 10
 };
+
+typedef struct NabuAcdbGlobalPropertyView {
+    const void *Data;
+    size_t Bytes;
+    uint32_t Property, FileOffset;
+} NabuAcdbGlobalPropertyView;
+
+/* Resolve one opaque GPROPLUT/DATAPOOL property from an unchanged uncompressed
+ * global ACDB file. All table rows and their pool bounds are validated before
+ * returning a view. Ambiguous, missing or invalid input leaves view untouched.
+ * Caller owns the input lifetime; view must not overlap that input. This only
+ * prepares bytes for inspection: it does not select a DSP graph, authenticate
+ * firmware resources, register a topology or approve calibration values.
+ */
+int NabuAcdbGetGlobalPropertyView(const void *globalFile, size_t globalBytes,
+    uint32_t property, NabuAcdbGlobalPropertyView *view);
 
 /* Inspect unchanged, uncompressed QCMSNDDB buffers. Resolve DPROPLUT 0x113ad,
  * AGIILUT0 calibration keys and GPROPLUT 0x132ac version-2 module records.

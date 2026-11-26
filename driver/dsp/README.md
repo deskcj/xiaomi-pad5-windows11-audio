@@ -1,5 +1,15 @@
 # MiSound support source
 
+`NabuAcdbGetGlobalPropertyView` now exposes an unchanged GPROPLUT/DATAPOOL
+resource view, including `0x132AC`, with complete table/pool bounds and duplicate
+checks. It preserves opaque bytes and rejects non-global headers. All 31
+properties from Windows/HyperOS files match an independent decoder; 12 boundary
+and malformed cases and 33 real NOACCESS cases pass. Ghidra confirms selector 3
+of `0x140061208` calls global loader `0x14005ea58`; `0x140052f38` copies the
+resource for registration rather than interpreting MiSound algorithms. These
+are file preparation and static code checks, with no live resource load or DSP
+command. [Current evidence](../../docs/results/audio-dolby-runtime-acdb-2026-11-26.json)
+
 `MiSoundAudioConfig.c/.h` reproduce the captured `MiSound_setConfig` validation and preserve all 112 configuration bytes. Rates, masks and format bytes must match; output access is 0 or 2. The original channel count matches the mask popcount. All 246 executions of the original Android function match, including 150 rejections, and 16 native boundary/null/overlap cases pass. Opaque Android pointers are copied as data and never dereferenced on Windows. Accepted format IDs are not Windows format negotiation or evidence of hardware PCM24. [Configuration evidence](../../docs/results/audio-config-capx-stereo-2026-11-25.json)
 
 `MiSoundProtocol.c/.h` encode the original Android control commands. `MiSoundResource.c/.h` validate the captured SPKD/SPMD/NUMM container and all named profile/module records before visiting their raw selectors and binary32 value bits. `MiSoundSpeakerFilters.c/.h` then read the SPMD/MMFD tables without changing their coefficients or scales. Damaged profile tails now reject the resource even when its filter section is intact.

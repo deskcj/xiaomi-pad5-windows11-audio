@@ -47,6 +47,7 @@ def main():
     pending=bytearray();input_digest=hashlib.sha256();output_digest=hashlib.sha256();input_peak=output_peak=render_ms=0.0
     began=time.perf_counter();last_report=began;cancelled=False;telemetry_errors=0;last_telemetry_error=None
     reply_gaps=collections.deque(maxlen=64);last_reply=None;max_reply_gap=max_report_ms=0.0;startup_ms=None;startup_discarded=0
+    first_request_ms=first_render_ms=first_reply_ms=signal_warmup_ms=None
     def report(phase):
         nonlocal telemetry_errors,last_telemetry_error,max_report_ms
         report_began=time.perf_counter()
@@ -61,7 +62,8 @@ def main():
             WholeLibraryNative=False,SnapshotBytes=pristine.bytes if pristine else None,
             WallSeconds=time.perf_counter()-began,Errors=errors,Transport=metrics(lib,view),
             TelemetryWriteFailures=telemetry_errors,LastTelemetryError=last_telemetry_error,
-            StartupMs=startup_ms,StartupRequestsDiscarded=startup_discarded,MaxReplyGapMs=max_reply_gap,RecentReplyGaps=list(reply_gaps),MaxReportMs=max_report_ms)
+            StartupMs=startup_ms,StartupRequestsDiscarded=startup_discarded,MaxReplyGapMs=max_reply_gap,RecentReplyGaps=list(reply_gaps),MaxReportMs=max_report_ms,
+            SignalWarmupMs=signal_warmup_ms,SignalWarmupFrames=1024 if signal_warmup_ms is not None else 0,FirstRequestMs=first_request_ms,FirstRenderMs=first_render_ms,FirstReplyMs=first_reply_ms)
         if player:
             data['NativeLevelScale']=player.dap.level_statistics();data['NativeClassifierCalls']=player.dap.native_statistics()[0]
         temp=output/'worker.json.tmp'
@@ -76,6 +78,14 @@ def main():
         player=render.StereoRenderer(settings|{'preg':(pregain,)},bass,call_timeout_us=None,fast_imports=imports,fast_heap=True)
         player.prepare_buffers(4);player.dap.enable_level();player.dap.enable_c_classifier();pristine=OriginalState(player)
         for _ in range(4):player.render((0.0,)*2048)
+        # Exercise signal-dependent original code before publishing READY. This
+        # is guest-only warmup, never an audio output. Restore every captured
+        # writable region, CPU/heap cursor and original parameter afterwards.
+        warmup=tuple(value for i in range(1024) for value in
+            (0.02*math.sin(2*math.pi*800*i/48000),0.02*math.sin(2*math.pi*1100*i/48000)))
+        warmup_began=time.perf_counter();warm_result=player.render(warmup)
+        signal_warmup_ms=(time.perf_counter()-warmup_began)*1000
+        if any(not math.isfinite(v) or abs(v)>1 for v in warm_result):raise ValueError('Original signal warmup output invalid')
         pristine.restore(player);dropped=C.c_uint32()
         if not lib.NabuWorkerDiscardPending(view,C.byref(dropped)):raise C.WinError(C.get_last_error())
         startup_discarded=dropped.value;startup_ms=(time.perf_counter()-began)*1000
@@ -87,6 +97,7 @@ def main():
             if not available:
                 if time.perf_counter()-last_report>=1:report('Ready');last_report=time.perf_counter()
                 time.sleep(.001);continue
+            if first_request_ms is None:first_request_ms=(time.perf_counter()-began)*1000
             current=lib.NabuTransportGeneration(view)
             if request.generation!=current:discarded+=1;continue
             if request.generation!=generation or request.first_frame!=expected_frame:
@@ -101,6 +112,7 @@ def main():
                 data=bytes(pending[:8192]);del pending[:8192];samples=struct.unpack('<2048f',data)
                 if any(not math.isfinite(v) for v in samples):raise ValueError('Non-finite input')
                 started=time.perf_counter();result=player.render(samples);duration=(time.perf_counter()-started)*1000
+                if first_render_ms is None:first_render_ms=duration
                 if any(not math.isfinite(v) for v in result):raise ValueError('Non-finite Dolby output')
                 ip=max(map(abs,samples));op=max(map(abs,result))
                 if op>1:raise ValueError('Dolby result exceeded normalized Float32 range')
@@ -112,6 +124,7 @@ def main():
                     time.sleep(.001)
                 if cancelled:break
                 replied=time.perf_counter()
+                if first_reply_ms is None:first_reply_ms=(replied-began)*1000
                 if last_reply is not None:
                     gap=(replied-last_reply)*1000;max_reply_gap=max(max_reply_gap,gap)
                     if gap>=25:reply_gaps.append(dict(Generation=generation,FirstFrame=first,GapMs=gap,RenderMs=duration))

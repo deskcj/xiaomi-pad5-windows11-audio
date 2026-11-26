@@ -1,5 +1,6 @@
 param([Parameter(Mandatory=$true)][string]$RuntimeDirectory,[Parameter(Mandatory=$true)][string]$ApoPackageDirectory,
-    [Parameter(Mandatory=$true)][string]$OutputDirectory,[Parameter(Mandatory=$true)][ValidatePattern('^1\.0\.0-lab[0-9]+$')][string]$RuntimeVersion)
+    [Parameter(Mandatory=$true)][string]$OutputDirectory,[Parameter(Mandatory=$true)][ValidatePattern('^1\.0\.0-lab[0-9]+$')][string]$RuntimeVersion,
+    [string]$LogDirectory,[switch]$AudioGraphBank)
 $ErrorActionPreference='Stop'
 $audioRoot=[IO.Path]::GetFullPath($RuntimeDirectory).TrimEnd('\')+'\'
 $audioOut=[IO.Path]::GetFullPath($OutputDirectory)
@@ -21,14 +22,25 @@ foreach($item in $manifest.Files.PSObject.Properties){
     New-Item -ItemType Directory -Path (Split-Path -Parent $dest) -Force | Out-Null
     Copy-Item -LiteralPath (Join-Path $audioRoot $item.Name) -Destination $dest
 }
-# A unique smoke bank keeps this runtime-only installer separate from audio
-# registration. The signed APO component is retained for a controlled graph trial.
-$bank='Global\NabuDolbyBank-ServiceSmoke-'+[Guid]::NewGuid().ToString()
+# Graph-bank staging does not install or bind the included APO. It prepares
+# matching resources for a later guarded Windows graph trial.
+$bank=if($AudioGraphBank){'Global\NabuDolbyBank-9df8834a-209e-4cc1-bc73-bb4353adfa9f'}else{'Global\NabuDolbyBank-ServiceSmoke-'+[Guid]::NewGuid().ToString()}
+$audioLogs=$null
+if($LogDirectory){
+    if(-not [IO.Path]::IsPathRooted($LogDirectory) -or $LogDirectory -match '[\r\n]'){throw 'Use an absolute local log directory'}
+    $audioLogs=[IO.Path]::GetFullPath($LogDirectory).TrimEnd('\')
+    if($audioLogs -notmatch '^[A-Za-z]:\\.+'){throw 'Use a dedicated local log directory'}
+    if(-not (Test-Path -LiteralPath (Split-Path -Parent $audioLogs) -PathType Container)){throw 'Log parent directory must already exist'}
+}
 $ini="[Runtime]`nSourceFingerprint=$($manifest.SourceFingerprint)`nBridgeSha256=$($manifest.BridgeSha256)`nBankName=$bank`n"
+if($audioLogs){$ini+="LogRoot=$audioLogs`n"}
 [IO.File]::WriteAllText((Join-Path $audioOut 'runtime\Runtime.ini'),$ini,[Text.UTF8Encoding]::new($false))
 $manifest.Files.'Runtime.ini'=(Get-FileHash -LiteralPath (Join-Path $audioOut 'runtime\Runtime.ini')).Hash.ToLowerInvariant()
 if(-not $manifest.PSObject.Properties['RuntimeVersion']){$manifest | Add-Member -NotePropertyName RuntimeVersion -NotePropertyValue $RuntimeVersion}else{$manifest.RuntimeVersion=$RuntimeVersion}
 $manifest.BankName=$bank
+foreach($audioField in @(@('LogRoot',$audioLogs),@('AudioGraphBank',[bool]$AudioGraphBank))){
+    if($manifest.PSObject.Properties[$audioField[0]]){$manifest.($audioField[0])=$audioField[1]}else{$manifest | Add-Member -NotePropertyName $audioField[0] -NotePropertyValue $audioField[1]}
+}
 $manifest | ConvertTo-Json -Depth 9 | Set-Content -LiteralPath (Join-Path $audioOut 'runtime\Manifest.json') -Encoding UTF8
 New-Item -ItemType Directory -Path (Join-Path $audioOut 'APO') | Out-Null
 foreach($name in 'NabuDolbyApo.inf','NabuDolbyBridge.dll','nabudolbyapo.cat'){Copy-Item -LiteralPath (Join-Path $component $name) -Destination (Join-Path $audioOut 'APO')}
@@ -36,8 +48,9 @@ Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'Install-Runtime.ps1') -Destinat
 $note=@'
 Experimental ARM64 original Dolby stereo DAP runtime and signed APO candidate.
 Install-Runtime.ps1 installs only the portable LocalService backend, in Manual
-start mode. It does not install the APO, bind Windows effects, configure automatic
-startup or establish Atmos object rendering. Those integration steps remain open.
+start mode by default. -StartMode Automatic configures SCM automatic startup;
+cold-boot qualification is still required. It does not install the APO, bind
+Windows effects or establish Atmos object rendering. Those steps remain open.
 Keep the package and installation state on SSD. Use elevated native PowerShell:
   .\Install-Runtime.ps1 -StateDirectory H:\your-new-state-folder
 Rollback restores the previous owned service configuration and retains both
@@ -52,4 +65,4 @@ $hashes | ConvertTo-Json -Depth 4 | Set-Content -LiteralPath (Join-Path $audioOu
 $zip=$audioOut+'.zip';if(Test-Path -LiteralPath $zip){throw 'Keep the previous ZIP'}
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 [IO.Compression.ZipFile]::CreateFromDirectory($audioOut,$zip)
-[ordered]@{Bundle=$audioOut;Zip=$zip;Sha256=(Get-FileHash -LiteralPath $zip).Hash.ToLowerInvariant();Bytes=(Get-Item -LiteralPath $zip).Length;RuntimeOnlyInstaller=$true;AutomaticStartupTested=$false;DriverInstalled=$false} | ConvertTo-Json
+[ordered]@{Bundle=$audioOut;Zip=$zip;Sha256=(Get-FileHash -LiteralPath $zip).Hash.ToLowerInvariant();Bytes=(Get-Item -LiteralPath $zip).Length;RuntimeOnlyInstaller=$true;AudioGraphBank=[bool]$AudioGraphBank;LogRoot=$audioLogs;ColdBootTested=$false;DriverInstalled=$false} | ConvertTo-Json

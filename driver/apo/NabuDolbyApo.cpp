@@ -301,7 +301,9 @@ public:
     {
         if (id != NabuDolbyEffectId || (state != AUDIO_SYSTEMEFFECT_STATE_ON && state != AUDIO_SYSTEMEFFECT_STATE_OFF)) return E_INVALIDARG;
         if (!initialized_) return APOERR_NOT_INITIALIZED;
-        if (!has_effect() && state == AUDIO_SYSTEMEFFECT_STATE_ON) return HRESULT_FROM_WIN32(ERROR_NOT_SUPPORTED);
+        // RAW, discovery without a ready bank, and resource-less instances do
+        // not expose an effect. Neither state is a valid operation on them.
+        if (!has_effect()) return HRESULT_FROM_WIN32(ERROR_NOT_SUPPORTED);
         const LONG enabled = state == AUDIO_SYSTEMEFFECT_STATE_ON ? 1 : 0;
         LONG previous = InterlockedExchange(&effect_enabled_,enabled);
         if (shared_) InterlockedExchange(&shared_->effect_enabled,enabled);

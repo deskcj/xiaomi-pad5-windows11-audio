@@ -1,5 +1,20 @@
 # Original Dolby runtime · development
 
+.20 rejects controls for unavailable effects. Portable workers now warm one
+1024-frame nonzero signal inside the guest before restoring exact original
+state and publishing READY. First request/render/reply timings are separate;
+startup timings exclude module imports. Warmed ON/OFF/ON, reset and replacement
+comparisons pass. The initial cold candidate's 32 fallback frames are retained
+as a failure, not hidden by the later pass.
+
+`Install-Runtime.ps1 -StartMode Automatic` configures SCM automatic startup.
+Fresh/reused isolated installations with LocalService/session 0, logs on H:,
+cooperative shutdown and restored previous start mode pass. Cold boot and
+permanent audio graph integration remain untested. `Build-RuntimeBundle.ps1`
+accepts `-LogDirectory` for a dedicated SSD directory and `-AudioGraphBank`
+to stage the default bank; this does not install/bind the included APO.
+[.20 evidence](../../../../docs/results/audio-dolby-runtime-acdb-2026-11-26.json)
+
 .19 uses wire5 and exposes per-stream effect control with a 10 ms fade. Workers
 continue the original state/input sequence during OFF; intentional bypass has
 its own counter. The default ON path still matches original output exactly.

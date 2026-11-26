@@ -1,5 +1,11 @@
 # Audio development probes
 
+`ApoEffectControlProbe <absolute-bridge-dll>` checks unavailable/RAW/discovery
+effect control, 10,000 notification replacements with exact handle counts and
+2,048 register/snapshot races. It creates only a local COM/transport fixture;
+it opens no endpoint, starts no audio and installs no driver. Select it with
+`-Probe ApoEffectControlProbe` in the build script.
+
 From an ARM64 EWDK environment, build with `powershell.exe -File .\Build-AudioProbe.ps1 -Probe QuietStereoProbe -OutputDirectory <new-folder>`, or select `ApoSettingsProbe`. The build preserves older output folders and records source/executable hashes. These executables are diagnostics, not driver installers.
 
 `QuietStereoProbe.cpp` submits separate 800 Hz L/R stimuli in normal and RAW mode, with a source peak of 0.001 and an independently verified 0.01 gain on its own render stream. It writes no device or session volume/mute setting. It refuses a busy or muted endpoint and unsupported formats; a failed case stops the sequence. The source peak multiplied by stream gain is not a bound on downstream APO/codec processing. Real loopback peaks and both coherent-tone and total RMS ratios are reported, including PCM16 dither. A loopback result cannot establish which physical amplifier/speaker produced sound, HyperOS quality or maximum-volume safety. [Microsoft stream-volume API](https://learn.microsoft.com/en-us/windows/win32/api/audioclient/nf-audioclient-iaudiostreamvolume-setallvolumes)

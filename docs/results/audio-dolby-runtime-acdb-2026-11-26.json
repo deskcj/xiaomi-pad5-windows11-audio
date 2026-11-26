@@ -1,0 +1,259 @@
+{
+  "Utc": "2026-11-25T21:56:24.341773+00:00",
+  "BeforeAfter": {
+    "DolbyControl": "Unavailable effects accepted OFF -> both states rejected",
+    "Runtime": "Manual with default C logs -> tested SCM Automatic and dedicated SSD logs",
+    "Startup": "32-frame cold fallback retained -> signal-warmed exact comparison passed; universal fix unproven",
+    "MiSound": "Route-only file reader -> bounded raw global property views"
+  },
+  "Build": {
+    "Apo": {
+      "Architecture": "ARM64",
+      "PackageVersion": "2.0.0.20",
+      "EmbeddedDllSignatureVerified": true,
+      "EmbeddedCertificateBytes": 3104,
+      "CatalogAndMembersVerified": true,
+      "UnsignedDllSha256": "f33764011b6169a96a841312329984cbd99d055171e1fa3ff42f611d305b5746",
+      "Files": {
+        "NabuDolbyApo.inf": "3460bd6b1ea9539ae14a317d97a947c6b03c3de3b4fe2a52f8c970a88c5ed440",
+        "NabuDolbyBridge.dll": "7b98e2774b16a13b63225eb5442fe2a6669c5efb449db325752c8a63b5a26b04",
+        "nabudolbyapo.cat": "cba783662feab1b3698b139081c72f209f72f9adbc4d7d1008177db4229d3b6a"
+      },
+      "Installed": false,
+      "SystemEffectsProven": false
+    },
+    "Dsp": {
+      "Architecture": "ARM64",
+      "SourceSha256": {
+        "Build-MiSoundSupport.ps1": "c70b49830af380ef8102aedd483492fee4c825401c20ea45a198e3c60b31a59f",
+        "MiSoundAudioConfig.c": "84e816a403bd47d1402bbfe00d0b3b1b4395cebec95e9a8b90a7b10644720233",
+        "MiSoundAudioConfig.h": "b911b28f018879754cad0a3cd86c15aba2717f0591ff83a24a7608ba54fbddc0",
+        "MiSoundProtocol.c": "1f7b8c10f7a9e92a701e742319503e78a0768d975044afcf23356024a68cb85d",
+        "MiSoundProtocol.h": "2ce4074fe4500d504fb8703b91d1f640a34cf7bb3278a4072b9e65d91c9c604f",
+        "MiSoundResource.c": "c1be894a1749578e2eacc5a1989c152640474dd47592b998c0709232398535c5",
+        "MiSoundResource.h": "42cb0e875ec0a96384ef0571cc2398fdcaba8791065401140d53b89ef09aee62",
+        "MiSoundSpeakerFilters.c": "5a1b19044fdc7c4de364c47377038503915c26f88dfc5d82d0bf2c8c1d83ec57",
+        "MiSoundSpeakerFilters.h": "8e7062e9c64ceb4d65b6c95586bc95061174c8257a596c140e3cd28a963d0996",
+        "MiSoundSpeakerPlan.c": "1b6ae3f257876107a03955653cebf724fd258d812a7b4debf9cfeb19a56cd1b9",
+        "MiSoundSpeakerPlan.h": "e84721aae9ffdd5db43024f90bd7e8f21187a6920a0006eebe77b8c33c707e3f",
+        "QualcommAcdbRoute.c": "45fc3ad81872d7029184de2bbb35573023354ef27dbeadf49f0f1401c5e6556b",
+        "QualcommAcdbRoute.h": "ca3fd73e4998003734a951fee1fe91f4bf93f9590be456852c88e435126eff42",
+        "QualcommCoppSelector.c": "53aa4e43be29cad3c3fdc6bfd1fb6dd1405606df262c5d3b00e3495a030a174b",
+        "QualcommCoppSelector.h": "5a80a5f7cdc50b5fa52e92daaffe1245c86c239eaf93d3598c213b170672523f",
+        "QualcommHostCalibration.c": "685808938f90b2df0b3c113b0566c69c8b19b2c6245abae9604ce4229fd249e3",
+        "QualcommHostCalibration.h": "79a651b34e954de38cee8a3be7020c9880f303a24db2cb4c4c153c8f0b3de0c8",
+        "QualcommPpParameter.c": "e10f976511e9065f03286be74dc80deedecc40992f46ff3e22cf89fa5826221c",
+        "QualcommPpParameter.h": "4b4b349a10de58371ce16f808b28db6d141cca6c014fea7a5bcb315a16c3a542",
+        "QualcommPpReadback.c": "676d25cf2fcb0e804a1271d5d9a233285073cc1c0db2f93cc576e1273dce570b",
+        "QualcommPpReadback.h": "bedafd485e3ba627339155e9ec0115b2b93744efc4ad3b85d12a20339daad3fe"
+      },
+      "LibrarySha256": "4ec3663ac063fa90fb68691b586b7e942ad656ddd6d81f68ec73385f87289ab8",
+      "Installed": false,
+      "DspProcessingImplemented": false
+    }
+  },
+  "Software": {
+    "FactoryCases": 24,
+    "ControlCases": 34,
+    "EventReplacements": 10000,
+    "NotificationRaces": 2048,
+    "Retained19Failures": 5,
+    "ExistingToggleCases": 14,
+    "ConcurrentChanges": 10000,
+    "ColdFailure": {
+      "Passed": false,
+      "UnexpectedFrames": 32,
+      "FirstUnexpectedFrame": 7168,
+      "LastUnexpectedFrame": 7199,
+      "FramesDry": 32,
+      "DryRanges": [
+        {
+          "first": 7168,
+          "last": 7199
+        }
+      ],
+      "WorkerErrors": [],
+      "OutputSha256": "a916c63c13c9ccab93f7a4ad81aebd8156b4e7aad1dc1ea6ad97f78d79cbcf57",
+      "PhysicalAudioOpened": false
+    },
+    "WarmComparison": {
+      "Passed": true,
+      "ActualPacedComApo": true,
+      "OriginalAndroidStereoDap": true,
+      "AudioOpened": false,
+      "DriverInstalled": false,
+      "Client": {
+        "ClientPassed": true,
+        "Frames": 202752,
+        "DelayFrames": 6144,
+        "DisableOutputFrame": 48000,
+        "EnableOutputFrame": 96000,
+        "MaxClientScheduleLateMs": 16.269,
+        "AudioOpened": false
+      },
+      "Comparison": {
+        "ExactOriginal": 148129,
+        "ExactIntentionalBypass": 47521,
+        "Crossfade": 958
+      },
+      "MaxCrossfadeError": 8.381903157661519e-10,
+      "OutputSha256": "2700507bfa705c99741f5cf783e8b982cb6163e811e4c1811b7e9d3775a661f5"
+    },
+    "WarmDryFrames": 0,
+    "OriginalComparisonCases": [
+      {
+        "Label": "normal",
+        "Comparison": {
+          "ReferenceFrames": 196608,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        }
+      },
+      {
+        "Label": "irregular",
+        "Comparison": {
+          "ReferenceFrames": 196608,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        }
+      },
+      {
+        "Label": "reset",
+        "Comparison": {
+          "ReferenceFrames": 190464,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        }
+      }
+    ],
+    "OwnedWorkerRecovery": {
+      "OldPid": 3604,
+      "NewPid": 4072,
+      "RestartCount": 1
+    },
+    "GlobalPropertyFileAndMalformedCases": 43,
+    "GlobalPropertyNoAccessCases": 33,
+    "GlobalPropertyFiles": {
+      "Windows": {
+        "File": "H:\\Vlad\\xiaomi-pad5-windows11-audio\\local\\Codex-2026-11-25\\dolby-misound-next\\acdb-route-v1\\Global_cal.acdb",
+        "Sha256": "aca051dc43774987124a7fab01019e06841a4cfeaf70a1f6aa449b19927fe342",
+        "Properties": 15
+      },
+      "HyperOS": {
+        "File": "H:\\Vlad\\xiaomi-pad5-windows11-audio\\local\\Codex-2026-11-24\\audio-dsp-probe\\night-work\\android\\Forte_Global_cal.acdb",
+        "Sha256": "d406d7cec3fba9bc0985ceeb38943815cfe4166724f6660f9d4ddb1050173d41",
+        "Properties": 16
+      }
+    }
+  },
+  "RealWindowsService": {
+    "FreshAutomatic": true,
+    "ReusedAutomatic": true,
+    "WarmedBackend": true,
+    "LocalServiceSessionZero": true,
+    "LogsOnSsd": true,
+    "CooperativeStop": true,
+    "PreviousRuntimeAndStartModeRestored": true,
+    "AudioEndpointOpened": false,
+    "ColdBootTested": false
+  },
+  "Ghidra": {
+    "OriginalSha256": "b82cabb860404edd71cb38ce28720c74628dd3ad12e20f8ecbd874853cac0edd",
+    "Selector3Target": "0x140061354",
+    "GlobalLoader": "0x14005ea58",
+    "ResourceCopy": "0x140052f38",
+    "TableEntries": "0x110 bytes",
+    "FileHeader": "QCMSNDDB / uncompressed GCDB; original also accepts CCDB and AVDB",
+    "ReadOnly": true,
+    "OriginalDriverExecuted": false,
+    "DspCommandSent": false,
+    "Resource132acLiveVerified": false
+  },
+  "Packages": [
+    {
+      "Zip": "runtime-bundle20-smoke.zip",
+      "Bytes": 11863969,
+      "Sha256": "98adaa09d46f811b730e17dcb06718aaf68edeb04d0e41da2b408405c1d1da79",
+      "Members": 138,
+      "AudioGraphBank": false
+    },
+    {
+      "Zip": "runtime-bundle20-graph.zip",
+      "Bytes": 11863950,
+      "Sha256": "8aee1be50c95e52b626f7b5ac77e51150a06f43f78dd8731ed93952300ce895a",
+      "Members": 138,
+      "AudioGraphBank": true
+    },
+    {
+      "Zip": "runtime-bundle20-warm.zip",
+      "Bytes": 11864310,
+      "Sha256": "0b550d343b6b2690c6b71da6af11e6b6dcb5d3e6f4b62b98ec0bd2ba7b5a85b4",
+      "Members": 138,
+      "AudioGraphBank": true
+    },
+    {
+      "Zip": "runtime-bundle20-warm-smoke.zip",
+      "Bytes": 11864331,
+      "Sha256": "c6ae45582ee03752c05c24dbecde5091f0f98c0f35494cc43d97a3048607cdbb",
+      "Members": 138,
+      "AudioGraphBank": false
+    }
+  ],
+  "PreparedTrial": {
+    "ApoVersion": "2.0.0.20",
+    "KernelVersionUnchanged": "4.17.27.20",
+    "SourceFingerprint": "2fdf23fcdde557724298f4920e59ee9c7aa52257918aaffac7fc18baff27be71",
+    "TransportVersion": 5,
+    "RuntimeZip": "runtime-bundle20-warm.zip",
+    "RuntimeSha256": "0b550d343b6b2690c6b71da6af11e6b6dcb5d3e6f4b62b98ec0bd2ba7b5a85b4",
+    "GraphInstalled": false,
+    "Audiodg20Tested": false,
+    "RollbackFiles": {
+      "NabuDolbyGlobal.inf": "046f03b6c180d5f004af371914a326c2326c17933a8bd72e3ac3497b9b48f08d",
+      "NabuDolbyGlobal.cat": "9689cffaf11b2e983ffc926df551f82c258afbf29d2c321fe848c2a9d07f36da",
+      "NabuDolbyBridge.dll": "dc0c29a144090f83b4532c215332f1a0c96aa4c99ca9db1ccdbc1bb5c117889c"
+    },
+    "FreshGuardedTrialRequired": true
+  },
+  "CurrentSystem": {
+    "Amplifiers": "4.17.27.20 / oem53.inf",
+    "Apo": "2.0.0.4 / oem36.inf",
+    "Runtime": ".18 / lab01 / Manual restored",
+    "AdapterNeedsRestart": true
+  },
+  "Unverified": [
+    "APO .20 in real audiodg and Windows EffectsManager",
+    "Full graph installer and cold boot",
+    "Global preference persistence",
+    "128 ms latency and seamless live recovery",
+    "Live MiSound DSP module/resources/COPP and processing",
+    "Physical four-speaker L/R",
+    "Hardware PCM24",
+    "Atmos object rendering",
+    "HyperOS acoustics",
+    "Maximum-volume and sleep safety"
+  ],
+  "Scope": {
+    "Reboot": false,
+    "UefiChanged": false,
+    "PhysicalAcousticMeasurement": false,
+    "NewApoDriverInstalled": false,
+    "AmplifierSettingsChanged": false,
+    "FullProjectComplete": false
+  }
+}

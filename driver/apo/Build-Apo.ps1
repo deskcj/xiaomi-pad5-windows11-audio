@@ -15,7 +15,7 @@ foreach($sourceFile in $sourceFiles){
 }
 $sha=[Security.Cryptography.SHA256]::Create()
 try{$sourceFingerprint=[BitConverter]::ToString($sha.ComputeHash($identityBytes.ToArray())).Replace('-','').ToLowerInvariant()}finally{$sha.Dispose();$identityBytes.Dispose()}
-$identityHeader="#pragma once`ninline constexpr wchar_t NabuApoBuildTag[]=L`"2.0.0.19-lab`";`ninline constexpr wchar_t NabuApoSourceFingerprint[]=L`"$sourceFingerprint`";`n"
+$identityHeader="#pragma once`ninline constexpr wchar_t NabuApoBuildTag[]=L`"2.0.0.20-lab`";`ninline constexpr wchar_t NabuApoSourceFingerprint[]=L`"$sourceFingerprint`";`n"
 [IO.File]::WriteAllText((Join-Path $out 'ApoBuildIdentity.h'),$identityHeader,[Text.UTF8Encoding]::new($false))
 $objects=@()
 foreach($stem in @('NabuDolbyApo','DolbySharedTransport','DolbyBank','ApoDiagnostics','DigitalHarness')){
@@ -32,7 +32,7 @@ if($LASTEXITCODE -ne 0){throw "Link failed: $linkLog"}
 $hashes=[ordered]@{}
 Get-ChildItem -LiteralPath $PSScriptRoot -File | Where-Object Extension -in @('.cpp','.h','.ps1') | ForEach-Object {$hashes[$_.Name]=(Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()}
 [ordered]@{
-    CandidateVersion='2.0.0.19-lab';Architecture='ARM64';Registered=$false
+    CandidateVersion='2.0.0.20-lab';Architecture='ARM64';Registered=$false
     SourceFingerprint=$sourceFingerprint
     Signed=$false;SystemEffectsProven=$false
     DllSha256=(Get-FileHash -LiteralPath $dll -Algorithm SHA256).Hash.ToLowerInvariant()

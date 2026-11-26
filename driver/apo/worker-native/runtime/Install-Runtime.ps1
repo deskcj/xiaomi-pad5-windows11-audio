@@ -1,4 +1,5 @@
-param([Parameter(Mandatory=$true)][string]$StateDirectory,[switch]$ValidateOnly,[switch]$Restore)
+param([Parameter(Mandatory=$true)][string]$StateDirectory,[switch]$ValidateOnly,[switch]$Restore,
+    [ValidateSet('Manual','Automatic')][string]$StartMode='Manual')
 $ErrorActionPreference='Stop'
 $audioPackage=$PSScriptRoot
 $audioName='NabuDolbyRuntime'
@@ -18,6 +19,27 @@ function Read-AudioManifest([string]$Root) {
     return $manifest
 }
 function Save-AudioInstall { $audioState | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath $audioStatePath -Encoding UTF8 }
+function Prepare-AudioLogs($manifest) {
+    if(-not $manifest.PSObject.Properties['LogRoot'] -or -not $manifest.LogRoot){return}
+    $root=[IO.Path]::GetFullPath($manifest.LogRoot).TrimEnd('\')
+    if($root -notmatch '^[A-Za-z]:\\.+' -or $root -match '[\r\n]' -or -not (Test-Path -LiteralPath (Split-Path -Parent $root) -PathType Container)){throw 'Invalid dedicated log directory'}
+    $marker=Join-Path $root 'NabuRuntimeLogs.json'
+    $identity=[ordered]@{RuntimeVersion=$manifest.RuntimeVersion;BankName=$manifest.BankName;BridgeSha256=$manifest.BridgeSha256}
+    if(Test-Path -LiteralPath $root){
+        if(-not (Test-Path -LiteralPath $marker -PathType Leaf)){throw 'Existing log directory is not owned by this runtime; preserve it'}
+        $previous=Get-Content -LiteralPath $marker -Raw | ConvertFrom-Json
+        foreach($key in $identity.Keys){if($previous.$key -ne $identity[$key]){throw 'Existing logs belong to a different runtime; preserve them'}}
+    }else{
+        New-Item -ItemType Directory -Path $root | Out-Null
+        $identity | ConvertTo-Json | Set-Content -LiteralPath $marker -Encoding UTF8
+        # Grant only this new logs directory. Runtime/code stays under Program Files.
+        $acl=Get-Acl -LiteralPath $root
+        $sid=[Security.Principal.SecurityIdentifier]::new('S-1-5-19')
+        $rule=[Security.AccessControl.FileSystemAccessRule]::new($sid,'Modify','ContainerInherit,ObjectInherit','None','Allow')
+        $acl.AddAccessRule($rule);Set-Acl -LiteralPath $root -AclObject $acl
+    }
+    $audioState.LogRoot=$root;Save-AudioInstall
+}
 function Owned-AudioConfig {
     $service=Get-Service -Name $audioName -ErrorAction SilentlyContinue
     if(-not $service){return $null}
@@ -32,7 +54,7 @@ function Owned-AudioConfig {
 }
 if($ValidateOnly){
     $manifest=Read-AudioManifest (Join-Path $audioPackage 'runtime')
-    [ordered]@{Validated=$true;ApoVersion=$manifest.ApoVersion;Files=@($manifest.Files.PSObject.Properties).Count;DriverInstalled=$false;ServiceChanged=$false;AudioOpened=$false} | ConvertTo-Json
+    [ordered]@{Validated=$true;ApoVersion=$manifest.ApoVersion;Files=@($manifest.Files.PSObject.Properties).Count;RequestedStartMode=$StartMode;LogRoot=$manifest.LogRoot;DriverInstalled=$false;ServiceChanged=$false;AudioOpened=$false} | ConvertTo-Json
     return
 }
 $principal=[Security.Principal.WindowsPrincipal]::new([Security.Principal.WindowsIdentity]::GetCurrent())
@@ -85,7 +107,7 @@ if($audioReuse){
     if((Get-FileHash -LiteralPath (Join-Path $audioTarget 'Manifest.json')).Hash -ne (Get-FileHash -LiteralPath (Join-Path $audioPackage 'runtime\Manifest.json')).Hash){throw 'Existing runtime differs; preserve it and use a new package version'}
 }
 New-Item -ItemType Directory -Path $audioStateRoot | Out-Null
-$audioState=[ordered]@{Prior=$prior;NewImagePath=('"'+(Join-Path $audioTarget 'NabuDolbyService.exe')+'" --service');Installed=$false;Restored=$false;Error=$null;DriverInstalled=$false;AudioOpened=$false;RebootPerformed=$false;StartMode='Manual';RuntimeFilesReused=$audioReuse}
+$audioState=[ordered]@{Prior=$prior;NewImagePath=('"'+(Join-Path $audioTarget 'NabuDolbyService.exe')+'" --service');Installed=$false;Restored=$false;Error=$null;CleanupError=$null;DriverInstalled=$false;AudioOpened=$false;RebootPerformed=$false;StartMode=$StartMode;RuntimeFilesReused=$audioReuse;LogRoot=$null}
 Save-AudioInstall
 try{
     if(-not $audioReuse){
@@ -98,19 +120,32 @@ try{
         Copy-Item -LiteralPath (Join-Path $audioPackage 'runtime\Manifest.json') -Destination $audioTarget
     }
     $null=Read-AudioManifest $audioTarget
+    Prepare-AudioLogs $manifest
     if($prior){Stop-Service $audioName;(Get-Service $audioName).WaitForStatus('Stopped',[TimeSpan]::FromSeconds(15))}
-    [NabuRuntimeScm]::Apply($audioState.NewImagePath,3,[bool]$prior,$false)
+    $audioStart=if($StartMode -eq 'Automatic'){2}else{3}
+    [NabuRuntimeScm]::Apply($audioState.NewImagePath,$audioStart,[bool]$prior,$false)
     $audioState.Installed=$true;Save-AudioInstall
     Start-Service $audioName;(Get-Service $audioName).WaitForStatus('Running',[TimeSpan]::FromSeconds(30))
     $audioState.ServiceRunning=$true;Save-AudioInstall
 }catch{
+    $audioInstallError=$_
     $audioState.Error=$_.Exception.Message;Save-AudioInstall
-    if($prior){
-        if((Get-Service $audioName).Status -ne 'Stopped'){Stop-Service $audioName;(Get-Service $audioName).WaitForStatus('Stopped',[TimeSpan]::FromSeconds(15))}
-        [NabuRuntimeScm]::Apply($prior.ImagePath,$prior.Start,$true,$false)
-        if($prior.WasRunning){Start-Service $audioName}
-        $audioState.Restored=$true;Save-AudioInstall
-    }
-    throw
+    try{
+        $current=Get-Service $audioName -ErrorAction SilentlyContinue
+        if($audioState.Installed){
+            $owned=Owned-AudioConfig
+            if(-not $owned -or $owned.ImagePath -ne $audioState.NewImagePath){throw 'Service changed during failed install; preserve it'}
+            if($current.Status -ne 'Stopped'){Stop-Service $audioName;(Get-Service $audioName).WaitForStatus('Stopped',[TimeSpan]::FromSeconds(15))}
+            if($prior){
+                [NabuRuntimeScm]::Apply($prior.ImagePath,$prior.Start,$true,$false)
+                if($prior.WasRunning){Start-Service $audioName;(Get-Service $audioName).WaitForStatus('Running',[TimeSpan]::FromSeconds(30))}
+            }else{[NabuRuntimeScm]::Apply($audioState.NewImagePath,3,$true,$true)}
+            $audioState.Restored=$true;Save-AudioInstall
+        }elseif($prior -and $prior.WasRunning -and $current.Status -eq 'Stopped'){
+            Start-Service $audioName;(Get-Service $audioName).WaitForStatus('Running',[TimeSpan]::FromSeconds(30))
+            $audioState.Restored=$true;Save-AudioInstall
+        }
+    }catch{$audioState.CleanupError=$_.Exception.Message;Save-AudioInstall}
+    throw $audioInstallError
 }
 $audioState | ConvertTo-Json -Depth 5

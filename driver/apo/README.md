@@ -1,4 +1,15 @@
-# Dolby APO development source · 2.0.0.19-lab
+# Dolby APO development source · 2.0.0.20-lab
+
+**.20:** unavailable/RAW effects reject both ON and OFF. The new control probe
+passes 34 cases; the existing factory/control probes pass 24/14. A signal-only
+guest warmup followed by exact original state restore passes ON/OFF/ON and
+normal/irregular/reset comparisons. The first cold .20 comparison retained a
+32-frame fallback failure; the warmed comparison matches the prior output hash
+with zero fallback. No universal timing fix is claimed. SCM Automatic startup,
+SSD logs, cooperative stop and rollback pass on the installed isolated backend;
+Windows cold boot and .20 in real audiodg remain untested. Global preferences,
+latency and seamless recovery still need work.
+[.20 evidence](../../docs/results/audio-dolby-runtime-acdb-2026-11-26.json)
 
 **.19:** per-stream ON/OFF is exposed through IAudioSystemEffects3. It preserves
 the transport delay, fades over 480 samples (10 ms at 48 kHz), keeps original DSP
