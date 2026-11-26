@@ -1,0 +1,282 @@
+{
+  "ApoVersion": "2.0.0.21",
+  "PackedFloat32Path": true,
+  "Software": {
+    "NativeScannerCases": 56,
+    "NoAccessCases": 6,
+    "OriginalComparisons": [
+      {
+        "Label": "normal",
+        "Comparison": {
+          "ReferenceFrames": 196608,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        }
+      },
+      {
+        "Label": "irregular",
+        "Comparison": {
+          "ReferenceFrames": 196608,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        }
+      },
+      {
+        "Label": "reset",
+        "Comparison": {
+          "ReferenceFrames": 190464,
+          "ExactDryFallbackFrames": 0,
+          "UnexpectedFrames": 0,
+          "FramesMatchingBoth": 1,
+          "FirstUnexpectedFrame": null,
+          "MaxUnexpectedError": 0.0,
+          "InitialDelaySilent": true,
+          "DolbyAtEnd": true
+        }
+      }
+    ],
+    "OnOffOnOriginal": {
+      "ExactOriginal": 148129,
+      "ExactIntentionalBypass": 47521,
+      "Crossfade": 958
+    }
+  },
+  "LiveWindows": {
+    "EffectsManager": {
+      "hr": "0x00000000",
+      "endpoint": "{0.0.0.00000000}.{fa7173b0-6262-46aa-88f2-0d8803647333}",
+      "source_pid": 3116,
+      "audio_started": true,
+      "submitted_frames": 245280,
+      "source_peak": 0.001,
+      "owned_stream_gain": 0.01,
+      "stream_gain_verified": true,
+      "volume_unchanged": true,
+      "maximum_meter_peak": 6.10353891e-05,
+      "notifications": 2,
+      "controls": [
+        {
+          "state": "ON",
+          "hr": "0x00000000",
+          "query_hr": "0x00000000",
+          "observed_state": 1,
+          "observed": true,
+          "source_frames_before_request": 0,
+          "source_frames_at_observation": 0
+        },
+        {
+          "state": "OFF",
+          "hr": "0x00000000",
+          "query_hr": "0x00000000",
+          "observed_state": 0,
+          "observed": true,
+          "source_frames_before_request": 100320,
+          "source_frames_at_observation": 101760
+        },
+        {
+          "state": "ON",
+          "hr": "0x00000000",
+          "query_hr": "0x00000000",
+          "observed_state": 1,
+          "observed": true,
+          "source_frames_before_request": 147840,
+          "source_frames_at_observation": 148800
+        }
+      ],
+      "restore_hr": "0x00000000",
+      "unregister_hr": "0x00000000",
+      "physical_acoustic_test": false,
+      "dolby_sample_processing_proven": false,
+      "passed": true
+    },
+    "ControlMetrics": {
+      "ApoClaim": 0,
+      "WorkerClaim": 3068,
+      "Generation": 4,
+      "Stop": 0,
+      "RequestsDropped": 0,
+      "WorkerGaps": 1,
+      "BlocksReplied": 328,
+      "WorkerReady": 1,
+      "ApoPid": 6440,
+      "InitKind": 4,
+      "LockError": 0,
+      "Callbacks": 501,
+      "FramesProcessed": 240480,
+      "FramesWet": 186815,
+      "FramesDry": 0,
+      "FirstDryFrame": -1,
+      "LastDryFrame": -1,
+      "DryRangesAvailable": true,
+      "DryRuns": 0,
+      "DryRanges": [],
+      "TransportName": "Global\\NabuDolbyLab-{4575954E-ED91-43FD-ACA0-6C06F32FDB6F}-0",
+      "FramesBypassed": 47521,
+      "EffectEnabled": 1
+    },
+    "Identity": {
+      "InitializationCorrelated": true,
+      "StreamLockCorrelated": true,
+      "ZeroInputProcessingCorrelated": true,
+      "MatchedAudiodgPids": [
+        6440
+      ],
+      "MatchedStreams": [
+        {
+          "Pid": 6440,
+          "TransportName": "Global\\NabuDolbyLab-{4575954E-ED91-43FD-ACA0-6C06F32FDB6F}-0",
+          "Generation": 5
+        }
+      ],
+      "AcceptedEvents": [
+        {
+          "Pid": 6440,
+          "Phase": "Initialize",
+          "DelayFrames": 6144,
+          "TransportName": "Global\\NabuDolbyLab-{4575954E-ED91-43FD-ACA0-6C06F32FDB6F}-0",
+          "Generation": 0
+        },
+        {
+          "Pid": 6440,
+          "Phase": "LockForProcess",
+          "DelayFrames": 6144,
+          "TransportName": "Global\\NabuDolbyLab-{4575954E-ED91-43FD-ACA0-6C06F32FDB6F}-0",
+          "Generation": 3
+        },
+        {
+          "Pid": 6440,
+          "Phase": "Initialize",
+          "DelayFrames": 6144,
+          "TransportName": "Global\\NabuDolbyLab-{4575954E-ED91-43FD-ACA0-6C06F32FDB6F}-0",
+          "Generation": 0
+        },
+        {
+          "Pid": 6440,
+          "Phase": "LockForProcess",
+          "DelayFrames": 6144,
+          "TransportName": "Global\\NabuDolbyLab-{4575954E-ED91-43FD-ACA0-6C06F32FDB6F}-0",
+          "Generation": 4
+        },
+        {
+          "Pid": 6440,
+          "Phase": "Initialize",
+          "DelayFrames": 6144,
+          "TransportName": "Global\\NabuDolbyLab-{4575954E-ED91-43FD-ACA0-6C06F32FDB6F}-0",
+          "Generation": 0
+        },
+        {
+          "Pid": 6440,
+          "Phase": "LockForProcess",
+          "DelayFrames": 6144,
+          "TransportName": "Global\\NabuDolbyLab-{4575954E-ED91-43FD-ACA0-6C06F32FDB6F}-0",
+          "Generation": 5
+        },
+        {
+          "Pid": 6440,
+          "Phase": "Initialize",
+          "DelayFrames": 6144,
+          "TransportName": "Global\\NabuDolbyLab-{4575954E-ED91-43FD-ACA0-6C06F32FDB6F}-1",
+          "Generation": 0
+        }
+      ],
+      "AcousticLrProven": false,
+      "HyperOsQualityProven": false,
+      "Interpretation": "Correlation of supplied trace/counter records only; real trial provenance must be established by the collector."
+    },
+    "QuietSeconds": 180,
+    "FramesProcessed": 8640960,
+    "FramesWet": 8546528,
+    "FramesDry": 88288,
+    "InjectedRecoveryDryFrames": 88224,
+    "AdditionalDryFrames": 64,
+    "AdditionalDryMs": 1.3333333333333333,
+    "DryRanges": [
+      {
+        "first": 138240,
+        "last": 226463
+      },
+      {
+        "first": 7530656,
+        "last": 7530719
+      }
+    ],
+    "RecoveredSameStream": true,
+    "MeanRenderMs": 16.118779674569904,
+    "SlowestBatches": [
+      {
+        "WorkMs": 33.30942699994921,
+        "Generation": 5,
+        "FirstFrame": 7518368,
+        "RenderMs": 33.031301999926654
+      },
+      {
+        "WorkMs": 29.44697900011306,
+        "Generation": 5,
+        "FirstFrame": 7057568,
+        "RenderMs": 29.37489599980836
+      },
+      {
+        "WorkMs": 28.582083000401326,
+        "Generation": 5,
+        "FirstFrame": 7516320,
+        "RenderMs": 28.4915109996291
+      },
+      {
+        "WorkMs": 28.046093999819277,
+        "Generation": 5,
+        "FirstFrame": 7684256,
+        "RenderMs": 27.97588499970516
+      },
+      {
+        "WorkMs": 27.69171899990397,
+        "Generation": 5,
+        "FirstFrame": 7514272,
+        "RenderMs": 27.611198000158765
+      },
+      {
+        "WorkMs": 26.93244700003561,
+        "Generation": 5,
+        "FirstFrame": 303264,
+        "RenderMs": 26.870677000260912
+      },
+      {
+        "WorkMs": 26.68374999984735,
+        "Generation": 5,
+        "FirstFrame": 7519392,
+        "RenderMs": 26.613905999965937
+      },
+      {
+        "WorkMs": 26.016823000190925,
+        "Generation": 5,
+        "FirstFrame": 4296864,
+        "RenderMs": 25.953229000151623
+      }
+    ],
+    "WorkerErrors": [],
+    "RollbackErrors": [],
+    "FactoryCalibrationUnchanged": true
+  },
+  "Remaining": [
+    "64-frame playback fallback in this trial",
+    "Seamless worker recovery",
+    "Full installer/permanent deployment",
+    "Live MiSound DSP",
+    "Physical four-speaker L/R",
+    "Hardware PCM24",
+    "Atmos objects",
+    "HyperOS acoustics and safety qualification"
+  ],
+  "StablePlaybackQualified": false,
+  "InstallerArchivePublished": false,
+  "ZipLocalSha256": "18b6c3a794692cdd14aa075ba4d0353399b7b23c219e489a32c9c8e051320546"
+}

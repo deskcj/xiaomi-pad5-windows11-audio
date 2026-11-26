@@ -65,8 +65,19 @@ class StereoRenderer:
         blocks, tail = divmod(len(samples), 2 * BLOCK)
         if tail:
             raise ValueError("Expected whole stereo blocks")
+        frame_format = self.prepare_buffers(blocks)[2]
+        result = frame_format.unpack(self.render_packed(frame_format.pack(*samples)))
+        if any(not math.isfinite(sample) for sample in result):
+            raise RuntimeError("Dolby returned a non-finite sample")
+        return result
+
+    def render_packed(self, data):
+        """Exact original Float32 bytes; caller validates input/output samples."""
+        blocks, tail = divmod(len(data), 8 * BLOCK)
+        if tail:
+            raise ValueError("Expected whole packed stereo blocks")
         incoming, outgoing, frame_format = self.prepare_buffers(blocks)
-        self.dap.cpu.mem_write(incoming[1], frame_format.pack(*samples))
+        self.dap.cpu.mem_write(incoming[1], bytes(data))
         start = time.perf_counter()
         self.dap.cpu.mem_write(outgoing[1], struct.pack("<I", 0x7fc00000) * (2 * BLOCK * blocks))
         channels = self.dap.call("dap_cpdp_prepare", self.context, blocks, incoming[0], 0x22, 0, 0, 0)
@@ -76,10 +87,7 @@ class StereoRenderer:
                       0, 0, 0, 0, 0, self.metadata)  # AAPCS64 indirect return in X8.
         self.seconds += time.perf_counter() - start
         self.blocks += blocks
-        result = frame_format.unpack(self.dap.cpu.mem_read(outgoing[1], frame_format.size))
-        if any(not math.isfinite(sample) for sample in result):
-            raise RuntimeError("Dolby returned a non-finite sample")
-        return result
+        return bytes(self.dap.cpu.mem_read(outgoing[1], frame_format.size))
 
 def original_configuration():
     root=Path(__file__).resolve().parent

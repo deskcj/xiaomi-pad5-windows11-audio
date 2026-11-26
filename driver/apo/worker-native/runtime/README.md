@@ -1,5 +1,11 @@
 # Original Dolby runtime · development
 
+.21 preserves original Float32 bytes without per-batch Python sample conversion.
+The native scanner retains finite/range guards; 64 slowest batch timings preserve
+late-stall evidence. Live control and rollback pass; the three-minute run still
+has 64 extra fallback frames beyond injected restart. Full installation, seamless
+recovery and stability remain open. Experimental ZIP stays local.
+
 .20 rejects controls for unavailable effects. Portable workers now warm one
 1024-frame nonzero signal inside the guest before restoring exact original
 state and publishing READY. First request/render/reply timings are separate;

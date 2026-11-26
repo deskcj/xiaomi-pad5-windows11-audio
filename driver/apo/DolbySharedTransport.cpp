@@ -1,6 +1,7 @@
 #include "DolbySharedTransport.h"
 #include <sddl.h>
 #include <strsafe.h>
+#include <string.h>
 
 namespace {
 bool valid_name(const WCHAR *name)
@@ -8,6 +9,7 @@ bool valid_name(const WCHAR *name)
     return name && (wcsncmp(name, L"Local\\NabuDolbyLab-", 19) == 0 || wcsncmp(name, L"Global\\NabuDolbyLab-", 20) == 0) &&
         wcsnlen(name, NabuTransportNameChars) < NabuTransportNameChars;
 }
+
 
 NabuTransportView *map_handle(HANDLE handle)
 {
@@ -81,6 +83,25 @@ void nabu_close_transport(NabuTransportView *view)
     UnmapViewOfFile(view->shared);
     CloseHandle(view->mapping);
     HeapFree(GetProcessHeap(), 0, view);
+}
+
+extern "C" BOOL WINAPI NabuScanStereoFrames(const void *data, UINT32 bytes, NabuFrameScan *result)
+{
+    if(!result || (bytes && !data) || bytes%8 || bytes>sizeof(StereoFrame)*DOLBY_BLOCK_FRAMES) {
+        SetLastError(ERROR_INVALID_PARAMETER);return FALSE;
+    }
+    const UINT_PTR input=reinterpret_cast<UINT_PTR>(data),output=reinterpret_cast<UINT_PTR>(result);
+    if(bytes && (output>=input ? output-input<bytes : input-output<sizeof(*result))) {
+        SetLastError(ERROR_INVALID_PARAMETER);return FALSE;
+    }
+    NabuFrameScan checked={bytes/8,0,0,0};UINT32 largest=0;
+    for(UINT32 at=0;at<bytes;at+=4) {
+        UINT32 bits;memcpy(&bits,static_cast<const BYTE*>(data)+at,4);bits&=0x7fffffffU;
+        if(bits>=0x7f800000U){checked.flags|=1;continue;}
+        if(bits>0x3f800000U)checked.flags|=2;
+        if(bits>largest)largest=bits;
+    }
+    memcpy(&checked.peak,&largest,4);*result=checked;return TRUE;
 }
 
 extern "C" void *WINAPI NabuTransportCreate(const WCHAR *name, UINT32 delay)

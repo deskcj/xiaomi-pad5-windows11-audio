@@ -80,6 +80,12 @@ extern "C" __declspec(dllexport) BOOL WINAPI NabuWorkerReadCurrent(void *view, D
 // resetting the producer cursor; the next new record retains the full delay.
 extern "C" __declspec(dllexport) BOOL WINAPI NabuWorkerDiscardPending(void *view, UINT32 *discarded);
 extern "C" __declspec(dllexport) BOOL WINAPI NabuWorkerWrite(void *view, const DolbyAudioBlock *block);
+struct NabuFrameScan { UINT32 frames, flags; float peak; UINT32 reserved; };
+static_assert(sizeof(NabuFrameScan)==16,"Native frame-scan ABI");
+// Off-RT worker helper: inspect packed stereo Float32 without allocating Python
+// sample objects. Flags: 1 nonfinite, 2 finite magnitude >1. Structural failure
+// leaves result untouched. No transport/DSP/device state is accessed.
+extern "C" __declspec(dllexport) BOOL WINAPI NabuScanStereoFrames(const void *data, UINT32 bytes, NabuFrameScan *result);
 extern "C" __declspec(dllexport) void WINAPI NabuWorkerReady(void *view, LONG ready);
 extern "C" __declspec(dllexport) void WINAPI NabuWorkerGap(void *view);
 // Non-RT supervisor only. A signaled owned process handle must match the

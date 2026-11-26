@@ -30,7 +30,7 @@ Download: **4.17.27.20**. Development source: **4.17.27.20**. The published ZIP 
 | --- | --- |
 | Four CS35L41 amplifiers | ✅ .20 installed and started on the tablet. |
 | Original Dolby renderer | ✅ Exact original-output checks and earlier live SFX trials. |
-| Dolby .20 control | ✅ Real .20 audiodg and Windows ON/OFF/ON: 47,521 intentional-bypass frames; zero failure fallback. |
+| Dolby .21 control | ✅ Real .21 audiodg and Windows ON/OFF/ON: 47,521 intentional-bypass frames; zero failure fallback. |
 | Independent Dolby backend | ✅ LocalService installation, SCM Automatic configuration and rollback. |
 | Permanent Dolby / Atmos | ❌ Full graph/cold boot, latency/recovery and Atmos objects unfinished. |
 | Stereo L/R | ✅ Digital Normal/RAW separation. ❌ Physical four-speaker isolation unconfirmed. |
@@ -38,17 +38,17 @@ Download: **4.17.27.20**. Development source: **4.17.27.20**. The published ZIP 
 | MiSound in Qualcomm DSP | ❌ Live modules, graph, COPP and processing unfinished. |
 | Hardware PCM24 / HyperOS quality | ❌ Hardware bit depth, acoustics, sleep and maximum-volume safety unverified. |
 
-Current tablet: amplifier **4.17.27.20**, APO **2.0.0.4**. Experimental .20 was tested and rolled back; permanent processing remains unfinished.
+Current tablet: amplifier **4.17.27.20**, APO **2.0.0.4**. Experimental .21 was tested and rolled back; permanent processing remains unfinished.
 
 ## Update history
 
-- **26 Nov:** ✅ .20 installed/tested in audiodg; Windows ON/OFF/ON works. ❌ Three-minute playback had 50,112 additional fallback frames (1.044 s).
+- **26 Nov:** ✅ .21 packed Float32, original-output tests and live ON/OFF/ON. ❌ Three-minute playback still had 64 extra fallback frames; seamless recovery remains open.
 
-[Evidence](docs/results/audio-effects-manager-live-2026-11-26.json)
+[Evidence](docs/results/audio-packed-dolby-live-2026-11-26.json)
 
 ## Sandbox
 
-- Packed Float32 processing and native bounds/sample checks: in development; not device-qualified.
+- Packed .21 validated in a quiet trial; current work targets the remaining fallback and seamless recovery.
 - Next: reduce playback stalls, then finish permanent Dolby; MiSound DSP and physical L/R remain open.
 
 ## ❤️ Help bring better sound to Windows on nabu

@@ -6,7 +6,7 @@ runtime. This remains an original Android stereo DAP renderer in an ARM64 guest.
 import sys
 sys.dont_write_bytecode=True
 from pathlib import Path
-import collections,ctypes as C,hashlib,importlib,json,math,os,statistics,struct,sys,time
+import collections,ctypes as C,hashlib,heapq,importlib,json,math,os,statistics,struct,sys,time
 
 def directory(key):
     p=Path(os.environ[key]);assert p.is_absolute() and p.is_dir(),key;return p
@@ -24,6 +24,10 @@ def main():
     expected=os.environ['NABU_DOLBY_BRIDGE_SHA256']
     if hashlib.sha256(dll.read_bytes()).hexdigest()!=expected:raise ValueError('Bridge DLL hash mismatch')
     lib=C.WinDLL(str(dll),use_last_error=True)
+    class FrameScan(C.Structure):
+        _fields_=[('frames',C.c_uint32),('flags',C.c_uint32),('peak',C.c_float),('reserved',C.c_uint32)]
+    lib.NabuScanStereoFrames.argtypes=(C.c_void_p,C.c_uint32,C.POINTER(FrameScan));lib.NabuScanStereoFrames.restype=C.c_int32
+    input_scan,output_scan=FrameScan(),FrameScan();slowest=[]
     definitions={
         'NabuWorkerOpen':(C.c_void_p,(C.c_wchar_p,)),
         'NabuTransportClose':(None,(C.c_void_p,)),
@@ -64,6 +68,9 @@ def main():
             TelemetryWriteFailures=telemetry_errors,LastTelemetryError=last_telemetry_error,
             StartupMs=startup_ms,StartupRequestsDiscarded=startup_discarded,MaxReplyGapMs=max_reply_gap,RecentReplyGaps=list(reply_gaps),MaxReportMs=max_report_ms,
             SignalWarmupMs=signal_warmup_ms,SignalWarmupFrames=1024 if signal_warmup_ms is not None else 0,FirstRequestMs=first_request_ms,FirstRenderMs=first_render_ms,FirstReplyMs=first_reply_ms)
+        data['PackedFloat32Path']=True
+        data['SlowestBatches']=[dict(WorkMs=x[0],Generation=x[1],FirstFrame=x[2],RenderMs=x[3]) for x in sorted(slowest,reverse=True)]
+        data['SlowBatchCapacity']=64
         if player:
             data['NativeLevelScale']=player.dap.level_statistics();data['NativeClassifierCalls']=player.dap.native_statistics()[0]
         temp=output/'worker.json.tmp'
@@ -109,14 +116,16 @@ def main():
                 epochs.append(dict(Generation=generation,FirstFrame=first,Blocks=0,InputPeak=0.0,OutputPeak=0.0))
             pending.extend(C.string_at(C.addressof(request.frames),request.count*8));expected_frame+=request.count
             while len(pending)>=1024*8:
-                data=bytes(pending[:8192]);del pending[:8192];samples=struct.unpack('<2048f',data)
-                if any(not math.isfinite(v) for v in samples):raise ValueError('Non-finite input')
-                started=time.perf_counter();result=player.render(samples);duration=(time.perf_counter()-started)*1000
+                batch_began=time.perf_counter();data=bytes(pending[:8192]);del pending[:8192]
+                if not lib.NabuScanStereoFrames(C.c_char_p(data),len(data),C.byref(input_scan)):raise ValueError('Invalid packed input span')
+                if input_scan.flags&1:raise ValueError('Non-finite input')
+                started=time.perf_counter();encoded=player.render_packed(data);duration=(time.perf_counter()-started)*1000
                 if first_render_ms is None:first_render_ms=duration
-                if any(not math.isfinite(v) for v in result):raise ValueError('Non-finite Dolby output')
-                ip=max(map(abs,samples));op=max(map(abs,result))
-                if op>1:raise ValueError('Dolby result exceeded normalized Float32 range')
-                encoded=struct.pack('<2048f',*result);reply.first_frame,reply.generation,reply.count=first,generation,1024
+                if not lib.NabuScanStereoFrames(C.c_char_p(encoded),len(encoded),C.byref(output_scan)):raise ValueError('Invalid packed output span')
+                if output_scan.flags&1:raise ValueError('Non-finite Dolby output')
+                ip=input_scan.peak;op=output_scan.peak
+                if output_scan.flags&2:raise ValueError('Dolby result exceeded normalized Float32 range')
+                reply.first_frame,reply.generation,reply.count=first,generation,1024
                 C.memmove(C.addressof(reply.frames),encoded,len(encoded));deadline=time.perf_counter()+.2
                 while not lib.NabuWorkerWrite(view,C.byref(reply)):
                     if lib.NabuTransportStopped(view):cancelled=True;break
@@ -124,6 +133,9 @@ def main():
                     time.sleep(.001)
                 if cancelled:break
                 replied=time.perf_counter()
+                timing=((replied-batch_began)*1000,generation,first,duration)
+                if len(slowest)<64:heapq.heappush(slowest,timing)
+                elif timing>slowest[0]:heapq.heapreplace(slowest,timing)
                 if first_reply_ms is None:first_reply_ms=(replied-began)*1000
                 if last_reply is not None:
                     gap=(replied-last_reply)*1000;max_reply_gap=max(max_reply_gap,gap)

@@ -1,4 +1,10 @@
-# Dolby APO development source · 2.0.0.20-lab
+# Dolby APO development source · 2.0.0.21-lab
+
+.21 transfers packed Float32 directly through the original renderer and uses
+bounded native finite/range/peak checks. Original-output/reset/control checks
+pass. A quiet three-minute live trial retained 64 extra fallback frames beyond
+the deliberately injected worker restart. Seamless recovery, sustained stability
+and permanent deployment remain unfinished. [Evidence](../../docs/results/audio-packed-dolby-live-2026-11-26.json)
 
 **.20:** unavailable/RAW effects reject both ON and OFF. The new control probe
 passes 34 cases; the existing factory/control probes pass 24/14. A signal-only
