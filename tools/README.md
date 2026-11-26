@@ -1,5 +1,10 @@
 # Audio development probes
 
+`ApoPreferenceProbe` tests fake CAPX stores, strict values, notification scope and
+COM lifetime using local owned mappings. `QuietPreferenceProbe` observes saved
+state in ordinary WASAPI streams at the same bounded quiet level; it writes no
+preference or endpoint volume. [Measured results](../docs/results/audio-dolby-preference-live-2026-11-26.json)
+
 `ApoEffectControlProbe <absolute-bridge-dll>` checks unavailable/RAW/discovery
 effect control, 10,000 notification replacements with exact handle counts and
 2,048 register/snapshot races. It creates only a local COM/transport fixture;

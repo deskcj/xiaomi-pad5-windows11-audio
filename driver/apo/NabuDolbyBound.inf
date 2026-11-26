@@ -4,7 +4,7 @@ Class=Extension
 ClassGuid={E2F84CE7-8EFA-411C-AA69-97454CA4CB57}
 ExtensionId={FD13C2DF-5315-4F4F-9556-F78FB784A12A}
 Provider=%Provider%
-DriverVer=11/25/2026,1.0.2140.36
+DriverVer=11/26/2026,1.0.2140.37
 CatalogFile=NabuDolbyBound.cat
 PnpLockdown=1
 [Manufacturer]
@@ -30,6 +30,8 @@ HKR,FX\0,%PKEY_SFX_ProcessingModes%,0x00010000,%MODE_DEFAULT%,%MODE_MEDIA%
 ; publish the same custom bank property in the legacy flat FX\0 store.
 HKR,FX\0\%APO_CLSID%,%PKEY_FX_Association%,,%KSNODETYPE_SPEAKER%
 HKR,FX\0\%APO_CLSID%\Default,%PKEY_NabuDolbyBank%,,"Global\NabuDolbyBank-9df8834a-209e-4cc1-bc73-bb4353adfa9f"
+; Provision the CAPX User store without writing or replacing any user preference.
+HKR,FX\0\%APO_CLSID%\User,,0x00000010
 [Strings]
 Provider="DeskCj"
 Description="Nabu original Dolby driver-bound SFX settings-context lab extension"

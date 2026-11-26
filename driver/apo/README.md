@@ -1,4 +1,11 @@
-# Dolby APO development source · 2.0.0.21-lab
+# Dolby APO development source · 2.0.0.22-lab
+
+.22 reads the saved CAPX User preference and implements Windows-managed property
+notifications. Bound SFX .37 provisions the empty User key without replacing any
+settings. Ordinary desktop API writes, fresh OFF/ON streams and live ON/OFF/ON
+pass; OFF survives a service restart. Original output remains exact. Installed
+.22/lab11 uses local service logs. Cold boot, latency and seamless recovery remain
+open. [Evidence](../../docs/results/audio-dolby-preference-live-2026-11-26.json)
 
 .21 transfers packed Float32 directly through the original renderer and uses
 bounded native finite/range/peak checks. Original-output/reset/control checks

@@ -24,7 +24,7 @@ The ZIP includes a PowerShell installer and rollback. Use the four factory calib
 
 Download: **4.17.27.20**. Development source: **4.17.27.20**. The published ZIP does not include system Dolby or MiSound.
 
-[Experimental Dolby .21 / lab09 add-on](https://github.com/deskcj/xiaomi-pad5-windows11-audio/releases/tag/dolby-2.0.0.21-lab09): matching APO/SFX/backend, installer, rollback, archive signature and SHA-256. Qualification continues.
+[Experimental Dolby .22 / lab11 add-on](https://github.com/deskcj/xiaomi-pad5-windows11-audio/releases/tag/dolby-2.0.0.22-lab11): matching APO/SFX/backend, saved preference control, installer and rollback. Qualification continues.
 
 ## Project status
 
@@ -32,25 +32,25 @@ Download: **4.17.27.20**. Development source: **4.17.27.20**. The published ZIP 
 | --- | --- |
 | Four CS35L41 amplifiers | ✅ .20 installed and started on the tablet. |
 | Original Dolby renderer | ✅ Exact original-output checks and earlier live SFX trials. |
-| Dolby .21 control | ✅ Real .21 audiodg and Windows ON/OFF/ON: 47,521 intentional-bypass frames; zero failure fallback. |
+| Dolby .22 saved preference | ✅ OFF/ON for new streams, live notifications and persistence across service restart; zero failure fallback. |
 | Dolby graph installation | ✅ Matching signed APO/SFX/backend, LocalService Automatic and verified rollback. |
-| Permanent Dolby / Atmos | ❌ Cold boot, saved preference, latency/recovery and Atmos objects unfinished. |
+| Permanent Dolby / Atmos | ❌ Cold-boot preference, latency/recovery and Atmos objects unfinished. |
 | Stereo L/R | ✅ Digital Normal/RAW separation. ❌ Physical four-speaker isolation unconfirmed. |
 | MiSound resources/control | ✅ Original factory data, command/source tests and bounded ACDB reading. |
 | MiSound in Qualcomm DSP | ❌ Live modules, graph, COPP and processing unfinished. |
 | Hardware PCM24 / HyperOS quality | ❌ Hardware bit depth, acoustics, sleep and maximum-volume safety unverified. |
 
-Current tablet: amplifier **4.17.27.20**, APO **2.0.0.21** and standalone experimental Dolby backend **lab09** installed. Full qualification remains unfinished.
+Current tablet: amplifier **4.17.27.20**, APO **2.0.0.22**, bound SFX **.37** and standalone experimental Dolby backend **lab11** installed. Logs use the LocalService profile.
 
 ## Update history
 
-- **26 Nov:** ✅ Full Dolby graph installation/rollback, Windows ON/OFF/ON and service recovery followed by a new stream. Quiet 3-minute test: 8.64 million frames, zero failure fallback. ❌ Cold boot, 128 ms latency and ~1.8 s active-worker recovery remain open.
+- **26 Nov:** ✅ Dolby .22 saved preference, live ON/OFF/ON and service-restart persistence: 1,250,880 quiet stream frames, zero failure fallback. Full package installation/rollback and original-output checks pass. ❌ 128 ms latency, ~1.8 s recovery and cold-boot qualification remain open.
 
-[Evidence](docs/results/audio-dolby-graph-install-live-2026-11-26.json)
+[Evidence](docs/results/audio-dolby-preference-live-2026-11-26.json)
 
 ## Sandbox
 
-- Installed Dolby .21 now runs through the independent service. Next: startup/preferences and seamless worker recovery.
+- Installed Dolby .22 saves the preference through Windows CAPX. Next: startup qualification and seamless worker recovery.
 - MiSound DSP, physical four-speaker L/R and hardware PCM24 remain open. The complete Dolby add-on ZIP is published as experimental.
 
 ## ❤️ Help bring better sound to Windows on nabu

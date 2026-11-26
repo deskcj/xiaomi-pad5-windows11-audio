@@ -62,7 +62,8 @@ bool connection_signature(UINT32 signature)
 }
 
 class NabuDolbyApo final : public IAudioProcessingObject, public IAudioProcessingObjectConfiguration,
-                          public IAudioProcessingObjectRT, public IAudioSystemEffects3 {
+                          public IAudioProcessingObjectRT, public IAudioSystemEffects3,
+                          public IAudioProcessingObjectNotifications {
     class InnerUnknown final : public IUnknown {
     public:
         explicit InnerUnknown(NabuDolbyApo *owner) noexcept : owner_(owner) {}
@@ -107,6 +108,8 @@ public:
             *result = static_cast<IAudioSystemEffects2 *>(this);
         else if (iid == __uuidof(IAudioSystemEffects3))
             *result = static_cast<IAudioSystemEffects3 *>(this);
+        else if (iid == __uuidof(IAudioProcessingObjectNotifications))
+            *result = static_cast<IAudioProcessingObjectNotifications *>(this);
         else
             return E_NOINTERFACE;
         static_cast<IUnknown *>(*result)->AddRef();
@@ -120,6 +123,8 @@ public:
         ULONG remaining = InterlockedDecrement(&references_);
         if (!remaining) {
             close_notifications();
+            if (user_properties_) { user_properties_->Release(); user_properties_=nullptr; }
+            if (settings_device_) { settings_device_->Release(); settings_device_=nullptr; }
             if (logging_) { logging_->Release(); logging_=nullptr; }
             free_delay();
             if (transport_) {
@@ -198,6 +203,16 @@ public:
                         if (SUCCEEDED(hr)) hr = store ? store->OpenDefaultPropertyStore(STGM_READ, &properties) : E_NOINTERFACE;
                         owns_properties = properties != nullptr;
                         if (SUCCEEDED(hr) && !properties) hr = E_NOINTERFACE;
+                        if (SUCCEEDED(hr)) {
+                            endpoint->AddRef();settings_device_=endpoint;
+                            HRESULT user_status=store->OpenUserPropertyStore(STGM_READ,&user_properties_);
+                            if (FAILED(user_status) || !user_properties_) {
+                                if (user_properties_) { user_properties_->Release();user_properties_=nullptr; }
+                                // An inaccessible/invalid explicit user store must not silently
+                                // enable an effect which the user may have disabled.
+                                InterlockedExchange(&effect_enabled_,user_status==HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND)?1:0);
+                            } else read_preference(user_properties_,true);
+                        }
                     }
                     properties_status = hr;
                     if (store) store->Release();
@@ -304,16 +319,43 @@ public:
         // RAW, discovery without a ready bank, and resource-less instances do
         // not expose an effect. Neither state is a valid operation on them.
         if (!has_effect()) return HRESULT_FROM_WIN32(ERROR_NOT_SUPPORTED);
-        const LONG enabled = state == AUDIO_SYSTEMEFFECT_STATE_ON ? 1 : 0;
-        LONG previous = InterlockedExchange(&effect_enabled_,enabled);
-        if (shared_) InterlockedExchange(&shared_->effect_enabled,enabled);
-        if (previous != enabled) {
-            AcquireSRWLockShared(&notification_lock_);
-            if (legacy_event_) SetEvent(legacy_event_);
-            if (control_event_) SetEvent(control_event_);
-            ReleaseSRWLockShared(&notification_lock_);
-        }
+        // The Windows stream API keeps its per-stream semantics. Only the
+        // settings app writes the persistent CAPX User preference.
+        apply_effect_state(state == AUDIO_SYSTEMEFFECT_STATE_ON ? 1 : 0);
         return S_OK;
+    }
+
+    HRESULT STDMETHODCALLTYPE GetApoNotificationRegistrationInfo(APO_NOTIFICATION_DESCRIPTOR **notifications, DWORD *count) override
+    {
+        if (!notifications || !count) return E_POINTER;
+        *notifications=nullptr;*count=0;
+        if (!initialized_ || !has_effect() || !settings_device_) return S_OK;
+        auto *descriptor=static_cast<APO_NOTIFICATION_DESCRIPTOR *>(CoTaskMemAlloc(sizeof(APO_NOTIFICATION_DESCRIPTOR)));
+        if (!descriptor) return E_OUTOFMEMORY;
+        *descriptor={};descriptor->type=APO_NOTIFICATION_TYPE_SYSTEM_EFFECTS_PROPERTY_CHANGE;
+        settings_device_->AddRef();descriptor->audioSystemEffectsPropertyChange.device=settings_device_;
+        descriptor->audioSystemEffectsPropertyChange.propertyStoreContext=NabuDolbyApoId;
+        *notifications=descriptor;*count=1;
+        return S_OK;
+    }
+
+    void STDMETHODCALLTYPE HandleNotification(APO_NOTIFICATION *notification) override
+    {
+        if (!notification || !initialized_ || !settings_device_ || !has_effect() ||
+            notification->type!=APO_NOTIFICATION_TYPE_SYSTEM_EFFECTS_PROPERTY_CHANGE) return;
+        const auto &change=notification->audioSystemEffectsPropertyChange;
+        if (change.propertyStoreContext!=NabuDolbyApoId ||
+            change.propertyStoreType!=AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE_USER ||
+            change.propertyKey.fmtid!=PKEY_NabuDolbyEnabled.fmtid ||
+            change.propertyKey.pid!=PKEY_NabuDolbyEnabled.pid || !change.propertyStore || !change.endpoint) return;
+        LPWSTR expected=nullptr, actual=nullptr;
+        HRESULT one=settings_device_->GetId(&expected),two=change.endpoint->GetId(&actual);
+        bool same=SUCCEEDED(one)&&SUCCEEDED(two)&&expected&&actual&&
+            CompareStringOrdinal(expected,-1,actual,-1,TRUE)==CSTR_EQUAL;
+        CoTaskMemFree(expected);CoTaskMemFree(actual);
+        // Windows owns notification lifetime and serialization. This code does
+        // no work on the audio callback thread and retains no payload pointers.
+        if (same) read_preference(change.propertyStore,false);
     }
 
     HRESULT STDMETHODCALLTYPE GetLatency(HNSTIME *latency) override
@@ -472,6 +514,27 @@ public:
 private:
     bool has_effect() const { return transport_ || discovery_effect_ || (requests_ && replies_ && delay_); }
 
+    void apply_effect_state(LONG enabled)
+    {
+        LONG previous=InterlockedExchange(&effect_enabled_,enabled);
+        if (shared_) InterlockedExchange(&shared_->effect_enabled,enabled);
+        if (previous!=enabled) {
+            AcquireSRWLockShared(&notification_lock_);
+            if (legacy_event_) SetEvent(legacy_event_);
+            if (control_event_) SetEvent(control_event_);
+            ReleaseSRWLockShared(&notification_lock_);
+        }
+    }
+
+    void read_preference(IPropertyStore *store,bool initializing)
+    {
+        PROPVARIANT setting={};HRESULT status=store->GetValue(PKEY_NabuDolbyEnabled,&setting);
+        if ((SUCCEEDED(status) && setting.vt==VT_EMPTY) || status==HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND)) apply_effect_state(1);
+        else if (SUCCEEDED(status) && setting.vt==VT_UI4 && setting.ulVal<=1) apply_effect_state(LONG(setting.ulVal));
+        else if (initializing) apply_effect_state(0);
+        PropVariantClear(&setting);
+    }
+
     HRESULT subscribe_event(HANDLE event, bool controllable)
     {
         HANDLE owned = nullptr;
@@ -584,6 +647,8 @@ private:
     UINT32 mode_flags_=0;
     HRESULT logging_status_=E_NOINTERFACE;
     IAudioProcessingObjectLoggingService *logging_=nullptr;
+    IMMDevice *settings_device_=nullptr;
+    IPropertyStore *user_properties_=nullptr;
     StereoFrame *delay_frames_ = nullptr;
     DolbyStream stream_ = {};
 };

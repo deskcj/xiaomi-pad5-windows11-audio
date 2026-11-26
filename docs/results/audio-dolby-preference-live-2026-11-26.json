@@ -1,0 +1,118 @@
+{
+  "Schema": 1,
+  "Date": "2026-11-26",
+  "Scope": "Original Dolby stereo DAP; saved preference and deployment",
+  "Installed": {
+    "Amplifier": "4.17.27.20",
+    "Apo": "2.0.0.22",
+    "BoundSfx": "1.0.2140.37",
+    "Backend": "1.0.0-lab11",
+    "Start": "Automatic",
+    "LogDirectoryDependsOnSsd": false
+  },
+  "Changed": {
+    "CapxUserPreference": true,
+    "WindowsManagedNotifications": true,
+    "StreamApiRemainsPerStream": true,
+    "ProvisionedEmptyUserStoreInInf": true,
+    "UserPreferenceOverwrittenByInf": false,
+    "SystemRegistryAclChanged": false,
+    "PersistentPreferenceControlRunsWithoutElevation": true,
+    "ExtraSettingsAppRequired": false
+  },
+  "Tests": {
+    "PreferenceContracts": 39,
+    "ComContracts": 24,
+    "ControlContracts": 34,
+    "InstallerSafetyContracts": 8,
+    "OriginalOutputReferenceFrames": [
+      196608,
+      196608,
+      190464
+    ],
+    "NewStreamOffOn": true,
+    "LiveNotificationStates": [
+      1,
+      0,
+      1
+    ],
+    "LiveNotifications": 3,
+    "PreferenceSurvivedServiceRestart": true,
+    "InitialPreferenceRestored": true,
+    "SourceHostAndEpochCorrelated": true,
+    "Streams": [
+      {
+        "Phase": "NewStreamOffBroker",
+        "Processed": 192480,
+        "Wet": 0,
+        "IntentionalBypass": 186336,
+        "FailureFallback": 0
+      },
+      {
+        "Phase": "NewStreamOnBroker",
+        "Processed": 192480,
+        "Wet": 186336,
+        "IntentionalBypass": 0,
+        "FailureFallback": 0
+      },
+      {
+        "Phase": "WatchBroker",
+        "Processed": 480480,
+        "Wet": 323615,
+        "IntentionalBypass": 150721,
+        "FailureFallback": 0
+      },
+      {
+        "Phase": "NewStreamOffAfterRestartBroker",
+        "Processed": 192480,
+        "Wet": 0,
+        "IntentionalBypass": 186336,
+        "FailureFallback": 0
+      },
+      {
+        "Phase": "NewStreamDefaultOnBroker",
+        "Processed": 192960,
+        "Wet": 186816,
+        "IntentionalBypass": 0,
+        "FailureFallback": 0
+      }
+    ],
+    "TestedCandidateRollbackVerified": true,
+    "FinalPackageInstalledAndQuietOffOnVerified": true,
+    "CalibrationAndKernelUnchanged": true,
+    "DeviceVolumeUnchanged": true
+  },
+  "Cause": {
+    "PreviousOpenUserWriteHresult": "0x80070005",
+    "UserSubstoreWasMissing": true,
+    "ElevationAndPackageIdentityAloneDidNotFix": true,
+    "KeyOnlyInfProvisioningResolvedWrite": true,
+    "ProtectedRegistryWritesUsedForPreference": false
+  },
+  "Package": {
+    "Kind": "ExperimentalDolbyGraphAddon",
+    "Zip": "dolby-graph24d.zip",
+    "Sha256": "081a194343567eff540f3df28b75cabd0c90eb7d3d98b72dc42ddb3051eb436c",
+    "Bytes": 11637730,
+    "PublicRelease": false
+  },
+  "Limitations": {
+    "ColdBootSavedPreferenceQualified": false,
+    "LatencyMs": 128,
+    "ActiveWorkerFailureRecoveryAboutSeconds": 1.8,
+    "AtmosObjects": false,
+    "MiSoundDsp": false,
+    "PhysicalFourSpeakerLr": false,
+    "HardwarePcm24": false,
+    "HyperOsAcoustics": false,
+    "MaximumVolumeSafety": false
+  },
+  "RawEvidence": {
+    "LiveSha256": "9a09fdd92fddd86be7b1efe96ca490b4a80e354c55077a27335bf64d52877f80",
+    "TraceSha256": "37407d344bc4be022ba5c87da62e12de8b74769a9f48c847d20918c55605b6fd",
+    "OriginalReferenceResultSha256": "5a75bad9ce20477bf100d7b72dc744afe232b5e52f6df79b209c6b396221377e",
+    "FinalInstallSha256": "a4ea1679b444f1a1b521b24f2247092b2a77733844bf3ce2dd8e606d43bde5c3",
+    "RollbackSha256": "990dd9bd5c2eb6ac1935aea995cbe19dde9386122df1a89d5820a295736a8b74",
+    "MetadataInfSha256": "9f042b416c51f25c840bf3e3eab3b8337c3d8b33536c560d380a771cb2b0a19d"
+  }
+}

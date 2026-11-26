@@ -8,6 +8,7 @@ import winreg as R
 CONTEXT = '{9df8834a-209e-4cc1-bc73-bb4353adfa9f}'
 ASSOCIATION = '{d04e05a6-594b-4fb6-a80d-01af5eed7d1d},0'
 BANK = '{1a5bcc9e-61ee-41b7-9dc2-1b580dcafa1b},1'
+ENABLED = '{1a5bcc9e-61ee-41b7-9dc2-1b580dcafa1b},2'
 SPEAKER = '{DFF21CE1-F70F-11D0-B917-00A0C9223196}'
 DEFAULT_BANK = 'Global\\NabuDolbyBank-9df8834a-209e-4cc1-bc73-bb4353adfa9f'
 _captured_absent = set()
@@ -48,6 +49,9 @@ def plan_cleanup(tree, relative=''):
     if normalized not in ('', 'default', 'user', 'volatile'):
         raise RuntimeError('Unexpected context child; preserve contents')
     expected = {ASSOCIATION: [SPEAKER, R.REG_SZ]} if not relative else {BANK: [DEFAULT_BANK, R.REG_SZ]} if normalized == 'default' else {}
+    if normalized == 'user':
+        for name,value in tree['Values'].items():
+            if name.lower()==ENABLED and value in ([0,R.REG_DWORD],[1,R.REG_DWORD]):expected[ENABLED]=value
     operations = []
     for name, value in tree['Values'].items():
         if name.lower() not in expected or value != expected[name.lower()]:

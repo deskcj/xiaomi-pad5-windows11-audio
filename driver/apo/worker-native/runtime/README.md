@@ -1,5 +1,14 @@
 # Original Dolby runtime · development
 
+.22/lab11 installs with provisioned CAPX User settings and portable LocalService
+logs. Saved OFF/ON, live notifications and service-restart persistence passed in
+real audiodg; 1,250,880 quiet stream frames had zero failure fallback. The final
+package and exact rollback are verified. `Set-Dolby.ps1 -State On|Off|Default`
+changes only this APO's preference through the Windows API. No companion app,
+registry ACL override or elevated settings call is required. Cold-boot preference,
+128 ms latency and ~1.8 s active-worker recovery remain open.
+[Evidence](../../../../docs/results/audio-dolby-preference-live-2026-11-26.json)
+
 .21 preserves original Float32 bytes without per-batch Python sample conversion.
 The native scanner retains finite/range guards; 64 slowest batch timings preserve
 late-stall evidence. Live control and rollback pass; the three-minute run still
