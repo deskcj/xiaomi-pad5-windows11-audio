@@ -18,7 +18,14 @@ struct Observer final:IAudioEffectsChangedNotificationClient{
     HRESULT STDMETHODCALLTYPE OnAudioEffectsChanged()override{InterlockedIncrement(&notifications);return S_OK;}
 };
 int wmain(int argc,WCHAR**argv){
-    if(argc!=2)return 2;bool watch=!wcscmp(argv[1],L"--watch");if(!watch&&wcscmp(argv[1],L"--steady"))return 2;
+    if(argc!=2&&argc!=4)return 2;bool watch=!wcscmp(argv[1],L"--watch");if(!watch&&wcscmp(argv[1],L"--steady"))return 2;
+    DWORD duration=watch?10000:4000;
+    if(argc==4){
+        if(wcscmp(argv[2],L"--duration-ms")||!*argv[3])return 2;
+        duration=0;
+        for(const WCHAR*p=argv[3];*p;++p){if(*p<L'0'||*p>L'9'||duration>18000)return 2;duration=duration*10+DWORD(*p-L'0');}
+        if(duration<4000||duration>180000)return 2;
+    }
     HRESULT hr=CoInitializeEx(nullptr,COINIT_MULTITHREADED);if(FAILED(hr))return 3;
     bool audio=false,registered=false,gain=false,unchanged=false;UINT64 submitted=0;float maximum=0;unsigned states=0;int history[16]={};DWORD pid=GetCurrentProcessId();
     LPWSTR id=nullptr;WAVEFORMATEX*format=nullptr;FLOAT before=0,after=0;BOOL muteBefore=TRUE,muteAfter=TRUE;
@@ -67,7 +74,6 @@ int wmain(int argc,WCHAR**argv){
         gain=SUCCEEDED(hr)&&values[0]==.01f&&values[1]==.01f;if(SUCCEEDED(hr)&&!gain)hr=E_FAIL;
         if(SUCCEEDED(hr))hr=stream.p->GetService(IID_PPV_ARGS(writer.out()));
         UINT32 buffer=0;if(SUCCEEDED(hr))hr=stream.p->GetBufferSize(&buffer);
-        const DWORD duration=watch?10000:4000;
         auto supply=[&](UINT32 n){BYTE*data=nullptr;HRESULT status=writer->GetBuffer(n,&data);if(FAILED(status))return status;auto*f=reinterpret_cast<float*>(data);
             for(UINT32 i=0;i<n;++i){double t=double(submitted+i)/48000.;double edge=fmax(0.,fmin(1.,fmin(t/.02,(double(duration)/1000.-t)/.02)));f[i*2]=float(.001*edge*sin(2*3.14159265358979323846*800*t));f[i*2+1]=float(.001*edge*sin(2*3.14159265358979323846*1100*t));}
             status=writer->ReleaseBuffer(n,0);if(SUCCEEDED(status))submitted+=n;return status;};
@@ -85,6 +91,6 @@ int wmain(int argc,WCHAR**argv){
     bool passed=SUCCEEDED(hr)&&audio&&gain&&unchanged&&states;
     printf("{\"hr\":\"0x%08lx\",\"source_pid\":%lu,\"audio_started\":%s,\"submitted_frames\":%llu,\"source_peak\":0.001,\"owned_stream_gain\":0.01,\"volume_unchanged\":%s,\"maximum_meter_peak\":%.9g,\"notifications\":%ld,\"observed_states\":[",ULONG(hr),pid,audio?"true":"false",submitted,unchanged?"true":"false",double(maximum),InterlockedCompareExchange(&observer->notifications,0,0));
     for(unsigned i=0;i<states;++i)printf("%s%d",i?",":"",history[i]);
-    printf("],\"preference_written\":false,\"physical_acoustic_test\":false,\"passed\":%s}\n",passed?"true":"false");
+    printf("],\"duration_ms\":%lu,\"preference_written\":false,\"physical_acoustic_test\":false,\"passed\":%s}\n",duration,passed?"true":"false");
     CoTaskMemFree(format);CoTaskMemFree(id);CoUninitialize();return passed?0:5;
 }

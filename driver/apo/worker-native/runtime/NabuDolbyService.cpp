@@ -127,7 +127,10 @@ DWORD run(){
             const std::wstring logs=base+L"\\"+unique;
             if(!CreateDirectoryW(logs.c_str(),nullptr))throw GetLastError();
             const std::wstring output=logs+L"\\runtime";
-            const std::wstring command=quote(broker)+L" "+quote(bridge)+L" "+quote(python)+L" "+quote(worker)+L" "+quote(output)+L" "+quote(bank)+L" 0 2 "+quote(fingerprint);
+            std::wstring command=quote(broker)+L" "+quote(bridge)+L" "+quote(python)+L" "+quote(worker)+L" "+quote(output)+L" "+quote(bank)+L" 0 2 "+quote(fingerprint);
+            const UINT warm=GetPrivateProfileIntW(L"Runtime",L"WarmSpare",0,ini.c_str());
+            if(warm>1)throw DWORD(ERROR_INVALID_DATA);
+            if(warm)command+=L" --warm-spare";
             Spawn child;child.start(command,root,logs);
             const ULONGLONG start=GetTickCount64();bool ready=false;
             for(;;){

@@ -1,0 +1,156 @@
+{
+  "Date": "2026-11-26",
+  "Kernel": "4.17.27.20",
+  "Apo": "2.0.0.22",
+  "BoundSfx": ".37",
+  "InstalledBackend": "1.0.0-lab13",
+  "Changes": [
+    "Private warmed spare claims a transport only after confirmed owner exit",
+    "Active stream epoch/queue ownership retained",
+    "Standby initialization below Audio priority; replenishment after five idle seconds",
+    "WarmSpare opt-in preserved in runtime bundle",
+    "Telemetry file I/O/serialization moved to a bounded low-priority writer"
+  ],
+  "Build": {
+    "Architecture": "ARM64",
+    "Compiler": "EWDK MSVC /W4 /WX",
+    "SignedRuntime": true,
+    "BridgeSha256": "5f58be6982cf5fee2de206bba8b7ef26adafded9eb51ebd9026a1010f481e71e",
+    "SourceFingerprint": "0cc052b8c491075f452aac40211b27dd60be6ca829f0067a0ecb0ed5bc1b77ed",
+    "BrokerSourceSha256": "e89789dae94fbfd71d0b2431b2226c7ea9c25dfedf2d5e4655346507e42d2a04",
+    "WorkerSourceSha256": "7d717e126d2d41c2b8b46a1460e6a80c2f5046d2617fe82771abfa05cc456ffe"
+  },
+  "Software": {
+    "HandoffRejectedContracts": 15,
+    "ExactOriginalCases": [
+      {
+        "Case": "normal",
+        "ReferenceFrames": 196608,
+        "UnexpectedFrames": 0,
+        "DryFrames": 0
+      },
+      {
+        "Case": "irregular",
+        "ReferenceFrames": 196608,
+        "UnexpectedFrames": 0,
+        "DryFrames": 0
+      },
+      {
+        "Case": "reset",
+        "ReferenceFrames": 190464,
+        "UnexpectedFrames": 0,
+        "DryFrames": 0
+      },
+      {
+        "Case": "after-promotion-original",
+        "ReferenceFrames": 196608,
+        "UnexpectedFrames": 0,
+        "DryFrames": 0
+      }
+    ],
+    "WarmRecoveryDryFrames": 1472,
+    "OtherSlotUntouched": true,
+    "CleanupErrors": [],
+    "TelemetryMaxOwnerCaptureMs": 0.615834000200266,
+    "TelemetryQueueCapacity": 1
+  },
+  "Tablet": {
+    "QuietWasapi": true,
+    "AcousticMeasurement": false,
+    "SameAudiodgAndEpoch": true,
+    "RecoveryDryFrames": 1440,
+    "RecoveryDryMs": 30.0,
+    "RecoveryDryRuns": 1,
+    "LiveOnOffOn": true,
+    "SoakSeconds": 180,
+    "Streams": [
+      {
+        "Test": "BeforeRecoveryBroker",
+        "AudiodgPid": 7672,
+        "Epoch": 1,
+        "FramesProcessed": 192480,
+        "Wet": 186336,
+        "FailureFallback": 0,
+        "IntentionalBypass": 0,
+        "DryRanges": []
+      },
+      {
+        "Test": "RecoveryBroker",
+        "AudiodgPid": 7672,
+        "Epoch": 2,
+        "FramesProcessed": 1440960,
+        "Wet": 1334015,
+        "FailureFallback": 1440,
+        "IntentionalBypass": 99361,
+        "DryRanges": [
+          {
+            "first": 144384,
+            "last": 145823
+          }
+        ]
+      },
+      {
+        "Test": "AfterRecoveryBroker",
+        "AudiodgPid": 7672,
+        "Epoch": 3,
+        "FramesProcessed": 192480,
+        "Wet": 186336,
+        "FailureFallback": 0,
+        "IntentionalBypass": 0,
+        "DryRanges": []
+      },
+      {
+        "Test": "SoakBroker",
+        "AudiodgPid": 7672,
+        "Epoch": 4,
+        "FramesProcessed": 8640960,
+        "Wet": 8634816,
+        "FailureFallback": 0,
+        "IntentionalBypass": 0,
+        "DryRanges": []
+      }
+    ],
+    "SourceTraceCorrelated": true,
+    "RuntimeUpgradeInstalled": true,
+    "RuntimeRollbackLab11Verified": true,
+    "AmplifiersHealthy": true,
+    "KernelCalibrationUnchanged": true,
+    "FreshFullGraphInstallationThisCycle": false
+  },
+  "RetainedFailures": [
+    {
+      "Trial": "warm-original01",
+      "Issue": "Active stream stalls and post-promotion reference regression before standby replenishment fix"
+    },
+    {
+      "Trial": "warm-original02",
+      "Issue": "Normal stream deadline misses while installed backend and laboratory guest were both resident"
+    },
+    {
+      "Trial": "live-warm01",
+      "Issue": "Synchronous telemetry candidate lab12 failed 180s qualification: 19680 fallback frames; automatic lab11 rollback verified"
+    }
+  ],
+  "Limits": {
+    "LatencyMs": 128,
+    "RecoveryIsSeamless": false,
+    "ColdBootQualified": false,
+    "AtmosObjects": false,
+    "MiSoundDsp": false,
+    "PhysicalFourSpeakerLr": false,
+    "HardwarePcm24": false,
+    "HyperOsAcoustics": false,
+    "MaximumVolumeSafety": false
+  },
+  "Publication": {
+    "PackagePublished": false
+  },
+  "Package": {
+    "Sha256": "961b17f2fd9b71dd0c7ab2144b2d87ad1ed22952b50ad79e2ffff839ddc79e36",
+    "Bytes": 11967177,
+    "DetachedSignatureVerified": true,
+    "SignerThumbprint": "F38EDD5C105095C8342556158CE66253F045965D",
+    "KernelIncluded": false,
+    "FreshFullGraphInstallThisCycle": false
+  }
+}

@@ -1,6 +1,6 @@
 param([Parameter(Mandatory=$true)][string]$RuntimeDirectory,[Parameter(Mandatory=$true)][string]$ApoPackageDirectory,
     [Parameter(Mandatory=$true)][string]$OutputDirectory,[Parameter(Mandatory=$true)][ValidatePattern('^1\.0\.0-lab[0-9]+$')][string]$RuntimeVersion,
-    [string]$LogDirectory,[switch]$AudioGraphBank)
+    [string]$LogDirectory,[switch]$AudioGraphBank,[switch]$WarmSpare)
 $ErrorActionPreference='Stop'
 $audioRoot=[IO.Path]::GetFullPath($RuntimeDirectory).TrimEnd('\')+'\'
 $audioOut=[IO.Path]::GetFullPath($OutputDirectory)
@@ -34,11 +34,12 @@ if($LogDirectory){
 }
 $ini="[Runtime]`nSourceFingerprint=$($manifest.SourceFingerprint)`nBridgeSha256=$($manifest.BridgeSha256)`nBankName=$bank`n"
 if($audioLogs){$ini+="LogRoot=$audioLogs`n"}
+if($WarmSpare){$ini+="WarmSpare=1`n"}
 [IO.File]::WriteAllText((Join-Path $audioOut 'runtime\Runtime.ini'),$ini,[Text.UTF8Encoding]::new($false))
 $manifest.Files.'Runtime.ini'=(Get-FileHash -LiteralPath (Join-Path $audioOut 'runtime\Runtime.ini')).Hash.ToLowerInvariant()
 if(-not $manifest.PSObject.Properties['RuntimeVersion']){$manifest | Add-Member -NotePropertyName RuntimeVersion -NotePropertyValue $RuntimeVersion}else{$manifest.RuntimeVersion=$RuntimeVersion}
 $manifest.BankName=$bank
-foreach($audioField in @(@('LogRoot',$audioLogs),@('AudioGraphBank',[bool]$AudioGraphBank))){
+foreach($audioField in @(@('LogRoot',$audioLogs),@('AudioGraphBank',[bool]$AudioGraphBank),@('WarmSpare',[bool]$WarmSpare))){
     if($manifest.PSObject.Properties[$audioField[0]]){$manifest.($audioField[0])=$audioField[1]}else{$manifest | Add-Member -NotePropertyName $audioField[0] -NotePropertyValue $audioField[1]}
 }
 $manifest | ConvertTo-Json -Depth 9 | Set-Content -LiteralPath (Join-Path $audioOut 'runtime\Manifest.json') -Encoding UTF8

@@ -30,6 +30,7 @@ struct Handle
     Handle() = default;
     Handle(const Handle &) = delete;
     Handle &operator=(const Handle &) = delete;
+    void clear(){if(h&&h!=INVALID_HANDLE_VALUE)CloseHandle(h);h=nullptr;}
 };
 struct Module
 {
@@ -180,7 +181,7 @@ struct Api
 };
 struct Worker
 {
-    Handle process, log;
+    Handle process, log, controlRead, controlWrite;
     void *view = nullptr;
     DWORD pid = 0, exit = STILL_ACTIVE;
     DWORD previousExit = 0;
@@ -188,12 +189,20 @@ struct Worker
     bool recovering = false;
     ULONGLONG launched = 0;
     std::wstring name, output;
+    bool warmPromoted=false;
+    LONG handoffEpoch=0;
 };
 class Broker
 {
     Api api_;
     Handle job_, input_;
     std::vector<Worker> workers_;
+    Worker spare_;
+    bool warmEnabled_=false;
+    unsigned spareLaunches_=0,warmPromotions_=0;
+    DWORD spareError_=0;
+    ULONGLONG spareAttempt_=0;
+    ULONGLONG spareIdleSince_=0;
     void *bank_ = nullptr;
     std::wstring output_, bankName_, fingerprint_;
     std::wstring dllPath_, exePath_, scriptPath_;
@@ -202,6 +211,18 @@ class Broker
     bool published_ = false, forced_ = false;
     DWORD error_ = 0, reportError_ = 0;
     UINT64 skippedReports_ = 0;
+    bool warmReady()
+    {
+        if(!spare_.process.h||WaitForSingleObject(spare_.process.h,0)!=WAIT_TIMEOUT)return false;
+        Handle file;file.h=CreateFileW((spare_.output+L"\\warm-ready.json").c_str(),GENERIC_READ,
+            FILE_SHARE_READ|FILE_SHARE_WRITE|FILE_SHARE_DELETE,nullptr,OPEN_EXISTING,0,nullptr);
+        if(file.h==INVALID_HANDLE_VALUE)return false;
+        char data[512]={};DWORD bytes=0;
+        if(!ReadFile(file.h,data,sizeof(data)-1,&bytes,nullptr))return false;
+        const std::string expected="{\"protocol\":1,\"pid\":"+std::to_string(spare_.pid)+
+            ",\"broker_pid\":"+std::to_string(GetCurrentProcessId())+",\"warm\":true}";
+        return std::string(data,bytes)==expected && GetProcessId(spare_.process.h)==spare_.pid;
+    }
     void write(const char *phase)
     {
         std::ostringstream data;
@@ -212,6 +233,11 @@ class Broker
              << ",\"forced_owned_job_termination\":" << (forced_ ? "true" : "false")
              << ",\"duration_seconds\":" << seconds_ << ",\"bank\":" << json(bankName_)
              << ",\"recovery_mode\":\"preserve_active_stream\",\"restart_limit_per_slot\":2"
+             << ",\"warm_spare_enabled\":" << (warmEnabled_?"true":"false")
+             << ",\"warm_spare_ready\":" << (warmReady()?"true":"false")
+             << ",\"warm_spare_pid\":" << spare_.pid << ",\"warm_spare_output\":" << json(spare_.output)
+             << ",\"warm_spare_launches\":" << spareLaunches_ << ",\"warm_promotions\":" << warmPromotions_
+             << ",\"warm_spare_error\":" << spareError_ << ",\"spare_bank_slot\":false"
              << ",\"source_fingerprint\":" << json(fingerprint_) << ",\"workers\":[";
         for (size_t i = 0; i < workers_.size(); ++i)
         {
@@ -221,6 +247,7 @@ class Broker
             data << "{\"pid\":" << w.pid << ",\"exit_code\":" << w.exit << ",\"transport\":" << json(w.name)
                  << ",\"restart_count\":" << w.restarts << ",\"previous_exit_code\":" << w.previousExit
                  << ",\"recovering\":" << (w.recovering ? "true" : "false")
+                 << ",\"warm_promoted\":" << (w.warmPromoted?"true":"false") << ",\"handoff_epoch\":" << w.handoffEpoch
                  << ",\"output\":" << json(w.output)
                  << ",\"ready\":" << (w.view && api_.metric(w.view, 7) ? "true" : "false");
             if (w.view)
@@ -305,7 +332,7 @@ class Broker
                 throw DWORD(ERROR_BROKEN_PIPE);
             }
     }
-    void startWorker(Worker &w, unsigned index)
+    void startWorker(Worker &w, unsigned index,bool warm=false)
     {
         if (w.process.h)
         {
@@ -319,7 +346,7 @@ class Broker
             CloseHandle(w.log.h);
             w.log.h = nullptr;
         }
-        std::wstring stem = L"worker" + std::to_wstring(index);
+        std::wstring stem = (warm?L"spare":L"worker") + std::to_wstring(index);
         if (w.restarts)
             stem += L"-attempt" + std::to_wstring(w.restarts);
         w.output = output_ + L"\\" + stem;
@@ -331,17 +358,37 @@ class Broker
         std::wstring command = quote(exePath_) + L" ";
         if (!native_)
             command += quote(scriptPath_) + L" ";
-        command += quote(w.name) + L" " + quote(w.output) + L" " + quote(dllPath_);
+        HANDLE childInput=input_.h;
+        w.warmPromoted=false;w.handoffEpoch=0;
+        if(warm){
+            std::wstring targets;
+            for(const auto &target:workers_){if(!targets.empty())targets+=L'|';targets+=target.name;}
+            command+=L"--warm-spare "+quote(w.output)+L" "+quote(dllPath_)+L" "+std::to_wstring(GetCurrentProcessId())+L" "+quote(targets);
+            w.controlRead.clear();w.controlWrite.clear();
+            if(!CreatePipe(&w.controlRead.h,&w.controlWrite.h,&inheritable,0)||
+                !SetHandleInformation(w.controlWrite.h,HANDLE_FLAG_INHERIT,0))throw GetLastError();
+            childInput=w.controlRead.h;
+        }else command += quote(w.name) + L" " + quote(w.output) + L" " + quote(dllPath_);
         std::vector<WCHAR> mutableCommand(command.begin(), command.end());
         mutableCommand.push_back(0);
-        STARTUPINFOW startup = {};
-        startup.cb = sizeof(startup);
-        startup.dwFlags = STARTF_USESTDHANDLES;
-        startup.hStdInput = input_.h;
-        startup.hStdOutput = startup.hStdError = w.log.h;
+        struct Attributes {
+            std::vector<BYTE> bytes;LPPROC_THREAD_ATTRIBUTE_LIST list=nullptr;
+            ~Attributes(){if(list)DeleteProcThreadAttributeList(list);}
+        } attributes;
+        SIZE_T size=0;InitializeProcThreadAttributeList(nullptr,1,0,&size);attributes.bytes.resize(size);
+        attributes.list=reinterpret_cast<LPPROC_THREAD_ATTRIBUTE_LIST>(attributes.bytes.data());
+        if(!InitializeProcThreadAttributeList(attributes.list,1,0,&size)){attributes.list=nullptr;throw GetLastError();}
+        HANDLE inherited[]={childInput,w.log.h};
+        if(!UpdateProcThreadAttribute(attributes.list,0,PROC_THREAD_ATTRIBUTE_HANDLE_LIST,inherited,sizeof(inherited),nullptr,nullptr))throw GetLastError();
+        STARTUPINFOEXW startup = {};
+        startup.StartupInfo.cb = sizeof(startup);
+        startup.lpAttributeList=attributes.list;
+        startup.StartupInfo.dwFlags = STARTF_USESTDHANDLES;
+        startup.StartupInfo.hStdInput = childInput;
+        startup.StartupInfo.hStdOutput = startup.StartupInfo.hStdError = w.log.h;
         PROCESS_INFORMATION process = {};
         if (!CreateProcessW(exePath_.c_str(), mutableCommand.data(), nullptr, nullptr, TRUE,
-                            CREATE_SUSPENDED | CREATE_NO_WINDOW, nullptr, output_.c_str(), &startup,
+                            CREATE_SUSPENDED | CREATE_NO_WINDOW | EXTENDED_STARTUPINFO_PRESENT, nullptr, output_.c_str(), &startup.StartupInfo,
                             &process))
             throw GetLastError();
         w.process.h = process.hProcess;
@@ -359,6 +406,45 @@ class Broker
         if (ResumeThread(thread.h) == DWORD(-1))
             throw GetLastError();
         w.launched = GetTickCount64();
+        w.controlRead.clear();
+    }
+    void maintainSpare()
+    {
+        if(!warmEnabled_||native_||spareError_)return;
+        if(spare_.process.h){
+            DWORD waited=WaitForSingleObject(spare_.process.h,0);
+            if(waited==WAIT_OBJECT_0){GetExitCodeProcess(spare_.process.h,&spare_.exit);spareError_=spare_.exit?spare_.exit:ERROR_BROKEN_PIPE;spare_.controlWrite.clear();}
+            else if(waited==WAIT_FAILED)spareError_=GetLastError();
+            return;
+        }
+        if(spareLaunches_>=3||GetTickCount64()-spareAttempt_<1000)return;
+        // A short gap between streams is not an idle maintenance window.
+        // Initial standby warms before bank publication. Replenishment waits
+        // for five continuous idle seconds, and runs below Audio priority.
+        for(auto &w:workers_)if(api_.metric(w.view,0)!=0){spareIdleSince_=0;return;}
+        if(published_){
+            if(!spareIdleSince_)spareIdleSince_=GetTickCount64();
+            if(GetTickCount64()-spareIdleSince_<5000)return;
+        }
+        spareAttempt_=GetTickCount64();MEMORYSTATUSEX memory={};memory.dwLength=sizeof(memory);
+        if(!GlobalMemoryStatusEx(&memory)||memory.ullAvailPhys<256ULL*1024*1024)return;
+        try{startWorker(spare_,spareLaunches_++,true);}catch(DWORD error){spareError_=error;}catch(...){spareError_=ERROR_UNHANDLED_EXCEPTION;}
+    }
+    bool promoteSpare(Worker &w)
+    {
+        if(!warmReady())return false;
+        if(api_.metric(w.view,1)!=0||api_.metric(w.view,3)!=0)throw DWORD(ERROR_INVALID_OWNER);
+        const LONG epoch=api_.metric(w.view,2);if(epoch<0)throw DWORD(ERROR_INVALID_DATA);
+        std::string message="{\"protocol\":1,\"broker_pid\":"+std::to_string(GetCurrentProcessId())+
+            ",\"transport\":"+json(w.name)+",\"generation\":"+std::to_string(epoch)+"}\n";
+        DWORD written=0;
+        if(!WriteFile(spare_.controlWrite.h,message.data(),DWORD(message.size()),&written,nullptr)||written!=message.size())throw DWORD(ERROR_BROKEN_PIPE);
+        spare_.controlWrite.clear();w.process.clear();w.log.clear();
+        w.process.h=spare_.process.h;spare_.process.h=nullptr;w.log.h=spare_.log.h;spare_.log.h=nullptr;
+        w.pid=spare_.pid;spare_.pid=0;w.output=spare_.output;w.exit=STILL_ACTIVE;w.launched=GetTickCount64();
+        w.warmPromoted=true;w.handoffEpoch=epoch;++warmPromotions_;
+        spareIdleSince_=0;
+        return true;
     }
     bool recoverExitedWorkers()
     {
@@ -385,7 +471,7 @@ class Broker
                 else
                 {
                     ++w.restarts;
-                    startWorker(w, index);
+                    if(!promoteSpare(w))startWorker(w, index);
                 }
                 pending = true;
             }
@@ -402,6 +488,7 @@ class Broker
     }
     void cleanup()
     {
+        if(spare_.controlWrite.h){DWORD written=0;WriteFile(spare_.controlWrite.h,"STOP\n",5,&written,nullptr);spare_.controlWrite.clear();}
         if (bank_)
         {
             api_.bankClose(bank_);
@@ -424,6 +511,11 @@ class Broker
                 }
                 GetExitCodeProcess(w.process.h, &w.exit);
             }
+        if(spare_.process.h){
+            DWORD left=GetTickCount64()<until?DWORD(until-GetTickCount64()):0;
+            if(WaitForSingleObject(spare_.process.h,left)==WAIT_TIMEOUT){forced_=true;if(job_.h)TerminateJobObject(job_.h,ERROR_CANCELLED);WaitForSingleObject(spare_.process.h,2000);}
+            GetExitCodeProcess(spare_.process.h,&spare_.exit);
+        }
     }
 
   public:
@@ -443,6 +535,8 @@ class Broker
         exePath_ = exe;
         scriptPath_ = script;
         native_ = native;
+        warmEnabled_=argv[9]!=nullptr;
+        if(warmEnabled_&&(native_||wcscmp(argv[9],L"--warm-spare")))throw DWORD(ERROR_INVALID_PARAMETER);
         output_ = full(argv[4]);
         bankName_ = argv[5];
         seconds_ = number(argv[6], 3600);
@@ -509,6 +603,13 @@ class Broker
             }
             if (!ready)
                 throw DWORD(ERROR_TIMEOUT);
+            maintainSpare();
+            if(spare_.process.h){
+                ULONGLONG warmDeadline=GetTickCount64()+5000;
+                while(!warmReady()&&!spareError_&&GetTickCount64()<warmDeadline){
+                    maintainSpare();if(WaitForSingleObject(cancelEvent,20)==WAIT_OBJECT_0)throw DWORD(ERROR_CANCELLED);
+                }
+            }
             bank_ = api_.bank(bankName_.c_str(), names.data(), slots, sddl.c_str());
             if (!bank_)
                 throw GetLastError();
@@ -522,6 +623,7 @@ class Broker
                     WaitForSingleObject(cancelEvent, 20) == WAIT_OBJECT_0)
                     break;
                 const bool recovering = recoverExitedWorkers();
+                maintainSpare();
                 if (GetTickCount64() - report >= 1000)
                 {
                     snapshot(recovering ? "Recovering" : "Ready");
@@ -545,10 +647,10 @@ class Broker
 } // namespace
 int wmain(int argc, WCHAR **argv)
 {
-    if (argc != 9)
+    if (argc != 9 && argc != 10)
     {
         fwprintf(stderr, L"NabuDolbyBroker dll worker-exe script-or-- new-output bank duration-seconds slots "
-                         L"source-fingerprint\n");
+                         L"source-fingerprint [--warm-spare]\n");
         return 2;
     }
     Handle event;
