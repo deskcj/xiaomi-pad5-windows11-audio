@@ -49,10 +49,10 @@ Current tablet: amplifier **4.17.27.20**, APO **2.0.0.22**, bound SFX **.37** an
 
 [Evidence](docs/results/audio-dolby-warm-recovery-2026-11-26.json)
 
-## Sandbox
+## 🏖️ Sandbox
 
-- Dolby .22/lab13: saved Windows CAPX preference and warm replacement work in the measured trials. Next: lower latency, gapless recovery and startup qualification.
-- MiSound DSP, physical four-speaker L/R and hardware PCM24 remain open. The complete Dolby add-on ZIP is published as experimental.
+- 🔧 In progress: lower Dolby latency, gapless recovery and startup qualification.
+- ❌ Unfinished: MiSound DSP, Atmos objects, physical four-speaker L/R and hardware PCM24.
 
 ## ❤️ Help bring better sound to Windows on nabu
 
