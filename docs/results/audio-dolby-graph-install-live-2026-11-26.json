@@ -1,0 +1,78 @@
+{
+  "Schema": 1,
+  "Date": "2026-11-26",
+  "Scope": "Original Dolby stereo DAP installed graph; experimental",
+  "Installed": {
+    "AmplifierVersion": "4.17.27.20",
+    "ApoVersion": "2.0.0.21",
+    "BackendVersion": "1.0.0-lab09",
+    "Account": "LocalService",
+    "StartMode": "Automatic",
+    "BoundSpeakerSfx": true,
+    "IndependentOfChatAndWorkingDirectory": true
+  },
+  "Deployment": {
+    "FullDolbyGraphInstaller": true,
+    "KernelIncluded": false,
+    "PortableDependencies": true,
+    "SignatureAndMemberHashesVerified": true,
+    "FaultAfterSfxRollbackVerified": true,
+    "FullPostPlaybackRollbackVerified": true,
+    "RegistryAclOrOwnerChanged": false,
+    "OemEffectsPreserved": true,
+    "CalibrationAndProtectionUnchanged": true,
+    "SafetyContractsPassed": 8
+  },
+  "Live": {
+    "WindowsOnOffOnPassed": true,
+    "Notifications": 2,
+    "IntentionalBypassFrames": 47521,
+    "ContinuitySeconds": 180,
+    "FramesProcessed": 8640480,
+    "FramesWet": 8634336,
+    "FailureFallbackFrames": 0,
+    "StartupDelayFrames": 6144,
+    "LatencyMs": 128,
+    "CaptureDiscontinuities": 1,
+    "NonfiniteFrames": 0,
+    "DeviceVolumeUnchanged": true,
+    "DigitalLChannelSeparationPassed": true,
+    "Opposite800HzToneRatio": 4.34512523998e-05,
+    "IdleServiceGraphRestartAndNewStreamPassed": true,
+    "FinalPackageOnOffOnPassed": true,
+    "ActualAudiodgPids": [
+      2160,
+      10852
+    ],
+    "CodeAndStreamIdentityCorrelated": true,
+    "SourceFingerprint": "c54fa56114a5f1726b0725ba73f6767c42aec9cf128679a2094a3a2abddabf8e"
+  },
+  "Package": {
+    "Kind": "ExperimentalDolbyGraphAddon",
+    "Zip": "dolby-graph23c.zip",
+    "Sha256": "58769a2aff47525ca4291173875ae10d8dad27ec46be6f12657661cb24ecf70f",
+    "Bytes": 11565699,
+    "PublicRelease": false
+  },
+  "Limitations": {
+    "ColdBootQualified": false,
+    "PersistentGlobalEffectPreference": false,
+    "ActiveWorkerRecoveryStillAboutSeconds": 1.8,
+    "AtmosObjectRendering": false,
+    "MiSoundDspProcessing": false,
+    "PhysicalFourSpeakerLrVerified": false,
+    "HardwarePcm24Verified": false,
+    "HyperOsAcousticsVerified": false,
+    "SleepQualified": false,
+    "MaximumVolumeSafetyQualified": false,
+    "MissingAcousticMeasurement": "Separate L-only/R-only recordings at each of four physical speakers; no suitable per-speaker capture is available in this session"
+  },
+  "RawEvidence": {
+    "QuietTrialResultSha256": "df524d81895651afacb900fc098a3fac1e8e0406c48f97a9e051638704574621",
+    "IdentityTraceSha256": "ea33e19ea3591b42e8ca1d411c9865d4281ac4d7a005171ffe87cc73b741302d",
+    "FailedInstallationRollbackResultSha256": "185e5af34e552a49bf3341e0c371115e00a013f19415763021f3d075ac97a0c2",
+    "PostPlaybackRollbackResultSha256": "7b0ead81895ac4a97f40e33ed640945a9351aa21f5c5283cb34dd4ecff989da2",
+    "FinalInstallationResultSha256": "d69f32836031c7d40fc0bddf0c1db6bcd2cdf2b787db09759bbbed948806b445",
+    "SafetyContractsResultSha256": "48e8651c82a8f93b166de5d3898c98740b92ef428295a929ab7b524d40cf4565"
+  }
+}

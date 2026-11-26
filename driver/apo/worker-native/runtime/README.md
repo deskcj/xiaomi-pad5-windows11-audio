@@ -99,7 +99,21 @@ versions can be reused; differing content is preserved and rejected. Rollback
 restores the previous owned service, retaining both directories. Actual fresh
 and reused installations, cooperative stop and rollback passed.
 
-The installer installs only the backend, with a unique smoke bank and Manual
+`Build-AudioGraphBundle.ps1` additionally packages the qualified signed APO,
+bound SFX extension and portable graph installer. It discovers the physical
+speaker, preserves OEM effects and exports baseline packages before mutation.
+Both Windows audio services are quiesced for graph changes. Backend startup is
+SCM Automatic; exact driver/settings/service rollback is retained on SSD.
+The current add-on deliberately accepts only the qualified .20/.4/Qualcomm
+1.0.2100.0 baseline. It retains unexpected registrations, devices and newer APOs.
+Eight offline safety contracts and an actual injected-installation rollback pass.
+Full graph .21/lab09 is now installed: Windows ON/OFF/ON, three quiet minutes
+with zero failure fallback and idle service restart followed by a new stream
+passed. This establishes original stereo DAP processing, not Atmos objects,
+cold-boot qualification, physical speaker isolation or seamless active recovery.
+[Evidence](../../../../docs/results/audio-dolby-graph-install-live-2026-11-26.json)
+
+The separate `Install-Runtime.ps1` installs only the backend, with a unique smoke bank and Manual
 start. The included signed APO candidate still needs controlled graph binding.
 It changes no drivers, endpoint properties, gain/protection, automatic startup
 or Windows boot state. The public kernel ZIP remains .20 without this runtime.

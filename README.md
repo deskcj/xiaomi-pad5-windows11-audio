@@ -31,25 +31,25 @@ Download: **4.17.27.20**. Development source: **4.17.27.20**. The published ZIP 
 | Four CS35L41 amplifiers | ✅ .20 installed and started on the tablet. |
 | Original Dolby renderer | ✅ Exact original-output checks and earlier live SFX trials. |
 | Dolby .21 control | ✅ Real .21 audiodg and Windows ON/OFF/ON: 47,521 intentional-bypass frames; zero failure fallback. |
-| Independent Dolby backend | ✅ LocalService installation, SCM Automatic configuration and rollback. |
-| Permanent Dolby / Atmos | ❌ Full graph/cold boot, latency/recovery and Atmos objects unfinished. |
+| Dolby graph installation | ✅ Matching signed APO/SFX/backend, LocalService Automatic and verified rollback. |
+| Permanent Dolby / Atmos | ❌ Cold boot, saved preference, latency/recovery and Atmos objects unfinished. |
 | Stereo L/R | ✅ Digital Normal/RAW separation. ❌ Physical four-speaker isolation unconfirmed. |
 | MiSound resources/control | ✅ Original factory data, command/source tests and bounded ACDB reading. |
 | MiSound in Qualcomm DSP | ❌ Live modules, graph, COPP and processing unfinished. |
 | Hardware PCM24 / HyperOS quality | ❌ Hardware bit depth, acoustics, sleep and maximum-volume safety unverified. |
 
-Current tablet: amplifier **4.17.27.20**, APO **2.0.0.4**. Experimental .21 was tested and rolled back; permanent processing remains unfinished.
+Current tablet: amplifier **4.17.27.20**, APO **2.0.0.21** and standalone experimental Dolby backend **lab09** installed. Full qualification remains unfinished.
 
 ## Update history
 
-- **26 Nov:** ✅ Original Dolby/control tests and a 3-minute quiet trial with zero additional fallback. ❌ Injected-worker recovery still pauses about 1.8 s; permanent deployment remains unfinished.
+- **26 Nov:** ✅ Full Dolby graph installation/rollback, Windows ON/OFF/ON and service recovery followed by a new stream. Quiet 3-minute test: 8.64 million frames, zero failure fallback. ❌ Cold boot, 128 ms latency and ~1.8 s active-worker recovery remain open.
 
-[Evidence](docs/results/audio-worker-scheduling-live-2026-11-26.json)
+[Evidence](docs/results/audio-dolby-graph-install-live-2026-11-26.json)
 
 ## Sandbox
 
-- Packed .21 validated in a quiet trial; current work targets seamless worker recovery and permanent installation.
-- Next: reduce playback stalls, then finish permanent Dolby; MiSound DSP and physical L/R remain open.
+- Installed Dolby .21 now runs through the independent service. Next: startup/preferences and seamless worker recovery.
+- MiSound DSP, physical four-speaker L/R and hardware PCM24 remain open. The complete Dolby add-on ZIP is retained locally while qualification continues.
 
 ## ❤️ Help bring better sound to Windows on nabu
 
