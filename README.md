@@ -28,8 +28,7 @@ Download: **4.17.27.20**. Development source: **4.17.27.20**. The published ZIP 
 
 | Function | Status |
 | --- | --- |
-| Four CS35L41 amplifiers | ✅ .20 installed and started on the current UEFI. |
-| Legacy + Remtrik IDs | ✅ Verified DSDT/INF support. ❌ Installation on Remtrik still untested. |
+| Four CS35L41 amplifiers | ✅ .20 installed and started on the tablet. |
 | Original Dolby renderer | ✅ Exact original-output checks and earlier live SFX trials. |
 | Dolby .20 control | ✅ Real .20 audiodg and Windows ON/OFF/ON: 47,521 intentional-bypass frames; zero failure fallback. |
 | Independent Dolby backend | ✅ LocalService installation, SCM Automatic configuration and rollback. |
@@ -39,15 +38,18 @@ Download: **4.17.27.20**. Development source: **4.17.27.20**. The published ZIP 
 | MiSound in Qualcomm DSP | ❌ Live modules, graph, COPP and processing unfinished. |
 | Hardware PCM24 / HyperOS quality | ❌ Hardware bit depth, acoustics, sleep and maximum-volume safety unverified. |
 
-Current tablet: amplifiers **4.17.27.20**, APO **2.0.0.4**. The Manual .18 backend is stopped after reboot. A signed .20 candidate and rollback are on SSD; this does not establish permanent system effects.
+Current tablet: amplifier **4.17.27.20**, APO **2.0.0.4**. Experimental .20 was tested and rolled back; permanent processing remains unfinished.
 
 ## Update history
 
 - **26 Nov:** ✅ .20 installed/tested in audiodg; Windows ON/OFF/ON works. ❌ Three-minute playback had 50,112 additional fallback frames (1.044 s).
-- **26 Nov:** ✅ Windows restart completed; Qualcomm restart flag cleared. New .20 device trial is next.
-- **25 Nov:** ✅ Amplifier .20 on current UEFI; ✅ quiet Dolby .17 recovery trial. ❌ Seamless recovery remains unfinished.
 
-[Detailed history](docs/history/readme-2026-11-26.md) · [26.11 · JSON](docs/results/audio-effects-manager-live-2026-11-26.json)
+[Evidence](docs/results/audio-effects-manager-live-2026-11-26.json)
+
+## Sandbox
+
+- Packed Float32 processing and native bounds/sample checks: in development; not device-qualified.
+- Next: reduce playback stalls, then finish permanent Dolby; MiSound DSP and physical L/R remain open.
 
 ## ❤️ Help bring better sound to Windows on nabu
 
